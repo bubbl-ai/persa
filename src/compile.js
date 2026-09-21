@@ -13,6 +13,7 @@
  */
 import { TRAIT_NAMES, EMOJI_RULES, phraseFor } from './traits.js';
 import { getTarget, TARGET_IDS } from './targets.js';
+import { PersonaError } from './persona.js';
 
 const MESSAGE_PREFIX =
   "Here's how I want you to talk and behave with me from now on. Remember it and apply it to every reply, including short ones.";
@@ -72,14 +73,31 @@ function trimPeriod(s) {
   return String(s).trim().replace(/[.!?]+$/, '');
 }
 
+function headingFor(section, markdown) {
+  return markdown ? `## ${section.title}` : `${section.title}:`;
+}
+
 function renderSections(sections, { markdown, framing }) {
   const blocks = sections.map(section => {
     if (section.id === 'identity') return section.lines.join('\n');
-    const heading = markdown ? `## ${section.title}` : `${section.title}:`;
-    return [heading, ...section.lines.map(l => `- ${l}`)].join('\n');
+    return [headingFor(section, markdown), ...section.lines.map(l => `- ${l}`)].join('\n');
   });
   const body = blocks.join('\n\n');
   return framing === 'message' ? `${MESSAGE_PREFIX}\n\n${body}` : body;
+}
+
+/**
+ * What dropping a line costs, in characters, without re-rendering.
+ *
+ * The loop below can drop thousands of lines; re-rendering the whole document
+ * after each one made a large persona quadratic, which was enough to wedge the
+ * editor's server. The arithmetic is exact: a line is "- " + text + "\n", and
+ * the last line of a section takes the heading and the blank line before it.
+ */
+function costOfLine(section, line, markdown, isLastInSection) {
+  const lineCost = line.length + 3; // "- " plus the newline joining it
+  if (!isLastInSection) return lineCost;
+  return lineCost + headingFor(section, markdown).length + 2; // heading + the blank line between blocks
 }
 
 /**
@@ -98,9 +116,16 @@ export function compile(persona, target = 'plain') {
 
   let text = renderSections(sections, opts);
 
-  if (t.limit != null && Number.isFinite(t.limit)) {
-    // Drop the least important line still present, over and over, until it fits.
-    while (text.length > t.limit) {
+  const limit = normalizeLimit(t.limit);
+
+  if (limit != null) {
+    // Drop the least important line still present, over and over, until it
+    // fits. The running length is arithmetic rather than a re-render per
+    // dropped line: on a persona with thousands of lines that was quadratic,
+    // and slow enough to wedge the editor's single-threaded server.
+    let length = text.length;
+    let dropped = false;
+    while (length > limit) {
       // Highest priority number = least important = goes first. Ties break
       // toward the later section. This is deliberately independent of the
       // order sections appear in the document.
@@ -108,18 +133,21 @@ export function compile(persona, target = 'plain') {
         .filter(s => s.priority >= 2 && s.lines.length > 0)
         .sort((a, b) => b.priority - a.priority || sections.indexOf(b) - sections.indexOf(a))[0];
       if (!victim) break;
-      removed.push({ section: victim.id, line: victim.lines.pop() });
+      const line = victim.lines.pop();
+      length -= costOfLine(victim, line, opts.markdown, victim.lines.length === 0);
+      removed.push({ section: victim.id, line });
       if (victim.lines.length === 0) sections.splice(sections.indexOf(victim), 1);
-      text = renderSections(sections, opts);
+      dropped = true;
     }
+    if (dropped) text = renderSections(sections, opts);
+
     // Only identity and boundaries left and still over: cut, and say so.
-    if (text.length > t.limit) {
-      text = hardCut(text, t.limit);
+    if (text.length > limit) {
+      text = hardCut(text, limit);
       truncated = true;
     }
   }
 
-  const limit = t.limit ?? null;
   return {
     text,
     target: t,
@@ -129,11 +157,33 @@ export function compile(persona, target = 'plain') {
       // `fits` is about the budget, not about whether we happened to cut —
       // a zero or negative limit can leave text over budget with nothing left
       // to drop, and reporting that as a fit would be a lie.
-      fits: !truncated && (limit == null || !Number.isFinite(limit) || text.length <= limit),
+      fits: !truncated && (limit == null || text.length <= limit),
       removed,
       truncated
     }
   };
+}
+
+/**
+ * A target's limit, as a usable number.
+ *
+ * `null`/`undefined` mean unbounded. A numeric string is accepted because it
+ * is an easy thing to hand in from JSON or a config file. Anything else is a
+ * mistake, and treating it as "no limit" would silently hand back text over
+ * budget while reporting a fit.
+ */
+function normalizeLimit(limit) {
+  if (limit == null) return null;
+  if (limit === Infinity) return null;
+  // Only a number, or a string that is one. `Number(String([]))` is 0, which
+  // would turn a stray empty array into a zero-character budget.
+  const usable = typeof limit === 'number' || (typeof limit === 'string' && limit.trim() !== '');
+  const n = usable ? Number(limit) : NaN;
+  if (!Number.isFinite(n)) {
+    const shown = typeof limit === 'number' ? String(limit) : JSON.stringify(limit) ?? String(limit);
+    throw new PersonaError(`A target's limit should be a number or null, got ${shown}.`);
+  }
+  return n;
 }
 
 /**

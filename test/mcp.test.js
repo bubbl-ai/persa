@@ -61,3 +61,38 @@ test('both resources and the prompt are readable', async () => {
   assert.match(prompt.messages[0].content.text, /You are Sable/);
   await server.close();
 });
+
+test('a broken persona yields a usable error, not a dead connection', async () => {
+  const file = await personaFile('persa: 1\nname: Sable\n');
+  const { client, server } = await connect(file);
+  try {
+    await writeFile(file, 'name: [broken\n : : :\n', 'utf8');
+    const res = await client.callTool({ name: 'get_personality', arguments: {} });
+    assert.equal(res.isError, true);
+    assert.match(res.content[0].text, /not valid YAML/);
+
+    // …and it recovers once the file is fixed, with no restart.
+    await writeFile(file, 'persa: 1\nname: Remy\n', 'utf8');
+    const ok = await client.callTool({ name: 'get_personality', arguments: {} });
+    assert.match(ok.content[0].text, /You are Remy/);
+  } finally {
+    await server.close();
+  }
+});
+
+test('the server still initializes when the persona file is unreadable', async () => {
+  const { createServer } = await import('../src/mcp.js');
+  const dir = await mkdtemp(path.join(tmpdir(), 'persa-'));
+  const missing = path.join(dir, 'nope.yaml');
+  const { server } = await createServer(missing);
+  const [clientT, serverT] = InMemoryTransport.createLinkedPair();
+  const client = new Client({ name: 'test', version: '1.0.0' });
+  await Promise.all([client.connect(clientT), server.connect(serverT)]);
+  try {
+    assert.match(client.getInstructions(), /could not read/i);
+    const res = await client.callTool({ name: 'get_personality', arguments: {} });
+    assert.equal(res.isError, true);
+  } finally {
+    await server.close();
+  }
+});

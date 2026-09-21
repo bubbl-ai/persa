@@ -35,14 +35,27 @@ async function currentPersona(personaPath) {
 
 /** Build a fresh McpServer bound to a persona file. */
 export async function createServer(personaPath) {
-  const initial = await currentPersona(personaPath);
+  // A broken persona must not stop the server from coming up. Over HTTP every
+  // request builds a server, so throwing here would fail even `initialize`,
+  // leaving the client with a transport error instead of a message it can
+  // show. Come up anyway and report the problem per request, the way a
+  // long-lived stdio session already does.
+  let initial = null;
+  let loadError = null;
+  try {
+    initial = await currentPersona(personaPath);
+  } catch (e) {
+    loadError = e;
+  }
 
   const server = new McpServer(
-    { name: 'persa', version: '0.1.0', title: `Persa — ${initial.persona.name}` },
+    { name: 'persa', version: '0.1.0', title: initial ? `Persa — ${initial.persona.name}` : 'Persa' },
     {
-      instructions:
-        `This user has a defined personality for their agents, named ${initial.persona.name}. ` +
-        `Adopt it for this entire conversation:\n\n${initial.text}`
+      instructions: initial
+        ? `This user has a defined personality for their agents, named ${initial.persona.name}. ` +
+          `Adopt it for this entire conversation:\n\n${initial.text}`
+        : `Persa could not read this user's persona file: ${loadError.message}\n` +
+          `Call get_personality for the current state once they have fixed it.`
     }
   );
 
@@ -95,11 +108,14 @@ export async function createServer(personaPath) {
     }
   );
 
-  return { server, persona: initial.persona, file: initial.file };
+  return { server, persona: initial?.persona ?? null, file: initial?.file ?? personaPath ?? null, error: loadError };
 }
 
 /** Serve over stdio — the usual local install. */
 export async function serveStdio(personaPath) {
+  // Starting against a file that cannot be read is a setup mistake, and a
+  // client sees stderr — so fail loudly here rather than serving nothing.
+  await currentPersona(personaPath);
   const { server, persona, file } = await createServer(personaPath);
   await server.connect(new StdioServerTransport());
   // stdout is the protocol channel, so status goes to stderr.

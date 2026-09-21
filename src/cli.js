@@ -34,6 +34,14 @@ A persona file is found automatically: ./persona.yaml, then ~/.persa/persona.yam
 /** Flags that are on/off. Without this list they would eat the next token. */
 const BOOLEAN_FLAGS = new Set(['global', 'force', 'http', 'help', 'version']);
 
+/** Every flag Persa understands. An unknown one is a typo, not a value. */
+const KNOWN_FLAGS = new Set([...BOOLEAN_FLAGS, 'preset', 'out', 'target', 'port', 'host']);
+
+const SHORT_FLAGS = { '-t': 'target', '-o': 'out', '-p': 'port' };
+
+/** Addresses that are only reachable from this machine. */
+const LOOPBACK = new Set(['127.0.0.1', 'localhost', '::1', '[::1]', '0:0:0:0:0:0:0:1']);
+
 function parseArgs(argv) {
   const flags = {};
   const positional = [];
@@ -42,14 +50,18 @@ function parseArgs(argv) {
     if (a.startsWith('--')) {
       const [key, inline] = a.slice(2).split('=');
       const next = argv[i + 1];
+      if (!KNOWN_FLAGS.has(key)) {
+        throw new PersonaError(`Unknown flag --${key}. Known flags: ${[...KNOWN_FLAGS].sort().map(f => '--' + f).join(', ')}.`);
+      }
       if (inline !== undefined) flags[key] = inline;
       else if (BOOLEAN_FLAGS.has(key)) flags[key] = true;
       else if (next && !next.startsWith('--')) flags[key] = argv[++i];
       else flags[key] = true;
-    } else if (a === '-o') {
-      flags.out = argv[++i];
-    } else if (a === '-t') {
-      flags.target = argv[++i];
+    } else if (SHORT_FLAGS[a]) {
+      // `-t` with nothing after it must not silently become undefined, and
+      // must not swallow a following flag.
+      const value = argv[i + 1];
+      flags[SHORT_FLAGS[a]] = value === undefined || value.startsWith('-') ? true : argv[++i];
     } else {
       positional.push(a);
     }
@@ -143,7 +155,11 @@ async function cmdRender(file, flags) {
 
   if (flags.out) {
     const dest = path.resolve(flagText(flags, 'out'));
-    await writeFile(dest, text + '\n', 'utf8');
+    try {
+      await writeFile(dest, text + '\n', 'utf8');
+    } catch (e) {
+      throw new PersonaError(`Could not write ${dest}: ${e.code ?? e.message}.`);
+    }
     err(`Wrote ${dest} (${stats.length} characters for ${target.label}).`);
     warnAboutFit();
     return;
@@ -183,10 +199,17 @@ async function cmdEdit(file, flags) {
 }
 
 async function cmdServe(file, flags) {
-  if (!flags.http) return serveStdio(file);
+  if (!flags.http) {
+    for (const flag of ['port', 'host']) {
+      if (flags[flag] !== undefined) {
+        throw new PersonaError(`--${flag} only applies to \`serve --http\`. Plain \`serve\` speaks over stdio, which has no address.`);
+      }
+    }
+    return serveStdio(file);
+  }
   const port = flagPort(flags, 'port', 8787);
   const host = flags.host === undefined ? '127.0.0.1' : flagText(flags, 'host');
-  if (host !== '127.0.0.1' && host !== 'localhost') {
+  if (!LOOPBACK.has(host)) {
     err(`[persa] binding to ${host} — this endpoint will be reachable from other machines.`);
   }
   return withFriendlyListenErrors(port, () => serveHttp(file, { port, host }));
@@ -203,17 +226,24 @@ async function withFriendlyListenErrors(port, start) {
     if (e?.code === 'EACCES') {
       throw new PersonaError(`Not allowed to bind port ${port}. Ports below 1024 usually need root; pick a higher --port.`);
     }
+    if (e?.code === 'EADDRNOTAVAIL' || e?.code === 'ENOTFOUND' || e?.code === 'EINVAL') {
+      throw new PersonaError(`Could not bind ${e.address ?? 'that address'}:${port} — ${e.code}. Check --host.`);
+    }
+    if (e?.syscall === 'listen' || e?.syscall === 'getaddrinfo') {
+      throw new PersonaError(`Could not start the server on port ${port}: ${e.code ?? e.message}.`);
+    }
     throw e;
   }
 }
 
 async function main() {
   const [command, ...rest] = process.argv.slice(2);
+  if (!command || command === 'help') return out(USAGE);
+  if (command === '--version' || command === 'version' || command === '-v') return out(VERSION);
+
   const { flags, positional } = parseArgs(rest);
   const file = positional[0];
-
-  if (!command || command === 'help' || flags.help) return out(USAGE);
-  if (command === '--version' || command === 'version') return out(VERSION);
+  if (flags.help) return out(USAGE);
 
   switch (command) {
     case 'init':

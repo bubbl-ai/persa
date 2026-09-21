@@ -32,7 +32,14 @@ export async function serveEditor(personaPath, { port = 4747, host = '127.0.0.1'
       }
 
       if (req.method === 'GET' && url.pathname === '/api/state') {
-        const { persona } = await loadPersona(file);
+        // The file can be deleted or broken while the page is open; say so
+        // rather than letting the browser see a bare 400.
+        let persona;
+        try {
+          ({ persona } = await loadPersona(file));
+        } catch (e) {
+          return json(res, 409, { file, error: String(e?.message ?? e) });
+        }
         return json(res, 200, {
           file,
           persona,
@@ -85,8 +92,20 @@ function json(res, status, payload) {
   send(res, status, 'application/json', JSON.stringify(payload));
 }
 
+/** A persona is a page of text. Anything near this is a mistake or an attack. */
+const MAX_BODY = 1024 * 1024;
+
 async function body(req) {
   const chunks = [];
-  for await (const c of req) chunks.push(c);
-  return JSON.parse(Buffer.concat(chunks).toString('utf8') || '{}');
+  let size = 0;
+  for await (const c of req) {
+    size += c.length;
+    if (size > MAX_BODY) throw new Error(`Request body is too large (over ${MAX_BODY / 1024}KB).`);
+    chunks.push(c);
+  }
+  try {
+    return JSON.parse(Buffer.concat(chunks).toString('utf8') || '{}');
+  } catch {
+    throw new Error('Request body is not valid JSON.');
+  }
 }

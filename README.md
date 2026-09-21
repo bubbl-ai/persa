@@ -158,7 +158,7 @@ persa render --target plain       # → any box at all
 
 Or use the **Copy** button in `persa edit`, which shows you the exact text, the character count against that agent's limit, and where it goes.
 
-`--target instinct` is framed as a message from you ("Here's how I want you to talk to me from now on…") rather than a system prompt, because that is how a messaging-native agent receives it.
+`--target instinct` is framed as a message from you ("Here's how I want you to talk and behave with me from now on…") rather than a system prompt, because that is how a messaging-native agent receives it.
 
 Full per-agent notes, including what each product currently supports: **[docs/INSTALL.md](docs/INSTALL.md)**.
 
@@ -225,7 +225,7 @@ const { text, stats } = compile(persona, 'grok');
 npm test
 ```
 
-37 tests covering the compiler's budget invariants, the persona format's failure modes, the save round trip, and all three MCP surfaces against a real MCP client.
+55 tests covering the compiler's budget invariants, the persona format's failure modes, the save round trip (comments, unknown keys, concurrent writes), the editor's HTTP API, and all three MCP surfaces against a real MCP client.
 
 ## License
 

@@ -179,3 +179,52 @@ test('truncation never splits an emoji', () => {
     assert.ok(text.length <= limit);
   }
 });
+
+test('a non-numeric limit is an error, not a silent absence of one', () => {
+  const persona = normalize({ ...base, tagline: 'a dry chief of staff' });
+  for (const limit of ['abc', {}, [], NaN]) {
+    assert.throws(() => compile(persona, { limit, markdown: true, framing: 'system' }), /limit should be a number/);
+  }
+  // A numeric string is a reasonable thing to get from JSON, and is enforced.
+  const { stats } = compile(persona, { limit: '80', markdown: true, framing: 'system' });
+  assert.ok(stats.length <= 80);
+  assert.equal(stats.limit, 80);
+});
+
+test('trimming a very large persona stays fast', () => {
+  const persona = normalize({
+    ...base,
+    examples: Array.from({ length: 20000 }, (_, i) => ({ user: `q${i}`, reply: `r${i}` }))
+  });
+  const started = process.hrtime.bigint();
+  const { stats } = compile(persona, 'instinct');
+  const ms = Number(process.hrtime.bigint() - started) / 1e6;
+  assert.ok(stats.removed.length > 19000);
+  // The old per-line re-render made this minutes, not milliseconds.
+  assert.ok(ms < 3000, `took ${Math.round(ms)}ms`);
+});
+
+test('the running length used while trimming matches a real render', () => {
+  // The loop subtracts a computed cost per dropped line instead of
+  // re-rendering; if that arithmetic drifts, output silently misses its budget.
+  const persona = normalize({
+    ...base,
+    tagline: 'a dry chief of staff',
+    voice: { directness: 95, warmth: 10 },
+    boundaries: ['Ask first.'],
+    rules: {
+      always: Array.from({ length: 30 }, (_, i) => `Always rule ${i} with some length to it.`),
+      never: Array.from({ length: 30 }, (_, i) => `Never rule ${i} with some length to it.`)
+    },
+    style: { notes: Array.from({ length: 10 }, (_, i) => `Note ${i}.`) },
+    examples: Array.from({ length: 10 }, (_, i) => ({ user: `u${i}`, reply: `r${i}` }))
+  });
+  for (const markdown of [true, false]) {
+    for (let limit = 120; limit < 2600; limit += 7) {
+      const { text, stats } = compile(persona, { limit, markdown, framing: 'system' });
+      assert.equal(stats.length, text.length);
+      assert.ok(text.length <= limit, `limit ${limit} markdown=${markdown} produced ${text.length}`);
+      if (!stats.truncated) assert.equal(stats.fits, true);
+    }
+  }
+});

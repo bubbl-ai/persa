@@ -84,3 +84,107 @@ test('an empty name is rejected rather than renamed', () => {
   assert.throws(() => normalize({ name: '' }), /`name` is required/);
   assert.throws(() => normalize({ name: '   ' }), /`name` is required/);
 });
+
+// --- second round of verification ---
+
+test('a section key written with no value can still be saved into', () => {
+  for (const [key, patch] of [
+    ['voice', { name: 'A', voice: { warmth: 70 } }],
+    ['style', { name: 'A', style: { greeting: 'hi' } }],
+    ['rules', { name: 'A', rules: { always: ['R.'] } }]
+  ]) {
+    const out = mergeIntoYaml(`persa: 1\nname: A\n${key}:\n`, patch);
+    assert.match(out, new RegExp(`${key}:`), `${key} was lost`);
+    assert.doesNotMatch(out, /\[object Object\]/);
+  }
+});
+
+test('comments inside a list survive a save', () => {
+  const src = [
+    'persa: 1',
+    'name: Avery',
+    'rules:',
+    '  always:',
+    '    # why this rule exists',
+    '    - Do the thing. # inline',
+    '    - Another.',
+    ''
+  ].join('\n');
+  const { persona } = parsePersona(src);
+
+  const untouched = mergeIntoYaml(src, persona);
+  assert.match(untouched, /# why this rule exists/);
+  assert.match(untouched, /# inline/);
+
+  persona.rules.always = ['Do the thing.', 'A replacement.'];
+  const edited = mergeIntoYaml(src, persona);
+  assert.match(edited, /# inline/, 'a surviving item should keep its comment');
+  assert.match(edited, /A replacement\./);
+  assert.doesNotMatch(edited, /Another\./);
+});
+
+test('a trait the user wrote as 50 is kept, but a new 50 is never introduced', () => {
+  const written = mergeIntoYaml('persa: 1\nname: A\nvoice:\n  warmth: 50 # on purpose\n', {
+    name: 'A',
+    voice: { warmth: 50, directness: 90 }
+  });
+  assert.match(written, /warmth: 50/);
+  assert.match(written, /# on purpose/);
+  assert.doesNotMatch(written, /directness: 50/);
+
+  const fresh = mergeIntoYaml('persa: 1\nname: A\n', { name: 'A', voice: { warmth: 50 } });
+  assert.doesNotMatch(fresh, /warmth/);
+});
+
+test('a scalar field given a mapping is refused, not stringified', () => {
+  for (const yaml of [
+    'name: A\ntagline:\n  a precise assistant: handles things\n',
+    'name: A\nstyle:\n  greeting:\n    Morning: hi\n',
+    'name: A\nexamples:\n  - user: hi\n    reply:\n      Sure: two meetings\n'
+  ]) {
+    assert.throws(() => parsePersona(yaml), PersonaError);
+  }
+});
+
+test('nothing can put [object Object] into a compiled prompt', async () => {
+  const { compile } = await import('../src/compile.js');
+  const hostile = {
+    name: 'A',
+    tagline: { 'a precise assistant': 'handles things' },
+    style: { greeting: { Morning: 'hi' }, address_user_as: { a: 'b' }, notes: [{ Rule: 'short' }] },
+    rules: { always: [{ Deadlines: 'a date' }], never: [{ Filler: 'no' }] },
+    boundaries: [{ Money: 'ask' }],
+    examples: [{ user: { a: 'b' }, reply: 'ok' }]
+  };
+  for (const key of Object.keys(hostile)) {
+    if (key === 'name') continue;
+    assert.throws(() => normalize({ name: 'A', [key]: hostile[key] }), PersonaError, `${key} slipped through`);
+  }
+  assert.doesNotMatch(compile(normalize({ name: 'A' }), 'plain').text, /\[object Object\]/);
+});
+
+test('a non-list examples block is refused instead of being quietly dropped', () => {
+  for (const yaml of ['name: X\nexamples:\n  a: b\n', 'name: X\nexamples: hello\n', 'name: X\nexamples: 3\n']) {
+    assert.throws(() => parsePersona(yaml), /`examples` should be a list/);
+  }
+});
+
+test('a fractional trait is rounded once, with a warning, so file and UI agree', () => {
+  const { persona } = parsePersona('name: A\nvoice:\n  warmth: 25.5\n');
+  assert.equal(persona.voice.warmth, 26);
+  assert.match(persona.warnings.join(' '), /rounded to 26/);
+});
+
+test('overlapping saves do not interleave', async () => {
+  const file = await tempFile('persa: 1\nname: A\n');
+  const writes = Array.from({ length: 12 }, (_, i) =>
+    savePersona(file, normalize({ name: `Name${i}`, rules: { always: [`Rule ${i}.`] } }))
+  );
+  await Promise.all(writes);
+  const after = await readFile(file, 'utf8');
+  // Whichever write landed last, the file must be one coherent persona.
+  const { persona } = parsePersona(after);
+  assert.match(persona.name, /^Name\d+$/);
+  assert.equal(persona.rules.always.length, 1);
+  assert.equal(persona.rules.always[0], `Rule ${persona.name.replace('Name', '')}.`);
+});

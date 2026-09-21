@@ -28,7 +28,7 @@
   }
   * { box-sizing: border-box; }
   body {
-    margin: 0; background: var(--bg); color: var(--text);
+    margin: 0; background: var(--bg); color: var(--text); overflow-x: hidden;
     font: 15px/1.5 ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif;
   }
   header {
@@ -36,7 +36,10 @@
     padding: 18px 20px; border-bottom: 1px solid var(--line);
   }
   header h1 { font-size: 17px; margin: 0; letter-spacing: .02em; }
-  header .file { color: var(--dim); font-size: 12.5px; font-family: ui-monospace, monospace; }
+  header .file {
+    color: var(--dim); font-size: 12.5px; font-family: ui-monospace, monospace;
+    min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; direction: rtl;
+  }
   header .spacer { flex: 1; }
   main {
     display: grid; grid-template-columns: minmax(340px, 1fr) minmax(340px, 1fr);
@@ -180,6 +183,7 @@ let dirty = false;
 
 async function boot() {
   state = await (await fetch('/api/state')).json();
+  if (state.error) throw new Error(state.error);
   fileWarnings = state.warnings || [];
   $('file').textContent = state.file;
 
@@ -241,12 +245,10 @@ function fill(p) {
 
 function collect() {
   const voice = {};
-  for (const t of state.traits) {
-    const v = Number($('t-' + t.id).value);
-    // Dead centre compiles to nothing, so don't write it to the file — the
-    // point of the format is that you only record what you actually chose.
-    if (v !== 50) voice[t.id] = v;
-  }
+  // Send every trait. The save path decides what reaches the file: it never
+  // introduces a 50 that was not already there, but it keeps one the user
+  // wrote themselves, along with any comment on that line.
+  for (const t of state.traits) voice[t.id] = Number($('t-' + t.id).value);
   const emoji = [...$('emoji').children].find(c => c.getAttribute('aria-pressed') === 'true')?.dataset.value || 'sparing';
   return {
     persa: 1,

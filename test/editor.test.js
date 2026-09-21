@@ -102,3 +102,60 @@ test('/health reports the persona on disk right now, not the one loaded at boot'
     server.close();
   }
 });
+
+test('an oversized request body is refused, not swallowed', async () => {
+  const file = await personaFile('persa: 1\nname: Sable\n');
+  const { server, url } = await serveEditor(file, { port: 0 });
+  try {
+    const huge = { name: 'Sable', boundaries: [`x`.repeat(2 * 1024 * 1024)] };
+    const res = await post(`${url}/api/preview`, huge);
+    assert.equal(res.status, 400);
+    assert.match((await res.json()).error, /too large/);
+  } finally {
+    server.close();
+  }
+});
+
+test('a large but legal persona previews quickly', async () => {
+  const file = await personaFile('persa: 1\nname: Sable\n');
+  const { server, url } = await serveEditor(file, { port: 0 });
+  try {
+    const doc = { name: 'Sable', examples: Array.from({ length: 4000 }, (_, i) => ({ user: `q${i}`, reply: `r${i}` })) };
+    const started = Date.now();
+    const res = await post(`${url}/api/preview`, doc);
+    assert.equal(res.status, 200);
+    assert.ok(Date.now() - started < 5000, 'preview should not wedge the server');
+  } finally {
+    server.close();
+  }
+});
+
+test('the editor reports a persona broken while the page is open', async () => {
+  const file = await personaFile('persa: 1\nname: Sable\n');
+  const { server, url } = await serveEditor(file, { port: 0 });
+  try {
+    assert.equal((await fetch(`${url}/api/state`)).status, 200);
+    await writeFile(file, 'name: [broken\n : : :\n', 'utf8');
+    const res = await fetch(`${url}/api/state`);
+    assert.equal(res.status, 409);
+    assert.match((await res.json()).error, /not valid YAML/);
+  } finally {
+    server.close();
+  }
+});
+
+test('the editor refuses to start against a file it cannot read', async () => {
+  const file = await personaFile('name: [broken\n : : :\n');
+  await assert.rejects(() => serveEditor(file, { port: 0 }), /not valid YAML/);
+});
+
+test('an unreadable persona does not stop the MCP server from answering', async () => {
+  const { createServer } = await import('../src/mcp.js');
+  const file = await personaFile('name: [broken\n : : :\n');
+  const { server } = await createServer(file);
+  try {
+    assert.ok(server, 'the server must still be constructed');
+  } finally {
+    await server.close();
+  }
+});

@@ -4,7 +4,7 @@
  * A persona is a small YAML document. Everything except `name` is optional,
  * and anything you leave out simply produces nothing in the compiled prompt.
  */
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile, writeFile, rename, rm } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
 import YAML from 'yaml';
@@ -60,7 +60,36 @@ export function parsePersona(raw, file = '<string>') {
   return { source: raw, persona: normalize(doc, file) };
 }
 
+/** Describe a value in an error message without lying about it. */
+function show(v) {
+  if (typeof v === 'number' && !Number.isFinite(v)) return String(v);
+  if (Array.isArray(v)) return `a list (${v.length} item${v.length === 1 ? '' : 's'})`;
+  if (v && typeof v === 'object') {
+    const keys = Object.keys(v);
+    return keys.length ? `a mapping with key "${keys[0]}"` : 'an empty mapping';
+  }
+  return JSON.stringify(v);
+}
+
 const asText = v => (v == null ? '' : String(v).trim());
+
+/**
+ * A scalar field. Without this a colon in a tagline turns the value into a
+ * YAML mapping, which String()s to "[object Object]" straight into the prompt.
+ */
+function asScalar(v, field, fail) {
+  if (v == null) return '';
+  if (typeof v === 'object') {
+    const key = Array.isArray(v) ? null : Object.keys(v)[0];
+    fail(
+      key == null
+        ? `${field} is ${show(v)}, not a line of text.`
+        : `${field} is a mapping, not a line of text — YAML read the colon in ` +
+            `"${key}: ${String(v[key] ?? '')}" as a key. Quote the whole value.`
+    );
+  }
+  return String(v).trim();
+}
 
 /**
  * Coerce a field to a list of strings, refusing anything that isn't text.
@@ -77,8 +106,9 @@ function asList(v, field, fail) {
     .map((x, i) => {
       const at = Array.isArray(v) ? `${field}[${i}]` : field;
       if (typeof x === 'object') {
-        const key = Object.keys(x)[0];
-        const rest = key == null ? '' : String(x[key] ?? '');
+        const key = Array.isArray(x) ? null : Object.keys(x)[0];
+        if (key == null) fail(`${at} is ${show(x)}, not a sentence.`);
+        const rest = String(x[key] ?? '');
         fail(
           `${at} is a mapping, not a sentence — YAML read the colon in ` +
             `"${key}: ${rest}" as a key. Quote the whole line:\n` +
@@ -86,7 +116,7 @@ function asList(v, field, fail) {
         );
       }
       if (typeof x === 'boolean' || typeof x === 'number') {
-        fail(`${at} is ${JSON.stringify(x)}, not a sentence. If you meant it literally, quote it: - "${x}".`);
+        fail(`${at} is ${show(x)}, not a sentence. If you meant it literally, quote it: - "${x}".`);
       }
       return String(x).trim();
     })
@@ -108,7 +138,7 @@ export function normalize(doc, file = '<persona>') {
     warn.push(`persa: ${doc.persa} is not a version this build knows (expected ${SPEC_VERSION}); reading it anyway.`);
   }
 
-  const name = asText(doc.name);
+  const name = asScalar(doc.name, '`name`', fail);
   if (!name) fail('`name` is required — it is what the agent calls itself.');
 
   const voice = {};
@@ -128,8 +158,12 @@ export function normalize(doc, file = '<persona>') {
       fail(`voice.${key} should be a number from 0 to 100, got ${JSON.stringify(value)}.`);
     }
     const n = Number(value);
-    if (!Number.isFinite(n) || n < 0 || n > 100) fail(`voice.${key} should be a number from 0 to 100, got ${JSON.stringify(value)}.`);
-    voice[key] = n;
+    if (!Number.isFinite(n) || n < 0 || n > 100) fail(`voice.${key} should be a number from 0 to 100, got ${show(value)}.`);
+    // Traits resolve to one of five bands, so a fraction means nothing — and
+    // an editor slider would round it anyway. Round here so the file, the UI
+    // and the compiled prompt never disagree.
+    if (!Number.isInteger(n)) warn.push(`voice.${key}: ${n} rounded to ${Math.round(n)} — traits are whole numbers.`);
+    voice[key] = Math.round(n);
   }
 
   const rawStyle = doc.style ?? {};
@@ -140,10 +174,15 @@ export function normalize(doc, file = '<persona>') {
   const rawRules = doc.rules ?? {};
   if (typeof rawRules !== 'object' || Array.isArray(rawRules)) fail('`rules` should be a mapping with `always` and/or `never` lists.');
 
-  const examples = (Array.isArray(doc.examples) ? doc.examples : []).map((ex, i) => {
-    if (!ex || typeof ex !== 'object') fail(`examples[${i}] should be a mapping with \`user\` and \`reply\`.`);
-    const user = asText(ex.user);
-    const reply = asText(ex.reply);
+  if (doc.examples != null && !Array.isArray(doc.examples)) {
+    fail(`\`examples\` should be a list of \`- user:\` / \`reply:\` pairs, got ${show(doc.examples)}.`);
+  }
+  const examples = (doc.examples ?? []).map((ex, i) => {
+    if (!ex || typeof ex !== 'object' || Array.isArray(ex)) {
+      fail(`examples[${i}] should be a mapping with \`user\` and \`reply\`, got ${show(ex)}.`);
+    }
+    const user = asScalar(ex.user, `examples[${i}].user`, fail);
+    const reply = asScalar(ex.reply, `examples[${i}].reply`, fail);
     if (!user || !reply) fail(`examples[${i}] needs both \`user\` and \`reply\`.`);
     return { user, reply };
   });
@@ -151,12 +190,12 @@ export function normalize(doc, file = '<persona>') {
   return {
     persa: SPEC_VERSION,
     name,
-    tagline: asText(doc.tagline),
+    tagline: asScalar(doc.tagline, 'tagline', fail),
     voice,
     style: {
       emoji,
-      address_user_as: asText(rawStyle.address_user_as),
-      greeting: asText(rawStyle.greeting),
+      address_user_as: asScalar(rawStyle.address_user_as, 'style.address_user_as', fail),
+      greeting: asScalar(rawStyle.greeting, 'style.greeting', fail),
       notes: asList(rawStyle.notes, 'style.notes', fail)
     },
     rules: {
@@ -215,9 +254,15 @@ export function mergeIntoYaml(source, persona) {
     // nothing to delete in that case anyway.
     if (empty) {
       if (doc.hasIn(path)) doc.deleteIn(path);
-    } else {
-      doc.setIn(path, value);
+      return;
     }
+    // `voice:` written with nothing under it parses as a null scalar, and the
+    // library refuses to hang a child off that. Replace it with a mapping.
+    if (path.length > 1 && !YAML.isMap(doc.getIn([path[0]], true))) {
+      if (doc.has(path[0])) doc.set(path[0], doc.createNode({}));
+    }
+    if (Array.isArray(value)) setList(doc, path, value);
+    else doc.setIn(path, value);
   };
   // Drop a container we emptied, but only if nothing unmanaged is left in it.
   const prune = key => {
@@ -227,9 +272,15 @@ export function mergeIntoYaml(source, persona) {
 
   doc.set('persa', SPEC_VERSION);
   put(['name'], persona.name);
+  const hadTrait = trait => doc.hasIn(['voice', trait]);
   put(['tagline'], persona.tagline);
 
-  for (const trait of TRAIT_NAMES) put(['voice', trait], persona.voice?.[trait]);
+  for (const trait of TRAIT_NAMES) {
+    const value = persona.voice?.[trait];
+    // 50 compiles to nothing, so never introduce one — but if the file already
+    // says 50, that is the user's line (and possibly their comment) to keep.
+    put(['voice', trait], value === 50 && !hadTrait(trait) ? undefined : value);
+  }
   prune('voice');
 
   // `sparing` is the default and compiles to nothing, so don't write it into
@@ -251,13 +302,68 @@ export function mergeIntoYaml(source, persona) {
   return doc.toString({ lineWidth: 0 });
 }
 
-export async function savePersona(file, persona) {
+/**
+ * Replace a list, keeping the comments on items that are still there.
+ *
+ * `setIn` with a plain array swaps in a whole new node, which throws away
+ * every `# why this rule exists` the user wrote. Rules are exactly the kind of
+ * thing people annotate, so match surviving items by value and reuse their
+ * nodes.
+ */
+function setList(doc, path, values) {
+  const existing = doc.getIn(path, true);
+  if (!YAML.isSeq(existing)) {
+    doc.setIn(path, values);
+    return;
+  }
+
+  const spare = existing.items.slice();
+  const items = values.map(value => {
+    const i = spare.findIndex(node => YAML.isScalar(node) && node.value === value);
+    if (i === -1) return doc.createNode(value);
+    return spare.splice(i, 1)[0];
+  });
+
+  // Nothing moved and nothing changed: leave the node exactly as it was.
+  if (items.length === existing.items.length && items.every((node, i) => node === existing.items[i])) return;
+  existing.items = items;
+}
+
+/**
+ * One in-flight write per file. Two saves racing on a read-modify-write can
+ * interleave and leave the file half from each.
+ */
+const writeQueue = new Map();
+
+export function savePersona(file, persona) {
+  const previous = writeQueue.get(file) ?? Promise.resolve();
+  const next = previous.catch(() => {}).then(() => writeOnce(file, persona));
+  writeQueue.set(file, next);
+  // Don't let the queue pin the last result forever.
+  next.catch(() => {}).then(() => {
+    if (writeQueue.get(file) === next) writeQueue.delete(file);
+  });
+  return next;
+}
+
+async function writeOnce(file, persona) {
   let existing = null;
   try {
     existing = await readFile(file, 'utf8');
   } catch {
     // New file — nothing to preserve.
   }
-  await writeFile(file, existing ? mergeIntoYaml(existing, persona) : toYaml(persona), 'utf8');
+  const text = existing ? mergeIntoYaml(existing, persona) : toYaml(persona);
+
+  // Write beside the target and rename: a crash or a concurrent reader then
+  // sees either the old file or the new one, never a half-written one.
+  const tmp = `${file}.persa-${process.pid}.tmp`;
+  try {
+    await writeFile(tmp, text, 'utf8');
+    await rename(tmp, file);
+  } catch (e) {
+    await rm(tmp, { force: true }).catch(() => {});
+    throw e;
+  }
   return file;
 }

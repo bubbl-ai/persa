@@ -82,7 +82,10 @@ test('plain targets carry no markdown headings', () => {
   assert.match(compile(persona, 'grok').text, /## Always/);
 });
 
-test('every target compiles within its own limit', () => {
+test('every target compiles within its own limit, without truncating', () => {
+  // `length <= limit` alone is true by construction — the hard-cut fallback
+  // guarantees it even with the trimming engine removed. Asserting that
+  // nothing was truncated is what actually exercises the priority loop.
   const persona = normalize({
     ...base,
     tagline: 'a dry chief of staff',
@@ -94,10 +97,15 @@ test('every target compiles within its own limit', () => {
     boundaries: ['Ask before sending anything.'],
     examples: [{ user: 'did you book it?', reply: 'Booked. Tuesday 7:30.' }]
   });
+  let sawTrimming = false;
   for (const id of TARGET_IDS) {
     const { stats } = compile(persona, id);
     if (stats.limit) assert.ok(stats.length <= stats.limit, `${id}: ${stats.length} > ${stats.limit}`);
+    assert.equal(stats.truncated, false, `${id} was hard-truncated instead of trimmed`);
+    assert.equal(stats.fits, true, `${id} reported as not fitting`);
+    if (stats.removed.length) sawTrimming = true;
   }
+  assert.ok(sawTrimming, 'this persona should overflow at least one target, or the test proves nothing');
 });
 
 test('a persona survives a round trip through YAML', () => {
@@ -116,4 +124,58 @@ test('a persona survives a round trip through YAML', () => {
 
 test('unknown targets fail loudly', () => {
   assert.throws(() => compile(normalize(base), 'telepathy'), /Unknown target/);
+});
+
+// --- regressions found by end-to-end verification ---
+
+test('a prohibition outlives a preference under a tight budget', () => {
+  const persona = normalize({
+    ...base,
+    rules: { always: ['ALWAYS-rule.'], never: ['NEVER-rule.'] },
+    style: { notes: ['A note.'] },
+    examples: [{ user: 'u', reply: 'r' }]
+  });
+  const full = compile(persona, 'plain').text.length;
+  const order = [];
+  for (let limit = full; limit > 40; limit -= 4) {
+    for (const r of compile(persona, { limit, markdown: true, framing: 'system' }).stats.removed) {
+      if (!order.includes(r.section)) order.push(r.section);
+    }
+  }
+  assert.deepEqual(order.slice(0, 4), ['examples', 'wording', 'always', 'never']);
+});
+
+test('always is still printed before never', () => {
+  const persona = normalize({ ...base, rules: { always: ['A-rule.'], never: ['N-rule.'] } });
+  const text = compile(persona, 'plain').text;
+  assert.ok(text.indexOf('A-rule.') < text.indexOf('N-rule.'));
+});
+
+test('a zero or negative limit is a budget, not an absence of one', () => {
+  const persona = normalize({ ...base, tagline: 'dry' });
+  for (const limit of [0, -5]) {
+    const { stats } = compile(persona, { limit, markdown: true, framing: 'system' });
+    assert.equal(stats.fits, false, `limit ${limit} should not report a fit`);
+    assert.ok(stats.length <= Math.max(0, limit));
+  }
+});
+
+test('fits is never true when the budget was blown or content was lost', () => {
+  const persona = normalize({ ...base, tagline: 'a dry chief of staff' });
+  for (const limit of [0, 1, 20, 200, 5000]) {
+    const { text, stats } = compile(persona, { limit, markdown: true, framing: 'system' });
+    if (stats.fits) {
+      assert.ok(text.length <= limit, `claimed to fit ${limit} at ${text.length} characters`);
+      assert.equal(stats.truncated, false, `claimed to fit ${limit} after truncating`);
+    }
+  }
+});
+
+test('truncation never splits an emoji', () => {
+  const persona = normalize({ ...base, boundaries: ['Never share my address ' + '🏠'.repeat(80)] });
+  for (let limit = 40; limit < 200; limit++) {
+    const { text } = compile(persona, { limit, markdown: false, framing: 'system' });
+    assert.ok(!text.includes('�'), `limit ${limit} produced a replacement character`);
+    assert.ok(text.length <= limit);
+  }
 });

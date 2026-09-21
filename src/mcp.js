@@ -119,8 +119,17 @@ export async function serveHttp(personaPath, { port = 8787, host = '127.0.0.1', 
   const httpServer = http.createServer(async (req, res) => {
     const url = new URL(req.url, `http://${req.headers.host ?? 'localhost'}`);
     if (url.pathname === '/health') {
-      res.writeHead(200, { 'content-type': 'application/json' });
-      res.end(JSON.stringify({ ok: true, persona: persona.name }));
+      // Read the file rather than reporting what was loaded at startup: if the
+      // persona has since been edited or broken, that is exactly what a health
+      // check is for.
+      try {
+        const now = await currentPersona(personaPath);
+        res.writeHead(200, { 'content-type': 'application/json' });
+        res.end(JSON.stringify({ ok: true, persona: now.persona.name, file: now.file }));
+      } catch (e) {
+        res.writeHead(503, { 'content-type': 'application/json' });
+        res.end(JSON.stringify({ ok: false, file: personaPath ?? null, error: String(e?.message ?? e) }));
+      }
       return;
     }
     if (url.pathname !== endpoint) {
@@ -145,7 +154,13 @@ export async function serveHttp(personaPath, { port = 8787, host = '127.0.0.1', 
     }
   });
 
-  await new Promise(resolve => httpServer.listen(port, host, resolve));
+  await new Promise((resolve, reject) => {
+    httpServer.once('error', reject);
+    httpServer.listen(port, host, () => {
+      httpServer.removeListener('error', reject);
+      resolve();
+    });
+  });
   process.stderr.write(
     `persa: serving "${persona.name}" from ${file}\n` + `      MCP endpoint: http://${host}:${port}${endpoint}\n`
   );

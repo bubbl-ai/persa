@@ -70,7 +70,7 @@ Two things make this more than a text file you could have written yourself.
 
 **Sliders near the middle compile to nothing.** A persona that only cares about bluntness produces a prompt about bluntness. Most hand-written system prompts spend half their length telling the model to be averagely normal about traits nobody thought about, which dilutes the parts that matter.
 
-**Every line has a priority, so character limits degrade gracefully.** Grok's Custom Agents cap system instructions at 4,000 characters. A text message to Instinct should be far shorter than that. When the text has to shrink, Persa drops examples first, then wording notes, then the "never" list — and tells you exactly what it dropped. It never cuts your safety boundaries, and it never truncates mid-sentence without saying so.
+**Every line has a priority, so character limits degrade gracefully.** Grok's Custom Agents cap system instructions at 4,000 characters. A text message to Instinct should be far shorter than that. When the text has to shrink, Persa drops examples first, then wording notes, then the "always" list, then "never" — and tells you exactly what it dropped. Your identity line and your `boundaries` are the last things standing: they are only ever lost if the budget is too small to hold them at all, and then `check` prints `CUT` and `render` warns on stderr. Nothing is cut silently.
 
 ```
 $ persa check
@@ -106,7 +106,7 @@ persa init --preset chief-of-staff    # or: node src/cli.js init ...
 persa edit
 ```
 
-`persa edit` opens a page on `localhost:4747` with a slider per trait and a live preview per agent. Nothing leaves your machine — the page talks to the local process, and the process reads and writes one file.
+`persa edit` serves a page at `localhost:4747` and prints the URL for you to open — a slider per trait, and a live preview per agent. Nothing leaves your machine: the page talks to the local process, and the process reads and writes one file. Saving edits that file in place, so your comments and any keys Persa doesn't model survive.
 
 ![the editor](docs/editor.png)
 
@@ -133,7 +133,9 @@ The server puts the personality in three places, because different clients pick 
 | the `get_personality` tool | described so an agent calls it at the start of a conversation |
 | `persona://current`, `persona://source`, and a `personality` prompt | for clients that surface resources and prompts to the user |
 
-The persona file is re-read on every request, so editing it — or hitting Save in the editor — takes effect on the agent's next message. No restart.
+The persona file is re-read on every request, so editing it — or hitting Save in the editor — reaches the tool, the resources and the prompt on the agent's next message, with no restart.
+
+The one exception is `instructions`, which MCP sends once during the initialize handshake. A client that only reads `instructions` keeps the personality it connected with until the connection is remade. Over `--http` every request is its own session, so it is always current; over stdio, restart the client after a change if that is the surface it uses.
 
 For **Claude Code / Claude Desktop**, add to your MCP config:
 
@@ -213,7 +215,7 @@ const { text, stats } = compile(persona, 'grok');
 
 ## Caveats worth knowing
 
-- **Character limits are best-known values, not promises.** Grok's 4,000 and ChatGPT's 1,500 are what those products document today; Instinct's 1,200 is a judgement call about what belongs in one text message, not a product limit. They live in [`src/targets.js`](src/targets.js) — one line each — and are meant to be edited when a product changes.
+- **Character limits are best-known values, not promises.** Grok's 4,000 and ChatGPT's 1,500 are what those products documented as of September 2026; Instinct's 1,200 is a judgement call about what belongs in one text message, not a product limit. They live in [`src/targets.js`](src/targets.js) — one line each — and are meant to be edited when a product changes.
 - **Paste targets are snapshots.** Change your persona and you have to re-paste. MCP targets update themselves; that's the real argument for the connector path where an agent supports it.
 - **How well a personality sticks is the model's business, not Persa's.** The anchor line ("hold this voice in every reply") helps; nothing makes it certain.
 
@@ -222,6 +224,8 @@ const { text, stats } = compile(persona, 'grok');
 ```bash
 npm test
 ```
+
+37 tests covering the compiler's budget invariants, the persona format's failure modes, the save round trip, and all three MCP surfaces against a real MCP client.
 
 ## License
 

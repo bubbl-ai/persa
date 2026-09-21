@@ -60,8 +60,38 @@ export function parsePersona(raw, file = '<string>') {
   return { source: raw, persona: normalize(doc, file) };
 }
 
-const asList = v => (v == null ? [] : Array.isArray(v) ? v.filter(x => x != null).map(String) : [String(v)]);
 const asText = v => (v == null ? '' : String(v).trim());
+
+/**
+ * Coerce a field to a list of strings, refusing anything that isn't text.
+ *
+ * This exists mostly for one failure: `- Money: ask me before spending` is a
+ * mapping in YAML, not a sentence, and quietly becomes "[object Object]" if
+ * you String() it. Rules are written in prose, so colons are common.
+ */
+function asList(v, field, fail) {
+  if (v == null) return [];
+  const items = Array.isArray(v) ? v : [v];
+  return items
+    .filter(x => x != null)
+    .map((x, i) => {
+      const at = Array.isArray(v) ? `${field}[${i}]` : field;
+      if (typeof x === 'object') {
+        const key = Object.keys(x)[0];
+        const rest = key == null ? '' : String(x[key] ?? '');
+        fail(
+          `${at} is a mapping, not a sentence — YAML read the colon in ` +
+            `"${key}: ${rest}" as a key. Quote the whole line:\n` +
+            `    - "${key}: ${rest}"`
+        );
+      }
+      if (typeof x === 'boolean' || typeof x === 'number') {
+        fail(`${at} is ${JSON.stringify(x)}, not a sentence. If you meant it literally, quote it: - "${x}".`);
+      }
+      return String(x).trim();
+    })
+    .filter(Boolean);
+}
 
 /**
  * Fill in defaults and reject anything malformed. Returns a persona object
@@ -88,6 +118,14 @@ export function normalize(doc, file = '<persona>') {
     if (!TRAIT_NAMES.includes(key)) {
       warn.push(`unknown voice trait "${key}" ignored (known: ${TRAIT_NAMES.join(', ')}).`);
       continue;
+    }
+    if (value == null) {
+      fail(`voice.${key} has no value. Give it a number from 0 to 100, or delete the line — an omitted trait says nothing.`);
+    }
+    // Number('') and Number(null) are both 0, which would silently pin a
+    // trait to its most extreme low band. Only accept a real number.
+    if (typeof value !== 'number' && !(typeof value === 'string' && value.trim() !== '' && Number.isFinite(Number(value)))) {
+      fail(`voice.${key} should be a number from 0 to 100, got ${JSON.stringify(value)}.`);
     }
     const n = Number(value);
     if (!Number.isFinite(n) || n < 0 || n > 100) fail(`voice.${key} should be a number from 0 to 100, got ${JSON.stringify(value)}.`);
@@ -119,10 +157,13 @@ export function normalize(doc, file = '<persona>') {
       emoji,
       address_user_as: asText(rawStyle.address_user_as),
       greeting: asText(rawStyle.greeting),
-      notes: asList(rawStyle.notes)
+      notes: asList(rawStyle.notes, 'style.notes', fail)
     },
-    rules: { always: asList(rawRules.always), never: asList(rawRules.never) },
-    boundaries: asList(doc.boundaries),
+    rules: {
+      always: asList(rawRules.always, 'rules.always', fail),
+      never: asList(rawRules.never, 'rules.never', fail)
+    },
+    boundaries: asList(doc.boundaries, 'boundaries', fail),
     examples,
     warnings: warn
   };
@@ -138,7 +179,7 @@ export function toYaml(persona) {
   if (Object.keys(persona.voice || {}).length) out.voice = persona.voice;
 
   const style = {};
-  if (persona.style?.emoji) style.emoji = persona.style.emoji;
+  if (persona.style?.emoji && persona.style.emoji !== 'sparing') style.emoji = persona.style.emoji;
   if (persona.style?.address_user_as) style.address_user_as = persona.style.address_user_as;
   if (persona.style?.greeting) style.greeting = persona.style.greeting;
   if (persona.style?.notes?.length) style.notes = persona.style.notes;
@@ -155,7 +196,68 @@ export function toYaml(persona) {
   return YAML.stringify(out, { lineWidth: 0 });
 }
 
+/**
+ * Write a persona back over an existing file, in place.
+ *
+ * Rebuilding the document from `toYaml` would be simpler, but a persona file
+ * is something a person hand-writes and annotates — losing their comments, or
+ * a key this version of Persa doesn't model, the first time they nudge a
+ * slider is not an acceptable trade. So we edit the parsed document and leave
+ * everything we don't manage exactly where it was.
+ */
+export function mergeIntoYaml(source, persona) {
+  const doc = YAML.parseDocument(source);
+  if (doc.errors?.length || !YAML.isMap(doc.contents)) return toYaml(persona);
+
+  const put = (path, value) => {
+    const empty = value == null || value === '' || (Array.isArray(value) && value.length === 0);
+    // deleteIn throws if an intermediate container is missing, and there is
+    // nothing to delete in that case anyway.
+    if (empty) {
+      if (doc.hasIn(path)) doc.deleteIn(path);
+    } else {
+      doc.setIn(path, value);
+    }
+  };
+  // Drop a container we emptied, but only if nothing unmanaged is left in it.
+  const prune = key => {
+    const node = doc.get(key, true);
+    if (YAML.isMap(node) && node.items.length === 0 && !node.comment && !node.commentBefore) doc.delete(key);
+  };
+
+  doc.set('persa', SPEC_VERSION);
+  put(['name'], persona.name);
+  put(['tagline'], persona.tagline);
+
+  for (const trait of TRAIT_NAMES) put(['voice', trait], persona.voice?.[trait]);
+  prune('voice');
+
+  // `sparing` is the default and compiles to nothing, so don't write it into
+  // a file that never mentioned emoji.
+  const emoji = persona.style?.emoji;
+  put(['style', 'emoji'], emoji === 'sparing' && !doc.hasIn(['style', 'emoji']) ? '' : emoji);
+  put(['style', 'address_user_as'], persona.style?.address_user_as);
+  put(['style', 'greeting'], persona.style?.greeting);
+  put(['style', 'notes'], persona.style?.notes);
+  prune('style');
+
+  put(['rules', 'always'], persona.rules?.always);
+  put(['rules', 'never'], persona.rules?.never);
+  prune('rules');
+
+  put(['boundaries'], persona.boundaries);
+  put(['examples'], persona.examples);
+
+  return doc.toString({ lineWidth: 0 });
+}
+
 export async function savePersona(file, persona) {
-  await writeFile(file, toYaml(persona), 'utf8');
+  let existing = null;
+  try {
+    existing = await readFile(file, 'utf8');
+  } catch {
+    // New file — nothing to preserve.
+  }
+  await writeFile(file, existing ? mergeIntoYaml(existing, persona) : toYaml(persona), 'utf8');
   return file;
 }

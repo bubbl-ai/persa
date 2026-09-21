@@ -70,7 +70,7 @@ Seven traits. Omit a trait entirely, or leave it near 50, and it contributes not
 
 Each scale has five bands: **0–14**, **15–34**, **35–64**, **65–84**, **85–100**. The middle band is empty by design, so only your deliberate choices reach the prompt. The exact sentence each band produces is in [`src/traits.js`](../src/traits.js).
 
-An unknown trait name warns and is ignored. A value outside 0–100, or a non-number, is an error.
+An unknown trait name warns and is ignored. A value outside 0–100 is an error, and so is a non-number — including a key written with no value at all (`warmth:` parses as null, and silently treating that as 0 would pin the trait to its coldest band).
 
 ### `style` — map
 
@@ -81,13 +81,15 @@ An unknown trait name warns and is ignored. A value outside 0–100, or a non-nu
 
 ### `rules` — map with `always` and `never` lists
 
-Free-form behavioural rules. These are about conduct, not voice — "Lead with the decision", "Give me a number, not 'soon'". Write them as you'd say them.
+Free-form behavioural rules about conduct rather than voice — "Lead with the decision", "Give me a number, not 'soon'". Write them as you'd say them.
 
-`never` survives longer than `always` under a character budget, on the theory that a prohibition you bothered to write is usually load-bearing.
+One YAML gotcha: a line containing a colon is a mapping, not a sentence, so `- Deadlines: give me a date` needs quoting. Persa rejects the unquoted form with a message saying so, rather than compiling it to `[object Object]`.
+
+Under a character budget `never` survives longer than `always`, on the theory that a prohibition you bothered to write is usually load-bearing. They are printed always-then-never regardless, because that reads more naturally; document order and drop order are independent.
 
 ### `boundaries` — list
 
-Constraints that outrank everything else, rendered under a heading that says so. Persa never drops these to fit a character limit — if the text is still over budget with only identity and boundaries left, it truncates and tells you loudly rather than silently discarding a boundary.
+Constraints that outrank everything else, rendered under a heading that says so. Persa never drops these to make room for anything else: every other section is exhausted first. If the budget is too small to hold the identity line and the boundaries together, the text is truncated on a code-point boundary and `stats.truncated` is set, so `persa check` prints `CUT` and `persa render` warns. That is the only way a boundary is ever lost, and it is never silent.
 
 These add to an agent's own rules. Nothing here removes them.
 
@@ -106,8 +108,8 @@ Sections, in the order they appear and the order they survive:
 | 0 | identity (name, tagline, `address_user_as`, anchor line) | never |
 | 1 | boundaries | never |
 | 2 | voice (traits, emoji, greeting) | fifth |
-| 3 | always | fourth |
-| 4 | never | third |
+| 3 | never | fourth |
+| 4 | always | third |
 | 5 | wording notes | second |
 | 6 | examples | first |
 
@@ -137,4 +139,6 @@ for (const r of compileAll(persona)) console.log(r.id, r.stats.length);
 compile(persona, { limit: 800, markdown: false, framing: 'message' });
 ```
 
-`normalize(doc)` validates a plain object and fills in defaults; `toYaml(persona)` writes it back in canonical field order. Both throw `PersonaError` with a message meant to be shown to a person.
+`normalize(doc)` validates a plain object and fills in defaults; it throws `PersonaError` with a message meant to be shown to a person.
+
+To write a persona back, prefer `savePersona(file, persona)`. It edits the existing document in place via `mergeIntoYaml`, so comments and any keys Persa doesn't model survive the round trip. `toYaml(persona)` is the from-scratch serializer, used only when there is no existing file to preserve.

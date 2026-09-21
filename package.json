@@ -13,7 +13,7 @@
   "files": ["src", "presets", "docs", "README.md"],
   "engines": { "node": ">=20" },
   "scripts": {
-    "test": "node --test \"test/**/*.test.js\"",
+    "test": "node --test test/*.test.js",
     "start": "node src/cli.js"
   },
   "keywords": ["mcp", "agent", "personality", "persona", "prompt", "muse", "grok", "instinct"],

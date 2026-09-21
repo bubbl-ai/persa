@@ -2,7 +2,7 @@
 
 Two routes. If the agent speaks MCP, use route 1 — it updates itself. Otherwise paste.
 
-What each product supports changes often. The notes below are current as of **September 2026**; if something has moved, the fix is usually one line in [`src/targets.js`](../src/targets.js).
+What each product supports changes often, and Persa cannot check any of it for you. Everything below about Muse, Grok, Instinct and ChatGPT — dates, caps, slot counts, which screen a setting lives on — is secondhand and current as of **September 2026**. Treat it as a pointer, verify against the product, and if something has moved, the fix is usually one line in [`src/targets.js`](../src/targets.js).
 
 ---
 
@@ -80,7 +80,7 @@ For Claude Desktop or Claude Code, add the server to your MCP config:
 
 Use an absolute path — the MCP client's working directory is not yours. If `persa` isn't on your PATH, use `"command": "node"` with `"args": ["/absolute/path/to/persa/src/cli.js", "serve", "/absolute/path/to/persona.yaml"]`.
 
-Claude honours the `instructions` field an MCP server sends on initialize, so the personality applies without a tool call.
+Claude honours the `instructions` field an MCP server sends on initialize, so the personality applies without a tool call. That field is sent once per connection, so a stdio client picks up a later edit on its next restart; the tool and resources are always re-read from disk.
 
 To paste instead: `persa render --target claude` into **Project → Set project instructions**.
 

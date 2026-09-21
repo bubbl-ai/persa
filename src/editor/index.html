@@ -23,6 +23,7 @@
     :root {
       --bg: #f6f7f9; --panel: #ffffff; --panel-2: #f1f3f6; --line: #dfe3ea;
       --text: #14161a; --dim: #626b78; --accent: #3a5bd9;
+      --ok: #1a7f43; --warn: #8a5a00; --bad: #b3261e;
     }
   }
   * { box-sizing: border-box; }
@@ -144,7 +145,7 @@
       <textarea id="boundaries" placeholder="Ask me before sending anything to another person."></textarea>
       <label for="notes">Wording notes (one per line)</label>
       <textarea id="notes" placeholder="Short sentences. Cut adverbs."></textarea>
-      <p class="hint">Leave a slider in the middle and it says nothing at all — only the traits you actually care about reach the prompt.</p>
+      <p class="hint">Leave a slider in the middle and it says nothing at all — only the traits you actually care about reach the prompt, or the saved file.</p>
     </div>
   </section>
 
@@ -161,6 +162,7 @@
       <pre class="preview" id="preview">Loading…</pre>
       <p class="where" id="where"></p>
       <p class="notice" id="notice" hidden></p>
+      <p class="notice" id="warnings" hidden></p>
     </div>
   </section>
 </main>
@@ -170,13 +172,15 @@ const $ = id => document.getElementById(id);
 const lines = s => s.split('\n').map(x => x.trim()).filter(Boolean);
 const unlines = a => (a || []).join('\n');
 
-let state = null;      // { file, persona, traits, targets }
+let state = null;      // { file, persona, traits, targets, warnings }
+let fileWarnings = [];
 let renders = {};
 let active = 'grok';
 let dirty = false;
 
 async function boot() {
   state = await (await fetch('/api/state')).json();
+  fileWarnings = state.warnings || [];
   $('file').textContent = state.file;
 
   $('traits').innerHTML = state.traits.map(t => `
@@ -237,11 +241,16 @@ function fill(p) {
 
 function collect() {
   const voice = {};
-  for (const t of state.traits) voice[t.id] = Number($('t-' + t.id).value);
+  for (const t of state.traits) {
+    const v = Number($('t-' + t.id).value);
+    // Dead centre compiles to nothing, so don't write it to the file — the
+    // point of the format is that you only record what you actually chose.
+    if (v !== 50) voice[t.id] = v;
+  }
   const emoji = [...$('emoji').children].find(c => c.getAttribute('aria-pressed') === 'true')?.dataset.value || 'sparing';
   return {
     persa: 1,
-    name: $('name').value.trim() || 'Unnamed',
+    name: $('name').value.trim(),
     tagline: $('tagline').value.trim(),
     voice,
     style: {
@@ -272,8 +281,18 @@ async function preview() {
     body: JSON.stringify(collect())
   });
   const data = await res.json();
-  if (data.error) return setStatus(data.error, 'error');
+  if (data.error) {
+    $('preview').textContent = data.error;
+    $('count').textContent = '';
+    $('dropped').textContent = '';
+    $('where').textContent = '';
+    return setStatus(data.error, 'error');
+  }
   renders = data.renders;
+  const warn = $('warnings');
+  const all = [...fileWarnings, ...(data.warnings || [])];
+  warn.hidden = all.length === 0;
+  warn.textContent = all.join(' ');
   // Show which trait sentence each slider currently produces.
   const voiceLines = new Set((renders.plain?.text || '').split('\n').map(l => l.replace(/^- /, '')));
   for (const t of state.traits) {

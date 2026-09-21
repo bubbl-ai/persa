@@ -36,6 +36,7 @@ export async function serveEditor(personaPath, { port = 4747, host = '127.0.0.1'
         return json(res, 200, {
           file,
           persona,
+          warnings: persona.warnings ?? [],
           traits: TRAIT_NAMES.map(id => ({ id, low: TRAITS[id].low, high: TRAITS[id].high })),
           targets: TARGET_IDS.map(id => ({ ...TARGETS[id] }))
         });
@@ -63,8 +64,16 @@ export async function serveEditor(personaPath, { port = 4747, host = '127.0.0.1'
     }
   });
 
-  await new Promise(resolve => server.listen(port, host, resolve));
-  return { server, url: `http://${host}:${port}`, file };
+  await new Promise((resolve, reject) => {
+    server.once('error', reject);
+    server.listen(port, host, () => {
+      server.removeListener('error', reject);
+      resolve();
+    });
+  });
+  // Report the port that was actually bound — `--port 0` asks the OS to pick.
+  const bound = server.address().port;
+  return { server, url: `http://${host}:${bound}`, port: bound, file };
 }
 
 function send(res, status, type, payload) {

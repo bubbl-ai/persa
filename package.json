@@ -1,0 +1,24 @@
+{
+  "name": "persa",
+  "version": "0.1.0",
+  "description": "A personality layer for personal agents. Define a voice once, install it everywhere.",
+  "type": "module",
+  "license": "MIT",
+  "bin": { "persa": "src/cli.js" },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./compile": "./src/compile.js"
+  },
+  "files": ["src", "presets", "docs", "README.md"],
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "test": "node --test \"test/**/*.test.js\"",
+    "start": "node src/cli.js"
+  },
+  "keywords": ["mcp", "agent", "personality", "persona", "prompt", "muse", "grok", "instinct"],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "yaml": "^2.9.1"
+  }
+}

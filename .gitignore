@@ -1,0 +1,4 @@
+node_modules/
+persona.yaml
+*.log
+.DS_Store

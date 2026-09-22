@@ -1,6 +1,6 @@
 # Persa
 
-[![tests](https://github.com/Tonyhaoyu/persa/actions/workflows/ci.yml/badge.svg)](https://github.com/Tonyhaoyu/persa/actions/workflows/ci.yml)
+[![tests](https://github.com/bubbl-ai/persa/actions/workflows/ci.yml/badge.svg)](https://github.com/bubbl-ai/persa/actions/workflows/ci.yml)
 [![npm](https://img.shields.io/npm/v/persa.svg)](https://www.npmjs.com/package/persa)
 
 **A personality layer for personal agents.** Write down how you want an agent to talk to you — once — and install it into Muse, Grok, Instinct, Claude, ChatGPT, or anything else with a text box.
@@ -103,7 +103,7 @@ npm install -g persa       # or put it on your PATH
 To work on Persa itself:
 
 ```bash
-git clone https://github.com/Tonyhaoyu/persa
+git clone https://github.com/bubbl-ai/persa
 cd persa
 npm install
 npm test

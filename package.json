@@ -46,10 +46,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Tonyhaoyu/persa.git"
+    "url": "git+https://github.com/bubbl-ai/persa.git"
   },
   "bugs": {
-    "url": "https://github.com/Tonyhaoyu/persa/issues"
+    "url": "https://github.com/bubbl-ai/persa/issues"
   },
-  "homepage": "https://github.com/Tonyhaoyu/persa#readme"
+  "homepage": "https://github.com/bubbl-ai/persa#readme"
 }

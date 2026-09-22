@@ -28,12 +28,25 @@ const TOOL_DESCRIPTION =
   'behavioural rules they expect you to follow. Call this at the start of a conversation, ' +
   'and again if the user mentions changing how you talk. Apply the result to every reply.';
 
-async function currentPersona(personaPath) {
-  const { persona, source, file } = await loadPersona(personaPath);
-  return { persona, source, file, text: compile(persona, 'plain').text };
+/**
+ * Where a persona comes from.
+ *
+ * The CLI passes a file path. The hosted app passes `{ load }`, which reads
+ * one database row instead, so both get the same server with the same three
+ * surfaces. Everything below only ever asks for "the persona as it is now",
+ * which is why one seam is enough.
+ */
+function readerFor(origin) {
+  if (origin && typeof origin === 'object' && typeof origin.load === 'function') return origin.load;
+  return () => loadPersona(origin);
 }
 
-/** Build a fresh McpServer bound to a persona file. */
+async function currentPersona(origin) {
+  const { persona, source, file } = await readerFor(origin)();
+  return { persona, source, file: file ?? null, text: compile(persona, 'plain').text };
+}
+
+/** Build a fresh McpServer bound to a persona file, or to a loader. */
 export async function createServer(personaPath) {
   // A broken persona must not stop the server from coming up. Over HTTP every
   // request builds a server, so throwing here would fail even `initialize`,

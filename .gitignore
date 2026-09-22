@@ -2,3 +2,15 @@ node_modules/
 persona.yaml
 *.log
 .DS_Store
+
+# npm pack output
+*.tgz
+
+# Nothing credential-shaped, ever, and the patterns cover backups: a copy
+# taken a minute before an edit is what gets swept into the next `git add`.
+.env
+.env.*
+!.env.example
+.vercel
+*.pem
+*service-account*.json

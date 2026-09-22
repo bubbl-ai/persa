@@ -10,7 +10,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadPersona, resolvePersonaPath, PersonaError, homeDir } from './persona.js';
 import { compile, compileAll } from './compile.js';
-import { TARGETS, TARGET_IDS } from './targets.js';
+import { TARGETS, TARGET_IDS, getTarget } from './targets.js';
 import { serveStdio, serveHttp } from './mcp.js';
 import { serveEditor } from './editor.js';
 
@@ -23,6 +23,7 @@ const USAGE = `persa ${VERSION} — give your personal agents a personality you 
   persa init [--preset <name>] [--out <file>]   create a persona file
   persa edit [file] [--port 4747]               open the editor in a browser
   persa render [file] --target <id>             print the personality for one agent
+  persa install <target> [file]                 the steps for one agent, and the text
   persa check [file]                            validate, and show the fit for every agent
   persa serve [file] [--http] [--port 8787]     run the MCP server
   persa presets                                 list the starting points
@@ -169,6 +170,51 @@ async function cmdRender(file, flags) {
   warnAboutFit();
 }
 
+/**
+ * What a person actually does to install a persona, for one agent.
+ *
+ * `render` prints the text and assumes you know where it goes. This prints
+ * the steps in the other product's own words, then the text, so the terminal
+ * answers "now what?" without anybody opening the docs.
+ */
+async function cmdInstall(target, file) {
+  if (!target) {
+    throw new PersonaError(`Which agent? Try: ${TARGET_IDS.map(id => `persa install ${id}`).join(', ')}.`);
+  }
+  const t = getTarget(target);
+  const { persona } = await loadPersona(file);
+  const { text, stats } = compile(persona, t.id);
+
+  out(`Installing ${persona.name} in ${t.label}\n`);
+  (t.steps ?? [t.where]).forEach((step, i) => out(`  ${i + 1}. ${step}`));
+
+  if (t.how === 'connect') {
+    out('\nYour connector URL comes from the MCP server:');
+    out('\n  persa serve --http\n');
+    out('It serves on 127.0.0.1, which an agent running in someone else\'s cloud');
+    out('cannot reach, so expose it with a tunnel or a host of your own first.');
+    out('\nIf you would rather not host anything, paste this instead:\n');
+  } else {
+    out('');
+  }
+
+  out(divider(t.label, stats));
+  out(text);
+  out(divider());
+  if (stats.removed.length) {
+    err(`\n[persa] trimmed ${stats.removed.length} line(s) to fit ${t.label}'s ${stats.limit}-character limit.`);
+  }
+  if (stats.truncated) err('[persa] still over the limit after trimming — shorten your rules or the tagline.');
+}
+
+/** A rule the eye can find when the text is long and the terminal is full. */
+function divider(label, stats) {
+  if (!label) return '─'.repeat(60);
+  const count = stats.limit ? `${stats.length} / ${stats.limit} characters` : `${stats.length} characters`;
+  const head = `── ${label} · ${count} `;
+  return head + '─'.repeat(Math.max(3, 60 - head.length));
+}
+
 async function cmdCheck(file) {
   const { persona, file: found } = await loadPersona(file);
   out(`${persona.name} — ${found}`);
@@ -252,6 +298,8 @@ async function main() {
       return cmdPresets();
     case 'render':
       return cmdRender(file, flags);
+    case 'install':
+      return cmdInstall(positional[0], positional[1]);
     case 'check':
       return cmdCheck(file);
     case 'edit':

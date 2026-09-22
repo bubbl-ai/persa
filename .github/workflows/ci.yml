@@ -1,0 +1,44 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # The floor is what package.json declares. The ceiling is whatever is
+        # current, because a personality layer that breaks on the newest Node
+        # is a personality layer nobody installs.
+        node: ['20', '22', '24']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - run: npm ci
+      - run: npm test
+
+  pack:
+    # What `npm publish` would actually ship. A file that is in the repo but
+    # not in `files` is a file the published package is missing.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci
+      - run: npm pack --dry-run
+      - name: the binary runs from a clean install
+        run: |
+          npm pack
+          mkdir /tmp/install-check && cd /tmp/install-check
+          npm init -y > /dev/null
+          npm install "$GITHUB_WORKSPACE"/persa-*.tgz
+          ./node_modules/.bin/persa --version
+          ./node_modules/.bin/persa presets

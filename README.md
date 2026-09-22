@@ -1,14 +1,17 @@
 # Persa
 
+[![tests](https://github.com/Tonyhaoyu/persa/actions/workflows/ci.yml/badge.svg)](https://github.com/Tonyhaoyu/persa/actions/workflows/ci.yml)
+[![npm](https://img.shields.io/npm/v/persa.svg)](https://www.npmjs.com/package/persa)
+
 **A personality layer for personal agents.** Write down how you want an agent to talk to you — once — and install it into Muse, Grok, Instinct, Claude, ChatGPT, or anything else with a text box.
 
 Personal agents in 2026 are good at doing things and bad at sounding like anything. Most ship one house voice; the ones that let you change it make you write a system prompt from scratch, per agent, and rewrite it when you change your mind. Persa makes the personality a small file you own, and handles the rest.
 
 ```
-$ persa init
-$ persa edit                      # sliders in a browser, live preview
-$ persa render --target grok      # paste it in
-$ persa serve                     # or let MCP-capable agents just read it
+$ npx persa init
+$ npx persa edit                  # sliders in a browser, live preview
+$ npx persa install grok          # the steps for that agent, and the text
+$ npx persa serve                 # or let MCP-capable agents just read it
 ```
 
 ---
@@ -90,13 +93,20 @@ Sable — /Users/you/persona.yaml
 
 ## Install
 
-Node 20 or newer. No build step.
+Node 20 or newer. No build step, and two dependencies.
 
 ```bash
-git clone https://github.com/tonyhaoyu/persa
+npx persa init             # no install at all
+npm install -g persa       # or put it on your PATH
+```
+
+To work on Persa itself:
+
+```bash
+git clone https://github.com/Tonyhaoyu/persa
 cd persa
 npm install
-npm link            # optional — puts `persa` on your PATH
+npm test
 ```
 
 Then:
@@ -191,6 +201,7 @@ Four presets to start from: `chief-of-staff`, `warm-friend`, `coach`, `butler`. 
 | `persa init [--preset <name>] [--out <file>] [--global]` | create a persona file |
 | `persa edit [file] [--port 4747]` | open the editor |
 | `persa render [file] --target <id> [--out <file>]` | print the personality for one agent |
+| `persa install <target> [file]` | the steps for one agent, then the text |
 | `persa check [file]` | validate, and show the fit for every agent |
 | `persa serve [file] [--http] [--port 8787]` | run the MCP server |
 | `persa presets` | list the starting points |
@@ -225,7 +236,14 @@ const { text, stats } = compile(persona, 'grok');
 npm test
 ```
 
-55 tests covering the compiler's budget invariants, the persona format's failure modes, the save round trip (comments, unknown keys, concurrent writes), the editor's HTTP API, and all three MCP surfaces against a real MCP client.
+61 tests covering the compiler's budget invariants, the persona format's failure modes, the save round trip (comments, unknown keys, concurrent writes), the editor's HTTP API, all three MCP surfaces against a real MCP client, and the CLI itself, spawned the way a person runs it.
+
+## Contributing
+
+Corrections to a target's character limit or install steps are the most useful
+thing anyone can send: those details move, and this repository cannot check
+them for you. [CONTRIBUTING.md](CONTRIBUTING.md) has the rest, including the
+two rules that keep personas short.
 
 ## License
 

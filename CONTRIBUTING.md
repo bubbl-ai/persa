@@ -8,7 +8,7 @@ trait phrase that reads badly, a bug in the trimmer.
 ## Running it
 
 ```bash
-npm install
+npm ci
 npm test                  # node --test, no framework
 node src/cli.js init      # a persona to play with
 node src/cli.js edit      # the editor, on localhost
@@ -30,7 +30,8 @@ is a claim someone can re-check a year from now.
 
 ## Adding a trait
 
-Traits live in [`src/traits.js`](src/traits.js) as four bands each. The rule
+Traits live in [`src/traits.js`](src/traits.js) as five bands each: four produce
+instructions, and the middle band (35–64) is empty. The rule
 that matters: a trait at 50 must produce nothing at all. A persona should say
 only what its owner actually cares about, and a compiler that pads every
 prompt with seven neutral sentences makes every persona sound the same.
@@ -40,6 +41,33 @@ prompt with seven neutral sentences makes every persona sound the same.
 `node --test`, in `test/`. New behaviour needs a test that would fail without
 it. Tests that spawn the CLI are preferred for anything a user types, because
 argument parsing and exit codes are where CLIs actually break.
+
+CI runs the suite on Node 20, 22 and 24. A separate packaging job installs the
+tarball from `npm pack` in a clean project and runs the binary. There is no
+publish workflow; a passing packaging job does not publish an npm release.
+
+## Known gaps before the next release
+
+The 2026-10-02 audit reproduced these issues; the documentation update does
+not change their implementation:
+
+- Request handling: the editor accepts save requests from unrelated Origins;
+  malformed Host headers can terminate the HTTP MCP server; MCP request
+  bodies have no size limit. See [SECURITY.md](SECURITY.md).
+- YAML preservation: saving rebuilds example mappings, dropping their field
+  comments and extra keys, even when the examples are unchanged.
+- Validation: inherited object names such as `constructor` are accepted as
+  target IDs and emoji settings; a fractional budget of `0.5` can produce a
+  one-character result.
+- Loader metadata: `createServer({ load })` returns the loader object as
+  `file` when the loader omits that optional field.
+- Target guidance: built-in install steps still contain older Claude and Muse
+  navigation and unverified limits or automatic-application claims. Use
+  [the reviewed setup notes](docs/INSTALL.md) when updating `src/targets.js`.
+
+Add regression coverage for these fixes, including real HTTP and stdio MCP
+transport tests. Keep release metadata in `package.json`, `package-lock.json`,
+the CLI, the MCP server and the changelog aligned when a version is selected.
 
 ## Style
 

@@ -1,15 +1,31 @@
 # Security
 
-Persa runs on your own machine, reads one file, and sends nothing anywhere. It
-has no account system and no server of its own beyond the two you start
-yourself: `persa edit`, which binds to 127.0.0.1, and `persa serve`, which
-speaks MCP over stdio unless you pass `--http`.
+Persa makes no outbound service requests. The editor reads and writes your
+persona file, and the MCP server returns persona data to clients that connect.
+There is no account system. `persa edit` binds to 127.0.0.1 through the CLI;
+`persa serve` speaks MCP over stdio unless you pass `--http`, which also defaults
+to 127.0.0.1. `serve --http --host <address>` can expose it to other machines.
 
 The one thing worth saying plainly: **`persa serve --http` has no
-authentication.** It serves your persona to whoever can reach the port. That
-is fine on loopback and not fine on a public address, so if you put it behind
-a tunnel, put something in front of it, and never put anything in a persona
+authentication.** It serves your persona to whoever can reach the port,
+including the raw YAML through `persona://source` (comments and unknown keys
+included). `/health` also returns the persona name and local file path, or a
+load error. The MCP interface has no write tools. If you put it behind
+a tunnel, add authentication in front of it, and never put anything in a persona
 that you would not hand to a stranger.
+
+## Current limitations
+
+The editor has a write endpoint with no authentication or Origin validation.
+A request from an unrelated Origin can save a persona, including when its
+JSON body is sent as `text/plain`; browser private-network restrictions may
+block delivery, but Persa does not enforce that protection itself. Keep the
+editor local and stop it when finished editing.
+
+The HTTP MCP server has no request-body size limit, and a malformed Host
+header can terminate the process. Until those are fixed, an HTTP deployment
+needs a proxy that authenticates clients, validates requests and limits body
+size. Loopback binding alone is not a substitute for request validation.
 
 ## Reporting something
 

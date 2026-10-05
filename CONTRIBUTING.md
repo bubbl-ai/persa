@@ -35,6 +35,18 @@ in `web/avatars/`. Preserve an explicit unavailable-preview state when an image
 is missing. All 18 current candidates remain visible; the launch ten have not
 been selected.
 
+Original concept alternatives are defined in `characters/avatar-concepts.js`
+and labeled in the gallery and detail dialog. Preserve original image-generation
+outcomes; record successful alternative art in the original entry's `replacement`
+object with `kind: "original-concept"`, `status: "generated"`, its exact prompt,
+and a committed asset path. Update the concept appearance and Muse prompt
+together. Do not use an unrelated image while retaining the old avatar prompt.
+
+The asset resolver rejects missing, duplicate, or unknown image records, invalid
+statuses, unsafe/mismatched paths, missing files, and invalid PNG headers or
+dimensions. Its checks are covered by `test/avatar-assets.test.js`. Browser
+image failures must retain access to the combo and allow a retry.
+
 ## Adding or fixing a target
 
 A target is one entry in [`src/targets.js`](src/targets.js): its character
@@ -69,8 +81,9 @@ For website changes, run `npm run build:web` and `node --check web/app.js`.
 Exercise affected browser flows at desktop and narrow mobile widths, including
 keyboard dismissal, clipboard actions, and save/reload when relevant. The
 October 5 browser verification used a temporary Playwright harness; it is not
-part of the committed test suite. Existing CI covers the CLI/library and npm
-package, not website deployment or signed-in Muse behavior.
+part of the committed test suite. Existing CI covers the CLI/library, avatar
+asset validation, and npm package, not browser rendering, website deployment,
+or signed-in Muse behavior. See [AGENTS.md](AGENTS.md) for coding-agent guidance.
 
 ## Known gaps before the next release
 

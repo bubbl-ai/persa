@@ -54,7 +54,7 @@ The first website implementation lives in [`web/`](web/), with paired character 
 
 | Area | Current behavior |
 | --- | --- |
-| Character gallery | All 18 candidates are browsable on desktop and mobile. Characters with images appear first. The launch ten have not been selected. |
+| Character gallery | All 18 candidates have preview art on desktop and mobile: 12 character interpretations and six labeled original concept companions. The launch ten have not been selected. |
 | Combo preview | Matching avatar, character description, traits, and three authored example replies. Examples illustrate the original preset; they are not live model responses and do not change with the sliders. |
 | Tone controls | Warmth, humor, directness, and response length update the compiled personality instructions immediately. Reset restores that character's defaults. |
 | My collection | Saves favorites and voice settings in this browser's `localStorage`. There is no account or cross-device sync; clearing browser storage removes them. |
@@ -62,9 +62,22 @@ The first website implementation lives in [`web/`](web/), with paired character 
 | Download | Exports the selected persona, compiled personality, and avatar prompt as JSON. There is no JSON import or restore control yet. |
 | Grok Bot | Secondary option to copy personality text for a Bot's Description. It uses the `plain` compiler target, independently of the CLI's older `grok` Custom Agent target. |
 
-Twelve generated avatar previews are available. **Taylor Swift, Michael Jackson, Lionel Messi, Harry Potter, SpongeBob, and The Joker** show an unavailable-preview state because the image service declined those requests. All six still have a personality and avatar prompt. The illustrations show an intended appearance, not an avatar already installed in Muse.
+The first publication had six empty previews because the image service declined those requests; the files were never generated. The other twelve images were confirmed to load from the public site. The six affected entries now use original themed companions with a **Concept avatar** label and a matching Muse avatar prompt:
 
-The remaining product work is to choose the launch ten, resolve the six missing previews, and verify the actual Muse setup on desktop and mobile. Direct avatar import, personality persistence between conversations, replacement, and removal have not been tested in a signed-in Muse account. Persa does not currently connect to a Muse API or synchronize later changes.
+| Personality | Original concept companion |
+| --- | --- |
+| Taylor Swift | Songwriter Star |
+| Michael Jackson | Rhythm Robot |
+| Lionel Messi | Football Otter |
+| Harry Potter | Book Owl |
+| SpongeBob | Sunny Crab |
+| The Joker | Playful Fox |
+
+These six companions are not likenesses of the named people or characters. Their personality presets are unchanged, and their copied avatar prompts describe the replacement artwork. Original refusal records remain in the image manifest alongside the successful replacement records. Gallery illustrations show an intended appearance, not an avatar already installed in Muse.
+
+If an image request fails in the browser, the gallery and character dialog show a readable error state. Reopening the character retries the image, and the dialog also provides **Retry image**. Personality tuning and copying remain available while the image is unavailable.
+
+The remaining product work is to choose the launch ten, review the six original companion alternatives, and verify the actual Muse setup on desktop and mobile. Direct avatar import, personality persistence between conversations, replacement, and removal have not been tested in a signed-in Muse account. Persa does not currently connect to a Muse API or synchronize later changes.
 
 ### Run the website
 
@@ -82,10 +95,11 @@ Run these commands from the repository root with Node 20 or newer. The preview s
 | Location | Responsibility |
 | --- | --- |
 | [`characters/catalog.js`](characters/catalog.js) | Character identity, persona definitions, matching Muse avatar prompt, preview path, and authored sample replies. `launchSelection` is empty; it records a future selection and does not filter the current gallery. |
-| [`characters/image-generation.json`](characters/image-generation.json) | Exact prompts used to generate gallery art, output paths, and success or refusal records. These generation prompts are separate from the Muse setup prompts in the catalog. |
-| [`web/avatars/`](web/avatars/) | Twelve generated PNG previews, committed with the source. |
+| [`characters/avatar-concepts.js`](characters/avatar-concepts.js) | The six original companion names and appearances used to keep replacement previews and Muse prompts aligned. |
+| [`characters/image-generation.json`](characters/image-generation.json) | Exact prompts used to generate gallery art, output paths, and success or refusal records. A `replacement` object records a successful original concept without overwriting the original result. Generation prompts are separate from the Muse setup prompts. |
+| [`web/avatars/`](web/avatars/) | Eighteen generated PNG previews, including six original alternatives in `concepts/`, committed with the source. |
 | [`web/app.js`](web/app.js), [`web/styles.css`](web/styles.css), [`web/index.html`](web/index.html) | Static browser app, responsive layout, dialogs, local saving, clipboard actions, and downloads. |
-| [`scripts/build-web.js`](scripts/build-web.js) | Validates character IDs, persona data, image records, generated asset paths, and launch IDs; compiles the Muse prompts; writes `dist/catalog.json` and copies the app and shared compiler to `dist/`. |
+| [`scripts/build-web.js`](scripts/build-web.js), [`scripts/avatar-assets.js`](scripts/avatar-assets.js) | Validate character and image IDs, statuses, persona data, asset/preview path agreement, PNG headers and dimensions, and launch IDs; compile the Muse prompts; write `dist/catalog.json` and copy the app and shared compiler to `dist/`. Missing or invalid declared images fail the build. |
 | [`src/compile.js`](src/compile.js), [`src/traits.js`](src/traits.js), [`src/targets.js`](src/targets.js), [`src/errors.js`](src/errors.js) | Shared personality compiler used by both the website and CLI. Extracting `PersonaError` avoids pulling Node filesystem code into the browser; `src/persona.js` still re-exports it for existing callers. |
 | [`scripts/preview-web.js`](scripts/preview-web.js) | Local static preview server. |
 | [`.openai/hosting.json`](.openai/hosting.json) | Existing Sites project identity and `dist/` hosting configuration. Site access is managed separately in Sites. |
@@ -97,6 +111,8 @@ The website has no application backend, model calls, or API-key requirement. The
 The October 5 build passed `npm run build:web`, `node --check web/app.js`, all 61 existing tests via `npm test`, and `git diff --check`. Browser checks passed for all 18 cards, all 12 available images, unavailable previews, live prompt tuning, save/reload/reset, both combined and avatar-only clipboard actions, JSON download, the empty saved collection, and Escape-to-close behavior. Layouts were checked at 1440, 390, and 320 pixels without horizontal overflow or browser page errors.
 
 Those browser checks were run with a temporary Playwright harness outside the repository. They are a recorded validation of this build, not a committed browser test suite or CI job. They do not establish end-to-end Muse integration.
+
+The avatar repair adds seven committed regression tests in [`test/avatar-assets.test.js`](test/avatar-assets.test.js) for shipped asset references, replacement provenance, declined requests, malformed manifests, unsafe or mismatched paths, invalid/missing PNGs, and concept labels. The full suite now has 68 tests. Browser validation for the repair checks all 18 decoded previews, all six concept labels and matching copied prompts, narrow mobile layouts, simulated image-request failure, copying while an image is unavailable, and recovery through **Retry image**.
 
 ---
 
@@ -324,14 +340,16 @@ const { text, stats } = compile(persona, 'grok');
 npm test
 ```
 
-61 tests covering the compiler's budget invariants, the persona format's failure modes, the save round trip (comments, unknown keys, concurrent writes), the editor's HTTP API, MCP surfaces through the SDK's in-memory client transport, and the CLI itself, spawned the way a person runs it. CI runs Node 20, 22 and 24 and checks a clean install of the packed package. The suite does not exercise MCP over its stdio or HTTP transport end to end.
+68 tests covering avatar asset integrity and replacement records, the compiler's budget invariants, the persona format's failure modes, the save round trip (comments, unknown keys, concurrent writes), the editor's HTTP API, MCP surfaces through the SDK's in-memory client transport, and the CLI itself, spawned the way a person runs it. CI runs Node 20, 22 and 24 and checks a clean install of the packed package. The suite does not exercise browser flows or MCP over its stdio or HTTP transport end to end.
 
 ## Contributing
 
 Corrections to a target's character limit or install steps are the most useful
 thing anyone can send: those details move, and this repository cannot check
 them for you. [CONTRIBUTING.md](CONTRIBUTING.md) has the rest, including the
-two rules that keep personas short.
+two rules that keep personas short. [AGENTS.md](AGENTS.md) records repository
+guidance for coding agents, including product scope, asset provenance, checks,
+and the separate GitHub/Sites publishing paths.
 
 ## License
 

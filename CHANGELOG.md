@@ -2,10 +2,19 @@
 
 ## Unreleased
 
+- Avatar repair (2026-10-05): fill the six originally declined previews with
+  explicitly labeled original concept companions and matching Muse avatar
+  prompts, preserving the original refusal history. All 18 entries now have
+  preview art; the six concepts are alternatives rather than character likenesses.
+- Handle image-load failures in the gallery and detail dialog, with a retry
+  action. Reject malformed image records, asset/preview mismatches, missing
+  files, and invalid PNG headers during builds. Add seven asset regression tests.
+- Add `AGENTS.md` with Muse-first scope, repository structure, development and
+  validation commands, asset provenance rules, and publishing guidance.
 - Muse character website (2026-10-05): add a public, mobile-friendly gallery
   pairing personalities with matching Muse avatar prompts for all 18 launch
-  candidates. The final ten remain unselected. Twelve generated previews are
-  included; six declined image requests retain an explicit unavailable state.
+  candidates. The final ten remain unselected. The first publication included
+  twelve generated previews and six unavailable states, addressed above.
 - Add four tone controls backed by the shared compiler, authored example
   replies, device-local saved combos, reset, JSON download, combined and
   individual prompt copying, and secondary Grok Bot description copying.

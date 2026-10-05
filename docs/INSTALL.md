@@ -16,6 +16,12 @@ public as of October 5, 2026. Choose a character, adjust the tone, select
 The copied message includes both personality instructions and a matching
 avatar prompt. Separate copy controls are available for each component.
 
+Six entries use a labeled **Concept avatar**: an original themed companion
+instead of the named character's likeness. Their avatar prompts describe that
+companion. All 18 entries have preview art. If an image fails to load, open its
+character and select **Retry image**; the personality and avatar prompts remain
+available to copy while the image is unavailable.
+
 This is a manual setup path. Persa does not yet provide a verified avatar import
 API or prefilled Muse link, and has not tested applying both parts in a signed-in
 Muse account. Gallery art illustrates the intended look; Muse's result may

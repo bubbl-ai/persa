@@ -13,7 +13,17 @@
     "tool": "built-in image_gen",
     "prompt": "Use case: stylized-concept\nAsset type: square character avatar for the Persa Muse personality gallery\nScene/backdrop: seamless pale lilac background #efedf8.\nSubject: Taylor Swift, blonde bangs, red lipstick, shimmering lavender stage dress.\nStyle/medium: cute original 3D clay collectible Muse-inspired chibi companion, full body, oversized rounded head, small rounded body, glossy dark expressive eyes, subtle smile, soft matte vinyl material, recognizable stylized character-inspired likeness.\nComposition/framing: square image; one character centered, occupying 75% of image height. Entire head and feet visible with generous margin.\nLighting/mood: simple soft studio lighting, gentle ground shadow, warm friendly presence.\nConstraints: illustrative character preset; no endorsement implication or actual photograph. No text, no logos, no UI.",
     "asset": null,
-    "failure": "Image service rejected request at input-stage safety moderation; category: public-figure."
+    "failure": "Image service rejected request at input-stage safety moderation; category: public-figure.",
+    "replacement": {
+      "id": "songwriter-star",
+      "name": "Songwriter Star",
+      "kind": "original-concept",
+      "status": "generated",
+      "tool": "built-in image_gen",
+      "prompt": "Use case: stylized-concept. Asset type: square companion avatar PNG. Create one distinct ORIGINAL nonhuman character; an original concept, not a depiction or lookalike of any existing person or franchise. Style: cute polished 3D clay/vinyl collectible, rounded full body with oversized head, matte pastel material, warm friendly black expressive eyes. Scene: seamless pale lilac #efedf8 studio backdrop. Composition: single centered figure occupying 75% of image height, entire head and all feet visible, square image. Lighting: simple soft studio light and soft ground shadow. No text, letters, logos, watermark, or extra characters.\nSubject: a small lavender five-point star creature holding a tiny blank notebook and pencil, a round glasses-free face, and two tiny feet.",
+      "asset": "web/avatars/concepts/songwriter-star.png",
+      "failure": null
+    }
   },
   {
     "id": "charlie-chaplin",
@@ -29,7 +39,17 @@
     "tool": "built-in image_gen",
     "prompt": "Use case: stylized-concept\nAsset type: square character avatar for the Persa Muse personality gallery\nScene/backdrop: seamless pale lilac background #efedf8.\nSubject: Michael Jackson, black fedora, one white glove, red Thriller-style jacket.\nStyle/medium: cute original 3D clay collectible Muse-inspired chibi companion, full body, oversized rounded head, small rounded body, glossy dark expressive eyes, subtle smile, soft matte vinyl material, recognizable stylized character-inspired likeness.\nComposition/framing: square image; one character centered, occupying 75% of image height. Entire head and feet visible with generous margin.\nLighting/mood: simple soft studio lighting, gentle ground shadow, warm friendly presence.\nConstraints: illustrative character preset; no endorsement implication or actual photograph. No text, no logos, no UI.",
     "asset": null,
-    "failure": "Image service rejected request at input-stage safety moderation; category: public-figure."
+    "failure": "Image service rejected request at input-stage safety moderation; category: public-figure.",
+    "replacement": {
+      "id": "rhythm-robot",
+      "name": "Rhythm Robot",
+      "kind": "original-concept",
+      "status": "generated",
+      "tool": "built-in image_gen",
+      "prompt": "Use case: stylized-concept. Asset type: square companion avatar PNG. Create one distinct ORIGINAL nonhuman character; an original concept, not a depiction or lookalike of any existing person or franchise. Style: cute polished 3D clay/vinyl collectible, rounded full body with oversized head, matte pastel material, warm friendly black expressive eyes. Scene: seamless pale lilac #efedf8 studio backdrop. Composition: single centered figure occupying 75% of image height, entire head and all feet visible, square image. Lighting: simple soft studio light and soft ground shadow. No text, letters, logos, watermark, or extra characters.\nSubject: an original mint-green rounded music robot with coral headphones, simple musical rhythm dots on its chest, two small arms and feet. No stage clothes.",
+      "asset": "web/avatars/concepts/rhythm-robot.png",
+      "failure": null
+    }
   },
   {
     "id": "olivia-rodrigo",
@@ -61,7 +81,17 @@
     "tool": "built-in image_gen",
     "prompt": "Use case: stylized-concept\nAsset type: square character avatar for the Persa Muse personality gallery\nScene/backdrop: seamless pale lilac background #efedf8.\nSubject: Lionel Messi, brown hair, neat beard, sky blue and white striped football jersey without logos.\nStyle/medium: cute original 3D clay collectible Muse-inspired chibi companion, full body, oversized rounded head, small rounded body, glossy dark expressive eyes, subtle smile, soft matte vinyl material, recognizable stylized character-inspired likeness.\nComposition/framing: square image; one character centered, occupying 75% of image height. Entire head and feet visible with generous margin.\nLighting/mood: simple soft studio lighting, gentle ground shadow, warm friendly presence.\nConstraints: illustrative character preset; no endorsement implication or actual photograph. No text, no logos, no UI.",
     "asset": null,
-    "failure": "Image service rejected request at input-stage safety moderation; category: public-figure."
+    "failure": "Image service rejected request at input-stage safety moderation; category: public-figure.",
+    "replacement": {
+      "id": "football-otter",
+      "name": "Football Otter",
+      "kind": "original-concept",
+      "status": "generated",
+      "tool": "built-in image_gen",
+      "prompt": "Use case: stylized-concept. Asset type: square companion avatar PNG. Create one distinct ORIGINAL nonhuman character; an original concept, not a depiction or lookalike of any existing person or franchise. Style: cute polished 3D clay/vinyl collectible, rounded full body with oversized head, matte pastel material, warm friendly black expressive eyes. Scene: seamless pale lilac #efedf8 studio backdrop. Composition: single centered figure occupying 75% of image height, entire head and all feet visible, square image. Lighting: simple soft studio light and soft ground shadow. No text, letters, logos, watermark, or extra characters.\nSubject: an original cute sea-otter athlete in a solid teal sports shirt, holding a plain cream-and-teal football. No logos, stripes, or jersey numbers.",
+      "asset": "web/avatars/concepts/football-otter.png",
+      "failure": null
+    }
   },
   {
     "id": "kylie-jenner",
@@ -101,7 +131,17 @@
     "tool": "built-in image_gen",
     "prompt": "Use case: stylized-concept\nAsset type: square character avatar for the Persa Muse personality gallery\nScene/backdrop: seamless pale lilac background #efedf8.\nSubject: Harry Potter, round glasses, messy black hair, lightning scar, black robe, burgundy and gold scarf, holding a wand.\nStyle/medium: cute original 3D clay collectible Muse-inspired chibi companion, full body, oversized rounded head, small rounded body, glossy dark expressive eyes, subtle smile unless an expression is specified for this subject, soft matte vinyl material, recognizable stylized character-inspired likeness.\nComposition/framing: square image; one character centered, occupying 75% of image height. Entire head and feet visible with generous margin.\nLighting/mood: simple soft studio lighting, gentle ground shadow, warm friendly presence.\nConstraints: illustrative character preset; no endorsement implication or actual photograph. No text, no logos, no UI.",
     "asset": null,
-    "failure": "Image service rejected result at output-stage safety moderation; category: other."
+    "failure": "Image service rejected result at output-stage safety moderation; category: other.",
+    "replacement": {
+      "id": "book-owl",
+      "name": "Book Owl",
+      "kind": "original-concept",
+      "status": "generated",
+      "tool": "built-in image_gen",
+      "prompt": "Use case: stylized-concept. Asset type: square companion avatar PNG. Create one distinct ORIGINAL nonhuman character; an original concept, not a depiction or lookalike of any existing person or franchise. Style: cute polished 3D clay/vinyl collectible, rounded full body with oversized head, matte pastel material, warm friendly black expressive eyes. Scene: seamless pale lilac #efedf8 studio backdrop. Composition: single centered figure occupying 75% of image height, entire head and all feet visible, square image. Lighting: simple soft studio light and soft ground shadow. No text, letters, logos, watermark, or extra characters.\nSubject: an original small warm-brown owl with a turquoise satchel, holding a plain blue closed book. No wand, scarf, glasses, scar, or robes.",
+      "asset": "web/avatars/concepts/book-owl.png",
+      "failure": null
+    }
   },
   {
     "id": "mrbeast",
@@ -125,7 +165,17 @@
     "tool": "built-in image_gen",
     "prompt": "Use case: stylized-concept\nAsset type: square character avatar for the Persa Muse personality gallery\nScene/backdrop: seamless pale lilac background #efedf8.\nSubject: SpongeBob, yellow sponge, white shirt, red tie, brown shorts.\nStyle/medium: cute original 3D clay collectible Muse-inspired chibi companion, full body, oversized rounded head, small rounded body, glossy dark expressive eyes, subtle smile unless an expression is specified for this subject, soft matte vinyl material, recognizable stylized character-inspired likeness.\nComposition/framing: square image; one character centered, occupying 75% of image height. Entire head and feet visible with generous margin.\nLighting/mood: simple soft studio lighting, gentle ground shadow, warm friendly presence.\nConstraints: illustrative character preset; no endorsement implication or actual photograph. No text, no logos, no UI.",
     "asset": null,
-    "failure": "Image service rejected result at output-stage safety moderation; category: other."
+    "failure": "Image service rejected result at output-stage safety moderation; category: other.",
+    "replacement": {
+      "id": "sunny-crab",
+      "name": "Sunny Crab",
+      "kind": "original-concept",
+      "status": "generated",
+      "tool": "built-in image_gen",
+      "prompt": "Use case: stylized-concept. Asset type: square companion avatar PNG. Create one distinct ORIGINAL nonhuman character; an original concept, not a depiction or lookalike of any existing person or franchise. Style: cute polished 3D clay/vinyl collectible, rounded full body with oversized head, matte pastel material, warm friendly black expressive eyes. Scene: seamless pale lilac #efedf8 studio backdrop. Composition: single centered figure occupying 75% of image height, entire head and all feet visible, square image. Lighting: simple soft studio light and soft ground shadow. No text, letters, logos, watermark, or extra characters.\nSubject: an original peach-orange round crab with joyful eyes, a small teal bucket, and rounded claws. No human clothing.",
+      "asset": "web/avatars/concepts/sunny-crab.png",
+      "failure": null
+    }
   },
   {
     "id": "hello-kitty",
@@ -141,6 +191,16 @@
     "tool": "built-in image_gen",
     "prompt": "Use case: stylized-concept\nAsset type: square character avatar for the Persa Muse personality gallery\nScene/backdrop: seamless pale lilac background #efedf8.\nSubject: Joker, green hair, white face, purple suit, red friendly mischievous grin.\nStyle/medium: cute original 3D clay collectible Muse-inspired chibi companion, full body, oversized rounded head, small rounded body, glossy dark expressive eyes, subtle smile unless an expression is specified for this subject, soft matte vinyl material, recognizable stylized character-inspired likeness.\nComposition/framing: square image; one character centered, occupying 75% of image height. Entire head and feet visible with generous margin.\nLighting/mood: simple soft studio lighting, gentle ground shadow, warm friendly presence.\nConstraints: illustrative character preset; no endorsement implication or actual photograph. No text, no logos, no UI.",
     "asset": null,
-    "failure": "Image service rejected result at output-stage safety moderation; category: other."
+    "failure": "Image service rejected result at output-stage safety moderation; category: other.",
+    "replacement": {
+      "id": "playful-fox",
+      "name": "Playful Fox",
+      "kind": "original-concept",
+      "status": "generated",
+      "tool": "built-in image_gen",
+      "prompt": "Use case: stylized-concept. Asset type: square companion avatar PNG. Create one distinct ORIGINAL nonhuman character; an original concept, not a depiction or lookalike of any existing person or franchise. Style: cute polished 3D clay/vinyl collectible, rounded full body with oversized head, matte pastel material, warm friendly black expressive eyes. Scene: seamless pale lilac #efedf8 studio backdrop. Composition: single centered figure occupying 75% of image height, entire head and all feet visible, square image. Lighting: simple soft studio light and soft ground shadow. No text, letters, logos, watermark, or extra characters.\nSubject: an original coral-orange fox inventor with cream muzzle and tail tip, wearing simple sky-blue overalls, holding one rounded wooden puzzle cube. No makeup, suit, green hair, or purple.",
+      "asset": "web/avatars/concepts/playful-fox.png",
+      "failure": null
+    }
   }
 ]

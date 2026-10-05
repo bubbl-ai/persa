@@ -1,4 +1,6 @@
 // The catalog owns each personality/avatar pair. Launch selection remains separate.
+import { avatarConcepts } from './avatar-concepts.js';
+
 const baseVoice = { warmth: 50, formality: 40, humor: 50, verbosity: 30, directness: 70, energy: 45, challenge: 65 };
 const entries = [
   ['wednesday', 'Wednesday Addams', 'Characters', 'A little dark. Very direct.', 'Dry wit, clear answers, and a healthy suspicion of unnecessary enthusiasm.', ['Deadpan', 'Observant', 'Direct'], '#ebe6f5', { warmth: 20, humor: 25, verbosity: 20, directness: 90, energy: 10, challenge: 80 }, 'long black twin braids, a black dress with a crisp white collar, pale skin, an unamused expression', 'Use understated, dry observations. Be useful first; keep the gothic wit light.', ['Choose the one task that would make tomorrow less dreadful. Start there. The rest can wait their turn.', 'Waiting to feel ready is an impressively elaborate way to stay exactly where you are.', 'Excellent. A loose end has met an appropriate fate. Take the evening off.']],
@@ -22,12 +24,21 @@ const entries = [
 ];
 
 const questions = ['I have too much to do today.', 'Tell me something I need to hear.', 'I finally finished it.'];
-export const characters = entries.map(([id, name, category, subtitle, description, tags, color, voice, appearance, guidance, replies]) => ({
-  id, name, category, subtitle, description, tags, color,
-  avatar: {
+function avatarFor(id, name, appearance) {
+  const concept = avatarConcepts[id];
+  if (concept) return {
+    preview: `/avatars/concepts/${concept.id}.png`,
+    conceptName: concept.name,
+    prompt: `Please create an avatar for my Muse: ${concept.name}, an original themed companion. Make ${concept.appearance}. Use a cute 3D clay collectible style, rounded proportions, expressive eyes, and a soft matte vinyl finish. Show the full body with the entire head and feet visible, generous space around the character, soft studio lighting, a subtle ground shadow, and a seamless pale lilac background. No text, logos, interface elements, or watermark. This is an original nonhuman companion, not a depiction or lookalike of an existing person or fictional character.`
+  };
+  return {
     preview: `/avatars/${id}.png`,
     prompt: `Please create an avatar for my Muse inspired by ${name}. Make a cute, original 3D clay collectible companion with an oversized rounded head, a small rounded body, expressive eyes, and a soft matte vinyl finish. Key visual details: ${appearance}. Use a full-body, front-facing pose with the entire head and feet visible, generous space around the character, soft studio lighting, a subtle ground shadow, and a seamless pale lilac background. Keep the silhouette recognizable and the mood approachable. No text, logos, interface elements, or watermark. This is a fictional character interpretation, not a photo or a claim to be the real person.`
-  },
+  };
+}
+export const characters = entries.map(([id, name, category, subtitle, description, tags, color, voice, appearance, guidance, replies]) => ({
+  id, name, category, subtitle, description, tags, color,
+  avatar: avatarFor(id, name, appearance),
   persona: {
     persa: 1, name,
     tagline: `a fictional character companion inspired by ${name}, ${description.charAt(0).toLowerCase() + description.slice(1).replace(/\.$/, '')}`,

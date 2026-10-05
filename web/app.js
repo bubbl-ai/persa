@@ -48,9 +48,15 @@ function notify(message) {
   toastTimer = setTimeout(() => node.classList.remove('visible'), 3500);
 }
 
+function unavailableMarkup(failed = false, detail = false) {
+  return `<div class="unavailable" style="height:100%" role="status">${icon('image')}<p>${failed ? 'Preview could not load' : 'Avatar preview unavailable'}</p><small>${failed ? 'Check your connection and try again.' : 'Artwork is not available yet. Personality + avatar prompt included.'}</small>${failed && detail ? '<button class="button secondary" data-retry-avatar>Retry image</button>' : ''}</div>`;
+}
+
 function imageMarkup(character, detail = false) {
-  if (character.avatar.preview) return `<img src="${esc(character.avatar.preview)}" alt="Cute illustrated ${esc(character.name)} Muse avatar" width="1254" height="1254" ${detail ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async">`;
-  return `<div class="unavailable" style="height:100%">${icon('image')}<p>Avatar preview unavailable</p><small>Personality + avatar prompt included</small></div>`;
+  if (!character.avatar.preview) return unavailableMarkup();
+  const alt = character.avatar.previewKind === 'concept' ? `${character.avatar.conceptName}, original concept companion for the ${character.name} personality` : `Cute illustrated ${character.name} Muse avatar`;
+  const label = character.avatar.previewKind === 'concept' ? '<span class="concept-badge">Concept avatar</span>' : '';
+  return `<img data-avatar-image data-detail="${detail}" src="${esc(character.avatar.preview)}" alt="${esc(alt)}" width="1254" height="1254" ${detail ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async">${label}`;
 }
 
 function card(character) {
@@ -94,7 +100,7 @@ function renderDetail() {
   const c = current, voice = getPersona().voice, sample = c.samples[sampleIndex];
   const knobs = ['warmth', 'humor', 'directness', 'verbosity'];
   showDialog(`${dialogHeader('Your Muse character')}
-    <div class="detail"><section class="detail-visual"><div class="detail-art">${imageMarkup(c, true)}</div><h2 class="detail-name" id="dialog-title">${esc(c.name)}</h2><p class="detail-description">${esc(c.description)}</p><div class="tags">${c.tags.map(t => `<span class="tag">${esc(t)}</span>`).join('')}</div><div class="combo-label">${icon('check')} Personality and matching avatar included</div></section>
+    <div class="detail"><section class="detail-visual"><div class="detail-art">${imageMarkup(c, true)}</div><h2 class="detail-name" id="dialog-title">${esc(c.name)}</h2><p class="detail-description">${esc(c.description)}</p><div class="tags">${c.tags.map(t => `<span class="tag">${esc(t)}</span>`).join('')}</div><div class="combo-label">${icon('check')} Personality and matching avatar included</div>${c.avatar.previewKind === 'concept' ? `<p class="concept-note">${esc(c.avatar.conceptName)} is an original themed companion, not a likeness of ${esc(c.name)}. The avatar prompt describes this companion.</p>` : ''}</section>
     <section class="detail-controls"><h3 class="section-label">A feel for their voice</h3><div class="sample-tabs" role="group" aria-label="Example conversation"><button class="sample-tab ${sampleIndex === 0 ? 'active' : ''}" data-sample="0" aria-pressed="${sampleIndex === 0}">A busy day</button><button class="sample-tab ${sampleIndex === 1 ? 'active' : ''}" data-sample="1" aria-pressed="${sampleIndex === 1}">Honest advice</button><button class="sample-tab ${sampleIndex === 2 ? 'active' : ''}" data-sample="2" aria-pressed="${sampleIndex === 2}">A little win</button></div><div class="conversation"><div class="sample-user">${esc(sample.user)}</div><p class="sample-reply">${esc(sample.reply)}</p></div><p class="sample-caption">Illustrative replies for this preset. Muse's responses will vary.</p>
     <div class="tune-head"><h3 class="section-label">Make it your kind of ${c.id === 'the-rock' ? 'Rock' : esc(c.name.split(' ')[0])}</h3><button class="reset" data-reset>Reset tone</button></div><div class="sliders">${knobs.map(trait => `<label class="slider"><span class="slider-top">${trait.charAt(0).toUpperCase()+trait.slice(1)}<output id="value-${trait}">${voice[trait]}</output></span><input type="range" min="0" max="100" step="1" value="${voice[trait]}" data-trait="${trait}" aria-label="${trait}" aria-describedby="ends-${trait}"><span class="slider-ends" id="ends-${trait}"><span>${TRAITS[trait].low}</span><span>${TRAITS[trait].high}</span></span></label>`).join('')}</div>
     <details class="prompt-details"><summary>The personality instructions ${icon('chevron')}</summary><pre class="prompt-text" id="personality-text">${esc(personalityPrompt())}</pre></details></section></div>
@@ -159,6 +165,13 @@ function downloadCombo() {
 }
 
 async function start() {
+  // Image errors do not bubble. Capture them before the first gallery render.
+  document.addEventListener('error', event => {
+    const image = event.target;
+    if (!(image instanceof HTMLImageElement) || !image.hasAttribute('data-avatar-image')) return;
+    image.parentElement.querySelector('.concept-badge')?.remove();
+    image.outerHTML = unavailableMarkup(true, image.dataset.detail === 'true');
+  }, true);
   try {
     const response=await fetch('/catalog.json');if(!response.ok)throw new Error('Catalog unavailable');
     const data=await response.json();characters=data.characters;
@@ -176,6 +189,7 @@ async function start() {
       else if(button.dataset.view){view=button.dataset.view;renderPage();document.querySelector(`[data-view="${view}"]`)?.focus({preventScroll:true});}
       else if(button.hasAttribute('data-how'))showHow();
       else if(button.hasAttribute('data-back'))renderDetail();
+      else if(button.hasAttribute('data-retry-avatar')){renderPage();renderDetail();}
       else if(button.hasAttribute('data-sample')){sampleIndex=Number(button.dataset.sample);renderDetail();dialog.querySelector(`[data-sample="${sampleIndex}"]`)?.focus({preventScroll:true});}
       else if(button.hasAttribute('data-reset')){drafts[current.id]={...current.persona.voice};renderDetail();dialog.querySelector('[data-reset]')?.focus({preventScroll:true});notify('Original tone restored.');}
       else if(button.hasAttribute('data-save-current'))saveCurrent();

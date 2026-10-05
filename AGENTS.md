@@ -3,6 +3,7 @@
 ## Product scope
 
 - Muse is the primary product. Every website preset pairs a personality with a matching avatar prompt. Grok Bot personality copying is secondary.
+- Avatars must be recognizable cute interpretations of the named figure. Do not replace a named figure with an unrelated animal, mascot, or abstract companion to fill an empty preview. If matching art cannot be produced, report it and keep an explicit unavailable state.
 - Keep all 18 candidates available until the user selects the launch ten. `launchSelection` is metadata, not a gallery filter.
 - Describe Muse setup honestly: users copy and paste instructions. Direct avatar import and persistence in Muse are not verified.
 - Preserve the existing CLI/library and MCP interfaces when changing the website.
@@ -12,8 +13,7 @@
 - `src/`: shared compiler, persona adapters, CLI, local editor, and MCP server.
 - `web/`: static website and committed avatar assets.
 - `characters/catalog.js`: personalities, Muse avatar prompts, and authored sample replies.
-- `characters/avatar-concepts.js`: original companion alternatives and appearances; keep their prompts and labeled previews aligned.
-- `characters/image-generation.json`: original art prompts and generation outcomes. Preserve refusal history and distinguish replacement art from the original request.
+- `characters/image-generation.json`: original art prompts and generation outcomes. Preserve refusal history and superseded attempts. Active replacements must identify the same subject as the preset.
 - `scripts/`: website build and local preview.
 - `test/`: Node test suite. `dist/` is generated and must stay untracked.
 

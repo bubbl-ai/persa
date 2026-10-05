@@ -1,4 +1,4 @@
-import { mkdir, cp, writeFile, readFile } from 'node:fs/promises';
+import { mkdir, cp, writeFile, readFile, rm } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { normalize } from '../src/persona.js';
@@ -22,6 +22,8 @@ for (const character of characters) {
   catalog.push({ ...character, avatar, persona, personalityPrompt: text });
 }
 for (const id of launchSelection) if (!ids.has(id)) throw new Error(`Unknown launch character: ${id}`);
+// Do not keep retired previews in the published output after an asset change.
+await rm(dist, { recursive: true, force: true });
 await mkdir(dist, { recursive: true });
 await cp(path.join(root, 'web'), dist, { recursive: true });
 await mkdir(path.join(dist, 'core'), { recursive: true });

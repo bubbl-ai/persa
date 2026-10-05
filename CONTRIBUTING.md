@@ -35,12 +35,15 @@ in `web/avatars/`. Preserve an explicit unavailable-preview state when an image
 is missing. All 18 current candidates remain visible; the launch ten have not
 been selected.
 
-Original concept alternatives are defined in `characters/avatar-concepts.js`
-and labeled in the gallery and detail dialog. Preserve original image-generation
-outcomes; record successful alternative art in the original entry's `replacement`
-object with `kind: "original-concept"`, `status: "generated"`, its exact prompt,
-and a committed asset path. Update the concept appearance and Muse prompt
-together. Do not use an unrelated image while retaining the old avatar prompt.
+Avatars must remain recognizable versions of the named figure. Do not fill
+missing previews with unrelated mascots or animals, even with a concept label.
+Preserve original image-generation outcomes; record successful corrected art
+in the original entry's `replacement` object with `kind: "character"`, matching
+`subjectId`, `status: "generated"`, its exact prompt, and a committed asset path.
+Move retired replacement records to `supersededReplacements`; they must not be
+selected by the build. Keep avatar prompts tied to the named figure and report
+unavailable artwork honestly. The build clears `dist/` before copying current
+assets so retired files cannot remain in a later publication.
 
 The asset resolver rejects missing, duplicate, or unknown image records, invalid
 statuses, unsafe/mismatched paths, missing files, and invalid PNG headers or

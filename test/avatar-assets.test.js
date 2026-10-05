@@ -20,22 +20,23 @@ async function fixture(t) {
   return root;
 }
 
-test('every shipped character resolves to an existing preview or explicit unavailable state', async () => {
+test('every shipped character keeps its named avatar prompt and resolves to a preview or explicit unavailable state', async () => {
   const root = fileURLToPath(new URL('../', import.meta.url));
   const records = JSON.parse(await readFile(path.join(root, 'characters/image-generation.json'), 'utf8'));
   const avatars = await resolveAvatarAssets(characters, records, root);
   assert.equal(avatars.size, characters.length);
-  for (const [id, avatar] of avatars) {
-    assert.equal(Boolean(avatar.preview), avatar.previewKind !== 'unavailable', id);
+  for (const character of characters) {
+    const avatar = avatars.get(character.id);
+    assert.equal(Boolean(avatar.preview), avatar.previewKind !== 'unavailable', character.id);
+    assert.ok(character.avatar.prompt.includes(character.name), `${character.id} must retain its named avatar prompt`);
   }
 });
 
-test('a declined original can use a documented concept without rewriting its history', async t => {
+test('a declined original can use a matching character rendering without rewriting its history', async t => {
   const root = await fixture(t);
-  const record = { ...declined, replacement: { status: 'generated', kind: 'original-concept', asset: generated.asset } };
-  const concept = { ...character, avatar: { ...character.avatar, conceptName: 'Original companion' } };
-  const result = await resolveAvatarAssets([concept], [record], root);
-  assert.deepEqual(result.get('sample'), { preview: '/avatars/sample.png', previewKind: 'concept' });
+  const record = { ...declined, replacement: { status: 'generated', kind: 'character', subjectId: 'sample', asset: generated.asset } };
+  const result = await resolveAvatarAssets([character], [record], root);
+  assert.deepEqual(result.get('sample'), { preview: '/avatars/sample.png', previewKind: 'generated' });
   assert.equal(record.status, 'declined');
   assert.equal(record.asset, null);
   assert.equal(record.failure, declined.failure);
@@ -69,9 +70,10 @@ test('rejects generated previews with missing or invalid PNG files', async t => 
   await assert.rejects(resolveAvatarAssets([character], [generated], root), /Invalid PNG image/);
 });
 
-test('rejects replacements that are not generated concepts or lack a visible label', async t => {
+test('rejects generic substitutes, failed generations, and replacements for another character', async t => {
   const root = await fixture(t);
-  const replacement = { status: 'generated', kind: 'original-concept', asset: generated.asset };
-  await assert.rejects(resolveAvatarAssets([character], [{ ...declined, replacement }], root), /Missing concept label/);
+  const replacement = { status: 'generated', kind: 'character', subjectId: 'sample', asset: generated.asset };
+  await assert.rejects(resolveAvatarAssets([character], [{ ...declined, replacement: { ...replacement, kind: 'original-concept' } }], root), /Invalid replacement image/);
+  await assert.rejects(resolveAvatarAssets([character], [{ ...declined, replacement: { ...replacement, subjectId: 'someone-else' } }], root), /Invalid replacement image/);
   await assert.rejects(resolveAvatarAssets([character], [{ ...declined, replacement: { ...replacement, status: 'declined' } }], root), /Invalid replacement image/);
 });

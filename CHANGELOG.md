@@ -2,10 +2,18 @@
 
 ## Unreleased
 
+- Restore the six named avatar prompts and remove the unrelated star, robot,
+  otter, owl, crab, and fox substitutions following user feedback. Preserve their
+  generation history, reject unrelated replacements during builds, and clear
+  retired files from build output. Record the identity requirement in `AGENTS.md`.
+- Add a new Taylor Swift character preview. Requests for Michael Jackson,
+  Lionel Messi, Harry Potter, SpongeBob, and The Joker were declined again;
+  those five remain explicitly unavailable with their named avatar prompts.
 - Avatar repair (2026-10-05): fill the six originally declined previews with
   explicitly labeled original concept companions and matching Muse avatar
   prompts, preserving the original refusal history. All 18 entries now have
-  preview art; the six concepts are alternatives rather than character likenesses.
+  preview art in that revision; these concepts were subsequently rejected and
+  removed as described above.
 - Handle image-load failures in the gallery and detail dialog, with a retry
   action. Reject malformed image records, asset/preview mismatches, missing
   files, and invalid PNG headers during builds. Add seven asset regression tests.

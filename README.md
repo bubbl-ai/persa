@@ -54,7 +54,7 @@ The first website implementation lives in [`web/`](web/), with paired character 
 
 | Area | Current behavior |
 | --- | --- |
-| Character gallery | All 18 candidates have preview art on desktop and mobile: 12 character interpretations and six labeled original concept companions. The launch ten have not been selected. |
+| Character gallery | All 18 candidates remain available on desktop and mobile. Previews must depict the named figure; unrelated concept companions are not used. The launch ten have not been selected. |
 | Combo preview | Matching avatar, character description, traits, and three authored example replies. Examples illustrate the original preset; they are not live model responses and do not change with the sliders. |
 | Tone controls | Warmth, humor, directness, and response length update the compiled personality instructions immediately. Reset restores that character's defaults. |
 | My collection | Saves favorites and voice settings in this browser's `localStorage`. There is no account or cross-device sync; clearing browser storage removes them. |
@@ -62,22 +62,15 @@ The first website implementation lives in [`web/`](web/), with paired character 
 | Download | Exports the selected persona, compiled personality, and avatar prompt as JSON. There is no JSON import or restore control yet. |
 | Grok Bot | Secondary option to copy personality text for a Bot's Description. It uses the `plain` compiler target, independently of the CLI's older `grok` Custom Agent target. |
 
-The first publication had six empty previews because the image service declined those requests; the files were never generated. The other twelve images were confirmed to load from the public site. The six affected entries now use original themed companions with a **Concept avatar** label and a matching Muse avatar prompt:
+The first publication had six empty previews because the image service declined those requests; the files were never generated. A subsequent change substituted unrelated concept companions for Taylor Swift, Michael Jackson, Lionel Messi, Harry Potter, SpongeBob, and The Joker. The user rejected those substitutions. The six mascots and their prompt overrides have been removed, and all avatar prompts again describe the named figures.
 
-| Personality | Original concept companion |
-| --- | --- |
-| Taylor Swift | Songwriter Star |
-| Michael Jackson | Rhythm Robot |
-| Lionel Messi | Football Otter |
-| Harry Potter | Book Owl |
-| SpongeBob | Sunny Crab |
-| The Joker | Playful Fox |
+Original generation results and retired substitutes are recorded in the image manifest. Retired artwork is available in Git history and is not shipped in the website. Gallery illustrations show an intended appearance, not an avatar already installed in Muse. If matching artwork cannot be produced, the entry stays explicitly unavailable rather than displaying another subject.
 
-These six companions are not likenesses of the named people or characters. Their personality presets are unchanged, and their copied avatar prompts describe the replacement artwork. Original refusal records remain in the image manifest alongside the successful replacement records. Gallery illustrations show an intended appearance, not an avatar already installed in Muse.
+The correction produced a new Taylor Swift illustration. **Thirteen previews are available; Michael Jackson, Lionel Messi, Harry Potter, SpongeBob, and The Joker remain unavailable** because the image service declined their new requests. Their correct personality and named avatar prompts remain usable. Completing these five previews requires suitable matching artwork; the gallery is not visually complete yet.
 
 If an image request fails in the browser, the gallery and character dialog show a readable error state. Reopening the character retries the image, and the dialog also provides **Retry image**. Personality tuning and copying remain available while the image is unavailable.
 
-The remaining product work is to choose the launch ten, review the six original companion alternatives, and verify the actual Muse setup on desktop and mobile. Direct avatar import, personality persistence between conversations, replacement, and removal have not been tested in a signed-in Muse account. Persa does not currently connect to a Muse API or synchronize later changes.
+The remaining product work is to choose the launch ten, review avatar likenesses, and verify the actual Muse setup on desktop and mobile. Direct avatar import, personality persistence between conversations, replacement, and removal have not been tested in a signed-in Muse account. Persa does not currently connect to a Muse API or synchronize later changes.
 
 ### Run the website
 
@@ -95,11 +88,10 @@ Run these commands from the repository root with Node 20 or newer. The preview s
 | Location | Responsibility |
 | --- | --- |
 | [`characters/catalog.js`](characters/catalog.js) | Character identity, persona definitions, matching Muse avatar prompt, preview path, and authored sample replies. `launchSelection` is empty; it records a future selection and does not filter the current gallery. |
-| [`characters/avatar-concepts.js`](characters/avatar-concepts.js) | The six original companion names and appearances used to keep replacement previews and Muse prompts aligned. |
-| [`characters/image-generation.json`](characters/image-generation.json) | Exact prompts used to generate gallery art, output paths, and success or refusal records. A `replacement` object records a successful original concept without overwriting the original result. Generation prompts are separate from the Muse setup prompts. |
-| [`web/avatars/`](web/avatars/) | Eighteen generated PNG previews, including six original alternatives in `concepts/`, committed with the source. |
+| [`characters/image-generation.json`](characters/image-generation.json) | Exact generation prompts, output paths, and success/refusal records. Active `replacement` records must use `kind: "character"` and the matching `subjectId`; `supersededReplacements` preserves retired attempts. Generation prompts are separate from the Muse setup prompts. |
+| [`web/avatars/`](web/avatars/) | Current character PNG previews, committed with the source. |
 | [`web/app.js`](web/app.js), [`web/styles.css`](web/styles.css), [`web/index.html`](web/index.html) | Static browser app, responsive layout, dialogs, local saving, clipboard actions, and downloads. |
-| [`scripts/build-web.js`](scripts/build-web.js), [`scripts/avatar-assets.js`](scripts/avatar-assets.js) | Validate character and image IDs, statuses, persona data, asset/preview path agreement, PNG headers and dimensions, and launch IDs; compile the Muse prompts; write `dist/catalog.json` and copy the app and shared compiler to `dist/`. Missing or invalid declared images fail the build. |
+| [`scripts/build-web.js`](scripts/build-web.js), [`scripts/avatar-assets.js`](scripts/avatar-assets.js) | Validate character and image IDs, replacement subjects, statuses, persona data, asset/preview path agreement, PNG headers and dimensions, and launch IDs; compile the Muse prompts; rebuild `dist/` with the app, catalog, and shared compiler. Missing or invalid declared images fail the build; retired assets are removed from the output. |
 | [`src/compile.js`](src/compile.js), [`src/traits.js`](src/traits.js), [`src/targets.js`](src/targets.js), [`src/errors.js`](src/errors.js) | Shared personality compiler used by both the website and CLI. Extracting `PersonaError` avoids pulling Node filesystem code into the browser; `src/persona.js` still re-exports it for existing callers. |
 | [`scripts/preview-web.js`](scripts/preview-web.js) | Local static preview server. |
 | [`.openai/hosting.json`](.openai/hosting.json) | Existing Sites project identity and `dist/` hosting configuration. Site access is managed separately in Sites. |
@@ -112,7 +104,7 @@ The October 5 build passed `npm run build:web`, `node --check web/app.js`, all 6
 
 Those browser checks were run with a temporary Playwright harness outside the repository. They are a recorded validation of this build, not a committed browser test suite or CI job. They do not establish end-to-end Muse integration.
 
-The avatar repair adds seven committed regression tests in [`test/avatar-assets.test.js`](test/avatar-assets.test.js) for shipped asset references, replacement provenance, declined requests, malformed manifests, unsafe or mismatched paths, invalid/missing PNGs, and concept labels. The full suite now has 68 tests. Browser validation for the repair checks all 18 decoded previews, all six concept labels and matching copied prompts, narrow mobile layouts, simulated image-request failure, copying while an image is unavailable, and recovery through **Retry image**.
+The avatar repair adds seven committed regression tests in [`test/avatar-assets.test.js`](test/avatar-assets.test.js) for named avatar prompts, shipped asset references, replacement provenance, declined requests, malformed manifests, unsafe or mismatched paths, invalid/missing PNGs, and rejection of unrelated substitutes. The full suite has 68 tests. Browser validation also covers narrow mobile layouts, simulated image-request failure, copying while an image is unavailable, and recovery in both the dialog and gallery through **Retry image**. Image loading tests alone do not verify likeness; artwork needs visual review against the requested figure.
 
 ---
 

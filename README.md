@@ -4,6 +4,8 @@
 
 **A personality layer for personal agents.** Write down how you want an agent to talk to you — once — and install it into Muse, Grok, Instinct, Claude, ChatGPT, or anything else with a text box.
 
+**Try the Muse character website:** [persa-muse-characters.archerx03.chatgpt.site](https://persa-muse-characters.archerx03.chatgpt.site). As of October 5, 2026, the site is public: anyone with the link can view it. Each character pairs a personality with a matching avatar prompt; applying the combo in Muse currently requires copy and paste.
+
 Personal agents in 2026 are good at doing things and bad at sounding like anything. Most ship one house voice; the ones that let you change it make you write a system prompt from scratch, per agent, and rewrite it when you change your mind. Persa makes the personality a small file you own, and handles the rest.
 
 ```
@@ -17,7 +19,7 @@ These commands run from a source checkout; see [Install](#install). The reposito
 
 ## Current product focus
 
-**Decision clarified October 5, 2026: Meta Muse remains Persa's primary focus. The mobile-friendly website will offer default Muse character presets, each combining a personality layer with a matching Muse avatar.** Grok Bot personality compatibility is secondary.
+**Decision clarified October 5, 2026: Meta Muse remains Persa's primary focus. The mobile-friendly website offers default Muse character presets, each combining a personality layer with a matching Muse avatar prompt.** Grok Bot personality compatibility is secondary.
 
 ### Default Muse character combos
 
@@ -27,7 +29,7 @@ These commands run from a source checkout; see [Install](#install). The reposito
 - The desired Muse experience includes one-click import of the avatar prompt. The supported import mechanism still needs verification; copying a prompt must not be presented as a completed import.
 - Users browse and choose the combo as a single preset. Personality instructions and avatar prompts may require different technical steps to apply, but both belong to the selected Muse character.
 
-The proposed primary flow is: browse default Muse characters → preview the matching avatar and personality → choose the combo → use it in Muse. Tuning, saving, and restoring a profile remain part of the proposed experience. Grok Bot support should reuse the personality component as a secondary option.
+The implemented flow is: browse default Muse characters → preview the matching avatar and personality → tune the voice → copy the combo → open Muse and paste. Users can save combos and their tone settings in the current browser. Grok Bot reuses the personality component as a secondary copy option.
 
 ### First default Muse batch: candidate roster
 
@@ -46,7 +48,23 @@ Primary-source review on October 5, 2026:
 - **Muse combo behavior:** Verify that the chosen personality and matching avatar can both be applied, then test personality persistence across later conversations, replacement, and removal. Automatic application and synchronization remain unverified for Persa.
 - **Secondary Grok Bot compatibility:** Official guidance puts durable preferences in the Bot's Description and supports sharing an existing Bot through a template link. Recipients review it and add their own copy in Grok Bot. This is a possible personality distribution path; generating those templates directly from Persa has not been verified. The existing `grok` compiler target describes a different Custom Agent flow, so its 4,000-character budget is not a verified Grok Bot limit. See [Create and manage Bots](https://docs.x.ai/grok-bot/bots) and [Templates for Grok Bot](https://x.ai/bot/guides/templates-for-grok-bot).
 
-The first website implementation lives in `web/`, with paired character definitions in `characters/catalog.js`. It includes all 18 candidates for review, live tone adjustments using the shared compiler, device-local saved combos, downloads, and a copy-and-paste Muse setup flow. Twelve generated avatar previews are available; six image requests were declined by the image service and display an explicit unavailable-preview state. Their personality and avatar prompts remain available. The final launch ten and direct Muse import integration are still pending.
+### Website status — October 5, 2026
+
+The first website implementation lives in [`web/`](web/), with paired character definitions in [`characters/catalog.js`](characters/catalog.js). It is published through Sites at the public URL above.
+
+| Area | Current behavior |
+| --- | --- |
+| Character gallery | All 18 candidates are browsable on desktop and mobile. Characters with images appear first. The launch ten have not been selected. |
+| Combo preview | Matching avatar, character description, traits, and three authored example replies. Examples illustrate the original preset; they are not live model responses and do not change with the sliders. |
+| Tone controls | Warmth, humor, directness, and response length update the compiled personality instructions immediately. Reset restores that character's defaults. |
+| My collection | Saves favorites and voice settings in this browser's `localStorage`. There is no account or cross-device sync; clearing browser storage removes them. |
+| Muse setup | Copies one message containing the personality and matching avatar prompt. Separate copy buttons are also available. The user opens Muse and pastes the instructions. |
+| Download | Exports the selected persona, compiled personality, and avatar prompt as JSON. There is no JSON import or restore control yet. |
+| Grok Bot | Secondary option to copy personality text for a Bot's Description. It uses the `plain` compiler target, independently of the CLI's older `grok` Custom Agent target. |
+
+Twelve generated avatar previews are available. **Taylor Swift, Michael Jackson, Lionel Messi, Harry Potter, SpongeBob, and The Joker** show an unavailable-preview state because the image service declined those requests. All six still have a personality and avatar prompt. The illustrations show an intended appearance, not an avatar already installed in Muse.
+
+The remaining product work is to choose the launch ten, resolve the six missing previews, and verify the actual Muse setup on desktop and mobile. Direct avatar import, personality persistence between conversations, replacement, and removal have not been tested in a signed-in Muse account. Persa does not currently connect to a Muse API or synchronize later changes.
 
 ### Run the website
 
@@ -57,9 +75,28 @@ npm run preview:web
 # Open http://127.0.0.1:4173
 ```
 
-The build validates the character catalog, compiles each personality with the existing Muse target, and writes the static website to `dist/`. Browser-side tone changes reuse the same compiler. `src/errors.js` keeps the shared compiler independent of Node filesystem imports; the CLI and file adapters retain their existing API.
+Run these commands from the repository root with Node 20 or newer. The preview server binds to `127.0.0.1:4173` and serves the last build; rebuild after source changes. Opening `web/index.html` directly does not supply the generated catalog or shared compiler files.
 
-Character images and their exact generation prompts are recorded in `characters/image-generation.json`; generated assets are stored in `web/avatars/`. All images were produced with the built-in image generation tool. The website stores favorites and tone settings only in this browser, and downloading a combo includes both the personality and avatar prompt. The existing local editor and MCP HTTP server are not used as the website's backend.
+### How the website fits the repository
+
+| Location | Responsibility |
+| --- | --- |
+| [`characters/catalog.js`](characters/catalog.js) | Character identity, persona definitions, matching Muse avatar prompt, preview path, and authored sample replies. `launchSelection` is empty; it records a future selection and does not filter the current gallery. |
+| [`characters/image-generation.json`](characters/image-generation.json) | Exact prompts used to generate gallery art, output paths, and success or refusal records. These generation prompts are separate from the Muse setup prompts in the catalog. |
+| [`web/avatars/`](web/avatars/) | Twelve generated PNG previews, committed with the source. |
+| [`web/app.js`](web/app.js), [`web/styles.css`](web/styles.css), [`web/index.html`](web/index.html) | Static browser app, responsive layout, dialogs, local saving, clipboard actions, and downloads. |
+| [`scripts/build-web.js`](scripts/build-web.js) | Validates character IDs, persona data, image records, generated asset paths, and launch IDs; compiles the Muse prompts; writes `dist/catalog.json` and copies the app and shared compiler to `dist/`. |
+| [`src/compile.js`](src/compile.js), [`src/traits.js`](src/traits.js), [`src/targets.js`](src/targets.js), [`src/errors.js`](src/errors.js) | Shared personality compiler used by both the website and CLI. Extracting `PersonaError` avoids pulling Node filesystem code into the browser; `src/persona.js` still re-exports it for existing callers. |
+| [`scripts/preview-web.js`](scripts/preview-web.js) | Local static preview server. |
+| [`.openai/hosting.json`](.openai/hosting.json) | Existing Sites project identity and `dist/` hosting configuration. Site access is managed separately in Sites. |
+
+The website has no application backend, model calls, or API-key requirement. The existing CLI editor and MCP server remain separate tools. Generated `dist/` output is ignored by Git; the npm package still distributes the CLI/library rather than the website source. Changing GitHub `main` alone does not publish the website; Sites publication is a separate step.
+
+### Website verification
+
+The October 5 build passed `npm run build:web`, `node --check web/app.js`, all 61 existing tests via `npm test`, and `git diff --check`. Browser checks passed for all 18 cards, all 12 available images, unavailable previews, live prompt tuning, save/reload/reset, both combined and avatar-only clipboard actions, JSON download, the empty saved collection, and Escape-to-close behavior. Layouts were checked at 1440, 390, and 320 pixels without horizontal overflow or browser page errors.
+
+Those browser checks were run with a temporary Playwright harness outside the repository. They are a recorded validation of this build, not a committed browser test suite or CI job. They do not establish end-to-end Muse integration.
 
 ---
 
@@ -140,7 +177,7 @@ Sable — /Users/you/persona.yaml
 
 ## Install
 
-Node 20 or newer. No build step, and two dependencies.
+Node 20 or newer. The CLI/library has no build step and two dependencies. The website uses the separate build command above.
 
 Install from the repository until an npm release is available:
 

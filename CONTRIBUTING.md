@@ -14,7 +14,26 @@ node src/cli.js init      # a persona to play with
 node src/cli.js edit      # the editor, on localhost
 ```
 
-There are no build steps and no dependencies beyond `yaml` and the MCP SDK.
+The CLI/library has no build step and depends on `yaml` and the MCP SDK.
+
+For the Muse character website:
+
+```bash
+npm run build:web
+npm run preview:web       # http://127.0.0.1:4173
+```
+
+The preview serves the last `dist/` build; rebuild after edits. The website is a
+static browser app that reuses the personality compiler. See the
+[website status and architecture](README.md#website-status--october-5-2026)
+for the implemented flow, asset coverage, and remaining Muse integration work.
+
+Character presets belong in `characters/catalog.js`; each must include both a
+personality and a matching Muse avatar prompt. Keep gallery image generation
+prompts and results in `characters/image-generation.json`, with available PNGs
+in `web/avatars/`. Preserve an explicit unavailable-preview state when an image
+is missing. All 18 current candidates remain visible; the launch ten have not
+been selected.
 
 ## Adding or fixing a target
 
@@ -45,6 +64,13 @@ argument parsing and exit codes are where CLIs actually break.
 CI runs the suite on Node 20, 22 and 24. A separate packaging job installs the
 tarball from `npm pack` in a clean project and runs the binary. There is no
 publish workflow; a passing packaging job does not publish an npm release.
+
+For website changes, run `npm run build:web` and `node --check web/app.js`.
+Exercise affected browser flows at desktop and narrow mobile widths, including
+keyboard dismissal, clipboard actions, and save/reload when relevant. The
+October 5 browser verification used a temporary Playwright harness; it is not
+part of the committed test suite. Existing CI covers the CLI/library and npm
+package, not website deployment or signed-in Muse behavior.
 
 ## Known gaps before the next release
 

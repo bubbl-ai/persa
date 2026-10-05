@@ -2,11 +2,27 @@
 
 Two routes: connect an MCP client, or paste compiled text into the agent's instructions or a message. An MCP client must fetch the persona again to see later edits; connecting alone does not guarantee it will apply every rule.
 
-**Documentation checked: 2 October 2026.** Links below identify the product documentation used for this review. These are documentation checks, not end-to-end tests in signed-in accounts. The character budgets in [`src/targets.js`](../src/targets.js) are Persa's configured values; a value of `null` means Persa does not trim, not that the receiving product has no limits. Where a current product limit or screen could not be verified, that is stated explicitly.
+**CLI setup documentation checked: 2 October 2026; website and Grok Bot notes updated: 5 October 2026.** Links below identify the product documentation used for these reviews. These are documentation checks, not end-to-end tests in signed-in accounts. The character budgets in [`src/targets.js`](../src/targets.js) are Persa's configured values; a value of `null` means Persa does not trim, not that the receiving product has no limits. Where a current product limit or screen could not be verified, that is stated explicitly.
 
 ---
 
 ## Meta Muse
+
+### Website character combos
+
+The [Persa website](https://persa-muse-characters.archerx03.chatgpt.site) is
+public as of October 5, 2026. Choose a character, adjust the tone, select
+**Use in Muse**, copy the combo, then open Muse and paste it into a conversation.
+The copied message includes both personality instructions and a matching
+avatar prompt. Separate copy controls are available for each component.
+
+This is a manual setup path. Persa does not yet provide a verified avatar import
+API or prefilled Muse link, and has not tested applying both parts in a signed-in
+Muse account. Gallery art illustrates the intended look; Muse's result may
+differ. Saving a combo in Persa saves it in the current browser, and does not
+update Muse. See the [current website status](../README.md#website-status--october-5-2026).
+
+### CLI and connector route
 
 **Route: a Custom Connector to try, or a remembered message.**
 
@@ -42,6 +58,13 @@ persa render --target grok
 Paste into the agent's instruction field if your account provides one. `persa check` tells you whether Persa would trim the text to fit its configured budget and what it would drop.
 
 [Grok Bot](https://docs.x.ai/grok-bot/overview) is separately documented as an agent with a persistent cloud computer that you interact with through messages. Reusing persona text there is possible as a request, but this guide has not verified that it uses the same instruction field or limit as the `grok` target.
+
+The website's secondary **Copy Bot description** option uses Persa's `plain`
+target for the selected personality. Paste that text into the Bot's Description
+under Edit Profile, following [Create and manage Bots](https://docs.x.ai/grok-bot/bots)
+(reviewed October 5, 2026). This is separate from the CLI Custom Agent target
+and its configured 4,000-character budget. The website does not create a Bot,
+generate a template link, or apply its Muse avatar to Grok.
 
 ---
 

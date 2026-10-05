@@ -9,13 +9,13 @@ import { existsSync } from 'node:fs';
 import path from 'node:path';
 import YAML from 'yaml';
 import { TRAIT_NAMES, EMOJI_RULES } from './traits.js';
+import { PersonaError } from './errors.js';
+export { PersonaError } from './errors.js';
 
 export const SPEC_VERSION = 1;
 
 /** Places we look for a persona when the user doesn't name one. */
 export const DEFAULT_FILENAMES = ['persona.yaml', 'persona.yml', '.persa.yaml'];
-
-export class PersonaError extends Error {}
 
 /** Find a persona file: an explicit path, then cwd, then ~/.persa/persona.yaml. */
 export function resolvePersonaPath(explicit) {

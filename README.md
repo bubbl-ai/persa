@@ -15,6 +15,52 @@ $ node src/cli.js serve           # or let MCP-capable agents just read it
 
 These commands run from a source checkout; see [Install](#install). The repository version is `0.1.0`, with further changes listed under [Unreleased](CHANGELOG.md). As of October 2, 2026, there is no published `persa` package on npm or tagged GitHub release.
 
+## Current product focus
+
+**Decision clarified October 5, 2026: Meta Muse remains Persa's primary focus. The mobile-friendly website will offer default Muse character presets, each combining a personality layer with a matching Muse avatar.** Grok Bot personality compatibility is secondary.
+
+### Default Muse character combos
+
+- Each preset is one complete character combo: **personality layer + Muse avatar**. The personality defines the character's voice, tone, response style, and behavioral preferences; the avatar gives that same character its visual identity.
+- The supplied people and characters below define the candidate pool for the first batch of default Muse combos. Each selected character gets both a personality and a matching avatar prompt.
+- The visual direction is a recognizable, cute, Muse-inspired version of each person or character. The avatar and personality should feel like the same character.
+- The desired Muse experience includes one-click import of the avatar prompt. The supported import mechanism still needs verification; copying a prompt must not be presented as a completed import.
+- Users browse and choose the combo as a single preset. Personality instructions and avatar prompts may require different technical steps to apply, but both belong to the selected Muse character.
+
+The proposed primary flow is: browse default Muse characters → preview the matching avatar and personality → choose the combo → use it in Muse. Tuning, saving, and restoring a profile remain part of the proposed experience. Grok Bot support should reuse the personality component as a secondary option.
+
+### First default Muse batch: candidate roster
+
+**Keep all 18 supplied candidates; choose 10 default Muse combos for launch later.** The launch selection has not been made. Every selected preset includes both components.
+
+| Group | Candidates |
+| --- | --- |
+| Public figures (11) | Mark Zuckerberg; Taylor Swift; Charlie Chaplin; Michael Jackson; Olivia Rodrigo; Marilyn Monroe; Drake; Lionel Messi; Kylie Jenner; MrBeast; Dwayne “The Rock” Johnson |
+| Fictional and art characters (7) | Mona Lisa; Barbie; Wednesday Addams; Harry Potter; SpongeBob; Hello Kitty; The Joker |
+
+### Integration questions to validate
+
+Primary-source review on October 5, 2026:
+
+- **Muse avatars:** Meta describes reference-media-driven avatars, but cautions that its research examples do not all represent avatars available in the Muse app. A public avatar-prompt import API or prefilled deep link has not been verified. Validate the actual mobile avatar workflow and direct import before choosing the final interaction; a clearly labeled copy-and-paste fallback can be evaluated if needed. See [Bringing Your Muse to Life](https://research.meta.ai/blog/bringing-your-muse-to-life).
+- **Muse combo behavior:** Verify that the chosen personality and matching avatar can both be applied, then test personality persistence across later conversations, replacement, and removal. Automatic application and synchronization remain unverified for Persa.
+- **Secondary Grok Bot compatibility:** Official guidance puts durable preferences in the Bot's Description and supports sharing an existing Bot through a template link. Recipients review it and add their own copy in Grok Bot. This is a possible personality distribution path; generating those templates directly from Persa has not been verified. The existing `grok` compiler target describes a different Custom Agent flow, so its 4,000-character budget is not a verified Grok Bot limit. See [Create and manage Bots](https://docs.x.ai/grok-bot/bots) and [Templates for Grok Bot](https://x.ai/bot/guides/templates-for-grok-bot).
+
+The first website implementation lives in `web/`, with paired character definitions in `characters/catalog.js`. It includes all 18 candidates for review, live tone adjustments using the shared compiler, device-local saved combos, downloads, and a copy-and-paste Muse setup flow. Twelve generated avatar previews are available; six image requests were declined by the image service and display an explicit unavailable-preview state. Their personality and avatar prompts remain available. The final launch ten and direct Muse import integration are still pending.
+
+### Run the website
+
+```bash
+npm ci
+npm run build:web
+npm run preview:web
+# Open http://127.0.0.1:4173
+```
+
+The build validates the character catalog, compiles each personality with the existing Muse target, and writes the static website to `dist/`. Browser-side tone changes reuse the same compiler. `src/errors.js` keeps the shared compiler independent of Node filesystem imports; the CLI and file adapters retain their existing API.
+
+Character images and their exact generation prompts are recorded in `characters/image-generation.json`; generated assets are stored in `web/avatars/`. All images were produced with the built-in image generation tool. The website stores favorites and tone settings only in this browser, and downloading a combo includes both the personality and avatar prompt. The existing local editor and MCP HTTP server are not used as the website's backend.
+
 ---
 
 ## The idea in one screen

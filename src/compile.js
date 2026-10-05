@@ -13,7 +13,7 @@
  */
 import { TRAIT_NAMES, EMOJI_RULES, phraseFor } from './traits.js';
 import { getTarget, TARGET_IDS } from './targets.js';
-import { PersonaError } from './persona.js';
+import { PersonaError } from './errors.js';
 
 const MESSAGE_PREFIX =
   "Here's how I want you to talk and behave with me from now on. Remember it and apply it to every reply, including short ones.";

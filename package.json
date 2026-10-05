@@ -26,7 +26,9 @@
   },
   "scripts": {
     "test": "node --test test/*.test.js",
-    "start": "node src/cli.js"
+    "start": "node src/cli.js",
+    "build:web": "node scripts/build-web.js",
+    "preview:web": "node scripts/preview-web.js"
   },
   "keywords": [
     "mcp",

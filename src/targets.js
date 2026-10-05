@@ -8,7 +8,7 @@
  * cap.
  */
 
-import { PersonaError } from './persona.js';
+import { PersonaError } from './errors.js';
 
 /**
  * @typedef {object} Target

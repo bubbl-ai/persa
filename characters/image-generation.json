@@ -1,0 +1,146 @@
+[
+  {
+    "id": "mark-zuckerberg",
+    "status": "generated",
+    "tool": "built-in image_gen",
+    "prompt": "Use case: stylized-concept\nAsset type: square character avatar for the Persa Muse personality gallery\nScene/backdrop: seamless pale lilac background #efedf8.\nSubject: Mark Zuckerberg, curly brown hair, plain gray t-shirt.\nStyle/medium: cute original 3D clay collectible Muse-inspired chibi companion, full body, oversized rounded head, small rounded body, glossy dark expressive eyes, subtle smile, soft matte vinyl material, recognizable stylized character-inspired likeness.\nComposition/framing: square image; one character centered, occupying 75% of image height. Entire head and feet visible with generous margin.\nLighting/mood: simple soft studio lighting, gentle ground shadow, warm friendly presence.\nConstraints: illustrative character preset; no endorsement implication or actual photograph. No text, no logos, no UI.",
+    "asset": "web/avatars/mark-zuckerberg.png",
+    "failure": null
+  },
+  {
+    "id": "taylor-swift",
+    "status": "declined",
+    "tool": "built-in image_gen",
+    "prompt": "Use case: stylized-concept\nAsset type: square character avatar for the Persa Muse personality gallery\nScene/backdrop: seamless pale lilac background #efedf8.\nSubject: Taylor Swift, blonde bangs, red lipstick, shimmering lavender stage dress.\nStyle/medium: cute original 3D clay collectible Muse-inspired chibi companion, full body, oversized rounded head, small rounded body, glossy dark expressive eyes, subtle smile, soft matte vinyl material, recognizable stylized character-inspired likeness.\nComposition/framing: square image; one character centered, occupying 75% of image height. Entire head and feet visible with generous margin.\nLighting/mood: simple soft studio lighting, gentle ground shadow, warm friendly presence.\nConstraints: illustrative character preset; no endorsement implication or actual photograph. No text, no logos, no UI.",
+    "asset": null,
+    "failure": "Image service rejected request at input-stage safety moderation; category: public-figure."
+  },
+  {
+    "id": "charlie-chaplin",
+    "status": "generated",
+    "tool": "built-in image_gen",
+    "prompt": "Use case: stylized-concept\nAsset type: square character avatar for the Persa Muse personality gallery\nScene/backdrop: seamless pale lilac background #efedf8.\nSubject: Charlie Chaplin, bowler hat, black suit, toothbrush mustache, holding a cane.\nStyle/medium: cute original 3D clay collectible Muse-inspired chibi companion, full body, oversized rounded head, small rounded body, glossy dark expressive eyes, subtle smile, soft matte vinyl material, recognizable stylized character-inspired likeness.\nComposition/framing: square image; one character centered, occupying 75% of image height. Entire head and feet visible with generous margin.\nLighting/mood: simple soft studio lighting, gentle ground shadow, warm friendly presence.\nConstraints: illustrative character preset; no endorsement implication or actual photograph. No text, no logos, no UI.",
+    "asset": "web/avatars/charlie-chaplin.png",
+    "failure": null
+  },
+  {
+    "id": "michael-jackson",
+    "status": "declined",
+    "tool": "built-in image_gen",
+    "prompt": "Use case: stylized-concept\nAsset type: square character avatar for the Persa Muse personality gallery\nScene/backdrop: seamless pale lilac background #efedf8.\nSubject: Michael Jackson, black fedora, one white glove, red Thriller-style jacket.\nStyle/medium: cute original 3D clay collectible Muse-inspired chibi companion, full body, oversized rounded head, small rounded body, glossy dark expressive eyes, subtle smile, soft matte vinyl material, recognizable stylized character-inspired likeness.\nComposition/framing: square image; one character centered, occupying 75% of image height. Entire head and feet visible with generous margin.\nLighting/mood: simple soft studio lighting, gentle ground shadow, warm friendly presence.\nConstraints: illustrative character preset; no endorsement implication or actual photograph. No text, no logos, no UI.",
+    "asset": null,
+    "failure": "Image service rejected request at input-stage safety moderation; category: public-figure."
+  },
+  {
+    "id": "olivia-rodrigo",
+    "status": "generated",
+    "tool": "built-in image_gen",
+    "prompt": "Use case: stylized-concept\nAsset type: square character avatar for the Persa Muse personality gallery\nScene/backdrop: seamless pale lilac background #efedf8.\nSubject: Olivia Rodrigo, long dark hair, lilac outfit.\nStyle/medium: cute original 3D clay collectible Muse-inspired chibi companion, full body, oversized rounded head, small rounded body, glossy dark expressive eyes, subtle smile, soft matte vinyl material, recognizable stylized character-inspired likeness.\nComposition/framing: square image; one character centered, occupying 75% of image height. Entire head and feet visible with generous margin.\nLighting/mood: simple soft studio lighting, gentle ground shadow, warm friendly presence.\nConstraints: illustrative character preset; no endorsement implication or actual photograph. No text, no logos, no UI.",
+    "asset": "web/avatars/olivia-rodrigo.png",
+    "failure": null
+  },
+  {
+    "id": "marilyn-monroe",
+    "status": "generated",
+    "tool": "built-in image_gen",
+    "prompt": "Use case: stylized-concept\nAsset type: square character avatar for the Persa Muse personality gallery\nScene/backdrop: seamless pale lilac background #efedf8.\nSubject: Marilyn Monroe, platinum curls, white halter dress, red lips.\nStyle/medium: cute original 3D clay collectible Muse-inspired chibi companion, full body, oversized rounded head, small rounded body, glossy dark expressive eyes, subtle smile, soft matte vinyl material, recognizable stylized character-inspired likeness.\nComposition/framing: square image; one character centered, occupying 75% of image height. Entire head and feet visible with generous margin.\nLighting/mood: simple soft studio lighting, gentle ground shadow, warm friendly presence.\nConstraints: illustrative character preset; no endorsement implication or actual photograph. No text, no logos, no UI.",
+    "asset": "web/avatars/marilyn-monroe.png",
+    "failure": null
+  },
+  {
+    "id": "drake",
+    "status": "generated",
+    "tool": "built-in image_gen",
+    "prompt": "Use case: stylized-concept\nAsset type: square character avatar for the Persa Muse personality gallery\nScene/backdrop: seamless pale lilac background #efedf8.\nSubject: Drake, short dark hair, groomed beard, dark jacket.\nStyle/medium: cute original 3D clay collectible Muse-inspired chibi companion, full body, oversized rounded head, small rounded body, glossy dark expressive eyes, subtle smile, soft matte vinyl material, recognizable stylized character-inspired likeness.\nComposition/framing: square image; one character centered, occupying 75% of image height. Entire head and feet visible with generous margin.\nLighting/mood: simple soft studio lighting, gentle ground shadow, warm friendly presence.\nConstraints: illustrative character preset; no endorsement implication or actual photograph. No text, no logos, no UI.",
+    "asset": "web/avatars/drake.png",
+    "failure": null
+  },
+  {
+    "id": "lionel-messi",
+    "status": "declined",
+    "tool": "built-in image_gen",
+    "prompt": "Use case: stylized-concept\nAsset type: square character avatar for the Persa Muse personality gallery\nScene/backdrop: seamless pale lilac background #efedf8.\nSubject: Lionel Messi, brown hair, neat beard, sky blue and white striped football jersey without logos.\nStyle/medium: cute original 3D clay collectible Muse-inspired chibi companion, full body, oversized rounded head, small rounded body, glossy dark expressive eyes, subtle smile, soft matte vinyl material, recognizable stylized character-inspired likeness.\nComposition/framing: square image; one character centered, occupying 75% of image height. Entire head and feet visible with generous margin.\nLighting/mood: simple soft studio lighting, gentle ground shadow, warm friendly presence.\nConstraints: illustrative character preset; no endorsement implication or actual photograph. No text, no logos, no UI.",
+    "asset": null,
+    "failure": "Image service rejected request at input-stage safety moderation; category: public-figure."
+  },
+  {
+    "id": "kylie-jenner",
+    "status": "generated",
+    "tool": "built-in image_gen",
+    "prompt": "Use case: stylized-concept\nAsset type: square character avatar for the Persa Muse personality gallery\nScene/backdrop: seamless pale lilac background #efedf8.\nSubject: Kylie Jenner, long dark hair, black outfit.\nStyle/medium: cute original 3D clay collectible Muse-inspired chibi companion, full body, oversized rounded head, small rounded body, glossy dark expressive eyes, subtle smile, soft matte vinyl material, recognizable stylized character-inspired likeness.\nComposition/framing: square image; one character centered, occupying 75% of image height. Entire head and feet visible with generous margin.\nLighting/mood: simple soft studio lighting, gentle ground shadow, warm friendly presence.\nConstraints: illustrative character preset; no endorsement implication or actual photograph. No text, no logos, no UI.",
+    "asset": "web/avatars/kylie-jenner.png",
+    "failure": null
+  },
+  {
+    "id": "wednesday",
+    "status": "generated",
+    "tool": "built-in image_gen",
+    "prompt": "Use case: stylized-concept\nAsset type: square character avatar for the Persa Muse personality gallery\nScene/backdrop: seamless pale lilac background #efedf8.\nSubject: Wednesday Addams, dark braids, black dress with a white collar, deadpan expression.\nStyle/medium: cute original 3D clay collectible Muse-inspired chibi companion, full body, oversized rounded head, small rounded body, glossy dark expressive eyes, subtle smile unless an expression is specified for this subject, soft matte vinyl material, recognizable stylized character-inspired likeness.\nComposition/framing: square image; one character centered, occupying 75% of image height. Entire head and feet visible with generous margin.\nLighting/mood: simple soft studio lighting, gentle ground shadow, warm friendly presence.\nConstraints: illustrative character preset; no endorsement implication or actual photograph. No text, no logos, no UI.",
+    "asset": "web/avatars/wednesday.png",
+    "failure": null
+  },
+  {
+    "id": "mona-lisa",
+    "status": "generated",
+    "tool": "built-in image_gen",
+    "prompt": "Use case: stylized-concept\nAsset type: square character avatar for the Persa Muse personality gallery\nScene/backdrop: seamless pale lilac background #efedf8.\nSubject: Mona Lisa, long center-part brown hair, Renaissance olive gown, enigmatic smile.\nStyle/medium: cute original 3D clay collectible Muse-inspired chibi companion, full body, oversized rounded head, small rounded body, glossy dark expressive eyes, subtle smile unless an expression is specified for this subject, soft matte vinyl material, recognizable stylized character-inspired likeness.\nComposition/framing: square image; one character centered, occupying 75% of image height. Entire head and feet visible with generous margin.\nLighting/mood: simple soft studio lighting, gentle ground shadow, warm friendly presence.\nConstraints: illustrative character preset; no endorsement implication or actual photograph. No text, no logos, no UI.",
+    "asset": "web/avatars/mona-lisa.png",
+    "failure": null
+  },
+  {
+    "id": "barbie",
+    "status": "generated",
+    "tool": "built-in image_gen",
+    "prompt": "Use case: stylized-concept\nAsset type: square character avatar for the Persa Muse personality gallery\nScene/backdrop: seamless pale lilac background #efedf8.\nSubject: Barbie, long blonde hair, bright pink dress.\nStyle/medium: cute original 3D clay collectible Muse-inspired chibi companion, full body, oversized rounded head, small rounded body, glossy dark expressive eyes, subtle smile unless an expression is specified for this subject, soft matte vinyl material, recognizable stylized character-inspired likeness.\nComposition/framing: square image; one character centered, occupying 75% of image height. Entire head and feet visible with generous margin.\nLighting/mood: simple soft studio lighting, gentle ground shadow, warm friendly presence.\nConstraints: illustrative character preset; no endorsement implication or actual photograph. No text, no logos, no UI.",
+    "asset": "web/avatars/barbie.png",
+    "failure": null
+  },
+  {
+    "id": "harry-potter",
+    "status": "declined",
+    "tool": "built-in image_gen",
+    "prompt": "Use case: stylized-concept\nAsset type: square character avatar for the Persa Muse personality gallery\nScene/backdrop: seamless pale lilac background #efedf8.\nSubject: Harry Potter, round glasses, messy black hair, lightning scar, black robe, burgundy and gold scarf, holding a wand.\nStyle/medium: cute original 3D clay collectible Muse-inspired chibi companion, full body, oversized rounded head, small rounded body, glossy dark expressive eyes, subtle smile unless an expression is specified for this subject, soft matte vinyl material, recognizable stylized character-inspired likeness.\nComposition/framing: square image; one character centered, occupying 75% of image height. Entire head and feet visible with generous margin.\nLighting/mood: simple soft studio lighting, gentle ground shadow, warm friendly presence.\nConstraints: illustrative character preset; no endorsement implication or actual photograph. No text, no logos, no UI.",
+    "asset": null,
+    "failure": "Image service rejected result at output-stage safety moderation; category: other."
+  },
+  {
+    "id": "mrbeast",
+    "status": "generated",
+    "tool": "built-in image_gen",
+    "prompt": "Use case: stylized-concept\nAsset type: square character avatar for the Persa Muse personality gallery\nScene/backdrop: seamless pale lilac background #efedf8.\nSubject: MrBeast (Jimmy Donaldson), short swept brown hair, trimmed beard, black t-shirt.\nStyle/medium: cute original 3D clay collectible Muse-inspired chibi companion, full body, oversized rounded head, small rounded body, glossy dark expressive eyes, subtle smile unless an expression is specified for this subject, soft matte vinyl material, recognizable stylized character-inspired likeness.\nComposition/framing: square image; one character centered, occupying 75% of image height. Entire head and feet visible with generous margin.\nLighting/mood: simple soft studio lighting, gentle ground shadow, warm friendly presence.\nConstraints: illustrative character preset; no endorsement implication or actual photograph. No text, no logos, no UI.",
+    "asset": "web/avatars/mrbeast.png",
+    "failure": null
+  },
+  {
+    "id": "the-rock",
+    "status": "generated",
+    "tool": "built-in image_gen",
+    "prompt": "Use case: stylized-concept\nAsset type: square character avatar for the Persa Muse personality gallery\nScene/backdrop: seamless pale lilac background #efedf8.\nSubject: Dwayne The Rock Johnson, bald, muscular, charcoal t-shirt, raised eyebrow.\nStyle/medium: cute original 3D clay collectible Muse-inspired chibi companion, full body, oversized rounded head, small rounded body, glossy dark expressive eyes, subtle smile unless an expression is specified for this subject, soft matte vinyl material, recognizable stylized character-inspired likeness.\nComposition/framing: square image; one character centered, occupying 75% of image height. Entire head and feet visible with generous margin.\nLighting/mood: simple soft studio lighting, gentle ground shadow, warm friendly presence.\nConstraints: illustrative character preset; no endorsement implication or actual photograph. No text, no logos, no UI.",
+    "asset": "web/avatars/the-rock.png",
+    "failure": null
+  },
+  {
+    "id": "spongebob",
+    "status": "declined",
+    "tool": "built-in image_gen",
+    "prompt": "Use case: stylized-concept\nAsset type: square character avatar for the Persa Muse personality gallery\nScene/backdrop: seamless pale lilac background #efedf8.\nSubject: SpongeBob, yellow sponge, white shirt, red tie, brown shorts.\nStyle/medium: cute original 3D clay collectible Muse-inspired chibi companion, full body, oversized rounded head, small rounded body, glossy dark expressive eyes, subtle smile unless an expression is specified for this subject, soft matte vinyl material, recognizable stylized character-inspired likeness.\nComposition/framing: square image; one character centered, occupying 75% of image height. Entire head and feet visible with generous margin.\nLighting/mood: simple soft studio lighting, gentle ground shadow, warm friendly presence.\nConstraints: illustrative character preset; no endorsement implication or actual photograph. No text, no logos, no UI.",
+    "asset": null,
+    "failure": "Image service rejected result at output-stage safety moderation; category: other."
+  },
+  {
+    "id": "hello-kitty",
+    "status": "generated",
+    "tool": "built-in image_gen",
+    "prompt": "Use case: stylized-concept\nAsset type: square character avatar for the Persa Muse personality gallery\nScene/backdrop: seamless pale lilac background #efedf8.\nSubject: Hello Kitty, white feline, red bow and red overalls.\nStyle/medium: cute original 3D clay collectible Muse-inspired chibi companion, full body, oversized rounded head, small rounded body, glossy dark expressive eyes, subtle smile unless an expression is specified for this subject, soft matte vinyl material, recognizable stylized character-inspired likeness.\nComposition/framing: square image; one character centered, occupying 75% of image height. Entire head and feet visible with generous margin.\nLighting/mood: simple soft studio lighting, gentle ground shadow, warm friendly presence.\nConstraints: illustrative character preset; no endorsement implication or actual photograph. No text, no logos, no UI.",
+    "asset": "web/avatars/hello-kitty.png",
+    "failure": null
+  },
+  {
+    "id": "joker",
+    "status": "declined",
+    "tool": "built-in image_gen",
+    "prompt": "Use case: stylized-concept\nAsset type: square character avatar for the Persa Muse personality gallery\nScene/backdrop: seamless pale lilac background #efedf8.\nSubject: Joker, green hair, white face, purple suit, red friendly mischievous grin.\nStyle/medium: cute original 3D clay collectible Muse-inspired chibi companion, full body, oversized rounded head, small rounded body, glossy dark expressive eyes, subtle smile unless an expression is specified for this subject, soft matte vinyl material, recognizable stylized character-inspired likeness.\nComposition/framing: square image; one character centered, occupying 75% of image height. Entire head and feet visible with generous margin.\nLighting/mood: simple soft studio lighting, gentle ground shadow, warm friendly presence.\nConstraints: illustrative character preset; no endorsement implication or actual photograph. No text, no logos, no UI.",
+    "asset": null,
+    "failure": "Image service rejected result at output-stage safety moderation; category: other."
+  }
+]

@@ -78,5 +78,5 @@ the next line does. If a comment would only restate the code, leave it out.
 
 - A runtime. Persa never sits between you and your agent.
 - Memory or facts about the user. That belongs to the agents.
-- A hosted service in this repository.
+- Adding a hosted backend without a product need. The Muse character website in `web/` is currently a static app built with `npm run build:web`; favorites stay on the user's device.
 - Anything that makes a persona longer by default.

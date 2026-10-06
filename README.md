@@ -50,7 +50,7 @@ Primary-source review and desktop Muse test on October 5, 2026:
 
 ### Website status — October 6, 2026
 
-The first website implementation lives in [`web/`](web/), with paired character definitions in [`characters/catalog.js`](characters/catalog.js). It is published through Sites at the public URL above.
+The website implementation lives in [`web/`](web/), with paired character definitions in [`characters/catalog.js`](characters/catalog.js). The costume redesign below is implemented and verified locally. Publication is pending: three Sites archive-upload attempts failed on October 6, including two confirmed upload timeouts. The public URL above still serves the previous likeness gallery until this upload succeeds.
 
 | Area | Current behavior |
 | --- | --- |

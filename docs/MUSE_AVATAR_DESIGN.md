@@ -89,7 +89,7 @@ unverified.
 All 18 costume previews and the shared base were generated with the built-in
 image tool and visually reviewed. The MrBeast hoodie required one targeted edit
 to remove an unrequested logo; both the original output and edit prompt are
-recorded. The published build contains only these 19 active images.
+recorded. The deployment build contains only these 19 active images.
 
 - `npm test`: 72 tests passed. The 11 avatar tests passed again after final
   artwork integration. Build, JavaScript syntax, and whitespace checks passed.
@@ -110,3 +110,12 @@ recorded. The published build contains only these 19 active images.
 
 Browser checks used a temporary Playwright harness outside the repository.
 They cover Persa's website, not the new prompts inside Muse.
+
+## Publication status
+
+The source and deployment archive were prepared successfully. Sites could not
+upload the archive: three attempts failed, including two confirmed blob-upload
+timeout responses. No new version was saved or deployed. The public site still
+serves its previous likeness gallery; the complete costume gallery is available
+in the local build. Retry saving the archive and deploying after the upload
+service recovers, using the matching pushed source commit.

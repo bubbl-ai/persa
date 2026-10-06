@@ -5,7 +5,21 @@
     "tool": "built-in image_gen",
     "prompt": "Use case: stylized-concept\nAsset type: square character avatar for the Persa Muse personality gallery\nScene/backdrop: seamless pale lilac background #efedf8.\nSubject: Mark Zuckerberg, curly brown hair, plain gray t-shirt.\nStyle/medium: cute original 3D clay collectible Muse-inspired chibi companion, full body, oversized rounded head, small rounded body, glossy dark expressive eyes, subtle smile, soft matte vinyl material, recognizable stylized character-inspired likeness.\nComposition/framing: square image; one character centered, occupying 75% of image height. Entire head and feet visible with generous margin.\nLighting/mood: simple soft studio lighting, gentle ground shadow, warm friendly presence.\nConstraints: illustrative character preset; no endorsement implication or actual photograph. No text, no logos, no UI.",
     "asset": "web/avatars/mark-zuckerberg.png",
-    "failure": null
+    "failure": null,
+    "replacement": {
+      "kind": "muse-costume",
+      "subjectId": "mark-zuckerberg",
+      "baseId": "persa-muse-v1",
+      "designVersion": "muse-costumes-v1",
+      "status": "generated",
+      "tool": "built-in image_gen",
+      "createdAt": "2026-10-06",
+      "referenceAsset": "web/avatars/muse-costumes-v1/base.png",
+      "prompt": "Use case: identity-preserve\nAsset type: one image in a consistent collectible plush costume avatar series.\nInput image 1 is the EDIT TARGET: the original Muse plush master base character. Use it as an exact reference for the same character in every costume.\nPrimary request: create the named costume variant described below. The name is the inspiration for wardrobe only. The visible subject remains this same original Muse plush character.\nInvariants: preserve this exact cream plush hood shape, peach round face, small glossy black eyes and catchlights, tiny simple smile, rosy cheeks, compact round body proportions, stubby cream hands and feet, fuzzy cream material, front-facing view and camera. Face, expression, hood, body, and toy identity must remain unchanged. Change ONLY wardrobe, headwear, and held props, with minimal hand repositioning needed for props. No individual human likeness, no human hairstyle, no animal ears, no teeth, no franchise-shaped body.\nComposition/framing: square image, 1024x1024 preferred, complete full body including headwear and feet visible, centered, about 75 percent of canvas height. Match the base's front-facing camera, soft diffuse studio lighting, pale lilac #efedf8 backdrop and subtle ground shadow. Clothing must fit the existing short round toy rather than change its body.\nStyle/medium: premium soft 3D plush collectible with tactile clothing fabrics; match the master image's visual style.\nText: none. No logos, lettering, UI, borders or watermark.\n\nCostume variant: Mark Zuckerberg (mark-zuckerberg).\nWardrobe/headwear/props: Plain gray tee, navy trousers, white sneakers, and a tiny closed silver laptop held at one side.",
+      "asset": "web/avatars/muse-costumes-v1/mark-zuckerberg.png",
+      "failure": null,
+      "inspection": "Inspected rendered output: same Muse face, cream hood, compact proportions, correct costume, full body visible."
+    }
   },
   {
     "id": "taylor-swift",
@@ -25,16 +39,31 @@
         "asset": "web/avatars/concepts/songwriter-star.png",
         "failure": null,
         "retiredReason": "User rejected unrelated concept companion; named figure must remain recognizable."
+      },
+      {
+        "kind": "character",
+        "subjectId": "taylor-swift",
+        "status": "generated",
+        "tool": "built-in image_gen",
+        "prompt": "Use case: stylized-concept\nAsset type: square character illustration\nPrimary request: Create a recognizable cute Muse-style version of Taylor Swift, recognizable as Taylor Swift, with blonde bangs, red lipstick, and a lavender stage dress.\nStyle/medium: 3D clay collectible chibi with an oversized rounded head and small full body, matte vinyl material.\nScene/backdrop: pale lilac #efedf8 backdrop.\nComposition/framing: centered single character, square image, whole head and feet visible with comfortable margins.\nLighting/mood: gentle studio light and soft ground shadow, cute and friendly.\nConstraints: clearly stylized illustration, no photorealism, no endorsement implication, no substitute animal or generic mascot, no text, no watermark.",
+        "asset": "web/avatars/taylor-swift.png",
+        "failure": null,
+        "retiredReason": "User approved one shared Muse base with costumes on October 6, 2026."
       }
     ],
     "replacement": {
-      "kind": "character",
+      "kind": "muse-costume",
       "subjectId": "taylor-swift",
+      "baseId": "persa-muse-v1",
+      "designVersion": "muse-costumes-v1",
       "status": "generated",
       "tool": "built-in image_gen",
-      "prompt": "Use case: stylized-concept\nAsset type: square character illustration\nPrimary request: Create a recognizable cute Muse-style version of Taylor Swift, recognizable as Taylor Swift, with blonde bangs, red lipstick, and a lavender stage dress.\nStyle/medium: 3D clay collectible chibi with an oversized rounded head and small full body, matte vinyl material.\nScene/backdrop: pale lilac #efedf8 backdrop.\nComposition/framing: centered single character, square image, whole head and feet visible with comfortable margins.\nLighting/mood: gentle studio light and soft ground shadow, cute and friendly.\nConstraints: clearly stylized illustration, no photorealism, no endorsement implication, no substitute animal or generic mascot, no text, no watermark.",
-      "asset": "web/avatars/taylor-swift.png",
-      "failure": null
+      "createdAt": "2026-10-06",
+      "referenceAsset": "web/avatars/muse-costumes-v1/base.png",
+      "prompt": "Use case: identity-preserve\nAsset type: one image in a consistent collectible plush costume avatar series.\nInput image 1 is the EDIT TARGET: the original Muse plush master base character. Use it as an exact reference for the same character in every costume.\nPrimary request: create the named costume variant described below. The name is the inspiration for wardrobe only. The visible subject remains this same original Muse plush character.\nInvariants: preserve this exact cream plush hood shape, peach round face, small glossy black eyes and catchlights, tiny simple smile, rosy cheeks, compact round body proportions, stubby cream hands and feet, fuzzy cream material, front-facing view and camera. Face, expression, hood, body, and toy identity must remain unchanged. Change ONLY wardrobe, headwear, and held props, with minimal hand repositioning needed for props. No individual human likeness, no human hairstyle, no animal ears, no teeth, no franchise-shaped body.\nComposition/framing: square image, 1024x1024 preferred, complete full body including headwear and feet visible, centered, about 75 percent of canvas height. Match the base's front-facing camera, soft diffuse studio lighting, pale lilac #efedf8 backdrop and subtle ground shadow. Clothing must fit the existing short round toy rather than change its body.\nStyle/medium: premium soft 3D plush collectible with tactile clothing fabrics; match the master image's visual style.\nText: none. No logos, lettering, UI, borders or watermark.\n\nCostume variant: Taylor Swift (taylor-swift).\nWardrobe/headwear/props: Shimmering lavender stage dress and a small silver microphone held in one hand.",
+      "asset": "web/avatars/muse-costumes-v1/taylor-swift.png",
+      "failure": null,
+      "inspection": "Inspected rendered output: same Muse face, cream hood, compact proportions, correct costume, full body visible."
     }
   },
   {
@@ -43,7 +72,21 @@
     "tool": "built-in image_gen",
     "prompt": "Use case: stylized-concept\nAsset type: square character avatar for the Persa Muse personality gallery\nScene/backdrop: seamless pale lilac background #efedf8.\nSubject: Charlie Chaplin, bowler hat, black suit, toothbrush mustache, holding a cane.\nStyle/medium: cute original 3D clay collectible Muse-inspired chibi companion, full body, oversized rounded head, small rounded body, glossy dark expressive eyes, subtle smile, soft matte vinyl material, recognizable stylized character-inspired likeness.\nComposition/framing: square image; one character centered, occupying 75% of image height. Entire head and feet visible with generous margin.\nLighting/mood: simple soft studio lighting, gentle ground shadow, warm friendly presence.\nConstraints: illustrative character preset; no endorsement implication or actual photograph. No text, no logos, no UI.",
     "asset": "web/avatars/charlie-chaplin.png",
-    "failure": null
+    "failure": null,
+    "replacement": {
+      "kind": "muse-costume",
+      "subjectId": "charlie-chaplin",
+      "baseId": "persa-muse-v1",
+      "designVersion": "muse-costumes-v1",
+      "status": "generated",
+      "tool": "built-in image_gen",
+      "createdAt": "2026-10-06",
+      "referenceAsset": "web/avatars/muse-costumes-v1/base.png",
+      "prompt": "Use case: identity-preserve\nAsset type: one image in a consistent collectible plush costume avatar series.\nInput image 1 is the EDIT TARGET: the original Muse plush master base character. Use it as an exact reference for the same character in every costume.\nPrimary request: create the named costume variant described below. The name is the inspiration for wardrobe only. The visible subject remains this same original Muse plush character.\nInvariants: preserve this exact cream plush hood shape, peach round face, small glossy black eyes and catchlights, tiny simple smile, rosy cheeks, compact round body proportions, stubby cream hands and feet, fuzzy cream material, front-facing view and camera. Face, expression, hood, body, and toy identity must remain unchanged. Change ONLY wardrobe, headwear, and held props, with minimal hand repositioning needed for props. No individual human likeness, no human hairstyle, no animal ears, no teeth, no franchise-shaped body.\nComposition/framing: square image, 1024x1024 preferred, complete full body including headwear and feet visible, centered, about 75 percent of canvas height. Match the base's front-facing camera, soft diffuse studio lighting, pale lilac #efedf8 backdrop and subtle ground shadow. Clothing must fit the existing short round toy rather than change its body.\nStyle/medium: premium soft 3D plush collectible with tactile clothing fabrics; match the master image's visual style.\nText: none. No logos, lettering, UI, borders or watermark.\n\nCostume variant: Charlie Chaplin (charlie-chaplin).\nWardrobe/headwear/props: Black bowler hat atop the cream hood, oversized black suit, white shirt, black bowtie and small cane. No mustache or facial change.",
+      "asset": "web/avatars/muse-costumes-v1/charlie-chaplin.png",
+      "failure": null,
+      "inspection": "Inspected rendered output: same Muse face, cream hood and compact proportions. Correct costume, full body visible."
+    }
   },
   {
     "id": "michael-jackson",
@@ -75,7 +118,21 @@
         "asset": null,
         "failure": "Image service rejected request at input-stage safety moderation; categories: public-figure."
       }
-    ]
+    ],
+    "replacement": {
+      "kind": "muse-costume",
+      "subjectId": "michael-jackson",
+      "baseId": "persa-muse-v1",
+      "designVersion": "muse-costumes-v1",
+      "status": "generated",
+      "tool": "built-in image_gen",
+      "createdAt": "2026-10-06",
+      "referenceAsset": "web/avatars/muse-costumes-v1/base.png",
+      "prompt": "Use case: identity-preserve\nAsset type: one image in a consistent collectible plush costume avatar series.\nInput image 1 is the EDIT TARGET: the original Muse plush master base character. Use it as an exact reference for the same character in every costume.\nPrimary request: create the named costume variant described below. The name is the inspiration for wardrobe only. The visible subject remains this same original Muse plush character.\nInvariants: preserve this exact cream plush hood shape, peach round face, small glossy black eyes and catchlights, tiny simple smile, rosy cheeks, compact round body proportions, stubby cream hands and feet, fuzzy cream material, front-facing view and camera. Face, expression, hood, body, and toy identity must remain unchanged. Change ONLY wardrobe, headwear, and held props, with minimal hand repositioning needed for props. No individual human likeness, no human hairstyle, no animal ears, no teeth, no franchise-shaped body.\nComposition/framing: square image, 1024x1024 preferred, complete full body including headwear and feet visible, centered, about 75 percent of canvas height. Match the base's front-facing camera, soft diffuse studio lighting, pale lilac #efedf8 backdrop and subtle ground shadow. Clothing must fit the existing short round toy rather than change its body.\nStyle/medium: premium soft 3D plush collectible with tactile clothing fabrics; match the master image's visual style.\nText: none. No logos, lettering, UI, borders or watermark.\n\nCostume variant: Michael Jackson (michael-jackson).\nWardrobe/headwear/props: Black fedora atop the cream hood, red stage jacket, black trousers and one white glove. Keep the ungloved hand cream plush.",
+      "asset": "web/avatars/muse-costumes-v1/michael-jackson.png",
+      "failure": null,
+      "inspection": "Inspected rendered output: same Muse face, cream hood and compact proportions. Correct costume, full body visible."
+    }
   },
   {
     "id": "olivia-rodrigo",
@@ -83,7 +140,21 @@
     "tool": "built-in image_gen",
     "prompt": "Use case: stylized-concept\nAsset type: square character avatar for the Persa Muse personality gallery\nScene/backdrop: seamless pale lilac background #efedf8.\nSubject: Olivia Rodrigo, long dark hair, lilac outfit.\nStyle/medium: cute original 3D clay collectible Muse-inspired chibi companion, full body, oversized rounded head, small rounded body, glossy dark expressive eyes, subtle smile, soft matte vinyl material, recognizable stylized character-inspired likeness.\nComposition/framing: square image; one character centered, occupying 75% of image height. Entire head and feet visible with generous margin.\nLighting/mood: simple soft studio lighting, gentle ground shadow, warm friendly presence.\nConstraints: illustrative character preset; no endorsement implication or actual photograph. No text, no logos, no UI.",
     "asset": "web/avatars/olivia-rodrigo.png",
-    "failure": null
+    "failure": null,
+    "replacement": {
+      "kind": "muse-costume",
+      "subjectId": "olivia-rodrigo",
+      "baseId": "persa-muse-v1",
+      "designVersion": "muse-costumes-v1",
+      "status": "generated",
+      "tool": "built-in image_gen",
+      "createdAt": "2026-10-06",
+      "referenceAsset": "web/avatars/muse-costumes-v1/base.png",
+      "prompt": "Use case: identity-preserve\nAsset type: one image in a consistent collectible plush costume avatar series.\nInput image 1 is the EDIT TARGET: the original Muse plush master base character. Use it as an exact reference for the same character in every costume.\nPrimary request: create the named costume variant described below. The name is the inspiration for wardrobe only. The visible subject remains this same original Muse plush character.\nInvariants: preserve this exact cream plush hood shape, peach round face, small glossy black eyes and catchlights, tiny simple smile, rosy cheeks, compact round body proportions, stubby cream hands and feet, fuzzy cream material, front-facing view and camera. Face, expression, hood, body, and toy identity must remain unchanged. Change ONLY wardrobe, headwear, and held props, with minimal hand repositioning needed for props. No individual human likeness, no human hairstyle, no animal ears, no teeth, no franchise-shaped body.\nComposition/framing: square image, 1024x1024 preferred, complete full body including headwear and feet visible, centered, about 75 percent of canvas height. Match the base's front-facing camera, soft diffuse studio lighting, pale lilac #efedf8 backdrop and subtle ground shadow. Clothing must fit the existing short round toy rather than change its body.\nStyle/medium: premium soft 3D plush collectible with tactile clothing fabrics; match the master image's visual style.\nText: none. No logos, lettering, UI, borders or watermark.\n\nCostume variant: Olivia Rodrigo (olivia-rodrigo).\nWardrobe/headwear/props: Lilac jacket, black pleated skirt, dark boots and a small purple guitar held beside the body.",
+      "asset": "web/avatars/muse-costumes-v1/olivia-rodrigo.png",
+      "failure": null,
+      "inspection": "Inspected rendered output: same Muse face, cream hood and compact proportions. Correct costume, full body visible."
+    }
   },
   {
     "id": "marilyn-monroe",
@@ -91,7 +162,21 @@
     "tool": "built-in image_gen",
     "prompt": "Use case: stylized-concept\nAsset type: square character avatar for the Persa Muse personality gallery\nScene/backdrop: seamless pale lilac background #efedf8.\nSubject: Marilyn Monroe, platinum curls, white halter dress, red lips.\nStyle/medium: cute original 3D clay collectible Muse-inspired chibi companion, full body, oversized rounded head, small rounded body, glossy dark expressive eyes, subtle smile, soft matte vinyl material, recognizable stylized character-inspired likeness.\nComposition/framing: square image; one character centered, occupying 75% of image height. Entire head and feet visible with generous margin.\nLighting/mood: simple soft studio lighting, gentle ground shadow, warm friendly presence.\nConstraints: illustrative character preset; no endorsement implication or actual photograph. No text, no logos, no UI.",
     "asset": "web/avatars/marilyn-monroe.png",
-    "failure": null
+    "failure": null,
+    "replacement": {
+      "kind": "muse-costume",
+      "subjectId": "marilyn-monroe",
+      "baseId": "persa-muse-v1",
+      "designVersion": "muse-costumes-v1",
+      "status": "generated",
+      "tool": "built-in image_gen",
+      "createdAt": "2026-10-06",
+      "referenceAsset": "web/avatars/muse-costumes-v1/base.png",
+      "prompt": "Use case: identity-preserve\nAsset type: one image in a consistent collectible plush costume avatar series.\nInput image 1 is the EDIT TARGET: the original Muse plush master base character. Use it as an exact reference for the same character in every costume.\nPrimary request: create the named costume variant described below. The name is the inspiration for wardrobe only. The visible subject remains this same original Muse plush character.\nInvariants: preserve this exact cream plush hood shape, peach round face, small glossy black eyes and catchlights, tiny simple smile, rosy cheeks, compact round body proportions, stubby cream hands and feet, fuzzy cream material, front-facing view and camera. Face, expression, hood, body, and toy identity must remain unchanged. Change ONLY wardrobe, headwear, and held props, with minimal hand repositioning needed for props. No individual human likeness, no human hairstyle, no animal ears, no teeth, no franchise-shaped body.\nComposition/framing: square image, 1024x1024 preferred, complete full body including headwear and feet visible, centered, about 75 percent of canvas height. Match the base's front-facing camera, soft diffuse studio lighting, pale lilac #efedf8 backdrop and subtle ground shadow. Clothing must fit the existing short round toy rather than change its body.\nStyle/medium: premium soft 3D plush collectible with tactile clothing fabrics; match the master image's visual style.\nText: none. No logos, lettering, UI, borders or watermark.\n\nCostume variant: Marilyn Monroe (marilyn-monroe).\nWardrobe/headwear/props: White halter dress, white shoes and two tiny pearl earrings attached beside the hood opening. Preserve the same round base body.",
+      "asset": "web/avatars/muse-costumes-v1/marilyn-monroe.png",
+      "failure": null,
+      "inspection": "Inspected rendered output: same Muse face, cream hood and compact proportions. Correct costume, full body visible."
+    }
   },
   {
     "id": "drake",
@@ -99,7 +184,21 @@
     "tool": "built-in image_gen",
     "prompt": "Use case: stylized-concept\nAsset type: square character avatar for the Persa Muse personality gallery\nScene/backdrop: seamless pale lilac background #efedf8.\nSubject: Drake, short dark hair, groomed beard, dark jacket.\nStyle/medium: cute original 3D clay collectible Muse-inspired chibi companion, full body, oversized rounded head, small rounded body, glossy dark expressive eyes, subtle smile, soft matte vinyl material, recognizable stylized character-inspired likeness.\nComposition/framing: square image; one character centered, occupying 75% of image height. Entire head and feet visible with generous margin.\nLighting/mood: simple soft studio lighting, gentle ground shadow, warm friendly presence.\nConstraints: illustrative character preset; no endorsement implication or actual photograph. No text, no logos, no UI.",
     "asset": "web/avatars/drake.png",
-    "failure": null
+    "failure": null,
+    "replacement": {
+      "kind": "muse-costume",
+      "subjectId": "drake",
+      "baseId": "persa-muse-v1",
+      "designVersion": "muse-costumes-v1",
+      "status": "generated",
+      "tool": "built-in image_gen",
+      "createdAt": "2026-10-06",
+      "referenceAsset": "web/avatars/muse-costumes-v1/base.png",
+      "prompt": "Use case: identity-preserve\nAsset type: one image in a consistent collectible plush costume avatar series.\nInput image 1 is the EDIT TARGET: the original Muse plush master base character. Use it as an exact reference for the same character in every costume.\nPrimary request: create the named costume variant described below. The name is the inspiration for wardrobe only. The visible subject remains this same original Muse plush character.\nInvariants: preserve this exact cream plush hood shape, peach round face, small glossy black eyes and catchlights, tiny simple smile, rosy cheeks, compact round body proportions, stubby cream hands and feet, fuzzy cream material, front-facing view and camera. Face, expression, hood, body, and toy identity must remain unchanged. Change ONLY wardrobe, headwear, and held props, with minimal hand repositioning needed for props. No individual human likeness, no human hairstyle, no animal ears, no teeth, no franchise-shaped body.\nComposition/framing: square image, 1024x1024 preferred, complete full body including headwear and feet visible, centered, about 75 percent of canvas height. Match the base's front-facing camera, soft diffuse studio lighting, pale lilac #efedf8 backdrop and subtle ground shadow. Clothing must fit the existing short round toy rather than change its body.\nStyle/medium: premium soft 3D plush collectible with tactile clothing fabrics; match the master image's visual style.\nText: none. No logos, lettering, UI, borders or watermark.\n\nCostume variant: Drake (drake).\nWardrobe/headwear/props: Navy puffer jacket, dark trousers, neutral sneakers, and headphones resting around the neck.",
+      "asset": "web/avatars/muse-costumes-v1/drake.png",
+      "failure": null,
+      "inspection": "Inspected rendered output: same Muse face, cream hood and compact proportions. Correct costume, full body visible."
+    }
   },
   {
     "id": "lionel-messi",
@@ -131,7 +230,21 @@
         "asset": null,
         "failure": "Image service rejected request at input-stage safety moderation; categories: public-figure."
       }
-    ]
+    ],
+    "replacement": {
+      "kind": "muse-costume",
+      "subjectId": "lionel-messi",
+      "baseId": "persa-muse-v1",
+      "designVersion": "muse-costumes-v1",
+      "status": "generated",
+      "tool": "built-in image_gen",
+      "createdAt": "2026-10-06",
+      "referenceAsset": "web/avatars/muse-costumes-v1/base.png",
+      "prompt": "Use case: identity-preserve\nAsset type: one image in a consistent collectible plush costume avatar series.\nInput image 1 is the EDIT TARGET: the original Muse plush master base character. Use it as an exact reference for the same character in every costume.\nPrimary request: create the named costume variant described below. The name is the inspiration for wardrobe only. The visible subject remains this same original Muse plush character.\nInvariants: preserve this exact cream plush hood shape, peach round face, small glossy black eyes and catchlights, tiny simple smile, rosy cheeks, compact round body proportions, stubby cream hands and feet, fuzzy cream material, front-facing view and camera. Face, expression, hood, body, and toy identity must remain unchanged. Change ONLY wardrobe, headwear, and held props, with minimal hand repositioning needed for props. No individual human likeness, no human hairstyle, no animal ears, no teeth, no franchise-shaped body.\nComposition/framing: square image, 1024x1024 preferred, complete full body including headwear and feet visible, centered, about 75 percent of canvas height. Match the base's front-facing camera, soft diffuse studio lighting, pale lilac #efedf8 backdrop and subtle ground shadow. Clothing must fit the existing short round toy rather than change its body.\nStyle/medium: premium soft 3D plush collectible with tactile clothing fabrics; match the master image's visual style.\nText: none. No logos, lettering, UI, borders or watermark.\n\nCostume variant: Lionel Messi (lionel-messi).\nWardrobe/headwear/props: Sky-blue-and-white striped football jersey, black shorts, football boots and a small football beside one foot.",
+      "asset": "web/avatars/muse-costumes-v1/lionel-messi.png",
+      "failure": null,
+      "inspection": "Inspected rendered output: same Muse face, cream hood and compact proportions. Correct costume, full body visible."
+    }
   },
   {
     "id": "kylie-jenner",
@@ -139,7 +252,21 @@
     "tool": "built-in image_gen",
     "prompt": "Use case: stylized-concept\nAsset type: square character avatar for the Persa Muse personality gallery\nScene/backdrop: seamless pale lilac background #efedf8.\nSubject: Kylie Jenner, long dark hair, black outfit.\nStyle/medium: cute original 3D clay collectible Muse-inspired chibi companion, full body, oversized rounded head, small rounded body, glossy dark expressive eyes, subtle smile, soft matte vinyl material, recognizable stylized character-inspired likeness.\nComposition/framing: square image; one character centered, occupying 75% of image height. Entire head and feet visible with generous margin.\nLighting/mood: simple soft studio lighting, gentle ground shadow, warm friendly presence.\nConstraints: illustrative character preset; no endorsement implication or actual photograph. No text, no logos, no UI.",
     "asset": "web/avatars/kylie-jenner.png",
-    "failure": null
+    "failure": null,
+    "replacement": {
+      "kind": "muse-costume",
+      "subjectId": "kylie-jenner",
+      "baseId": "persa-muse-v1",
+      "designVersion": "muse-costumes-v1",
+      "status": "generated",
+      "tool": "built-in image_gen",
+      "createdAt": "2026-10-06",
+      "referenceAsset": "web/avatars/muse-costumes-v1/base.png",
+      "prompt": "Use case: identity-preserve\nAsset type: one image in a consistent collectible plush costume avatar series.\nInput image 1 is the EDIT TARGET: the original Muse plush master base character. Use it as an exact reference for the same character in every costume.\nPrimary request: create the named costume variant described below. The name is the inspiration for wardrobe only. The visible subject remains this same original Muse plush character.\nInvariants: preserve this exact cream plush hood shape, peach round face, small glossy black eyes and catchlights, tiny simple smile, rosy cheeks, compact round body proportions, stubby cream hands and feet, fuzzy cream material, front-facing view and camera. Face, expression, hood, body, and toy identity must remain unchanged. Change ONLY wardrobe, headwear, and held props, with minimal hand repositioning needed for props. No individual human likeness, no human hairstyle, no animal ears, no teeth, no franchise-shaped body.\nComposition/framing: square image, 1024x1024 preferred, complete full body including headwear and feet visible, centered, about 75 percent of canvas height. Match the base's front-facing camera, soft diffuse studio lighting, pale lilac #efedf8 backdrop and subtle ground shadow. Clothing must fit the existing short round toy rather than change its body.\nStyle/medium: premium soft 3D plush collectible with tactile clothing fabrics; match the master image's visual style.\nText: none. No logos, lettering, UI, borders or watermark.\n\nCostume variant: Kylie Jenner (kylie-jenner).\nWardrobe/headwear/props: Black tailored blazer outfit, black boots and a tiny rose-colored makeup case held in one hand.",
+      "asset": "web/avatars/muse-costumes-v1/kylie-jenner.png",
+      "failure": null,
+      "inspection": "Inspected rendered output: same Muse face, cream hood and compact proportions. Correct costume, full body visible."
+    }
   },
   {
     "id": "wednesday",
@@ -147,7 +274,21 @@
     "tool": "built-in image_gen",
     "prompt": "Use case: stylized-concept\nAsset type: square character avatar for the Persa Muse personality gallery\nScene/backdrop: seamless pale lilac background #efedf8.\nSubject: Wednesday Addams, dark braids, black dress with a white collar, deadpan expression.\nStyle/medium: cute original 3D clay collectible Muse-inspired chibi companion, full body, oversized rounded head, small rounded body, glossy dark expressive eyes, subtle smile unless an expression is specified for this subject, soft matte vinyl material, recognizable stylized character-inspired likeness.\nComposition/framing: square image; one character centered, occupying 75% of image height. Entire head and feet visible with generous margin.\nLighting/mood: simple soft studio lighting, gentle ground shadow, warm friendly presence.\nConstraints: illustrative character preset; no endorsement implication or actual photograph. No text, no logos, no UI.",
     "asset": "web/avatars/wednesday.png",
-    "failure": null
+    "failure": null,
+    "replacement": {
+      "kind": "muse-costume",
+      "subjectId": "wednesday",
+      "baseId": "persa-muse-v1",
+      "designVersion": "muse-costumes-v1",
+      "status": "generated",
+      "tool": "built-in image_gen",
+      "createdAt": "2026-10-06",
+      "referenceAsset": "web/avatars/muse-costumes-v1/base.png",
+      "prompt": "Use case: identity-preserve\nAsset type: one image in a consistent collectible plush costume avatar series.\nInput image 1 is the EDIT TARGET: the original Muse plush master base character. Use it as an exact reference for the same character in every costume.\nPrimary request: create the named costume variant described below. The name is the inspiration for wardrobe only. The visible subject remains this same original Muse plush character.\nInvariants: preserve this exact cream plush hood shape, peach round face, small glossy black eyes and catchlights, tiny simple smile, rosy cheeks, compact round body proportions, stubby cream hands and feet, fuzzy cream material, front-facing view and camera. Face, expression, hood, body, and toy identity must remain unchanged. Change ONLY wardrobe, headwear, and held props, with minimal hand repositioning needed for props. No individual human likeness, no human hairstyle, no animal ears, no teeth, no franchise-shaped body.\nComposition/framing: square image, 1024x1024 preferred, complete full body including headwear and feet visible, centered, about 75 percent of canvas height. Match the base's front-facing camera, soft diffuse studio lighting, pale lilac #efedf8 backdrop and subtle ground shadow. Clothing must fit the existing short round toy rather than change its body.\nStyle/medium: premium soft 3D plush collectible with tactile clothing fabrics; match the master image's visual style.\nText: none. No logos, lettering, UI, borders or watermark.\n\nCostume variant: Wednesday Addams (wednesday).\nWardrobe/headwear/props: Black dress with a crisp white collar, two small black ribbon bows attached to the cream hood, and a tiny closed black book held in one hand.",
+      "asset": "web/avatars/muse-costumes-v1/wednesday.png",
+      "failure": null,
+      "inspection": "Inspected rendered output: same Muse face, cream hood, compact proportions, correct costume, full body visible."
+    }
   },
   {
     "id": "mona-lisa",
@@ -155,7 +296,21 @@
     "tool": "built-in image_gen",
     "prompt": "Use case: stylized-concept\nAsset type: square character avatar for the Persa Muse personality gallery\nScene/backdrop: seamless pale lilac background #efedf8.\nSubject: Mona Lisa, long center-part brown hair, Renaissance olive gown, enigmatic smile.\nStyle/medium: cute original 3D clay collectible Muse-inspired chibi companion, full body, oversized rounded head, small rounded body, glossy dark expressive eyes, subtle smile unless an expression is specified for this subject, soft matte vinyl material, recognizable stylized character-inspired likeness.\nComposition/framing: square image; one character centered, occupying 75% of image height. Entire head and feet visible with generous margin.\nLighting/mood: simple soft studio lighting, gentle ground shadow, warm friendly presence.\nConstraints: illustrative character preset; no endorsement implication or actual photograph. No text, no logos, no UI.",
     "asset": "web/avatars/mona-lisa.png",
-    "failure": null
+    "failure": null,
+    "replacement": {
+      "kind": "muse-costume",
+      "subjectId": "mona-lisa",
+      "baseId": "persa-muse-v1",
+      "designVersion": "muse-costumes-v1",
+      "status": "generated",
+      "tool": "built-in image_gen",
+      "createdAt": "2026-10-06",
+      "referenceAsset": "web/avatars/muse-costumes-v1/base.png",
+      "prompt": "Use case: identity-preserve\nAsset type: one image in a consistent collectible plush costume avatar series.\nInput image 1 is the EDIT TARGET: the original Muse plush master base character. Use it as an exact reference for the same character in every costume.\nPrimary request: create the named costume variant described below. The name is the inspiration for wardrobe only. The visible subject remains this same original Muse plush character.\nInvariants: preserve this exact cream plush hood shape, peach round face, small glossy black eyes and catchlights, tiny simple smile, rosy cheeks, compact round body proportions, stubby cream hands and feet, fuzzy cream material, front-facing view and camera. Face, expression, hood, body, and toy identity must remain unchanged. Change ONLY wardrobe, headwear, and held props, with minimal hand repositioning needed for props. No individual human likeness, no human hairstyle, no animal ears, no teeth, no franchise-shaped body.\nComposition/framing: square image, 1024x1024 preferred, complete full body including headwear and feet visible, centered, about 75 percent of canvas height. Match the base's front-facing camera, soft diffuse studio lighting, pale lilac #efedf8 backdrop and subtle ground shadow. Clothing must fit the existing short round toy rather than change its body.\nStyle/medium: premium soft 3D plush collectible with tactile clothing fabrics; match the master image's visual style.\nText: none. No logos, lettering, UI, borders or watermark.\n\nCostume variant: Mona Lisa (mona-lisa).\nWardrobe/headwear/props: Olive Renaissance gown and a dark sheer veil draped around the cream hood. Gently fold the same stubby cream hands together in front.",
+      "asset": "web/avatars/muse-costumes-v1/mona-lisa.png",
+      "failure": null,
+      "inspection": "Inspected rendered output: same Muse face, cream hood, compact proportions, correct costume, full body visible."
+    }
   },
   {
     "id": "barbie",
@@ -163,7 +318,21 @@
     "tool": "built-in image_gen",
     "prompt": "Use case: stylized-concept\nAsset type: square character avatar for the Persa Muse personality gallery\nScene/backdrop: seamless pale lilac background #efedf8.\nSubject: Barbie, long blonde hair, bright pink dress.\nStyle/medium: cute original 3D clay collectible Muse-inspired chibi companion, full body, oversized rounded head, small rounded body, glossy dark expressive eyes, subtle smile unless an expression is specified for this subject, soft matte vinyl material, recognizable stylized character-inspired likeness.\nComposition/framing: square image; one character centered, occupying 75% of image height. Entire head and feet visible with generous margin.\nLighting/mood: simple soft studio lighting, gentle ground shadow, warm friendly presence.\nConstraints: illustrative character preset; no endorsement implication or actual photograph. No text, no logos, no UI.",
     "asset": "web/avatars/barbie.png",
-    "failure": null
+    "failure": null,
+    "replacement": {
+      "kind": "muse-costume",
+      "subjectId": "barbie",
+      "baseId": "persa-muse-v1",
+      "designVersion": "muse-costumes-v1",
+      "status": "generated",
+      "tool": "built-in image_gen",
+      "createdAt": "2026-10-06",
+      "referenceAsset": "web/avatars/muse-costumes-v1/base.png",
+      "prompt": "Use case: identity-preserve\nAsset type: one image in a consistent collectible plush costume avatar series.\nInput image 1 is the EDIT TARGET: the original Muse plush master base character. Use it as an exact reference for the same character in every costume.\nPrimary request: create the named costume variant described below. The name is the inspiration for wardrobe only. The visible subject remains this same original Muse plush character.\nInvariants: preserve this exact cream plush hood shape, peach round face, small glossy black eyes and catchlights, tiny simple smile, rosy cheeks, compact round body proportions, stubby cream hands and feet, fuzzy cream material, front-facing view and camera. Face, expression, hood, body, and toy identity must remain unchanged. Change ONLY wardrobe, headwear, and held props, with minimal hand repositioning needed for props. No individual human likeness, no human hairstyle, no animal ears, no teeth, no franchise-shaped body.\nComposition/framing: square image, 1024x1024 preferred, complete full body including headwear and feet visible, centered, about 75 percent of canvas height. Match the base's front-facing camera, soft diffuse studio lighting, pale lilac #efedf8 backdrop and subtle ground shadow. Clothing must fit the existing short round toy rather than change its body.\nStyle/medium: premium soft 3D plush collectible with tactile clothing fabrics; match the master image's visual style.\nText: none. No logos, lettering, UI, borders or watermark.\n\nCostume variant: Barbie (barbie).\nWardrobe/headwear/props: Bright pink dress, pink shoes and a small heart-shaped purse.",
+      "asset": "web/avatars/muse-costumes-v1/barbie.png",
+      "failure": null,
+      "inspection": "Inspected rendered output: same Muse face, cream hood and compact proportions. Correct costume, full body visible."
+    }
   },
   {
     "id": "harry-potter",
@@ -195,7 +364,21 @@
         "asset": null,
         "failure": "Image service rejected request at output-stage safety moderation; categories: other."
       }
-    ]
+    ],
+    "replacement": {
+      "kind": "muse-costume",
+      "subjectId": "harry-potter",
+      "baseId": "persa-muse-v1",
+      "designVersion": "muse-costumes-v1",
+      "status": "generated",
+      "tool": "built-in image_gen",
+      "createdAt": "2026-10-06",
+      "referenceAsset": "web/avatars/muse-costumes-v1/base.png",
+      "prompt": "Use case: identity-preserve\nAsset type: one image in a consistent collectible plush costume avatar series.\nInput image 1 is the EDIT TARGET: the original Muse plush master base character. Use it as an exact reference for the same character in every costume.\nPrimary request: create the named costume variant described below. The name is the inspiration for wardrobe only. The visible subject remains this same original Muse plush character.\nInvariants: preserve this exact cream plush hood shape, peach round face, small glossy black eyes and catchlights, tiny simple smile, rosy cheeks, compact round body proportions, stubby cream hands and feet, fuzzy cream material, front-facing view and camera. Face, expression, hood, body, and toy identity must remain unchanged. Change ONLY wardrobe, headwear, and held props, with minimal hand repositioning needed for props. No individual human likeness, no human hairstyle, no animal ears, no teeth, no franchise-shaped body.\nComposition/framing: square image, 1024x1024 preferred, complete full body including headwear and feet visible, centered, about 75 percent of canvas height. Match the base's front-facing camera, soft diffuse studio lighting, pale lilac #efedf8 backdrop and subtle ground shadow. Clothing must fit the existing short round toy rather than change its body.\nStyle/medium: premium soft 3D plush collectible with tactile clothing fabrics; match the master image's visual style.\nText: none. No logos, lettering, UI, borders or watermark.\n\nCostume variant: Harry Potter (harry-potter).\nWardrobe/headwear/props: Black school robe, burgundy-and-gold scarf, round glasses over the unchanged base eyes, and a tiny wand held in one hand.",
+      "asset": "web/avatars/muse-costumes-v1/harry-potter.png",
+      "failure": null,
+      "inspection": "Inspected rendered output: same Muse face, cream hood and compact proportions. Correct costume, full body visible."
+    }
   },
   {
     "id": "mrbeast",
@@ -203,7 +386,39 @@
     "tool": "built-in image_gen",
     "prompt": "Use case: stylized-concept\nAsset type: square character avatar for the Persa Muse personality gallery\nScene/backdrop: seamless pale lilac background #efedf8.\nSubject: MrBeast (Jimmy Donaldson), short swept brown hair, trimmed beard, black t-shirt.\nStyle/medium: cute original 3D clay collectible Muse-inspired chibi companion, full body, oversized rounded head, small rounded body, glossy dark expressive eyes, subtle smile unless an expression is specified for this subject, soft matte vinyl material, recognizable stylized character-inspired likeness.\nComposition/framing: square image; one character centered, occupying 75% of image height. Entire head and feet visible with generous margin.\nLighting/mood: simple soft studio lighting, gentle ground shadow, warm friendly presence.\nConstraints: illustrative character preset; no endorsement implication or actual photograph. No text, no logos, no UI.",
     "asset": "web/avatars/mrbeast.png",
-    "failure": null
+    "failure": null,
+    "replacement": {
+      "kind": "muse-costume",
+      "subjectId": "mrbeast",
+      "baseId": "persa-muse-v1",
+      "designVersion": "muse-costumes-v1",
+      "status": "generated",
+      "tool": "built-in image_gen",
+      "createdAt": "2026-10-06",
+      "referenceAsset": "web/avatars/muse-costumes-v1/base.png",
+      "prompt": "Use case: identity-preserve\nAsset type: one image in a consistent collectible plush costume avatar series.\nInput image 1 is the EDIT TARGET: the original Muse plush master base character. Use it as an exact reference for the same character in every costume.\nPrimary request: create the named costume variant described below. The name is the inspiration for wardrobe only. The visible subject remains this same original Muse plush character.\nInvariants: preserve this exact cream plush hood shape, peach round face, small glossy black eyes and catchlights, tiny simple smile, rosy cheeks, compact round body proportions, stubby cream hands and feet, fuzzy cream material, front-facing view and camera. Face, expression, hood, body, and toy identity must remain unchanged. Change ONLY wardrobe, headwear, and held props, with minimal hand repositioning needed for props. No individual human likeness, no human hairstyle, no animal ears, no teeth, no franchise-shaped body.\nComposition/framing: square image, 1024x1024 preferred, complete full body including headwear and feet visible, centered, about 75 percent of canvas height. Match the base's front-facing camera, soft diffuse studio lighting, pale lilac #efedf8 backdrop and subtle ground shadow. Clothing must fit the existing short round toy rather than change its body.\nStyle/medium: premium soft 3D plush collectible with tactile clothing fabrics; match the master image's visual style.\nText: none. No logos, lettering, UI, borders or watermark.\n\nCostume variant: MrBeast (mrbeast).\nWardrobe/headwear/props: Turquoise hoodie worn around the base body below the unchanged cream hood, dark trousers, sneakers and a small gift box with a pink ribbon.",
+      "asset": "web/avatars/muse-costumes-v1/mrbeast.png",
+      "failure": null,
+      "inspection": "Final edited output inspected: blank turquoise hoodie, same Muse face/hood/body, requested clothes and gift box, complete full-body framing.",
+      "initialGeneration": {
+        "prompt": "Use case: identity-preserve\nAsset type: one image in a consistent collectible plush costume avatar series.\nInput image 1 is the EDIT TARGET: the original Muse plush master base character. Use it as an exact reference for the same character in every costume.\nPrimary request: create the named costume variant described below. The name is the inspiration for wardrobe only. The visible subject remains this same original Muse plush character.\nInvariants: preserve this exact cream plush hood shape, peach round face, small glossy black eyes and catchlights, tiny simple smile, rosy cheeks, compact round body proportions, stubby cream hands and feet, fuzzy cream material, front-facing view and camera. Face, expression, hood, body, and toy identity must remain unchanged. Change ONLY wardrobe, headwear, and held props, with minimal hand repositioning needed for props. No individual human likeness, no human hairstyle, no animal ears, no teeth, no franchise-shaped body.\nComposition/framing: square image, 1024x1024 preferred, complete full body including headwear and feet visible, centered, about 75 percent of canvas height. Match the base's front-facing camera, soft diffuse studio lighting, pale lilac #efedf8 backdrop and subtle ground shadow. Clothing must fit the existing short round toy rather than change its body.\nStyle/medium: premium soft 3D plush collectible with tactile clothing fabrics; match the master image's visual style.\nText: none. No logos, lettering, UI, borders or watermark.\n\nCostume variant: MrBeast (mrbeast).\nWardrobe/headwear/props: Turquoise hoodie worn around the base body below the unchanged cream hood, dark trousers, sneakers and a small gift box with a pink ribbon.",
+        "referenceAsset": "web/avatars/muse-costumes-v1/base.png",
+        "asset": "web/avatars/history/muse-costumes-v1-mrbeast-original.png",
+        "status": "generated",
+        "inspection": "Original requested wardrobe image generated with an unrequested beast logo on chest."
+      },
+      "edits": [
+        {
+          "prompt": "Use case: precise-object-edit\nAsset type: Muse collectible costume avatar, MrBeast wardrobe variant.\nInput image 1 is the edit target.\nPrimary request: remove ONLY the blue/pink/black beast logo graphic on the chest of the turquoise hoodie and replace that graphic area with plain turquoise fleece that seamlessly matches the adjacent hoodie fabric.\nConstraints: the hoodie chest must be entirely blank with no graphic, badge, logo, lettering or emblem. Keep absolutely everything else unchanged: the exact original Muse cream plush hood, peach face, glossy black eyes, tiny smile, cheeks, round compact body, the turquoise hoodie's silhouette/drawstrings/pocket/sleeves, dark trousers, sneakers, gift box and pink ribbon, pose, camera, full-body framing, pale lilac backdrop and soft ground shadow. Preserve the image dimensions and original lighting. This is a single targeted cleanup, not a redesign.",
+          "referenceAsset": "web/avatars/history/muse-costumes-v1-mrbeast-original.png",
+          "asset": "web/avatars/muse-costumes-v1/mrbeast.png",
+          "status": "generated",
+          "tool": "built-in image_gen",
+          "createdAt": "2026-10-06",
+          "inspection": "Logo removed; Muse face, hood, body, costume, gift prop and full-body framing preserved."
+        }
+      ]
+    }
   },
   {
     "id": "the-rock",
@@ -211,7 +426,21 @@
     "tool": "built-in image_gen",
     "prompt": "Use case: stylized-concept\nAsset type: square character avatar for the Persa Muse personality gallery\nScene/backdrop: seamless pale lilac background #efedf8.\nSubject: Dwayne The Rock Johnson, bald, muscular, charcoal t-shirt, raised eyebrow.\nStyle/medium: cute original 3D clay collectible Muse-inspired chibi companion, full body, oversized rounded head, small rounded body, glossy dark expressive eyes, subtle smile unless an expression is specified for this subject, soft matte vinyl material, recognizable stylized character-inspired likeness.\nComposition/framing: square image; one character centered, occupying 75% of image height. Entire head and feet visible with generous margin.\nLighting/mood: simple soft studio lighting, gentle ground shadow, warm friendly presence.\nConstraints: illustrative character preset; no endorsement implication or actual photograph. No text, no logos, no UI.",
     "asset": "web/avatars/the-rock.png",
-    "failure": null
+    "failure": null,
+    "replacement": {
+      "kind": "muse-costume",
+      "subjectId": "the-rock",
+      "baseId": "persa-muse-v1",
+      "designVersion": "muse-costumes-v1",
+      "status": "generated",
+      "tool": "built-in image_gen",
+      "createdAt": "2026-10-06",
+      "referenceAsset": "web/avatars/muse-costumes-v1/base.png",
+      "prompt": "Use case: identity-preserve\nAsset type: one image in a consistent collectible plush costume avatar series.\nInput image 1 is the EDIT TARGET: the original Muse plush master base character. Use it as an exact reference for the same character in every costume.\nPrimary request: create the named costume variant described below. The name is the inspiration for wardrobe only. The visible subject remains this same original Muse plush character.\nInvariants: preserve this exact cream plush hood shape, peach round face, small glossy black eyes and catchlights, tiny simple smile, rosy cheeks, compact round body proportions, stubby cream hands and feet, fuzzy cream material, front-facing view and camera. Face, expression, hood, body, and toy identity must remain unchanged. Change ONLY wardrobe, headwear, and held props, with minimal hand repositioning needed for props. No individual human likeness, no human hairstyle, no animal ears, no teeth, no franchise-shaped body.\nComposition/framing: square image, 1024x1024 preferred, complete full body including headwear and feet visible, centered, about 75 percent of canvas height. Match the base's front-facing camera, soft diffuse studio lighting, pale lilac #efedf8 backdrop and subtle ground shadow. Clothing must fit the existing short round toy rather than change its body.\nStyle/medium: premium soft 3D plush collectible with tactile clothing fabrics; match the master image's visual style.\nText: none. No logos, lettering, UI, borders or watermark.\n\nCostume variant: The Rock (the-rock).\nWardrobe/headwear/props: Charcoal athletic tee, black training trousers, trainers and a tiny foam dumbbell held in one hand. Keep identical round compact plush body, no muscles.",
+      "asset": "web/avatars/muse-costumes-v1/the-rock.png",
+      "failure": null,
+      "inspection": "Inspected rendered output: same Muse face, cream hood and compact proportions. Correct costume, full body visible."
+    }
   },
   {
     "id": "spongebob",
@@ -243,7 +472,21 @@
         "asset": null,
         "failure": "Image service rejected request at output-stage safety moderation; categories: other."
       }
-    ]
+    ],
+    "replacement": {
+      "kind": "muse-costume",
+      "subjectId": "spongebob",
+      "baseId": "persa-muse-v1",
+      "designVersion": "muse-costumes-v1",
+      "status": "generated",
+      "tool": "built-in image_gen",
+      "createdAt": "2026-10-06",
+      "referenceAsset": "web/avatars/muse-costumes-v1/base.png",
+      "prompt": "Use case: identity-preserve\nAsset type: one image in a consistent collectible plush costume avatar series.\nInput image 1 is the EDIT TARGET: the original Muse plush master base character. Use it as an exact reference for the same character in every costume.\nPrimary request: create the named costume variant described below. The name is the inspiration for wardrobe only. The visible subject remains this same original Muse plush character.\nInvariants: preserve this exact cream plush hood shape, peach round face, small glossy black eyes and catchlights, tiny simple smile, rosy cheeks, compact round body proportions, stubby cream hands and feet, fuzzy cream material, front-facing view and camera. Face, expression, hood, body, and toy identity must remain unchanged. Change ONLY wardrobe, headwear, and held props, with minimal hand repositioning needed for props. No individual human likeness, no human hairstyle, no animal ears, no teeth, no franchise-shaped body.\nComposition/framing: square image, 1024x1024 preferred, complete full body including headwear and feet visible, centered, about 75 percent of canvas height. Match the base's front-facing camera, soft diffuse studio lighting, pale lilac #efedf8 backdrop and subtle ground shadow. Clothing must fit the existing short round toy rather than change its body.\nStyle/medium: premium soft 3D plush collectible with tactile clothing fabrics; match the master image's visual style.\nText: none. No logos, lettering, UI, borders or watermark.\n\nCostume variant: SpongeBob (spongebob).\nWardrobe/headwear/props: Yellow knit vest, white shirt collar, red tie, brown shorts, white socks and black shoes. Preserve original cream round plush body and peach face; no sponge body or sponge texture.",
+      "asset": "web/avatars/muse-costumes-v1/spongebob.png",
+      "failure": null,
+      "inspection": "Inspected rendered output: same Muse face, cream hood and compact proportions. Correct costume, full body visible."
+    }
   },
   {
     "id": "hello-kitty",
@@ -251,7 +494,21 @@
     "tool": "built-in image_gen",
     "prompt": "Use case: stylized-concept\nAsset type: square character avatar for the Persa Muse personality gallery\nScene/backdrop: seamless pale lilac background #efedf8.\nSubject: Hello Kitty, white feline, red bow and red overalls.\nStyle/medium: cute original 3D clay collectible Muse-inspired chibi companion, full body, oversized rounded head, small rounded body, glossy dark expressive eyes, subtle smile unless an expression is specified for this subject, soft matte vinyl material, recognizable stylized character-inspired likeness.\nComposition/framing: square image; one character centered, occupying 75% of image height. Entire head and feet visible with generous margin.\nLighting/mood: simple soft studio lighting, gentle ground shadow, warm friendly presence.\nConstraints: illustrative character preset; no endorsement implication or actual photograph. No text, no logos, no UI.",
     "asset": "web/avatars/hello-kitty.png",
-    "failure": null
+    "failure": null,
+    "replacement": {
+      "kind": "muse-costume",
+      "subjectId": "hello-kitty",
+      "baseId": "persa-muse-v1",
+      "designVersion": "muse-costumes-v1",
+      "status": "generated",
+      "tool": "built-in image_gen",
+      "createdAt": "2026-10-06",
+      "referenceAsset": "web/avatars/muse-costumes-v1/base.png",
+      "prompt": "Use case: identity-preserve\nAsset type: one image in a consistent collectible plush costume avatar series.\nInput image 1 is the EDIT TARGET: the original Muse plush master base character. Use it as an exact reference for the same character in every costume.\nPrimary request: create the named costume variant described below. The name is the inspiration for wardrobe only. The visible subject remains this same original Muse plush character.\nInvariants: preserve this exact cream plush hood shape, peach round face, small glossy black eyes and catchlights, tiny simple smile, rosy cheeks, compact round body proportions, stubby cream hands and feet, fuzzy cream material, front-facing view and camera. Face, expression, hood, body, and toy identity must remain unchanged. Change ONLY wardrobe, headwear, and held props, with minimal hand repositioning needed for props. No individual human likeness, no human hairstyle, no animal ears, no teeth, no franchise-shaped body.\nComposition/framing: square image, 1024x1024 preferred, complete full body including headwear and feet visible, centered, about 75 percent of canvas height. Match the base's front-facing camera, soft diffuse studio lighting, pale lilac #efedf8 backdrop and subtle ground shadow. Clothing must fit the existing short round toy rather than change its body.\nStyle/medium: premium soft 3D plush collectible with tactile clothing fabrics; match the master image's visual style.\nText: none. No logos, lettering, UI, borders or watermark.\n\nCostume variant: Hello Kitty (hello-kitty).\nWardrobe/headwear/props: Red bow beside the cream hood, red overalls and white shirt. Preserve the original peach face, tiny smile, black eyes and round cream hood; no cat ears or whiskers.",
+      "asset": "web/avatars/muse-costumes-v1/hello-kitty.png",
+      "failure": null,
+      "inspection": "Inspected rendered output: same Muse face, cream hood and compact proportions. Correct costume, full body visible."
+    }
   },
   {
     "id": "joker",
@@ -283,6 +540,20 @@
         "asset": null,
         "failure": "Image service rejected request at output-stage safety moderation; categories: other."
       }
-    ]
+    ],
+    "replacement": {
+      "kind": "muse-costume",
+      "subjectId": "joker",
+      "baseId": "persa-muse-v1",
+      "designVersion": "muse-costumes-v1",
+      "status": "generated",
+      "tool": "built-in image_gen",
+      "createdAt": "2026-10-06",
+      "referenceAsset": "web/avatars/muse-costumes-v1/base.png",
+      "prompt": "Use case: identity-preserve\nAsset type: one image in a consistent collectible plush costume avatar series.\nInput image 1 is the EDIT TARGET: the original Muse plush master base character. Use it as an exact reference for the same character in every costume.\nPrimary request: create the named costume variant described below. The name is the inspiration for wardrobe only. The visible subject remains this same original Muse plush character.\nInvariants: preserve this exact cream plush hood shape, peach round face, small glossy black eyes and catchlights, tiny simple smile, rosy cheeks, compact round body proportions, stubby cream hands and feet, fuzzy cream material, front-facing view and camera. Face, expression, hood, body, and toy identity must remain unchanged. Change ONLY wardrobe, headwear, and held props, with minimal hand repositioning needed for props. No individual human likeness, no human hairstyle, no animal ears, no teeth, no franchise-shaped body.\nComposition/framing: square image, 1024x1024 preferred, complete full body including headwear and feet visible, centered, about 75 percent of canvas height. Match the base's front-facing camera, soft diffuse studio lighting, pale lilac #efedf8 backdrop and subtle ground shadow. Clothing must fit the existing short round toy rather than change its body.\nStyle/medium: premium soft 3D plush collectible with tactile clothing fabrics; match the master image's visual style.\nText: none. No logos, lettering, UI, borders or watermark.\n\nCostume variant: Joker (joker).\nWardrobe/headwear/props: Purple tailcoat, orange waistcoat, green bowtie and gloves. Preserve the unchanged base face, eyes and tiny smile; no face paint or green hair.",
+      "asset": "web/avatars/muse-costumes-v1/joker.png",
+      "failure": null,
+      "inspection": "Inspected rendered output: same Muse face, cream hood and compact proportions. Correct costume, full body visible."
+    }
   }
 ]

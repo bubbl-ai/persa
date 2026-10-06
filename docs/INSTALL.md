@@ -2,7 +2,7 @@
 
 Two routes: connect an MCP client, or paste compiled text into the agent's instructions or a message. An MCP client must fetch the persona again to see later edits; connecting alone does not guarantee it will apply every rule.
 
-**CLI setup documentation checked: 2 October 2026; website and Grok Bot notes updated: 5 October 2026.** Links below identify the product documentation used for these reviews. These are documentation checks, not end-to-end tests in signed-in accounts. The character budgets in [`src/targets.js`](../src/targets.js) are Persa's configured values; a value of `null` means Persa does not trim, not that the receiving product has no limits. Where a current product limit or screen could not be verified, that is stated explicitly.
+**CLI setup documentation checked: 2 October 2026; website notes updated: 6 October 2026; Grok Bot notes checked: 5 October 2026 (UTC).** Links below identify the product documentation used for these reviews. Separate [initial](MUSE_VALIDATION.md) and [batch](MUSE_BATCH_VALIDATION.md) signed-in desktop Muse tests cover website combos; the other routes below remain documentation checks. The character budgets in [`src/targets.js`](../src/targets.js) are Persa's configured values; a value of `null` means Persa does not trim, not that the receiving product has no limits. Where a current product limit or screen could not be verified, that is stated explicitly.
 
 ---
 
@@ -13,19 +13,37 @@ Two routes: connect an MCP client, or paste compiled text into the agent's instr
 The [Persa website](https://persa-muse-characters.archerx03.chatgpt.site) is
 public as of October 5, 2026. Choose a character, adjust the tone, select
 **Use in Muse**, copy the combo, then open Muse and paste it into a conversation.
-The copied message includes both personality instructions and a matching
-avatar prompt. Separate copy controls are available for each component.
+The copied message includes personality instructions and a costume prompt
+for Persa's shared cream plush Muse-style base. Each costume changes the outfit
+and accessories while keeping the same face and body description. Separate copy controls are available for each component.
 
-Avatar prompts describe the named figure. Earlier unrelated concept substitutes
-have been removed. When matching artwork is unavailable, the preview says so;
-the personality and avatar prompt remain available to copy. If an existing image
-fails to load, open its character and select **Retry image**.
+The October 6 wardrobe replaces the older likeness designs. These new costume
+prompts have not been tested inside Muse. In the earlier desktop tests,
+13 previous likeness-based combos generated native avatar
+options. Choose an option, then click **Select** to apply it. All 13 selected
+avatars survived a full reload. Muse also saved summaries of the requested
+identity and personality, but preset replacement can retain old preferences
+when the new prompt omits them. Barbie and SpongeBob retained a no-emoji rule
+despite their catalog setting of sparing emoji. Inspect the saved settings when switching
+characters; see the [batch results](MUSE_BATCH_VALIDATION.md) for all cases.
+Those results apply to the old prompts. Mobile Muse setup also remains untested.
+
+Muse also has a native avatar entry point: the pencil beside the profile avatar
+→ **Change avatar** prefills “Change your avatar to…” in the chat composer. This
+was inspected separately; the combo test used Persa's copied message unchanged.
+
+Avatar prompts describe the same plush Muse dressed in each named preset's
+costume. They do not ask Muse to reproduce different human faces or body shapes.
+When matching costume artwork is unavailable, the preview says so and copying
+still works. If an existing image fails to load, open its character and select
+**Retry image**. See the [design contract](MUSE_AVATAR_DESIGN.md).
 
 This is a manual setup path. Persa does not yet provide a verified avatar import
-API or prefilled Muse link, and has not tested applying both parts in a signed-in
-Muse account. Gallery art illustrates the intended look; Muse's result may
-differ. Saving a combo in Persa saves it in the current browser, and does not
-update Muse. See the [current website status](../README.md#website-status--october-5-2026).
+API or prefilled Muse link. Gallery art illustrates the intended look; all four
+Mona Lisa candidates differed from Persa's existing preview. Independent-generation
+repeatability has not been tested. Saving a combo in Persa saves it in the current
+browser, and does not update Muse. See the [batch test record](MUSE_BATCH_VALIDATION.md)
+and [current website status](../README.md#website-status--october-6-2026).
 
 ### CLI and connector route
 

@@ -2,6 +2,32 @@
 
 ## Unreleased
 
+- Shared Muse wardrobe (2026-10-06): replace individual likeness prompts with
+  one cream plush Muse-style base and 18 character-inspired costumes. Preserve
+  personalities, saved character IDs, tone settings, and original generation
+  history. Version costume assets and validate matching preset/base metadata;
+  unavailable costumes cannot fall back to old likenesses. Update gallery copy,
+  avatar instructions, and JSON exports for the costume model. Earlier live
+  Muse tests apply to the previous designs, not these new prompts. Ship all 18
+  costume previews and the shared base; verify 72 tests, 54 browser clipboard
+  actions, exports, saved settings, mobile layouts, and image failure recovery.
+  Fix narrow-screen navigation overflow with a saved-count badge.
+
+- Muse candidate batch validation (2026-10-05 UTC): verify the public site's
+  default combo and personality-only clipboard output for all 18 candidates.
+  Native avatar selection and persistence passed for 13 default combos,
+  including the earlier Mona Lisa test. Record saved-personality checks,
+  stale preference retention, character likeness caveats, and shared memory
+  across side chats in `docs/MUSE_BATCH_VALIDATION.md`. Five previously refused
+  avatar requests were not retried through Muse. The condition for implementing
+  the full batch was not met at that stage; website behavior and artwork were left unchanged until the later approved costume redesign.
+
+- Muse workflow test (2026-10-05): verify the unchanged default Mona Lisa combo
+  in signed-in desktop Chrome. Muse generated four avatar candidates; selecting
+  one applied the active avatar, which survived reload alongside saved identity
+  and personality preferences. None matched the existing gallery preview exactly.
+  A fresh side chat supplied one response compatible with the requested tone.
+  Document the selection steps and single-preset limits in `docs/MUSE_VALIDATION.md`.
 - Restore the six named avatar prompts and remove the unrelated star, robot,
   otter, owl, crab, and fox substitutions following user feedback. Preserve their
   generation history, reject unrelated replacements during builds, and clear
@@ -26,8 +52,8 @@
 - Add four tone controls backed by the shared compiler, authored example
   replies, device-local saved combos, reset, JSON download, combined and
   individual prompt copying, and secondary Grok Bot description copying.
-  Muse setup currently uses copy and paste; direct import and persistence
-  remain unverified.
+  Muse setup uses copy and paste; direct import and persistence were unverified
+  at initial publication. The later desktop Mona Lisa test is recorded above.
 - Add static website build/preview scripts and Sites hosting configuration.
   Extract the shared `PersonaError` to keep browser compiler imports free of
   Node filesystem dependencies while preserving existing exports.

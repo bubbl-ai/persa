@@ -3,17 +3,17 @@
 ## Product scope
 
 - Muse is the primary product. Every website preset pairs a personality with a matching avatar prompt. Grok Bot personality copying is secondary.
-- Avatars must be recognizable cute interpretations of the named figure. Do not replace a named figure with an unrelated animal, mascot, or abstract companion to fill an empty preview. If matching art cannot be produced, report it and keep an explicit unavailable state.
+- Avatar direction, approved October 6, 2026: one shared cream plush Muse-style base character, wearing a different costume for each named preset. Preserve its face, hood, material, color, and body proportions; express the preset through clothing, headwear, and props. This replaces the older individual-likeness direction. Do not invent a different base animal or human face per preset. If a costume preview cannot be produced, keep an explicit unavailable state rather than falling back to old likeness artwork.
 - Keep all 18 candidates available until the user selects the launch ten. `launchSelection` is metadata, not a gallery filter.
-- Describe Muse setup honestly: users copy and paste instructions. Direct avatar import and persistence in Muse are not verified.
+- Describe Muse setup honestly: users copy and paste instructions, then choose and select a generated avatar in Muse. The earlier desktop tests covered the previous likeness prompts, not this costume collection. Shared reference artwork does not guarantee identical independent Muse generations. Do not retry safety-refused image requests through another service; preserve the history when a user requests a materially different design. Saved personality summaries can retain stale settings when the new prompt omits a preference. Direct import and mobile setup remain unverified. See `docs/MUSE_AVATAR_DESIGN.md`, `docs/MUSE_VALIDATION.md`, and `docs/MUSE_BATCH_VALIDATION.md` for scope and limits.
 - Preserve the existing CLI/library and MCP interfaces when changing the website.
 
 ## Repository map
 
 - `src/`: shared compiler, persona adapters, CLI, local editor, and MCP server.
 - `web/`: static website and committed avatar assets.
-- `characters/catalog.js`: personalities, Muse avatar prompts, and authored sample replies.
-- `characters/image-generation.json`: original art prompts and generation outcomes. Preserve refusal history and superseded attempts. Active replacements must identify the same subject as the preset.
+- `characters/catalog.js`: personalities and authored sample replies; `characters/avatar-design.js`: the versioned shared base, costumes, and Muse avatar prompts.
+- `characters/image-generation.json`: original art prompts and generation outcomes. Preserve refusal history and superseded attempts. Active costume replacements must identify the same preset, shared base, and design version as the catalog. `characters/avatar-design-generation.json` records the shared reference's provenance.
 - `scripts/`: website build and local preview.
 - `test/`: Node test suite. `dist/` is generated and must stay untracked.
 

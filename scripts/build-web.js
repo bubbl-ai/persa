@@ -25,7 +25,18 @@ for (const id of launchSelection) if (!ids.has(id)) throw new Error(`Unknown lau
 // Do not keep retired previews in the published output after an asset change.
 await rm(dist, { recursive: true, force: true });
 await mkdir(dist, { recursive: true });
-await cp(path.join(root, 'web'), dist, { recursive: true });
+const web = path.join(root, 'web');
+await cp(web, dist, {
+  recursive: true,
+  filter: source => path.relative(web, source).split(path.sep)[0] !== 'avatars'
+});
+// Retain historical source art without publishing retired collections.
+const activeImages = new Set(catalog.flatMap(character => [character.avatar.preview, character.avatar.basePreview].filter(Boolean)));
+for (const preview of activeImages) {
+  const relative = preview.slice(1);
+  await mkdir(path.dirname(path.join(dist, relative)), { recursive: true });
+  await cp(path.join(web, relative), path.join(dist, relative));
+}
 await mkdir(path.join(dist, 'core'), { recursive: true });
 for (const name of ['compile.js', 'traits.js', 'targets.js', 'errors.js']) await cp(path.join(root, 'src', name), path.join(dist, 'core', name));
 await writeFile(path.join(dist, 'catalog.json'), JSON.stringify({ characters: catalog, launchSelection }));

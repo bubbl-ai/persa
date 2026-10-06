@@ -19,17 +19,17 @@ These commands run from a source checkout; see [Install](#install). The reposito
 
 ## Current product focus
 
-**Decision clarified October 5, 2026: Meta Muse remains Persa's primary focus. The mobile-friendly website offers default Muse character presets, each combining a personality layer with a matching Muse avatar prompt.** Grok Bot personality compatibility is secondary.
+**Direction updated October 6, 2026: Meta Muse remains Persa's primary focus. Every preset dresses one shared Muse-style plush character in a different costume and pairs it with a personality layer.** Grok Bot personality compatibility is secondary.
 
 ### Default Muse character combos
 
 - Each preset is one complete character combo: **personality layer + Muse avatar**. The personality defines the character's voice, tone, response style, and behavioral preferences; the avatar gives that same character its visual identity.
 - The supplied people and characters below define the candidate pool for the first batch of default Muse combos. Each selected character gets both a personality and a matching avatar prompt.
-- The visual direction is a recognizable, cute, Muse-inspired version of each person or character. The avatar and personality should feel like the same character.
+- The visual direction is one cream plush Muse-style base with the same face, hood, and body proportions throughout the collection. Clothing, headwear, and props express each named character. See the [avatar design contract](docs/MUSE_AVATAR_DESIGN.md).
 - The desired Muse experience includes one-click import of the avatar prompt. The supported import mechanism still needs verification; copying a prompt must not be presented as a completed import.
 - Users browse and choose the combo as a single preset. Personality instructions and avatar prompts may require different technical steps to apply, but both belong to the selected Muse character.
 
-The implemented flow is: browse default Muse characters → preview the matching avatar and personality → tune the voice → copy the combo → open Muse and paste. Users can save combos and their tone settings in the current browser. Grok Bot reuses the personality component as a secondary copy option.
+The implemented flow is: browse default Muse characters → preview the matching avatar and personality → tune the voice → copy the combo → open Muse and paste → choose an avatar option and select it. Earlier desktop tests verified avatar activation and persistence for 13 of the previous likeness-based combos. Those results do not validate the new costume prompts. Saved personality replacement has a known stale-setting issue; see the [historical batch validation](docs/MUSE_BATCH_VALIDATION.md). Users can save combos and their tone settings in the current browser. Grok Bot reuses the personality component as a secondary copy option.
 
 ### First default Muse batch: candidate roster
 
@@ -42,35 +42,33 @@ The implemented flow is: browse default Muse characters → preview the matching
 
 ### Integration questions to validate
 
-Primary-source review on October 5, 2026:
+Primary-source review and desktop Muse test on October 5, 2026:
 
-- **Muse avatars:** Meta describes reference-media-driven avatars, but cautions that its research examples do not all represent avatars available in the Muse app. A public avatar-prompt import API or prefilled deep link has not been verified. Validate the actual mobile avatar workflow and direct import before choosing the final interaction; a clearly labeled copy-and-paste fallback can be evaluated if needed. See [Bringing Your Muse to Life](https://research.meta.ai/blog/bringing-your-muse-to-life).
-- **Muse combo behavior:** Verify that the chosen personality and matching avatar can both be applied, then test personality persistence across later conversations, replacement, and removal. Automatic application and synchronization remain unverified for Persa.
+- **Muse avatars:** Meta describes reference-media-driven avatars, but cautions that its research examples do not all represent avatars available in the Muse app. The desktop Mona Lisa test verified prompt-based avatar generation and selection. A public avatar-prompt import API, prefilled deep link, and the mobile workflow remain unverified. See [Bringing Your Muse to Life](https://research.meta.ai/blog/bringing-your-muse-to-life) and the [live test record](docs/MUSE_VALIDATION.md).
+- **Muse combo behavior:** The [initial Mona Lisa test](docs/MUSE_VALIDATION.md) and [batch validation](docs/MUSE_BATCH_VALIDATION.md) verified avatar activation and persistence for 13 previous likeness-based combos. The costume prompts have not been tested in Muse. Sequential preset replacement updates saved name/style summaries, but can retain old preferences when the new prompt omits them. Fresh side chats share account memory, so their replies are not isolated personality experiments. Five avatars, removal, automatic application, and synchronization remain unverified.
 - **Secondary Grok Bot compatibility:** Official guidance puts durable preferences in the Bot's Description and supports sharing an existing Bot through a template link. Recipients review it and add their own copy in Grok Bot. This is a possible personality distribution path; generating those templates directly from Persa has not been verified. The existing `grok` compiler target describes a different Custom Agent flow, so its 4,000-character budget is not a verified Grok Bot limit. See [Create and manage Bots](https://docs.x.ai/grok-bot/bots) and [Templates for Grok Bot](https://x.ai/bot/guides/templates-for-grok-bot).
 
-### Website status — October 5, 2026
+### Website status — October 6, 2026
 
 The first website implementation lives in [`web/`](web/), with paired character definitions in [`characters/catalog.js`](characters/catalog.js). It is published through Sites at the public URL above.
 
 | Area | Current behavior |
 | --- | --- |
-| Character gallery | All 18 candidates remain available on desktop and mobile. Previews must depict the named figure; unrelated concept companions are not used. The launch ten have not been selected. |
+| Character gallery | All 18 candidates remain available on desktop and mobile. A single plush Muse base wears a distinct character-inspired costume for each preset. The launch ten have not been selected. |
 | Combo preview | Matching avatar, character description, traits, and three authored example replies. Examples illustrate the original preset; they are not live model responses and do not change with the sliders. |
 | Tone controls | Warmth, humor, directness, and response length update the compiled personality instructions immediately. Reset restores that character's defaults. |
 | My collection | Saves favorites and voice settings in this browser's `localStorage`. There is no account or cross-device sync; clearing browser storage removes them. |
-| Muse setup | Copies one message containing the personality and matching avatar prompt. Separate copy buttons are also available. The user opens Muse and pastes the instructions. |
-| Download | Exports the selected persona, compiled personality, and avatar prompt as JSON. There is no JSON import or restore control yet. |
+| Muse setup | Copies one message containing the personality and matching avatar prompt. Separate copy buttons are also available. The user opens Muse, pastes the instructions, then chooses a generated avatar option and clicks **Select**. Earlier tests covered 13 old likeness prompts; the new costume prompts require separate Muse validation. Independent generations may differ from the previews. |
+| Download | Exports the selected persona, compiled personality, costume description, shared-base/design IDs, and avatar prompt as JSON. There is no JSON import or restore control yet. |
 | Grok Bot | Secondary option to copy personality text for a Bot's Description. It uses the `plain` compiler target, independently of the CLI's older `grok` Custom Agent target. |
 
-The first publication had six empty previews because the image service declined those requests; the files were never generated. A subsequent change substituted unrelated concept companions for Taylor Swift, Michael Jackson, Lionel Messi, Harry Potter, SpongeBob, and The Joker. The user rejected those substitutions. The six mascots and their prompt overrides have been removed, and all avatar prompts again describe the named figures.
+The October 6 collection uses one shared reference image and separate costume edits. The gallery, copied combo, avatar-only prompt, and downloaded JSON all describe this same design. The personality definitions, character IDs, favorites, and saved tone settings are preserved.
 
-Original generation results and retired substitutes are recorded in the image manifest. Retired artwork is available in Git history and is not shipped in the website. Gallery illustrations show an intended appearance, not an avatar already installed in Muse. If matching artwork cannot be produced, the entry stays explicitly unavailable rather than displaying another subject.
-
-The correction produced a new Taylor Swift illustration. **Thirteen previews are available; Michael Jackson, Lionel Messi, Harry Potter, SpongeBob, and The Joker remain unavailable** because the image service declined their new requests. Their correct personality and named avatar prompts remain usable. Completing these five previews requires suitable matching artwork; the gallery is not visually complete yet.
+The image manifest retains earlier likeness attempts, refusals, and rejected unrelated substitutes as history. Current costume art uses versioned paths and matching preset/base metadata. A missing costume stays explicitly unavailable; the build never silently falls back to an old human or franchise-shaped avatar. Gallery artwork illustrates an intended appearance, not an avatar already installed in Muse.
 
 If an image request fails in the browser, the gallery and character dialog show a readable error state. Reopening the character retries the image, and the dialog also provides **Retry image**. Personality tuning and copying remain available while the image is unavailable.
 
-The remaining product work is to choose the launch ten, review avatar likenesses, and verify the actual Muse setup on desktop and mobile. Direct avatar import, personality persistence between conversations, replacement, and removal have not been tested in a signed-in Muse account. Persa does not currently connect to a Muse API or synchronize later changes.
+The remaining product work is to choose the launch ten, validate the new costume prompts inside Muse, correct stale preferences during preset replacement, and test mobile Muse. Direct import, independent-generation repeatability, and removal remain unverified. Exact image reuse did not work in the tested route. Persa does not connect to a Muse API or synchronize later changes. The earlier batch implementation hold concerned the previous designs; this costume redesign was explicitly approved afterward. See the [new design and validation scope](docs/MUSE_AVATAR_DESIGN.md).
 
 ### Run the website
 
@@ -88,10 +86,12 @@ Run these commands from the repository root with Node 20 or newer. The preview s
 | Location | Responsibility |
 | --- | --- |
 | [`characters/catalog.js`](characters/catalog.js) | Character identity, persona definitions, matching Muse avatar prompt, preview path, and authored sample replies. `launchSelection` is empty; it records a future selection and does not filter the current gallery. |
-| [`characters/image-generation.json`](characters/image-generation.json) | Exact generation prompts, output paths, and success/refusal records. Active `replacement` records must use `kind: "character"` and the matching `subjectId`; `supersededReplacements` preserves retired attempts. Generation prompts are separate from the Muse setup prompts. |
-| [`web/avatars/`](web/avatars/) | Current character PNG previews, committed with the source. |
+| [`characters/avatar-design.js`](characters/avatar-design.js) | Versioned shared Muse base, 18 costume descriptions, and paired Muse avatar prompts. |
+| [`characters/image-generation.json`](characters/image-generation.json) | Exact art prompts, output paths, and historical outcomes. Active costume replacements use `kind: "muse-costume"` with matching `subjectId`, `baseId`, and `designVersion`; earlier attempts are preserved. |
+| [`characters/avatar-design-generation.json`](characters/avatar-design-generation.json) | Shared reference image provenance and exact generation prompt. |
+| [`web/avatars/`](web/avatars/) | Current costume PNG previews and historical source art. The build ships only currently referenced images and their shared base. |
 | [`web/app.js`](web/app.js), [`web/styles.css`](web/styles.css), [`web/index.html`](web/index.html) | Static browser app, responsive layout, dialogs, local saving, clipboard actions, and downloads. |
-| [`scripts/build-web.js`](scripts/build-web.js), [`scripts/avatar-assets.js`](scripts/avatar-assets.js) | Validate character and image IDs, replacement subjects, statuses, persona data, asset/preview path agreement, PNG headers and dimensions, and launch IDs; compile the Muse prompts; rebuild `dist/` with the app, catalog, and shared compiler. Missing or invalid declared images fail the build; retired assets are removed from the output. |
+| [`scripts/build-web.js`](scripts/build-web.js), [`scripts/avatar-assets.js`](scripts/avatar-assets.js) | Validate character and image IDs, replacement subjects, shared-base/design IDs, statuses, persona data, asset/preview path agreement, PNG headers and dimensions, and launch IDs; compile the Muse prompts; rebuild `dist/` with the app, catalog, and shared compiler. Missing or invalid declared images fail the build; retired assets are removed from the output. |
 | [`src/compile.js`](src/compile.js), [`src/traits.js`](src/traits.js), [`src/targets.js`](src/targets.js), [`src/errors.js`](src/errors.js) | Shared personality compiler used by both the website and CLI. Extracting `PersonaError` avoids pulling Node filesystem code into the browser; `src/persona.js` still re-exports it for existing callers. |
 | [`scripts/preview-web.js`](scripts/preview-web.js) | Local static preview server. |
 | [`.openai/hosting.json`](.openai/hosting.json) | Existing Sites project identity and `dist/` hosting configuration. Site access is managed separately in Sites. |
@@ -100,11 +100,15 @@ The website has no application backend, model calls, or API-key requirement. The
 
 ### Website verification
 
+The October 6 costume update passed all 72 tests, the website build, JavaScript syntax checks, and `git diff --check`. Browser checks rendered all 18 new previews and verified 54 clipboard actions, JSON export, saved tone settings, reset, unavailable images, retry recovery, and 1440/390/320px layouts. All 18 images were visually reviewed against the shared base and wardrobe. See the [costume verification record](docs/MUSE_AVATAR_DESIGN.md#verification--october-6-2026). The new prompts have not yet been tested inside Muse.
+
 The October 5 build passed `npm run build:web`, `node --check web/app.js`, all 61 existing tests via `npm test`, and `git diff --check`. Browser checks passed for all 18 cards, all 12 available images, unavailable previews, live prompt tuning, save/reload/reset, both combined and avatar-only clipboard actions, JSON download, the empty saved collection, and Escape-to-close behavior. Layouts were checked at 1440, 390, and 320 pixels without horizontal overflow or browser page errors.
 
 Those browser checks were run with a temporary Playwright harness outside the repository. They are a recorded validation of this build, not a committed browser test suite or CI job. They do not establish end-to-end Muse integration.
 
-The avatar repair adds seven committed regression tests in [`test/avatar-assets.test.js`](test/avatar-assets.test.js) for named avatar prompts, shipped asset references, replacement provenance, declined requests, malformed manifests, unsafe or mismatched paths, invalid/missing PNGs, and rejection of unrelated substitutes. The full suite has 68 tests. Browser validation also covers narrow mobile layouts, simulated image-request failure, copying while an image is unavailable, and recovery in both the dialog and gallery through **Retry image**. Image loading tests alone do not verify likeness; artwork needs visual review against the requested figure.
+The avatar repair adds seven committed regression tests in [`test/avatar-assets.test.js`](test/avatar-assets.test.js) for named avatar prompts, shipped asset references, replacement provenance, declined requests, malformed manifests, unsafe or mismatched paths, invalid/missing PNGs, and rejection of unrelated substitutes. That repair brought the suite to 68 tests. The costume design adds four regression tests for the shared base, versioned provenance, and preventing fallback to retired likenesses, bringing the suite to 72 passing tests. Browser validation also covers narrow mobile layouts, simulated image-request failure, copying while an image is unavailable, and recovery in both the dialog and gallery through **Retry image**. Image loading tests alone do not verify the design; artwork also needs visual review for a consistent base and the requested costume.
+
+Separate [initial](docs/MUSE_VALIDATION.md) and [batch](docs/MUSE_BATCH_VALIDATION.md) signed-in Muse tests on October 5 (UTC) verified avatar selection and persistence for 13 previous likeness-based combos in desktop Chrome. All 18 default combo and personality-only clipboard outputs matched the repository. The batch report records saved-style checks, stale-setting failures, visual caveats, and the five avatars that were not retried. These are historical manual integration results from one account. They do not validate the new costume prompts or guarantee perfect personality adherence.
 
 ---
 

@@ -1,0 +1,11 @@
+{
+  "baseId": "persa-muse-v1",
+  "designVersion": "muse-costumes-v1",
+  "createdAt": "2026-10-06",
+  "tool": "built-in image_gen",
+  "status": "generated",
+  "asset": "web/avatars/muse-costumes-v1/base.png",
+  "reference": "characters/references/muse-default-avatar.png",
+  "referenceDescription": "Observed default Muse avatar, cropped from the signed-in app during earlier validation; no account details in the crop.",
+  "prompt": "Use case: stylized-concept\nAsset type: collectible plush avatar series master base.\nInput image: reference image for the Muse character's style and face only. Ignore the circular UI frame and crop.\nPrimary request: create a clean full-body master base character matching this sweet Muse design: a round cream plush hood surrounding a peach round face, small glossy black eyes with tiny catchlights, a tiny simple smile and rosy cheeks. Cream stubby hands and feet, a friendly round compact toy body. One single character, front facing, upright neutral standing pose, arms slightly away from sides.\nStyle/medium: premium soft 3D plush toy render, subtly fuzzy fine cream fleece, smooth peach face, rounded sewn forms.\nComposition/framing: square 1024x1024. Full body visible, including feet, centered, about 75 percent of canvas height, straight-on consistent camera.\nScene/backdrop: flat pale lilac background #efedf8, subtle soft ground shadow beneath feet, diffuse studio lighting.\nConstraints: no animal ears, no teeth, no hair, no clothing or accessories yet, no text, no logo, no watermark, no UI, no circular frame. Preserve the reference's simple friendly facial language. This is the identical original base character that will later wear 18 different wardrobes."
+}

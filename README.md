@@ -48,12 +48,13 @@ Primary-source review and desktop Muse test on October 5, 2026:
 - **Muse combo behavior:** The [initial Mona Lisa test](docs/MUSE_VALIDATION.md) and [batch validation](docs/MUSE_BATCH_VALIDATION.md) verified avatar activation and persistence for 13 previous likeness-based combos. The costume prompts have not been tested in Muse. Sequential preset replacement updates saved name/style summaries, but can retain old preferences when the new prompt omits them. Fresh side chats share account memory, so their replies are not isolated personality experiments. Five avatars, removal, automatic application, and synchronization remain unverified.
 - **Secondary Grok Bot compatibility:** Official guidance puts durable preferences in the Bot's Description and supports sharing an existing Bot through a template link. Recipients review it and add their own copy in Grok Bot. This is a possible personality distribution path; generating those templates directly from Persa has not been verified. The existing `grok` compiler target describes a different Custom Agent flow, so its 4,000-character budget is not a verified Grok Bot limit. See [Create and manage Bots](https://docs.x.ai/grok-bot/bots) and [Templates for Grok Bot](https://x.ai/bot/guides/templates-for-grok-bot).
 
-### Website status — October 6, 2026
+### Website status — October 7, 2026
 
-The website implementation lives in [`web/`](web/), with paired character definitions in [`characters/catalog.js`](characters/catalog.js). The costume redesign below is implemented and verified locally. Publication is pending: three Sites archive-upload attempts failed on October 6, including two confirmed upload timeouts. The public URL above still serves the previous likeness gallery until this upload succeeds.
+The website implementation lives in [`web/`](web/), with paired character definitions in [`characters/catalog.js`](characters/catalog.js). The costume redesign below is live at the public URL above. The October 7 retry successfully uploaded and deployed Sites version 4, including all 18 costume previews and their paired personality prompts.
 
 | Area | Current behavior |
 | --- | --- |
+| Spotlight demo | A separate [stage demo](https://persa-muse-characters.archerx03.chatgpt.site/spotlight.html) lets users browse all 18 costumes with a sliding center portrait and a spotlight fade. Supports next/previous, mobile swipe, keyboard navigation, direct character selection, and reduced motion. It reuses static artwork; there is no character animation or audio. |
 | Character gallery | All 18 candidates remain available on desktop and mobile. A single plush Muse base wears a distinct character-inspired costume for each preset. The launch ten have not been selected. |
 | Combo preview | Matching avatar, character description, traits, and three authored example replies. Examples illustrate the original preset; they are not live model responses and do not change with the sliders. |
 | Tone controls | Warmth, humor, directness, and response length update the compiled personality instructions immediately. Reset restores that character's defaults. |
@@ -91,6 +92,7 @@ Run these commands from the repository root with Node 20 or newer. The preview s
 | [`characters/avatar-design-generation.json`](characters/avatar-design-generation.json) | Shared reference image provenance and exact generation prompt. |
 | [`web/avatars/`](web/avatars/) | Current costume PNG previews and historical source art. The build ships only currently referenced images and their shared base. |
 | [`web/app.js`](web/app.js), [`web/styles.css`](web/styles.css), [`web/index.html`](web/index.html) | Static browser app, responsive layout, dialogs, local saving, clipboard actions, and downloads. |
+| [`web/spotlight.html`](web/spotlight.html), [`web/spotlight.css`](web/spotlight.css), [`web/spotlight.js`](web/spotlight.js) | Standalone spotlight concept demo, using the shared catalog and costume art. The full gallery stays at `/`. Only the center image and its neighbors load initially. |
 | [`scripts/build-web.js`](scripts/build-web.js), [`scripts/avatar-assets.js`](scripts/avatar-assets.js) | Validate character and image IDs, replacement subjects, shared-base/design IDs, statuses, persona data, asset/preview path agreement, PNG headers and dimensions, and launch IDs; compile the Muse prompts; rebuild `dist/` with the app, catalog, and shared compiler. Missing or invalid declared images fail the build; retired assets are removed from the output. |
 | [`src/compile.js`](src/compile.js), [`src/traits.js`](src/traits.js), [`src/targets.js`](src/targets.js), [`src/errors.js`](src/errors.js) | Shared personality compiler used by both the website and CLI. Extracting `PersonaError` avoids pulling Node filesystem code into the browser; `src/persona.js` still re-exports it for existing callers. |
 | [`scripts/preview-web.js`](scripts/preview-web.js) | Local static preview server. |
@@ -99,6 +101,8 @@ Run these commands from the repository root with Node 20 or newer. The preview s
 The website has no application backend, model calls, or API-key requirement. The existing CLI editor and MCP server remain separate tools. Generated `dist/` output is ignored by Git; the npm package still distributes the CLI/library rather than the website source. Changing GitHub `main` alone does not publish the website; Sites publication is a separate step.
 
 ### Website verification
+
+The October 7 spotlight demo passed browser checks for all 18 images, next/previous wraparound, quick repeated navigation, direct selection, keyboard controls, actual touch swipes at 390px and 320px, vertical scrolling without changing characters, reduced motion, image failures, catalog retry, and the existing gallery. The demo initially loads three images. Build, JavaScript syntax, and whitespace checks passed. No new Muse integration test was performed.
 
 The October 6 costume update passed all 72 tests, the website build, JavaScript syntax checks, and `git diff --check`. Browser checks rendered all 18 new previews and verified 54 clipboard actions, JSON export, saved tone settings, reset, unavailable images, retry recovery, and 1440/390/320px layouts. All 18 images were visually reviewed against the shared base and wardrobe. See the [costume verification record](docs/MUSE_AVATAR_DESIGN.md#verification--october-6-2026). The new prompts have not yet been tested inside Muse.
 

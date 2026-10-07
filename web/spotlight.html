@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Persa — In the spotlight</title>
+  <meta name="description" content="Meet the Muse wardrobe on a soft, sliding spotlight stage. An interactive Persa gallery demo.">
+  <link rel="icon" href="/favicon.svg">
+  <link rel="stylesheet" href="/spotlight.css">
+</head>
+<body>
+  <header class="page-header">
+    <a class="brand" href="/" aria-label="Persa home"><img src="/favicon.svg" alt="" width="30" height="30">persa</a>
+    <span class="demo-label">Spotlight demo</span>
+    <a class="collection-link" href="/">Full collection <span aria-hidden="true">↗</span></a>
+  </header>
+  <main>
+    <div class="intro"><p class="eyebrow">One Muse. Many personalities.</p><h1>In the spotlight.</h1></div>
+    <section class="showcase" aria-label="Muse character spotlight" aria-roledescription="carousel">
+      <div class="stage" id="stage" tabindex="0" aria-label="Character stage. Use left and right arrow keys to browse." aria-describedby="browse-hint" aria-busy="true">
+        <div class="stage-topline" aria-hidden="true"><span>The Muse wardrobe</span><span id="stage-count">— / 18</span></div>
+        <div class="stage-halo" aria-hidden="true"></div>
+        <div class="spotlight-beam" aria-hidden="true"></div>
+        <div class="stage-floor" aria-hidden="true"></div>
+        <div class="floor-light" aria-hidden="true"></div>
+        <div class="slides" id="slides"></div>
+        <p class="stage-message" id="stage-message" role="status">Opening the wardrobe…</p>
+        <button class="retry" id="retry" hidden>Try again</button>
+        <span class="stage-signature" aria-hidden="true">a little more personality</span>
+      </div>
+      <div class="character-panel">
+        <div class="character-info" id="character-info" aria-busy="true">
+          <p class="character-kicker" id="character-kicker">Personality + Muse costume</p>
+          <h2 id="character-name">A moment for your Muse.</h2>
+          <p class="character-subtitle" id="character-subtitle">Choose a character to take the stage.</p>
+          <div class="character-tags" id="character-tags"></div>
+        </div>
+        <div class="navigation">
+          <button class="arrow" id="previous" aria-label="Previous character" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6M8 12h12"/></svg></button>
+          <span class="page-count" id="page-count" aria-hidden="true">— / 18</span>
+          <button class="arrow next" id="next" aria-label="Next character" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 6 6 6-6 6M16 12H4"/></svg></button>
+        </div>
+      </div>
+      <div class="browse-row">
+        <p id="browse-hint"><span aria-hidden="true">↔</span> Swipe the stage or use the arrows.</p>
+        <label class="character-picker" for="character-select">Jump to <select id="character-select" disabled><option>Choose a character</option></select></label>
+      </div>
+      <p class="sr-only" id="announcement" role="status" aria-live="polite" aria-atomic="true"></p>
+    </section>
+    <footer><span>The same little Muse. A different kind of company.</span><span>18 costumes · Made for Muse</span></footer>
+  </main>
+  <script type="module" src="/spotlight.js"></script>
+</body>
+</html>

@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+- Spotlight stage demo (2026-10-07): add `/spotlight.html` with a sliding
+  center portrait, dimmed neighbors, and a spotlight that fades in on arrival.
+  Reuse all 18 static costumes with no articulated animation or audio. Support
+  buttons, keyboard, mobile swipe, direct selection, reduced motion, image
+  fallbacks, and catalog retry. Load only three images initially and keep the
+  full character gallery at its existing route.
+
+- Publish the shared Muse costume collection successfully on October 7, 2026,
+  as Sites version 4 at the existing public URL. Resolve the earlier archive
+  upload blocker; preserve all 18 combos and the existing public audience.
+
 - Shared Muse wardrobe (2026-10-06): replace individual likeness prompts with
   one cream plush Muse-style base and 18 character-inspired costumes. Preserve
   personalities, saved character IDs, tone settings, and original generation

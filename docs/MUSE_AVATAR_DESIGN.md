@@ -113,9 +113,14 @@ They cover Persa's website, not the new prompts inside Muse.
 
 ## Publication status
 
-The source and deployment archive were prepared successfully. Sites could not
-upload the archive: three attempts failed, including two confirmed blob-upload
-timeout responses. No new version was saved or deployed. The public site still
-serves its previous likeness gallery; the complete costume gallery is available
-in the local build. Retry saving the archive and deploying after the upload
-service recovers, using the matching pushed source commit.
+Published successfully on October 7, 2026 (Asia/Taipei). The retry saved Sites
+version 4 and the native deployment result confirmed `succeeded` at the existing
+[public website](https://persa-muse-characters.archerx03.chatgpt.site).
+
+The deployed source commit is `f2549d691fcff1d1048423ab40bc2b27a2fb1397`.
+The uploaded archive contains all 18 costume previews plus the shared base,
+with no retired likeness images. The public audience is unchanged.
+
+The October 6 attempts had failed during upload, including two confirmed
+blob-upload timeouts. That upload blocker is now resolved. The tested website
+code and artwork were reused; this retry did not add live Muse validation.

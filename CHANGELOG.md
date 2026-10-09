@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+- Adopt the approved spotlight as Persa’s homepage (2026-10-09). Connect the
+  selected stage character to Muse setup, personality tuning, favorites, and
+  existing copy/download controls through one shared app state. Preserve the
+  grid at `/collection.html`, add a saved-collection link, and redirect the old
+  demo URL. Keep selected-character focus after saving, scope stage styling
+  away from dialogs, and repair both stage/detail images with Retry image.
+  Verify 72 tests, all 18 combos, saved tone settings, exports, failure states,
+  keyboard controls, and mobile swipes/layouts.
+
 - Spotlight stage demo (2026-10-07): add `/spotlight.html` with a sliding
   center portrait, dimmed neighbors, and a spotlight that fades in on arrival.
   Reuse all 18 static costumes with no articulated animation or audio. Support

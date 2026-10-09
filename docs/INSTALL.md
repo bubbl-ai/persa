@@ -2,7 +2,7 @@
 
 Two routes: connect an MCP client, or paste compiled text into the agent's instructions or a message. An MCP client must fetch the persona again to see later edits; connecting alone does not guarantee it will apply every rule.
 
-**CLI setup documentation checked: 2 October 2026; website notes updated: 6 October 2026; Grok Bot notes checked: 5 October 2026 (UTC).** Links below identify the product documentation used for these reviews. Separate [initial](MUSE_VALIDATION.md) and [batch](MUSE_BATCH_VALIDATION.md) signed-in desktop Muse tests cover website combos; the other routes below remain documentation checks. The character budgets in [`src/targets.js`](../src/targets.js) are Persa's configured values; a value of `null` means Persa does not trim, not that the receiving product has no limits. Where a current product limit or screen could not be verified, that is stated explicitly.
+**CLI setup documentation checked: 2 October 2026; website notes updated: 9 October 2026; Grok Bot notes checked: 5 October 2026 (UTC).** Links below identify the product documentation used for these reviews. Separate [initial](MUSE_VALIDATION.md) and [batch](MUSE_BATCH_VALIDATION.md) signed-in desktop Muse tests cover website combos; the other routes below remain documentation checks. The character budgets in [`src/targets.js`](../src/targets.js) are Persa's configured values; a value of `null` means Persa does not trim, not that the receiving product has no limits. Where a current product limit or screen could not be verified, that is stated explicitly.
 
 ---
 
@@ -11,8 +11,11 @@ Two routes: connect an MCP client, or paste compiled text into the agent's instr
 ### Website character combos
 
 The [Persa website](https://persa-muse-characters.archerx03.chatgpt.site) is
-public as of October 5, 2026. Choose a character, adjust the tone, select
-**Use in Muse**, copy the combo, then open Muse and paste it into a conversation.
+public as of October 5, 2026. Browse the spotlight stage with the arrows, swipe,
+or character picker. **Tune personality** opens the voice controls and examples;
+**Use in Muse** opens the selected combo’s setup instructions directly. Copy the
+combo, then open Muse and paste it into a conversation. **All characters** opens
+the full grid, and **Saved** opens this browser’s saved combos.
 The copied message includes personality instructions and a costume prompt
 for Persa's shared cream plush Muse-style base. Each costume changes the outfit
 and accessories while keeping the same face and body description. Separate copy controls are available for each component.
@@ -43,7 +46,7 @@ API or prefilled Muse link. Gallery art illustrates the intended look; all four
 Mona Lisa candidates differed from Persa's existing preview. Independent-generation
 repeatability has not been tested. Saving a combo in Persa saves it in the current
 browser, and does not update Muse. See the [batch test record](MUSE_BATCH_VALIDATION.md)
-and [current website status](../README.md#website-status--october-6-2026).
+and [current website status](../README.md#website-status--october-9-2026).
 
 ### CLI and connector route
 

@@ -127,9 +127,9 @@ They cover Persa's website, not the new prompts inside Muse.
 
 ## Publication status
 
-On October 10, the user requested moving production to Vercel under Bubbl's
-team and domain. Build configuration is prepared and Vercel sign-in succeeded;
-team/project confirmation, hostname selection, deployment, and DNS verification
+On October 10, the user approved `persa.bubblai.com` for production on Vercel.
+Build configuration is prepared and Vercel sign-in succeeded;
+team/project confirmation, deployment, and DNS verification
 remain pending. The Sites release
 below is the last verified publication, not evidence of a completed Vercel move.
 See the [migration notes](../README.md#vercel-deployment).

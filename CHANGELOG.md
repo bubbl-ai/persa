@@ -5,8 +5,9 @@
 - Vercel migration preparation (2026-10-10): add static hosting configuration
   for `npm ci`, `npm run build:web`, and `dist`, plus a CLI source-upload allowlist.
   Document Bubbl team ownership, Git deployment, custom-domain setup, and the
-  separate saved collection on a new origin. CLI sign-in succeeded; Vercel team
-  and hostname selection, deployment, and DNS verification remain pending. Sites version 6
+  separate saved collection on a new origin. The user approved `persa.bubblai.com`.
+  CLI sign-in succeeded; Vercel team selection, deployment, and DNS verification
+  remain pending. Sites version 6
   remains the last verified live deployment.
 
 - Documentation (2026-10-10): record the version 6 publication and spotlight

@@ -122,7 +122,8 @@ likeness prompts. See [AGENTS.md](AGENTS.md) for coding-agent guidance.
 
 ## Website publication
 
-The October 10 direction is Vercel hosting in Bubbl's team under `bubblai.com`.
+The October 10 direction is Vercel hosting at `persa.bubblai.com`, in the
+user-confirmed team. The hostname is approved; team selection remains pending.
 Follow the [Vercel deployment notes](README.md#vercel-deployment). Import the
 repository root and use the committed `vercel.json`: Other framework, `npm ci`,
 `npm run build:web`, and `dist` output. `.vercelignore` includes only the source

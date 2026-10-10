@@ -54,7 +54,7 @@ The website implementation lives in [`web/`](web/), with paired character defini
 
 Sites version **6** was published successfully on October 9, 2026 (Asia/Taipei), from source commit `f5de98c1c43fdfdfeff9e14b69106ece6c2a7517`, with the existing public audience unchanged. The costume artwork first shipped in version 4; version 6 makes the approved stage the homepage and connects the existing combo controls. See the [publication record](docs/MUSE_AVATAR_DESIGN.md#publication-status).
 
-On October 10, the user requested moving production to Vercel under Bubbl's team and `bubblai.com`. The repository now has Vercel configuration, and CLI sign-in succeeded. Team/project confirmation, the final hostname, deployment, and DNS setup are still pending. The Sites link above remains the last verified live URL. See [Vercel deployment](#vercel-deployment).
+On October 10, the user selected `persa.bubblai.com` for production on Vercel. The repository now has Vercel configuration, and CLI sign-in succeeded. Team/project confirmation, deployment, and DNS setup are still pending. The Sites link above remains the last verified live URL. See [Vercel deployment](#vercel-deployment).
 
 | Area | Current behavior |
 | --- | --- |
@@ -113,13 +113,12 @@ success in Vercel. Team/scope confirmation is still pending; do not use the
 CLI's default scope without checking ownership.
 [Vercel Git deployment guide](https://vercel.com/docs/git).
 
-`persa.bubblai.com` is the proposed address, pending the user's selection. It
-supports the existing root-relative assets and routes. Hosting at
-`bubblai.com/persa` instead requires changes to both Persa's paths and the main
-website's routing. Add the selected hostname to the Vercel project, then use
+`persa.bubblai.com` is the user-approved address. It supports the existing
+root-relative assets and routes. Add this hostname to the Vercel project, then use
 Vercel's exact DNS instructions in Cloudflare, which hosts `bubblai.com` DNS.
 For a subdomain, this normally means a CNAME record; use the project's returned
-target rather than a copied example. Verify HTTPS and the homepage, collection,
+target rather than a copied example. Keep DNS changes scoped to the `persa`
+subdomain. Verify HTTPS and the homepage, collection,
 catalog, and avatar assets before marking the migration complete.
 [Vercel custom-domain guide](https://vercel.com/docs/domains/working-with-domains/add-a-domain).
 

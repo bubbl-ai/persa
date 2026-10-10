@@ -56,8 +56,8 @@ repeatability has not been tested. Saving a combo in Persa saves it in the curre
 browser, and does not update Muse. See the [batch test record](MUSE_BATCH_VALIDATION.md)
 and [current website status](../README.md#website-status--october-9-2026).
 
-Vercel migration was requested on October 10. The Bubbl address is not yet
-verified live; use the existing link above until the deployment record is
+Vercel migration to `persa.bubblai.com` was approved on October 10. That address
+is not yet verified live; use the existing link above until the deployment record is
 updated. Saved combos belong to the website origin, so moving to a new domain
 starts a separate collection even in the same browser. Old saves remain on
 the Sites address; JSON downloads cannot currently be imported into the new

@@ -25,7 +25,7 @@ npm run preview:web       # http://127.0.0.1:4173
 
 The preview serves the last `dist/` build; rebuild after edits. The website is a
 static browser app that reuses the personality compiler. See the
-[website status and architecture](README.md#website-status--october-9-2026)
+[website status and architecture](README.md#website-status--october-10-2026)
 for the implemented flow, asset coverage, and remaining Muse integration work.
 
 The spotlight homepage is `/`; the full grid is `/collection.html`, with saved
@@ -92,7 +92,7 @@ argument parsing and exit codes are where CLIs actually break.
 
 CI runs the suite on Node 20, 22 and 24. A separate packaging job installs the
 tarball from `npm pack` in a clean project and runs the binary. There is no
-publish workflow; a passing packaging job does not publish an npm release.
+npm publishing workflow; a passing packaging job does not publish an npm release.
 
 For website changes, run `npm run build:web`, `node --check web/app.js`,
 `node --check web/spotlight.js`, and `git diff --check`. Exercise affected browser
@@ -115,27 +115,30 @@ The October 9 homepage checks passed for all 18 characters, including 54 copy
 actions and 390/320px layouts with touch swipes. These checks used a temporary
 Playwright harness outside the repository; they are not a committed browser
 suite or CI job. See the [verification record](README.md#website-verification).
-Existing CI covers the CLI/library, avatar asset validation, and npm package,
-not browser rendering, website deployment, or signed-in Muse behavior. Current
+The `tests` workflow covers the CLI/library, avatar asset validation, and npm
+package. Production deployment has its own workflow; neither automates browser
+rendering or signed-in Muse checks. Current
 costume prompts still need Muse validation; earlier tests covered the old
 likeness prompts. See [AGENTS.md](AGENTS.md) for coding-agent guidance.
 
 ## Website publication
 
-The October 10 direction is Vercel hosting at `persa.bubblai.com`, in the
-user-confirmed team. The hostname is approved; team selection remains pending.
-Follow the [Vercel deployment notes](README.md#vercel-deployment). Import the
-repository root and use the committed `vercel.json`: Other framework, `npm ci`,
-`npm run build:web`, and `dist` output. `.vercelignore` includes only the source
-needed for CLI uploads; preserve all build inputs when adjusting that file.
-Production Git deployments require a connected project and the correct branch.
+Production is [persa.bubblai.com](https://persa.bubblai.com), verified on Vercel
+October 10. Every push to `main` triggers [Deploy to Vercel](.github/workflows/deploy.yml).
+The workflow uses the repository's `VERCEL_TOKEN` secret and configured team/project
+IDs, so commit authors do not need a local Vercel login or team seat. Follow the
+[deployment notes](README.md#vercel-deployment) for the exact existing project.
 
-The existing Sites deployment is identified by `.openai/hosting.json` and remains
-the last verified live deployment while migration is pending. Preserve its
-identity and history. Record the actual Vercel team/project, source commit,
-deployment URL, and domain verification after success. Do not replace public
-links based only on local configuration. Keep generated `dist/` output,
-`.vercel/` project state, deployment archives, and credentials out of Git.
+The workflow pulls production settings, builds with `vercel build --prod`, and
+deploys with `--prebuilt --prod`. `vercel.json` selects Other framework, `npm ci`,
+`npm run build:web`, and `dist` output. `.vercelignore` controls ordinary source
+uploads; the Actions workflow uploads prebuilt output. Inspect both deployment
+and test results after a push, since these workflows run independently.
+
+Preserve `.openai/hosting.json` as the previous Sites deployment's identity and
+history. Keep generated `dist/` output, `.vercel/` project state, deployment
+archives, and credentials out of Git. Website browser checks do not establish
+native Muse integration.
 
 ## Known gaps before the next release
 

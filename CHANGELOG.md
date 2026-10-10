@@ -2,13 +2,19 @@
 
 ## Unreleased
 
+- Vercel migration verified (2026-10-10): `https://persa.bubblai.com` is public
+  over HTTPS. The first successful GitHub auto-deploy run shipped `1e6fc0f`;
+  pushes to `main` now build and deploy prebuilt output using a repository secret.
+  Verify all 18 previews, source/asset agreement, prompt copying, favorites,
+  the full collection, old demo redirect, and desktop/mobile browsing. Update
+  canonical links and contributor/agent guidance for the configured project.
+
 - Vercel migration preparation (2026-10-10): add static hosting configuration
   for `npm ci`, `npm run build:web`, and `dist`, plus a CLI source-upload allowlist.
   Document Bubbl team ownership, Git deployment, custom-domain setup, and the
   separate saved collection on a new origin. The user approved `persa.bubblai.com`.
-  CLI sign-in succeeded; Vercel team selection, deployment, and DNS verification
-  remain pending. Sites version 6
-  remains the last verified live deployment.
+  CLI sign-in succeeded. Team/project setup and domain verification were completed
+  subsequently; preserve the previous Sites version 6 publication as history.
 
 - Documentation (2026-10-10): record the version 6 publication and spotlight
   routes, update contributor guidance to the shared costume model, repair the

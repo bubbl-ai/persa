@@ -10,9 +10,8 @@ Two routes: connect an MCP client, or paste compiled text into the agent's instr
 
 ### Website character combos
 
-The [Persa website](https://persa-muse-characters.archerx03.chatgpt.site) is
-public, with the spotlight homepage published as Sites version 6 on October 9,
-2026. Browse the stage with the arrow buttons, a horizontal swipe, or the
+The [Persa website](https://persa.bubblai.com) is public on Vercel, verified
+October 10, 2026. Browse the spotlight stage with the arrow buttons, a horizontal swipe, or the
 character picker. Left/right arrow keys also work while the stage has focus.
 **Tune personality** opens the voice controls and examples;
 **Use in Muse** opens the selected combo’s setup instructions directly. Copy the
@@ -54,14 +53,14 @@ API or prefilled Muse link. Gallery art illustrates the intended look; all four
 Mona Lisa candidates differed from Persa's existing preview. Independent-generation
 repeatability has not been tested. Saving a combo in Persa saves it in the current
 browser, and does not update Muse. See the [batch test record](MUSE_BATCH_VALIDATION.md)
-and [current website status](../README.md#website-status--october-9-2026).
+and [current website status](../README.md#website-status--october-10-2026).
 
-Vercel migration to `persa.bubblai.com` was approved on October 10. That address
-is not yet verified live; use the existing link above until the deployment record is
-updated. Saved combos belong to the website origin, so moving to a new domain
-starts a separate collection even in the same browser. Old saves remain on
-the Sites address; JSON downloads cannot currently be imported into the new
-collection. See the [deployment notes](../README.md#vercel-deployment).
+Vercel migration to `persa.bubblai.com` was verified on October 10. Saved combos
+belong to the website origin, so the new domain starts a separate collection
+even in the same browser. Old saves remain on the previous
+[Sites address](https://persa-muse-characters.archerx03.chatgpt.site); JSON downloads
+cannot currently be imported into the new collection. See the
+[deployment notes](../README.md#vercel-deployment).
 
 ### CLI and connector route
 

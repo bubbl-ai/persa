@@ -127,15 +127,20 @@ They cover Persa's website, not the new prompts inside Muse.
 
 ## Publication status
 
-On October 10, the user approved `persa.bubblai.com` for production on Vercel.
-Build configuration is prepared and Vercel sign-in succeeded;
-team/project confirmation, deployment, and DNS verification
-remain pending. The Sites release
-below is the last verified publication, not evidence of a completed Vercel move.
-See the [migration notes](../README.md#vercel-deployment).
+The current [public website](https://persa.bubblai.com) was verified on Vercel
+October 10, 2026 (Asia/Taipei). The first successful
+[GitHub auto-deploy run](https://github.com/bubbl-ai/persa/actions/runs/38014634795)
+used source `1e6fc0f2622aefe8bc38a78cefbcbb9bd69ef057`. The project is `persa`
+in scope `tonyhaoyu2000-2063s-projects`; the configured team/project IDs and ongoing
+workflow are recorded in the [deployment notes](../README.md#vercel-deployment).
 
-The current [public website](https://persa-muse-characters.archerx03.chatgpt.site)
-is Sites **version 6**, published successfully on October 9, 2026 (Asia/Taipei).
+Public HTTPS, all 18 costume previews, clipboard copying, saved collections,
+the old demo redirect, and desktop/mobile browsing passed live checks. The
+deployed page assets match the repository. This hosting migration changed no
+artwork or Muse prompts and included no new signed-in Muse validation.
+
+The previous [Sites deployment](https://persa-muse-characters.archerx03.chatgpt.site)
+is **version 6**, published successfully on October 9, 2026 (Asia/Taipei).
 The native deployment result confirmed `succeeded` for source commit
 `f5de98c1c43fdfdfeff9e14b69106ece6c2a7517`. This release promotes the spotlight
 to the homepage and connects Muse setup, personality tuning, and favorites.

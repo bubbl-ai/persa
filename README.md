@@ -4,7 +4,7 @@
 
 **A personality layer for personal agents.** Write down how you want an agent to talk to you — once — and install it into Muse, Grok, Instinct, Claude, ChatGPT, or anything else with a text box.
 
-**Try the Muse character website:** [persa-muse-characters.archerx03.chatgpt.site](https://persa-muse-characters.archerx03.chatgpt.site). As of October 9, 2026, the published homepage is the spotlight carousel, and the site is public: anyone with the link can view it. Each character pairs a personality with a matching avatar prompt; applying the combo in Muse currently requires copy and paste.
+**Try the Muse character website:** [persa.bubblai.com](https://persa.bubblai.com). As of October 10, 2026, the spotlight homepage is public on Vercel under Bubbl's domain: anyone with the link can view it. Each character pairs a personality with a matching avatar prompt; applying the combo in Muse currently requires copy and paste.
 
 Personal agents in 2026 are good at doing things and bad at sounding like anything. Most ship one house voice; the ones that let you change it make you write a system prompt from scratch, per agent, and rewrite it when you change your mind. Persa makes the personality a small file you own, and handles the rest.
 
@@ -48,13 +48,13 @@ Primary-source review and desktop Muse test on October 5, 2026:
 - **Muse combo behavior:** The [initial Mona Lisa test](docs/MUSE_VALIDATION.md) and [batch validation](docs/MUSE_BATCH_VALIDATION.md) verified avatar activation and persistence for 13 previous likeness-based combos. The costume prompts have not been tested in Muse. Sequential preset replacement updates saved name/style summaries, but can retain old preferences when the new prompt omits them. Fresh side chats share account memory, so their replies are not isolated personality experiments. Five avatars, removal, automatic application, and synchronization remain unverified.
 - **Secondary Grok Bot compatibility:** Official guidance puts durable preferences in the Bot's Description and supports sharing an existing Bot through a template link. Recipients review it and add their own copy in Grok Bot. This is a possible personality distribution path; generating those templates directly from Persa has not been verified. The existing `grok` compiler target describes a different Custom Agent flow, so its 4,000-character budget is not a verified Grok Bot limit. See [Create and manage Bots](https://docs.x.ai/grok-bot/bots) and [Templates for Grok Bot](https://x.ai/bot/guides/templates-for-grok-bot).
 
-### Website status — October 9, 2026
+### Website status — October 10, 2026
 
 The website implementation lives in [`web/`](web/), with paired character definitions in [`characters/catalog.js`](characters/catalog.js). The approved spotlight experience is the main website at `/`. Each character on stage has **Use in Muse**, **Tune personality**, and a save action. The full grid remains at `/collection.html`, and saved combos are available at `/collection.html?view=saved`. The old `/spotlight.html` demo link redirects to the homepage.
 
 Sites version **6** was published successfully on October 9, 2026 (Asia/Taipei), from source commit `f5de98c1c43fdfdfeff9e14b69106ece6c2a7517`, with the existing public audience unchanged. The costume artwork first shipped in version 4; version 6 makes the approved stage the homepage and connects the existing combo controls. See the [publication record](docs/MUSE_AVATAR_DESIGN.md#publication-status).
 
-On October 10, the user selected `persa.bubblai.com` for production on Vercel. The repository now has Vercel configuration, and CLI sign-in succeeded. Team/project confirmation, deployment, and DNS setup are still pending. The Sites link above remains the last verified live URL. See [Vercel deployment](#vercel-deployment).
+Vercel production at **[persa.bubblai.com](https://persa.bubblai.com)** was verified on October 10. The [first successful auto-deploy run](https://github.com/bubbl-ai/persa/actions/runs/38014634795) deployed source `1e6fc0f2622aefe8bc38a78cefbcbb9bd69ef057`. Public HTTPS, all 18 previews, prompt copying, saving, and desktop/mobile browsing passed live checks. Pushes to `main` now deploy through GitHub Actions. See [Vercel deployment](#vercel-deployment).
 
 | Area | Current behavior |
 | --- | --- |
@@ -88,9 +88,20 @@ Run these commands from the repository root with Node 20 or newer. The preview s
 
 ### Vercel deployment
 
-Use the `bubbl-ai/persa` GitHub repository in the confirmed Bubbl-owned Vercel team. Set
-the project root to the repository root. The versioned [`vercel.json`](vercel.json)
-provides these settings:
+The [`Deploy to Vercel` workflow](.github/workflows/deploy.yml) publishes this
+repository on every push to `main`, and can also be dispatched manually from
+GitHub Actions. The configured Vercel scope is `tonyhaoyu2000-2063s-projects`,
+with project `persa`:
+
+| Hosting identifier | Value |
+| --- | --- |
+| Production URL | `https://persa.bubblai.com` |
+| Vercel team ID | `team_vxb6Ht1oOuDB78rW3TuLsNTs` |
+| Vercel project ID | `prj_LjXOUGH8w5JS1WgD2LGPVYEnyDQa` |
+| GitHub repository secret | `VERCEL_TOKEN` |
+
+The workflow uses Node 24 and the repository root. The versioned
+[`vercel.json`](vercel.json) provides these settings:
 
 | Setting | Value |
 | --- | --- |
@@ -104,29 +115,31 @@ The app is a static website; `npm start` runs the CLI and is not the hosting
 command. Keep the `.html` routes and standard static-file routing. No SPA
 catch-all rewrite is needed. [Vercel configuration reference](https://vercel.com/docs/project-configuration/vercel-json).
 
-Before importing or connecting Git, push the approved spotlight implementation
-and deployment configuration to `main`. Import or link the project in Bubbl's
-team, select `main` as the production branch, and inspect the resulting build.
-Once connected, pushes to that branch can trigger Vercel deployments; a GitHub
-push by itself does not establish that the website is live. Confirm deployment
-success in Vercel. Team/scope confirmation is still pending; do not use the
-CLI's default scope without checking ownership.
-[Vercel Git deployment guide](https://vercel.com/docs/git).
+GitHub Actions authenticates with the repository secret, pulls production
+settings, runs `vercel build --prod`, then uploads the build with
+`vercel deploy --prebuilt --prod`. Contributors do not need a local Vercel login
+or a Vercel team seat to trigger this workflow by pushing to `main`. This does
+not grant them Vercel dashboard access. The workflow serializes production
+deployments without canceling an in-progress run. Check its result after a push;
+the `tests` workflow runs separately and does not gate deployment.
 
-`persa.bubblai.com` is the user-approved address. It supports the existing
-root-relative assets and routes. Add this hostname to the Vercel project, then use
-Vercel's exact DNS instructions in Cloudflare, which hosts `bubblai.com` DNS.
-For a subdomain, this normally means a CNAME record; use the project's returned
-target rather than a copied example. Keep DNS changes scoped to the `persa`
-subdomain. Verify HTTPS and the homepage, collection,
-catalog, and avatar assets before marking the migration complete.
+`.vercelignore` limits ordinary CLI source uploads. The Actions workflow uploads
+prebuilt output instead, so it does not depend on that source allowlist. Keep the
+token in GitHub secrets and preserve the configured project identifiers. A local
+CLI account that only shows `Invisible Product Inc` is a different scope and
+should not be used to create a replacement project.
+
+Cloudflare DNS for `persa.bubblai.com` resolves through the CNAME
+`ba15cd8cbd77e8a6.vercel-dns-017.com`. Public HTTPS was verified with a trusted
+certificate and no login requirement. Keep any future DNS changes scoped to
+`persa` and use the current values returned by this Vercel project.
 [Vercel custom-domain guide](https://vercel.com/docs/domains/working-with-domains/add-a-domain).
 
 The new domain has a separate saved collection. Favorites and tone settings
 on the ChatGPT Sites origin do not transfer automatically. JSON downloads
 remain available for reference, but there is no JSON import/restore control.
-Retain the existing Sites deployment during the move; switching the canonical
-URL does not itself retire or redirect it.
+The previous Sites deployment is retained as history. The migration did not
+retire or redirect that address.
 
 ### How the website fits the repository
 
@@ -143,12 +156,21 @@ URL does not itself retire or redirect it.
 | [`scripts/build-web.js`](scripts/build-web.js), [`scripts/avatar-assets.js`](scripts/avatar-assets.js) | Validate character and image IDs, replacement subjects, shared-base/design IDs, statuses, persona data, asset/preview path agreement, PNG headers and dimensions, and launch IDs; compile the Muse prompts; rebuild `dist/` with the app, catalog, and shared compiler. Missing or invalid declared images fail the build; retired assets are removed from the output. |
 | [`src/compile.js`](src/compile.js), [`src/traits.js`](src/traits.js), [`src/targets.js`](src/targets.js), [`src/errors.js`](src/errors.js) | Shared personality compiler used by both the website and CLI. Extracting `PersonaError` avoids pulling Node filesystem code into the browser; `src/persona.js` still re-exports it for existing callers. |
 | [`scripts/preview-web.js`](scripts/preview-web.js) | Local static preview server. |
-| [`vercel.json`](vercel.json), [`.vercelignore`](.vercelignore) | Vercel static build/output settings and an allowlist for CLI source uploads. Deployment requires Bubbl team access and domain configuration. |
+| [`vercel.json`](vercel.json), [`.vercelignore`](.vercelignore) | Vercel static build/output settings and an allowlist for CLI source uploads. |
+| [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) | Production auto-deploy from `main` using a repository secret and prebuilt output. |
 | [`.openai/hosting.json`](.openai/hosting.json) | Existing Sites project identity and `dist/` hosting configuration. Site access is managed separately in Sites. |
 
-The website has no application backend, model calls, or API-key requirement. The existing CLI editor and MCP server remain separate tools. Generated `dist/` output is ignored by Git; the npm package still distributes the CLI/library rather than the website source. Vercel builds from the repository using `vercel.json`; Git-triggered deployment requires a connected project. The previous Sites deployment uses its own publication workflow.
+The website has no application backend, model calls, or application API-key requirement. The existing CLI editor and MCP server remain separate tools. Generated `dist/` output is ignored by Git; the npm package still distributes the CLI/library rather than the website source. GitHub Actions builds for Vercel using `vercel.json` and deploys with the repository's hosting token. The previous Sites deployment used its own publication workflow.
 
 ### Website verification
+
+The October 10 Vercel verification checked the public HTTPS domain against the
+repository's deployed HTML, JavaScript, and CSS. All 18 stage images decoded,
+the combined prompt copied successfully over HTTPS, favorites survived reload,
+the full/saved grids worked, and the old demo route redirected to `/`. Desktop
+and 390/320px mobile checks passed, including swipes and dialogs, with no browser
+page errors. The first auto-deploy run and the separate Node/packaging CI run
+both succeeded. This was a hosting verification, not a new Muse integration test.
 
 The October 9 homepage integration passed all 72 tests, the build, JavaScript syntax checks, and whitespace checks. Browser checks covered 54 prompt-copy actions across all 18 stage characters, adjusted-tone persistence and JSON export, independent drafts/reset, focus and stage selection after saving, removing the last favorite, the old demo redirect, help, clipboard denial, reduced motion, rapid navigation, image retry, catalog retry, and 390/320px layouts with touch swiping. The app makes one catalog request and initially loads three stage images. These checks cover Persa, not native Muse behavior.
 

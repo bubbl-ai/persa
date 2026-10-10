@@ -1,0 +1,30 @@
+name: Deploy to Vercel
+
+# Every push to main ships persa.bubblai.com. The deploy runs under a Vercel
+# token held in the repo's secrets, so the commit author does not need a Vercel
+# account or a team seat. Build happens here (vercel build) and only the output
+# is uploaded (--prebuilt), which also sidesteps .vercelignore.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: vercel-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      VERCEL_ORG_ID: team_vxb6Ht1oOuDB78rW3TuLsNTs
+      VERCEL_PROJECT_ID: prj_LjXOUGH8w5JS1WgD2LGPVYEnyDQa
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npx vercel@latest pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+      - run: npx vercel@latest build --prod --token=${{ secrets.VERCEL_TOKEN }}
+      - run: npx vercel@latest deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}

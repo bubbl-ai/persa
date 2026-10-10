@@ -4,7 +4,7 @@
 
 **A personality layer for personal agents.** Write down how you want an agent to talk to you — once — and install it into Muse, Grok, Instinct, Claude, ChatGPT, or anything else with a text box.
 
-**Try the Muse character website:** [persa-muse-characters.archerx03.chatgpt.site](https://persa-muse-characters.archerx03.chatgpt.site). As of October 5, 2026, the site is public: anyone with the link can view it. Each character pairs a personality with a matching avatar prompt; applying the combo in Muse currently requires copy and paste.
+**Try the Muse character website:** [persa-muse-characters.archerx03.chatgpt.site](https://persa-muse-characters.archerx03.chatgpt.site). As of October 9, 2026, the published homepage is the spotlight carousel, and the site is public: anyone with the link can view it. Each character pairs a personality with a matching avatar prompt; applying the combo in Muse currently requires copy and paste.
 
 Personal agents in 2026 are good at doing things and bad at sounding like anything. Most ship one house voice; the ones that let you change it make you write a system prompt from scratch, per agent, and rewrite it when you change your mind. Persa makes the personality a small file you own, and handles the rest.
 
@@ -50,7 +50,11 @@ Primary-source review and desktop Muse test on October 5, 2026:
 
 ### Website status — October 9, 2026
 
-The website implementation lives in [`web/`](web/), with paired character definitions in [`characters/catalog.js`](characters/catalog.js). The approved spotlight experience is the main website at `/`. Each character on stage has **Use in Muse**, **Tune personality**, and a save action. The full grid remains at `/collection.html`, and saved combos are available at `/collection.html?view=saved`. The old `/spotlight.html` demo link redirects to the homepage. The costume collection was first published as Sites version 4 on October 7.
+The website implementation lives in [`web/`](web/), with paired character definitions in [`characters/catalog.js`](characters/catalog.js). The approved spotlight experience is the main website at `/`. Each character on stage has **Use in Muse**, **Tune personality**, and a save action. The full grid remains at `/collection.html`, and saved combos are available at `/collection.html?view=saved`. The old `/spotlight.html` demo link redirects to the homepage.
+
+Sites version **6** was published successfully on October 9, 2026 (Asia/Taipei), from source commit `f5de98c1c43fdfdfeff9e14b69106ece6c2a7517`, with the existing public audience unchanged. The costume artwork first shipped in version 4; version 6 makes the approved stage the homepage and connects the existing combo controls. See the [publication record](docs/MUSE_AVATAR_DESIGN.md#publication-status).
+
+On October 10, the user requested moving production to Vercel under Bubbl's team and `bubblai.com`. The repository now has Vercel configuration, and CLI sign-in succeeded. Team/project confirmation, the final hostname, deployment, and DNS setup are still pending. The Sites link above remains the last verified live URL. See [Vercel deployment](#vercel-deployment).
 
 | Area | Current behavior |
 | --- | --- |
@@ -58,7 +62,7 @@ The website implementation lives in [`web/`](web/), with paired character defini
 | Full collection | The grid at `/collection.html` keeps all 18 candidates available on desktop and mobile. A single plush Muse base wears a distinct character-inspired costume for each preset. The launch ten have not been selected. |
 | Combo preview | Matching avatar, character description, traits, and three authored example replies. Examples illustrate the original preset; they are not live model responses and do not change with the sliders. |
 | Tone controls | Warmth, humor, directness, and response length update the compiled personality instructions immediately. Reset restores that character's defaults. |
-| My collection | Saves favorites and voice settings in this browser's `localStorage`. There is no account or cross-device sync; clearing browser storage removes them. |
+| My collection | Saves favorites and voice settings in this browser's `localStorage`, separately for each website origin. A new domain starts with an empty collection; previous saves remain on the old domain. There is no account or cross-device sync; clearing browser storage removes them. |
 | Muse setup | Copies one message containing the personality and matching avatar prompt. Separate copy buttons are also available. The user opens Muse, pastes the instructions, then chooses a generated avatar option and clicks **Select**. Earlier tests covered 13 old likeness prompts; the new costume prompts require separate Muse validation. Independent generations may differ from the previews. |
 | Download | Exports the selected persona, compiled personality, costume description, shared-base/design IDs, and avatar prompt as JSON. There is no JSON import or restore control yet. |
 | Grok Bot | Secondary option to copy personality text for a Bot's Description. It uses the `plain` compiler target, independently of the CLI's older `grok` Custom Agent target. |
@@ -67,7 +71,7 @@ The October 6 collection uses one shared reference image and separate costume ed
 
 The image manifest retains earlier likeness attempts, refusals, and rejected unrelated substitutes as history. Current costume art uses versioned paths and matching preset/base metadata. A missing costume stays explicitly unavailable; the build never silently falls back to an old human or franchise-shaped avatar. Gallery artwork illustrates an intended appearance, not an avatar already installed in Muse.
 
-If an image request fails in the browser, the gallery and character dialog show a readable error state. Reopening the character retries the image, and the dialog also provides **Retry image**. Personality tuning and copying remain available while the image is unavailable.
+If an image request fails in the browser, the stage, grid, and character dialog show a readable error state. **Tune personality** opens the character dialog, where **Retry image** retries both its preview and the stage image. Reopening the character also retries the dialog image. Personality tuning and copying remain available while the image is unavailable.
 
 The remaining product work is to choose the launch ten, validate the new costume prompts inside Muse, correct stale preferences during preset replacement, and test mobile Muse. Direct import, independent-generation repeatability, and removal remain unverified. Exact image reuse did not work in the tested route. Persa does not connect to a Muse API or synchronize later changes. The earlier batch implementation hold concerned the previous designs; this costume redesign was explicitly approved afterward. See the [new design and validation scope](docs/MUSE_AVATAR_DESIGN.md).
 
@@ -81,6 +85,49 @@ npm run preview:web
 ```
 
 Run these commands from the repository root with Node 20 or newer. The preview server binds to `127.0.0.1:4173` and serves the last build; rebuild after source changes. Opening `web/index.html` directly does not supply the generated catalog or shared compiler files.
+
+### Vercel deployment
+
+Use the `bubbl-ai/persa` GitHub repository in the confirmed Bubbl-owned Vercel team. Set
+the project root to the repository root. The versioned [`vercel.json`](vercel.json)
+provides these settings:
+
+| Setting | Value |
+| --- | --- |
+| Framework preset | Other (`null`) |
+| Install command | `npm ci` |
+| Build command | `npm run build:web` |
+| Output directory | `dist` |
+| Application environment variables | None required |
+
+The app is a static website; `npm start` runs the CLI and is not the hosting
+command. Keep the `.html` routes and standard static-file routing. No SPA
+catch-all rewrite is needed. [Vercel configuration reference](https://vercel.com/docs/project-configuration/vercel-json).
+
+Before importing or connecting Git, push the approved spotlight implementation
+and deployment configuration to `main`. Import or link the project in Bubbl's
+team, select `main` as the production branch, and inspect the resulting build.
+Once connected, pushes to that branch can trigger Vercel deployments; a GitHub
+push by itself does not establish that the website is live. Confirm deployment
+success in Vercel. Team/scope confirmation is still pending; do not use the
+CLI's default scope without checking ownership.
+[Vercel Git deployment guide](https://vercel.com/docs/git).
+
+`persa.bubblai.com` is the proposed address, pending the user's selection. It
+supports the existing root-relative assets and routes. Hosting at
+`bubblai.com/persa` instead requires changes to both Persa's paths and the main
+website's routing. Add the selected hostname to the Vercel project, then use
+Vercel's exact DNS instructions in Cloudflare, which hosts `bubblai.com` DNS.
+For a subdomain, this normally means a CNAME record; use the project's returned
+target rather than a copied example. Verify HTTPS and the homepage, collection,
+catalog, and avatar assets before marking the migration complete.
+[Vercel custom-domain guide](https://vercel.com/docs/domains/working-with-domains/add-a-domain).
+
+The new domain has a separate saved collection. Favorites and tone settings
+on the ChatGPT Sites origin do not transfer automatically. JSON downloads
+remain available for reference, but there is no JSON import/restore control.
+Retain the existing Sites deployment during the move; switching the canonical
+URL does not itself retire or redirect it.
 
 ### How the website fits the repository
 
@@ -97,9 +144,10 @@ Run these commands from the repository root with Node 20 or newer. The preview s
 | [`scripts/build-web.js`](scripts/build-web.js), [`scripts/avatar-assets.js`](scripts/avatar-assets.js) | Validate character and image IDs, replacement subjects, shared-base/design IDs, statuses, persona data, asset/preview path agreement, PNG headers and dimensions, and launch IDs; compile the Muse prompts; rebuild `dist/` with the app, catalog, and shared compiler. Missing or invalid declared images fail the build; retired assets are removed from the output. |
 | [`src/compile.js`](src/compile.js), [`src/traits.js`](src/traits.js), [`src/targets.js`](src/targets.js), [`src/errors.js`](src/errors.js) | Shared personality compiler used by both the website and CLI. Extracting `PersonaError` avoids pulling Node filesystem code into the browser; `src/persona.js` still re-exports it for existing callers. |
 | [`scripts/preview-web.js`](scripts/preview-web.js) | Local static preview server. |
+| [`vercel.json`](vercel.json), [`.vercelignore`](.vercelignore) | Vercel static build/output settings and an allowlist for CLI source uploads. Deployment requires Bubbl team access and domain configuration. |
 | [`.openai/hosting.json`](.openai/hosting.json) | Existing Sites project identity and `dist/` hosting configuration. Site access is managed separately in Sites. |
 
-The website has no application backend, model calls, or API-key requirement. The existing CLI editor and MCP server remain separate tools. Generated `dist/` output is ignored by Git; the npm package still distributes the CLI/library rather than the website source. Changing GitHub `main` alone does not publish the website; Sites publication is a separate step.
+The website has no application backend, model calls, or API-key requirement. The existing CLI editor and MCP server remain separate tools. Generated `dist/` output is ignored by Git; the npm package still distributes the CLI/library rather than the website source. Vercel builds from the repository using `vercel.json`; Git-triggered deployment requires a connected project. The previous Sites deployment uses its own publication workflow.
 
 ### Website verification
 
@@ -352,7 +400,7 @@ thing anyone can send: those details move, and this repository cannot check
 them for you. [CONTRIBUTING.md](CONTRIBUTING.md) has the rest, including the
 two rules that keep personas short. [AGENTS.md](AGENTS.md) records repository
 guidance for coding agents, including product scope, asset provenance, checks,
-and the separate GitHub/Sites publishing paths.
+and the Vercel migration alongside the previous Sites publication workflow.
 
 ## License
 

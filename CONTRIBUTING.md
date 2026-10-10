@@ -1,9 +1,9 @@
 # Contributing
 
-Persa is small on purpose. It compiles a YAML file into text an agent will
-read, and it does not want to become a platform. The most useful contributions
-are usually the least dramatic ones: a target whose character limit moved, a
-trait phrase that reads badly, a bug in the trimmer.
+Persa pairs a personality layer with a costume avatar for Muse. Its static
+website reuses the YAML personality compiler that also powers the CLI/library
+and MCP server. Keep contributions focused on the Muse experience or a concrete
+compiler or integration issue, and preserve the existing interfaces.
 
 ## Running it
 
@@ -25,25 +25,39 @@ npm run preview:web       # http://127.0.0.1:4173
 
 The preview serves the last `dist/` build; rebuild after edits. The website is a
 static browser app that reuses the personality compiler. See the
-[website status and architecture](README.md#website-status--october-5-2026)
+[website status and architecture](README.md#website-status--october-9-2026)
 for the implemented flow, asset coverage, and remaining Muse integration work.
 
-Character presets belong in `characters/catalog.js`; each must include both a
-personality and a matching Muse avatar prompt. Keep gallery image generation
-prompts and results in `characters/image-generation.json`, with available PNGs
-in `web/avatars/`. Preserve an explicit unavailable-preview state when an image
-is missing. All 18 current candidates remain visible; the launch ten have not
-been selected.
+The spotlight homepage is `/`; the full grid is `/collection.html`, with saved
+combos at `/collection.html?view=saved`. The former `/spotlight.html` demo
+redirects to `/`. Both active pages use `web/app.js` for the catalog, personality
+drafts, favorites, dialogs, copying, and downloads. `web/spotlight.js` receives
+that catalog and saved state through `mountSpotlight()` and owns only stage
+presentation. Keep a single catalog request, preserve the selected character
+and focus when saving, and scope stage styles away from the shared dialogs.
+The approved effect moves static portraits and the spotlight; it includes no
+character animation or audio.
 
-Avatars must remain recognizable versions of the named figure. Do not fill
-missing previews with unrelated mascots or animals, even with a concept label.
-Preserve original image-generation outcomes; record successful corrected art
-in the original entry's `replacement` object with `kind: "character"`, matching
-`subjectId`, `status: "generated"`, its exact prompt, and a committed asset path.
-Move retired replacement records to `supersededReplacements`; they must not be
-selected by the build. Keep avatar prompts tied to the named figure and report
-unavailable artwork honestly. The build clears `dist/` before copying current
-assets so retired files cannot remain in a later publication.
+Character presets belong in `characters/catalog.js`, with shared-base and
+costume prompt definitions in `characters/avatar-design.js`. Each preset pairs
+a personality and matching Muse avatar prompt. All 18 current candidates remain
+available; the launch ten have not been selected. Keep the same cream plush face,
+hood, material, and body proportions across costumes. Clothing, headwear, and
+props identify each named preset; do not restore the older individual faces or
+substitute unrelated mascots. See the [design contract](docs/MUSE_AVATAR_DESIGN.md).
+
+Keep exact art-generation prompts and outcomes in
+`characters/image-generation.json`, the shared reference provenance in
+`characters/avatar-design-generation.json`, and committed assets under
+`web/avatars/muse-costumes-v1/`. These art prompts are separate from the prompts
+copied into Muse. Record active costume art in the original entry's `replacement`
+object with `kind: "muse-costume"`, matching `subjectId`,
+`baseId: "persa-muse-v1"`, `designVersion: "muse-costumes-v1"`,
+`status: "generated"`, its exact prompt, and asset path. Preserve original
+outcomes, including refusals, and move retired replacements to
+`supersededReplacements`. A missing costume must stay explicitly unavailable;
+it cannot fall back to old likeness artwork. The build clears `dist/` and ships
+only currently referenced costume images and the shared base.
 
 The asset resolver rejects missing, duplicate, or unknown image records, invalid
 statuses, unsafe/mismatched paths, missing files, and invalid PNG headers or
@@ -80,13 +94,47 @@ CI runs the suite on Node 20, 22 and 24. A separate packaging job installs the
 tarball from `npm pack` in a clean project and runs the binary. There is no
 publish workflow; a passing packaging job does not publish an npm release.
 
-For website changes, run `npm run build:web` and `node --check web/app.js`.
-Exercise affected browser flows at desktop and narrow mobile widths, including
-keyboard dismissal, clipboard actions, and save/reload when relevant. The
-October 5 browser verification used a temporary Playwright harness; it is not
-part of the committed test suite. Existing CI covers the CLI/library, avatar
-asset validation, and npm package, not browser rendering, website deployment,
-or signed-in Muse behavior. See [AGENTS.md](AGENTS.md) for coding-agent guidance.
+For website changes, run `npm run build:web`, `node --check web/app.js`,
+`node --check web/spotlight.js`, and `git diff --check`. Exercise affected browser
+flows at desktop and narrow mobile widths:
+
+- Stage navigation: next/previous wraparound, direct selection, arrow keys,
+  touch swipes, rapid navigation, and reduced motion. Initial loading should
+  request only the center portrait and its two neighbors.
+- Combo actions: the selected stage character must match setup, tuning, copied
+  prompts, and JSON download. Check tone reset, independent drafts, saved-tone
+  persistence, and clipboard failure fallback when changing those flows.
+- Shared state and focus: saving must keep the selected character on stage;
+  closing a dialog restores focus. Check the saved grid, including removing
+  its last character, and the old demo redirect.
+- Failure recovery: a failed image keeps tuning/copying available. **Retry
+  image** repairs the stage and dialog; catalog retry must recover without
+  duplicate dialogs or listeners.
+
+The October 9 homepage checks passed for all 18 characters, including 54 copy
+actions and 390/320px layouts with touch swipes. These checks used a temporary
+Playwright harness outside the repository; they are not a committed browser
+suite or CI job. See the [verification record](README.md#website-verification).
+Existing CI covers the CLI/library, avatar asset validation, and npm package,
+not browser rendering, website deployment, or signed-in Muse behavior. Current
+costume prompts still need Muse validation; earlier tests covered the old
+likeness prompts. See [AGENTS.md](AGENTS.md) for coding-agent guidance.
+
+## Website publication
+
+The October 10 direction is Vercel hosting in Bubbl's team under `bubblai.com`.
+Follow the [Vercel deployment notes](README.md#vercel-deployment). Import the
+repository root and use the committed `vercel.json`: Other framework, `npm ci`,
+`npm run build:web`, and `dist` output. `.vercelignore` includes only the source
+needed for CLI uploads; preserve all build inputs when adjusting that file.
+Production Git deployments require a connected project and the correct branch.
+
+The existing Sites deployment is identified by `.openai/hosting.json` and remains
+the last verified live deployment while migration is pending. Preserve its
+identity and history. Record the actual Vercel team/project, source commit,
+deployment URL, and domain verification after success. Do not replace public
+links based only on local configuration. Keep generated `dist/` output,
+`.vercel/` project state, deployment archives, and credentials out of Git.
 
 ## Known gaps before the next release
 

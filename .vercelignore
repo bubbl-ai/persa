@@ -1,0 +1,18 @@
+# Upload only the source needed to build the static website.
+/*
+!package.json
+!package-lock.json
+!vercel.json
+!.vercelignore
+!scripts/
+!src/
+!characters/
+!web/
+
+# Keep local credentials and personal files out of uploads at any depth.
+**/.env
+**/.env.*
+**/*.pem
+**/*service-account*.json
+**/persona.yaml
+**/.DS_Store

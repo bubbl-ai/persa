@@ -2,6 +2,19 @@
 
 ## Unreleased
 
+- Vercel migration preparation (2026-10-10): add static hosting configuration
+  for `npm ci`, `npm run build:web`, and `dist`, plus a CLI source-upload allowlist.
+  Document Bubbl team ownership, Git deployment, custom-domain setup, and the
+  separate saved collection on a new origin. CLI sign-in succeeded; Vercel team
+  and hostname selection, deployment, and DNS verification remain pending. Sites version 6
+  remains the last verified live deployment.
+
+- Documentation (2026-10-10): record the version 6 publication and spotlight
+  routes, update contributor guidance to the shared costume model, repair the
+  website-status link, and document stage verification and saved-combo behavior.
+  Retain the limits of historical Muse tests; current costume prompts still
+  need signed-in Muse validation.
+
 - Adopt the approved spotlight as Persa’s homepage (2026-10-09). Connect the
   selected stage character to Muse setup, personality tuning, favorites, and
   existing copy/download controls through one shared app state. Preserve the
@@ -10,6 +23,8 @@
   away from dialogs, and repair both stage/detail images with Retry image.
   Verify 72 tests, all 18 combos, saved tone settings, exports, failure states,
   keyboard controls, and mobile swipes/layouts.
+  Published successfully as Sites version 6 from source
+  `f5de98c1c43fdfdfeff9e14b69106ece6c2a7517` at the existing public URL.
 
 - Spotlight stage demo (2026-10-07): add `/spotlight.html` with a sliding
   center portrait, dimmed neighbors, and a spotlight that fades in on arrival.

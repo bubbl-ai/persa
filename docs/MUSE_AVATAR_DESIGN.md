@@ -53,6 +53,20 @@ There are 18 candidates; the user has not chosen the launch ten. Personality
 definitions and authored sample replies are unchanged. Existing saved favorites
 and tone settings continue to use the same character IDs and storage key.
 
+## Website presentation — October 9, 2026
+
+The approved spotlight carousel is the homepage. It slides static costume
+portraits into the center, dims the neighboring portraits, and fades the stage
+spotlight as the selected character arrives. There is no character gesture,
+singing, speech, or audio. Reduced-motion preferences disable the transition.
+All 18 candidates remain available, with the full grid at `/collection.html`.
+The former `/spotlight.html` demo redirects to the homepage.
+
+Each stage selection uses the existing personality and avatar prompt for that
+preset. **Use in Muse**, **Tune personality**, and the heart share the same
+catalog and saved settings as the grid. This presentation change generated no
+new artwork and changed no personality definitions or Muse avatar prompts.
+
 ## Provenance and failure handling
 
 The built-in image-generation tool creates the master and costume edits. Exact
@@ -113,14 +127,28 @@ They cover Persa's website, not the new prompts inside Muse.
 
 ## Publication status
 
-Published successfully on October 7, 2026 (Asia/Taipei). The retry saved Sites
-version 4 and the native deployment result confirmed `succeeded` at the existing
-[public website](https://persa-muse-characters.archerx03.chatgpt.site).
+On October 10, the user requested moving production to Vercel under Bubbl's
+team and domain. Build configuration is prepared and Vercel sign-in succeeded;
+team/project confirmation, hostname selection, deployment, and DNS verification
+remain pending. The Sites release
+below is the last verified publication, not evidence of a completed Vercel move.
+See the [migration notes](../README.md#vercel-deployment).
 
-The deployed source commit is `f2549d691fcff1d1048423ab40bc2b27a2fb1397`.
-The uploaded archive contains all 18 costume previews plus the shared base,
-with no retired likeness images. The public audience is unchanged.
+The current [public website](https://persa-muse-characters.archerx03.chatgpt.site)
+is Sites **version 6**, published successfully on October 9, 2026 (Asia/Taipei).
+The native deployment result confirmed `succeeded` for source commit
+`f5de98c1c43fdfdfeff9e14b69106ece6c2a7517`. This release promotes the spotlight
+to the homepage and connects Muse setup, personality tuning, and favorites.
+It preserves all 18 costume previews, the shared base, and the public audience.
 
-The October 6 attempts had failed during upload, including two confirmed
-blob-upload timeouts. That upload blocker is now resolved. The tested website
-code and artwork were reused; this retry did not add live Muse validation.
+The homepage integration passed 72 tests and browser checks for all 18 presets,
+54 prompt-copy actions, saved tone settings, JSON export, image/catalog retry,
+keyboard navigation, reduced motion, and mobile layouts and swipes. See the
+[website verification record](../README.md#website-verification). These checks
+did not include a new signed-in Muse session.
+
+The costume collection first shipped on October 7 as Sites version 4, from
+`f2549d691fcff1d1048423ab40bc2b27a2fb1397`. That retry resolved the October 6
+archive-upload failures, including two confirmed blob-upload timeouts. Version 5
+then introduced the separate spotlight demo. Version 6 reuses that artwork;
+retired likeness images remain excluded from the deployment archive.

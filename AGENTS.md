@@ -20,7 +20,7 @@
 
 ## Development and verification
 
-Use Node 20 or newer and `npm ci`. For website work, run `npm run build:web`, `node --check web/app.js`, and `npm run preview:web`; the preview is at `http://127.0.0.1:4173` and needs a rebuild after changes.
+Use Node 20 or newer and `npm ci`. For website work, run `npm run build:web`, `node --check web/app.js`, `node --check web/spotlight.js`, and `npm run preview:web`; the preview is at `http://127.0.0.1:4173` and needs a rebuild after changes.
 
 Run `npm test` when compiler, build, or other tested behavior changes. Add focused regression tests for actual failure modes. Check affected browser flows at desktop and mobile widths, including missing or failed images when touching avatar rendering. Run `git diff --check` before committing. The existing CI primarily covers the Node suite and package installation; report browser checks separately.
 
@@ -36,4 +36,6 @@ Run `npm test` when compiler, build, or other tested behavior changes. Add focus
 
 Update `README.md`, `CHANGELOG.md`, and relevant setup/contributor notes when behavior changes. Clearly separate implemented features from remaining work and record meaningful checks with their limits.
 
-The current website is public and identified by `.openai/hosting.json`; preserve that project identity and audience. Website publication uses Sites, separately from GitHub pushes. Honor user requests about publishing or pushing, and do not create a replacement Site for routine fixes.
+Hosting direction updated October 10, 2026: move the website to Vercel under Bubbl's team and `bubblai.com`. `vercel.json` builds the repository with `npm ci` and `npm run build:web`, then serves only `dist/`; `.vercelignore` limits CLI source uploads to build inputs. Use a verified Bubbl team/project, not a personal scope. Confirm the selected hostname before DNS changes, and use the exact DNS records Vercel returns. A subpath requires additional asset/routing work; the current app expects a hostname root.
+
+The existing public Sites version 6 remains the last verified deployment until Vercel publication and the custom domain are confirmed. Preserve `.openai/hosting.json` as the existing Site's identity and history; do not republish or delete that Site as part of routine Vercel work. Update canonical links only after the new HTTPS domain works. Saved combos are origin-specific and do not transfer automatically to a new domain. Record actual deployment results and outstanding access/DNS steps in the docs; never describe prepared configuration as a completed migration.

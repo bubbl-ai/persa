@@ -14,7 +14,7 @@
   <header class="page-header">
     <a class="brand" href="/" aria-label="Persa home"><img src="/favicon.svg" alt="" width="30" height="30">persa</a>
     <nav class="spotlight-nav" aria-label="Main navigation">
-      <a class="collection-link" href="/collection.html">All characters</a>
+      <a class="collection-link" href="#home-collection">All characters</a>
       <a class="collection-link" href="/collection.html?view=saved" aria-label="My collection">Saved <span id="spotlight-saved-count" hidden>0</span></a>
       <button class="spotlight-how" data-how aria-label="How it works" title="How it works" disabled>?</button>
     </nav>
@@ -22,23 +22,21 @@
   <main>
     <div class="intro"><p class="eyebrow">One Muse. Many personalities.</p><h1>In the spotlight.</h1></div>
     <section class="showcase" aria-label="Muse character spotlight" aria-roledescription="carousel">
-      <div class="stage" id="stage" tabindex="0" aria-label="Character stage. Use left and right arrow keys to browse." aria-describedby="browse-hint" aria-busy="true">
+      <div class="stage" id="stage" tabindex="0" aria-label="Character stage. Use left and right arrow keys to browse." aria-describedby="stage-personality browse-hint" aria-busy="true">
         <div class="stage-topline" aria-hidden="true"><span>The Muse wardrobe</span><span id="stage-count">— / 18</span></div>
         <div class="stage-halo" aria-hidden="true"></div>
         <div class="spotlight-beam" aria-hidden="true"></div>
-        <div class="stage-floor" aria-hidden="true"></div>
         <div class="floor-light" aria-hidden="true"></div>
         <div class="slides" id="slides"></div>
         <p class="stage-message" id="stage-message" role="status">Opening the wardrobe…</p>
         <button class="retry" id="retry" hidden>Try again</button>
-        <span class="stage-signature" aria-hidden="true">a little more personality</span>
+        <p class="stage-personality" id="stage-personality"></p>
       </div>
       <div class="character-panel">
         <div class="character-info" id="character-info" aria-busy="true">
           <p class="character-kicker" id="character-kicker">Personality + Muse costume</p>
           <h2 id="character-name">A moment for your Muse.</h2>
           <p class="character-subtitle" id="character-subtitle">Choose a character to take the stage.</p>
-          <div class="character-tags" id="character-tags"></div>
           <div class="spotlight-actions">
             <button class="button primary" id="spotlight-use" disabled>Use in Muse <span aria-hidden="true">↗</span></button>
             <button class="button secondary" id="spotlight-customize" disabled>Tune personality</button>
@@ -56,6 +54,14 @@
         <label class="character-picker" for="character-select">Jump to <select id="character-select" disabled><option>Choose a character</option></select></label>
       </div>
       <p class="sr-only" id="announcement" role="status" aria-live="polite" aria-atomic="true"></p>
+    </section>
+    <section class="home-collection" id="home-collection" aria-labelledby="collection-title" aria-busy="true">
+      <div class="collection-head">
+        <h2 class="collection-title" id="collection-title">All characters <span id="home-collection-count">/ 18</span></h2>
+        <span class="collection-note">Find your kind of company.</span>
+      </div>
+      <p class="collection-status" id="home-collection-status" role="status">Opening the collection…</p>
+      <div class="grid" id="home-character-grid"></div>
     </section>
     <footer><span>The same little Muse. A different kind of company.</span><span>Independent costume interpretations. Not affiliated with Muse.</span></footer>
   </main>

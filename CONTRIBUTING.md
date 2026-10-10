@@ -28,15 +28,19 @@ static browser app that reuses the personality compiler. See the
 [website status and architecture](README.md#website-status--october-10-2026)
 for the implemented flow, asset coverage, and remaining Muse integration work.
 
-The spotlight homepage is `/`; the full grid is `/collection.html`, with saved
-combos at `/collection.html?view=saved`. The former `/spotlight.html` demo
-redirects to `/`. Both active pages use `web/app.js` for the catalog, personality
-drafts, favorites, dialogs, copying, and downloads. `web/spotlight.js` receives
-that catalog and saved state through `mountSpotlight()` and owns only stage
-presentation. Keep a single catalog request, preserve the selected character
-and focus when saving, and scope stage styles away from the shared dialogs.
-The approved effect moves static portraits and the spotlight; it includes no
-character animation or audio.
+The homepage is `/`, with a white, borderless spotlight stage, the selected
+personality's three adjectives, and the full 18-character grid underneath.
+**All characters** scrolls to that grid. The standalone grid remains at
+`/collection.html`, with saved combos at `/collection.html?view=saved`.
+The former `/spotlight.html` demo redirects to `/`. Both active pages use
+`web/app.js` for the catalog, grid, personality drafts, favorites, dialogs,
+copying, and downloads. `web/spotlight.js` receives that catalog and saved state
+through `mountSpotlight()` and owns only stage presentation. Keep one catalog
+request and one stage mount. Update homepage save controls in place to preserve
+tile nodes, loaded images, focus, and the selected stage character. Keep the
+inline grid outside the carousel's keyboard handler and scope stage styles
+away from shared dialogs and tiles. The approved effect moves static portraits
+and the spotlight; it includes no character animation or audio.
 
 Character presets belong in `characters/catalog.js`, with shared-base and
 costume prompt definitions in `characters/avatar-design.js`. Each preset pairs
@@ -45,6 +49,10 @@ available; the launch ten have not been selected. Keep the same cream plush face
 hood, material, and body proportions across costumes. Clothing, headwear, and
 props identify each named preset; do not restore the older individual faces or
 substitute unrelated mascots. See the [design contract](docs/MUSE_AVATAR_DESIGN.md).
+
+The October 10 homepage layout change includes no avatar or prompt edits.
+Current art-generation and Muse prompts exclude human hair; costume-specific
+hairstyles remain unresolved and must not be reported as fixed by this layout.
 
 Keep exact art-generation prompts and outcomes in
 `characters/image-generation.json`, the shared reference provenance in
@@ -99,17 +107,27 @@ For website changes, run `npm run build:web`, `node --check web/app.js`,
 flows at desktop and narrow mobile widths:
 
 - Stage navigation: next/previous wraparound, direct selection, arrow keys,
-  touch swipes, rapid navigation, and reduced motion. Initial loading should
-  request only the center portrait and its two neighbors.
+  touch swipes, rapid navigation, and reduced motion. The stage initially
+  prepares only the center portrait and its two neighbors; the homepage grid
+  independently lazy-loads its previews. Check the three stage adjectives for
+  each selected preset and the All characters anchor.
 - Combo actions: the selected stage character must match setup, tuning, copied
   prompts, and JSON download. Check tone reset, independent drafts, saved-tone
   persistence, and clipboard failure fallback when changing those flows.
-- Shared state and focus: saving must keep the selected character on stage;
-  closing a dialog restores focus. Check the saved grid, including removing
-  its last character, and the old demo redirect.
+- Shared state and focus: saving from either the stage or a homepage tile must
+  update both controls while keeping the selected character on stage and focus
+  on its originating control. Closing a dialog restores focus to the stage
+  action or tile that opened it. Check the saved grid, including removing its
+  last character, and the old demo redirect.
 - Failure recovery: a failed image keeps tuning/copying available. **Retry
-  image** repairs the stage and dialog; catalog retry must recover without
-  duplicate dialogs or listeners.
+  image** repairs the stage, dialog, and matching homepage tile; catalog retry
+  must recover without duplicate dialogs or listeners.
+
+The October 10 layout checks covered all 18 inline tiles and stage captions,
+shared saves without rebuilding tiles or moving focus, tile tuning and saved-tone
+reload, stage/tile/dialog image recovery, catalog retry, and 1440/390/320px
+layouts. The previous homepage flow checks were rerun successfully. See the
+[verification record](README.md#website-verification).
 
 The October 9 homepage checks passed for all 18 characters, including 54 copy
 actions and 390/320px layouts with touch swipes. These checks used a temporary

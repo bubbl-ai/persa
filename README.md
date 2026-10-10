@@ -50,7 +50,7 @@ Primary-source review and desktop Muse test on October 5, 2026:
 
 ### Website status — October 10, 2026
 
-The website implementation lives in [`web/`](web/), with paired character definitions in [`characters/catalog.js`](characters/catalog.js). The approved spotlight experience is the main website at `/`. Each character on stage has **Use in Muse**, **Tune personality**, and a save action. The full grid remains at `/collection.html`, and saved combos are available at `/collection.html?view=saved`. The old `/spotlight.html` demo link redirects to the homepage.
+The website implementation lives in [`web/`](web/), with paired character definitions in [`characters/catalog.js`](characters/catalog.js). The homepage at `/` has a white, borderless spotlight stage with the featured personality's three adjectives beneath the portrait. Each character on stage has **Use in Muse**, **Tune personality**, and a save action. All 18 character tiles appear below the spotlight; **All characters** scrolls to that grid. The standalone grid remains at `/collection.html`, and saved combos are available at `/collection.html?view=saved`. The old `/spotlight.html` demo link redirects to the homepage.
 
 Sites version **6** was published successfully on October 9, 2026 (Asia/Taipei), from source commit `f5de98c1c43fdfdfeff9e14b69106ece6c2a7517`, with the existing public audience unchanged. The costume artwork first shipped in version 4; version 6 makes the approved stage the homepage and connects the existing combo controls. See the [publication record](docs/MUSE_AVATAR_DESIGN.md#publication-status).
 
@@ -58,8 +58,8 @@ Vercel production at **[persa.bubblai.com](https://persa.bubblai.com)** was veri
 
 | Area | Current behavior |
 | --- | --- |
-| Spotlight homepage | Browse all 18 costumes with a sliding center portrait and a spotlight fade, then use the selected combo, tune its personality, or save it. Supports next/previous, mobile swipe, keyboard navigation, direct selection, and reduced motion. It reuses static artwork; there is no character animation or audio. |
-| Full collection | The grid at `/collection.html` keeps all 18 candidates available on desktop and mobile. A single plush Muse base wears a distinct character-inspired costume for each preset. The launch ten have not been selected. |
+| Spotlight homepage | Browse all 18 costumes on a white, borderless stage with a sliding center portrait, subtle spotlight, and the selected preset's three personality adjectives. Use the selected combo, tune its personality, or save it. Supports next/previous, mobile swipe, keyboard navigation, direct selection, and reduced motion. It reuses static artwork; there is no character animation or audio. |
+| Full collection | All 18 tiles appear below the homepage spotlight and remain available at `/collection.html`. Stage and grid share dialogs, personality settings, and saved state; saving preserves the stage selection and the originating control's focus. A single plush Muse base wears a distinct character-inspired costume for each preset. The launch ten have not been selected. |
 | Combo preview | Matching avatar, character description, traits, and three authored example replies. Examples illustrate the original preset; they are not live model responses and do not change with the sliders. |
 | Tone controls | Warmth, humor, directness, and response length update the compiled personality instructions immediately. Reset restores that character's defaults. |
 | My collection | Saves favorites and voice settings in this browser's `localStorage`, separately for each website origin. A new domain starts with an empty collection; previous saves remain on the old domain. There is no account or cross-device sync; clearing browser storage removes them. |
@@ -69,9 +69,11 @@ Vercel production at **[persa.bubblai.com](https://persa.bubblai.com)** was veri
 
 The October 6 collection uses one shared reference image and separate costume edits. The gallery, copied combo, avatar-only prompt, and downloaded JSON all describe this same design. The personality definitions, character IDs, favorites, and saved tone settings are preserved.
 
+The October 10 homepage layout update changes no avatar assets or prompts. Current art-generation and Muse prompts explicitly exclude human hair, so costume-specific hairstyles are still absent; this layout update does not address that artwork limitation. See the [design contract](docs/MUSE_AVATAR_DESIGN.md#shared-design).
+
 The image manifest retains earlier likeness attempts, refusals, and rejected unrelated substitutes as history. Current costume art uses versioned paths and matching preset/base metadata. A missing costume stays explicitly unavailable; the build never silently falls back to an old human or franchise-shaped avatar. Gallery artwork illustrates an intended appearance, not an avatar already installed in Muse.
 
-If an image request fails in the browser, the stage, grid, and character dialog show a readable error state. **Tune personality** opens the character dialog, where **Retry image** retries both its preview and the stage image. Reopening the character also retries the dialog image. Personality tuning and copying remain available while the image is unavailable.
+If an image request fails in the browser, the stage, grid, and character dialog show a readable error state. **Tune personality** or a character tile opens the character dialog, where **Retry image** retries its preview, the stage image, and its homepage tile. Reopening the character also retries the dialog image. Personality tuning and copying remain available while the image is unavailable.
 
 The remaining product work is to choose the launch ten, validate the new costume prompts inside Muse, correct stale preferences during preset replacement, and test mobile Muse. Direct import, independent-generation repeatability, and removal remain unverified. Exact image reuse did not work in the tested route. Persa does not connect to a Muse API or synchronize later changes. The earlier batch implementation hold concerned the previous designs; this costume redesign was explicitly approved afterward. See the [new design and validation scope](docs/MUSE_AVATAR_DESIGN.md).
 
@@ -151,7 +153,7 @@ retire or redirect that address.
 | [`characters/avatar-design-generation.json`](characters/avatar-design-generation.json) | Shared reference image provenance and exact generation prompt. |
 | [`web/avatars/`](web/avatars/) | Current costume PNG previews and historical source art. The build ships only currently referenced images and their shared base. |
 | [`web/app.js`](web/app.js), [`web/styles.css`](web/styles.css), [`web/index.html`](web/index.html) | Static browser app, responsive layout, dialogs, local saving, clipboard actions, and downloads. |
-| [`web/spotlight.js`](web/spotlight.js), [`web/spotlight.css`](web/spotlight.css) | Homepage stage controller and styles scoped away from shared dialogs. Receives catalog/favorites from `app.js`; only the center image and its neighbors load initially. Saving keeps the selected stage character and focus. |
+| [`web/spotlight.js`](web/spotlight.js), [`web/spotlight.css`](web/spotlight.css) | Homepage stage controller and styles scoped away from shared dialogs. Receives catalog/favorites from `app.js`; initially prepares only the center stage image and its neighbors. The inline grid independently lazy-loads its previews. Saving keeps the selected stage character and focus. |
 | [`web/collection.html`](web/collection.html), [`web/spotlight.html`](web/spotlight.html) | Full/saved collection entry point and redirect for the former demo URL. Both active views use the same app, compiler, and storage key. |
 | [`scripts/build-web.js`](scripts/build-web.js), [`scripts/avatar-assets.js`](scripts/avatar-assets.js) | Validate character and image IDs, replacement subjects, shared-base/design IDs, statuses, persona data, asset/preview path agreement, PNG headers and dimensions, and launch IDs; compile the Muse prompts; rebuild `dist/` with the app, catalog, and shared compiler. Missing or invalid declared images fail the build; retired assets are removed from the output. |
 | [`src/compile.js`](src/compile.js), [`src/traits.js`](src/traits.js), [`src/targets.js`](src/targets.js), [`src/errors.js`](src/errors.js) | Shared personality compiler used by both the website and CLI. Extracting `PersonaError` avoids pulling Node filesystem code into the browser; `src/persona.js` still re-exports it for existing callers. |
@@ -163,6 +165,8 @@ retire or redirect that address.
 The website has no application backend, model calls, or application API-key requirement. The existing CLI editor and MCP server remain separate tools. Generated `dist/` output is ignored by Git; the npm package still distributes the CLI/library rather than the website source. GitHub Actions builds for Vercel using `vercel.json` and deploys with the repository's hosting token. The previous Sites deployment used its own publication workflow.
 
 ### Website verification
+
+The October 10 white-stage and inline-collection update passed all 72 tests, the website build, JavaScript syntax checks, and whitespace checks. Browser checks covered all 18 stage captions, all 18 tile images and 54 visible tile adjectives at 1440/390/320px, the same-page collection link, synchronized stage/tile saves without replacing tile nodes or moving focus, tile tuning/copying and saved-tone reload, and image recovery in the stage, tile, and dialog. The earlier homepage flow checks were also rerun successfully, including 54 prompt-copy actions, JSON export, saved-collection removal, clipboard fallback, reduced motion, mobile swipes, and catalog retry. No horizontal overflow or browser page errors were observed. These are Persa checks, not a new Muse integration test; production uses the existing main-branch Vercel workflow.
 
 The October 10 Vercel verification checked the public HTTPS domain against the
 repository's deployed HTML, JavaScript, and CSS. All 18 stage images decoded,

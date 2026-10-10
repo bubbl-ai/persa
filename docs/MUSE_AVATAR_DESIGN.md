@@ -15,6 +15,13 @@ face, proportions, material, and cream color stay consistent. Clothing,
 headwear, accessories, and the hand positions needed for props may change.
 The images use the same front-facing studio composition and pale lilac backdrop.
 
+Current art-generation and Muse prompts explicitly exclude human hair, so the
+costumes do not include character-specific hairstyles. The October 10 website
+layout update changes no avatar assets or prompts and does not correct this
+limitation. A revised hairstyle direction remains unresolved. The white stage
+is a website presentation change; the committed portraits retain their pale
+lilac backdrop.
+
 The base is Persa's Muse-inspired illustration, not a native avatar exported
 from Muse. Its source reference was Muse's observed default avatar. The same
 generated master image is supplied to every costume edit.
@@ -53,19 +60,29 @@ There are 18 candidates; the user has not chosen the launch ten. Personality
 definitions and authored sample replies are unchanged. Existing saved favorites
 and tone settings continue to use the same character IDs and storage key.
 
-## Website presentation — October 9, 2026
+## Website presentation — October 10, 2026
 
-The approved spotlight carousel is the homepage. It slides static costume
-portraits into the center, dims the neighboring portraits, and fades the stage
-spotlight as the selected character arrives. There is no character gesture,
-singing, speech, or audio. Reduced-motion preferences disable the transition.
-All 18 candidates remain available, with the full grid at `/collection.html`.
-The former `/spotlight.html` demo redirects to the homepage.
+The approved spotlight carousel is the homepage. Its white stage has no border
+or enclosing box, and the selected preset's three personality adjectives appear
+at the bottom of the stage. It slides static costume portraits into the center,
+dims neighboring portraits, and fades a subtle spotlight as the selected
+character arrives. There is no character gesture, singing, speech, or audio.
+Reduced-motion preferences disable the transition. All 18 character tiles
+appear directly below the spotlight, with the header's **All characters** link
+scrolling to them. The standalone full grid and saved collection remain at
+`/collection.html`; the former `/spotlight.html` demo redirects to the homepage.
 
 Each stage selection uses the existing personality and avatar prompt for that
 preset. **Use in Muse**, **Tune personality**, and the heart share the same
-catalog and saved settings as the grid. This presentation change generated no
-new artwork and changed no personality definitions or Muse avatar prompts.
+catalog, controls, dialogs, and saved settings as the grid. Saving from either
+view updates both while preserving the selected stage character and originating
+control's focus. This presentation change generated no new artwork and changed
+no personality definitions or Muse avatar prompts. The October 10 layout
+passed all 72 tests, build and syntax checks, and desktop/mobile browser checks
+for all 18 previews, adjectives, shared saves, focus, setup copying, and image
+recovery. See the [website verification record](../README.md#website-verification).
+This release uses the existing main-branch Vercel workflow and includes no new
+signed-in Muse validation.
 
 ## Provenance and failure handling
 

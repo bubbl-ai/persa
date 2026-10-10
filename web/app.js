@@ -71,8 +71,24 @@ function card(character) {
   </article>`;
 }
 
+function renderHomeCollection() {
+  const grid = document.querySelector('#home-character-grid');
+  // Keep tile nodes mounted so saving preserves focus, scroll, and loaded images.
+  if (!grid.children.length) grid.innerHTML = characters.map(card).join('');
+  for (const character of characters) {
+    const button = grid.querySelector(`[data-save="${character.id}"]`);
+    const isSaved = !!saved[character.id];
+    button.classList.toggle('saved', isSaved);
+    button.setAttribute('aria-pressed', String(isSaved));
+    button.setAttribute('aria-label', `${isSaved ? 'Remove' : 'Save'} ${character.name}${isSaved ? ' from' : ' to'} My collection`);
+  }
+  document.querySelector('#home-collection-count').textContent = `/ ${characters.length}`;
+  document.querySelector('#home-collection').setAttribute('aria-busy', 'false');
+  document.querySelector('#home-collection-status').hidden = true;
+}
+
 function renderPage() {
-  if (spotlightHome) { spotlight?.updateSaved(saved); return; }
+  if (spotlightHome) { spotlight?.updateSaved(saved); renderHomeCollection(); return; }
   const list = characters.filter(c => view !== 'saved' || saved[c.id]).sort((a, b) => Number(!!b.avatar.preview) - Number(!!a.avatar.preview));
   app.innerHTML = `<div class="shell"><header class="topbar"><a class="brand" href="/" aria-label="Persa home"><img src="/favicon.svg" alt="" width="33" height="33">persa</a><nav class="navigation" aria-label="Main navigation"><button class="nav-button ${view === 'explore' ? 'active' : ''}" data-view="explore" aria-current="${view === 'explore' ? 'page' : 'false'}">Explore</button><button class="nav-button ${view === 'saved' ? 'active' : ''}" data-view="saved" aria-current="${view === 'saved' ? 'page' : 'false'}">${icon('heart')}My collection ${Object.keys(saved).length ? `<span class="saved-count">${Object.keys(saved).length}</span>` : ''}</button><button class="text-button" data-how>How it works</button></nav><div class="made-for">${icon('spark')} Made for Muse</div></header>
     <main><section class="intro"><div><div class="eyebrow">One Muse. Many characters.</div><h1>${view === 'saved' ? 'Your kind of <span>company.</span>' : 'Dress your <span>Muse.</span>'}</h1><p>${view === 'saved' ? 'Your saved characters, with the personality settings you chose.' : 'The same little Muse, dressed for a different personality.<br>Find your favorite costume and make the voice your own.'}</p></div><div class="intro-aside"><strong>A new outfit. A familiar Muse.</strong>Each costume comes with<br>a personality to match.</div></section>
@@ -153,11 +169,11 @@ function saveCurrent() {
   notify('Combo and tone settings saved on this device.');
 }
 
-function toggleSave(id) {
+function toggleSave(id, source) {
   const c=characters.find(item=>item.id===id);if(!c)return;
   const next={...saved},removing=!!next[id];
   if(removing)delete next[id];else next[id]={voice:{...(drafts[id]||c.persona.voice)}};
-  if(persist(next)){renderPage();notify(removing?'Removed from My collection.':'Combo saved on this device.');(document.querySelector(`[data-save="${id}"]`) || document.querySelector('.card [data-save], .empty [data-view="explore"]'))?.focus({preventScroll:true});}
+  if(persist(next)){renderPage();notify(removing?'Removed from My collection.':'Combo saved on this device.');(source?.isConnected ? source : document.querySelector(`[data-save="${id}"]`) || document.querySelector('.card [data-save], .empty [data-view="explore"]'))?.focus({preventScroll:true});}
 }
 
 function downloadCombo() {
@@ -189,11 +205,16 @@ async function start() {
       if(button.hasAttribute('data-close'))dialog.close();
       else if(button.dataset.setupCharacter){openCharacter(button.dataset.setupCharacter);renderSetup();}
       else if(button.dataset.character)openCharacter(button.dataset.character);
-      else if(button.dataset.save)toggleSave(button.dataset.save);
+      else if(button.dataset.save)toggleSave(button.dataset.save,button);
       else if(button.dataset.view){view=button.dataset.view;renderPage();document.querySelector(`[data-view="${view}"]`)?.focus({preventScroll:true});}
       else if(button.hasAttribute('data-how'))showHow();
       else if(button.hasAttribute('data-back'))renderDetail();
-      else if(button.hasAttribute('data-retry-avatar')){spotlight?.retryImage(current.id);renderPage();renderDetail();}
+      else if(button.hasAttribute('data-retry-avatar')){
+        spotlight?.retryImage(current.id);
+        const preview=document.querySelector(`#home-character-grid #card-${current.id} .card-art`)?.querySelector('[data-avatar-image], .unavailable');
+        if(preview)preview.outerHTML=imageMarkup(current);
+        renderPage();renderDetail();
+      }
       else if(button.hasAttribute('data-sample')){sampleIndex=Number(button.dataset.sample);renderDetail();dialog.querySelector(`[data-sample="${sampleIndex}"]`)?.focus({preventScroll:true});}
       else if(button.hasAttribute('data-reset')){drafts[current.id]={...current.persona.voice};renderDetail();dialog.querySelector('[data-reset]')?.focus({preventScroll:true});notify('Original tone restored.');}
       else if(button.hasAttribute('data-save-current'))saveCurrent();
@@ -214,6 +235,8 @@ async function start() {
       document.querySelector('#retry').hidden=false;
       document.querySelector('#stage').setAttribute('aria-busy','false');
       document.querySelector('#character-info').setAttribute('aria-busy','false');
+      document.querySelector('#home-collection').setAttribute('aria-busy','false');
+      document.querySelector('#home-collection-status').textContent='The collection couldn’t load. Use Try again on the stage to reload it.';
     }else app.innerHTML='<main class="fatal"><h1>We could not load the collection.</h1><p>Please check your connection and try again.</p><button class="button primary" id="retry">Try again</button></main>';
     document.querySelector('#retry').onclick=()=>location.reload();console.error(error);
   }

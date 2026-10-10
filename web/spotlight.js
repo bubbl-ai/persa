@@ -25,7 +25,7 @@ export function mountSpotlight({ characters, saved }) {
 
   function settle() {
     stage.classList.remove('is-moving');
-    document.querySelector('#announcement').textContent = `${characters[selected].name}, ${selected + 1} of ${characters.length}.`;
+    document.querySelector('#announcement').textContent = `${characters[selected].name}, ${selected + 1} of ${characters.length}. ${characters[selected].tags.join(', ')}.`;
   }
 
   function selectCharacter(index, animate = true) {
@@ -46,9 +46,7 @@ export function mountSpotlight({ characters, saved }) {
     document.querySelector('#character-name').textContent = character.name;
     document.querySelector('#character-subtitle').textContent = character.subtitle;
     document.querySelector('#character-kicker').textContent = 'Personality + Muse costume';
-    document.querySelector('#character-tags').replaceChildren(...character.tags.map(tag => {
-      const span = document.createElement('span'); span.textContent = tag; return span;
-    }));
+    document.querySelector('#stage-personality').textContent = character.tags.join(' · ');
     const count = `${String(selected + 1).padStart(2, '0')} / ${characters.length}`;
     document.querySelector('#stage-count').textContent = count;
     document.querySelector('#page-count').textContent = count;

@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+- Homepage layout (2026-10-10): give the spotlight a white, borderless stage
+  and replace its generic caption with the featured personality's three
+  adjectives. Place all 18 character tiles below the spotlight and make
+  **All characters** scroll to them; retain the standalone full/saved collection
+  routes. Reuse the shared dialogs and controls, synchronize stage/grid saves,
+  and preserve stage selection and control focus. Retry image also repairs the
+  matching homepage tile. Avatar assets and prompts are unchanged; current
+  prompts still exclude human hair. All 72 tests, the build, syntax/whitespace
+  checks, and desktop/mobile browser checks passed; deployment uses the
+  existing main-branch Vercel workflow.
+
 - Vercel migration verified (2026-10-10): `https://persa.bubblai.com` is public
   over HTTPS. The first successful GitHub auto-deploy run shipped `1e6fc0f`;
   pushes to `main` now build and deploy prebuilt output using a repository secret.

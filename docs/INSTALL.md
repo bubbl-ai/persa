@@ -11,21 +11,27 @@ Two routes: connect an MCP client, or paste compiled text into the agent's instr
 ### Website character combos
 
 The [Persa website](https://persa.bubblai.com) is public on Vercel, verified
-October 10, 2026. Browse the spotlight stage with the arrow buttons, a horizontal swipe, or the
-character picker. Left/right arrow keys also work while the stage has focus.
+October 10, 2026. The current homepage implementation uses a white, borderless
+spotlight stage with the selected personality's three adjectives below its
+portrait. Browse with the arrow buttons, a horizontal swipe, or the character
+picker. Left/right arrow keys also work while the stage has focus.
 **Tune personality** opens the voice controls and examples;
 **Use in Muse** opens the selected combo’s setup instructions directly. Copy the
-combo, then open Muse and paste it into a conversation. **All characters** opens
-the full grid at `/collection.html`, and **Saved** opens this browser’s saved
+combo, then open Muse and paste it into a conversation. All 18 character tiles
+appear below the spotlight; **All characters** scrolls to them. The standalone
+grid remains at `/collection.html`, and **Saved** opens this browser’s saved
 combos at `/collection.html?view=saved`. The old `/spotlight.html` link redirects
-to the homepage. The heart saves or removes the selected combo; saving keeps
-that character on stage. Saved combos retain their tone settings on reload in
-the same browser. The setup dialog also offers a JSON download, but Persa has
-no JSON import or restore control yet.
+to the homepage. Stage and tiles open the same character controls and share
+saved state. A heart saves or removes that combo while preserving the current
+stage selection and focus. Saved combos retain their tone settings on reload
+in the same browser. The setup dialog also offers a JSON download, but Persa
+has no JSON import or restore control yet. The October 10 layout passed
+desktop and 390/320px browser checks; releases deploy through the existing
+main-branch Vercel workflow.
 
 The copied message includes personality instructions and a costume prompt
 for Persa's shared cream plush Muse-style base. Each costume changes the outfit
-and accessories while keeping the same face and body description. Separate copy controls are available for each component.
+and accessories while keeping the same face and body description. Separate copy controls are available for each component. Current prompts explicitly exclude human hair; the homepage layout update does not change the artwork or add costume-specific hairstyles.
 
 The October 6 wardrobe replaces the older likeness designs. These new costume
 prompts have not been tested inside Muse. In the earlier desktop tests,

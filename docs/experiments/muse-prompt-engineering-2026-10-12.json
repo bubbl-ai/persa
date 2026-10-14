@@ -1,0 +1,365 @@
+{
+  "schemaVersion": 1,
+  "id": "muse-prompt-engineering-2026-10-12",
+  "date": "2026-10-12",
+  "timezone": "Asia/Taipei",
+  "status": "experimental-not-default",
+  "documentScope": "Exact experimental prompt recipes, reference provenance, and separate screening, confirmation and targeted-repair plans. This file records no generation outcomes or stability verdict.",
+  "purpose": "Find whether prompt engineering reduces native Muse fixed-character drift; no guarantee or activation.",
+  "activeCatalogChanged": false,
+  "versioning": {
+    "promptVersions": {
+      "compact": "muse-native-stability-2026-10-12-compact-v1",
+      "structured": "muse-native-stability-2026-10-12-structured-v1",
+      "reference": "muse-native-stability-2026-10-12-reference-v1",
+      "reference-revised": "muse-native-stability-2026-10-12-reference-revised-v1"
+    },
+    "artworkVersion": "muse-costumes-v1",
+    "note": "Experimental prompt versions are independent of the existing artwork version. This experiment does not replace the active catalog prompts or artwork."
+  },
+  "referenceImages": [
+    {
+      "id": "shared-base",
+      "pathBase": "repository-root",
+      "path": "web/avatars/muse-costumes-v1/base.png",
+      "sha256": "c428fd4d8608ca5bd5d72a5c3f49a20be680a739a94bb9e658e3f4be23a4ec2f",
+      "artworkVersion": "muse-costumes-v1",
+      "use": "Upload this unchanged PNG only for recipes whose referenceImage is shared-base. Text-only screens have no attachment.",
+      "conditioningLimit": "An attachment and instructions do not independently establish that the service conditions native avatar generation on that image."
+    }
+  ],
+  "eligibleCharacters": [
+    {
+      "id": "mona-lisa",
+      "name": "Mona Lisa"
+    },
+    {
+      "id": "taylor-swift",
+      "name": "Taylor Swift"
+    },
+    {
+      "id": "mark-zuckerberg",
+      "name": "Mark Zuckerberg"
+    }
+  ],
+  "safetyScope": "Costume-focused wording applies only to these three previously eligible subjects. This experiment does not reformulate, remove names from, or retry any safety-refused request.",
+  "recipes": [
+    {
+      "id": "compact-mona-lisa",
+      "promptVersion": "muse-native-stability-2026-10-12-compact-v1",
+      "strategy": "compact",
+      "strategyLabel": "Compact fixed-model description",
+      "character": {
+        "id": "mona-lisa",
+        "name": "Mona Lisa"
+      },
+      "referenceImage": null,
+      "prompt": "Please generate my Muse avatar as one specific physical plush toy wearing a costume. Use exactly the same character design and realistic plush rendering for every candidate; do not offer different faces, proportions, styles or poses.\n\nThe toy is an earless cream sherpa companion with tightly curled fleece, a large rounded hood that merges into its short rounded body without a neck, and short mitten arms and stubby feet. Inside the hood is a wide, softly rounded peach fabric face patch. It has exactly two small glossy black bead eyes, one tiny black U-shaped stitched smile and two faint blush spots. Its face has no nose, eyebrows, eyelashes, hair or additional features. Its head and hood occupy about half its total standing height.\n\nClothing only: an olive Renaissance gown with a continuous long skirt ending just above the feet, a dark sheer veil resting outside the cream hood, and both mitten hands gently together in front. Keep the same cream face frame, bead eyes, smile, texture and short body visible. Do not adapt the face or body to the costume.\n\nA realistic studio product photograph of that single standing plush toy, straight-on front view, full body and both feet visible, plain white background, soft even light. No seated pose, illustration, text, branding or logos.\n\nShow native Muse avatar candidates only. Do not select or activate one, or change my name, personality or saved preferences.",
+      "promptSha256": "c7790fab69df371acefa1d014a622b0790bdf9eb893d1d702483ce1b80bd7687"
+    },
+    {
+      "id": "structured-mona-lisa",
+      "promptVersion": "muse-native-stability-2026-10-12-structured-v1",
+      "strategy": "structured",
+      "strategyLabel": "Detailed geometry and material specification",
+      "character": {
+        "id": "mona-lisa",
+        "name": "Mona Lisa"
+      },
+      "referenceImage": null,
+      "prompt": "Generate native Muse avatar candidates from this single fixed character specification. This is one manufactured plush model in one costume, not a choice of character designs. Repeat this same specification for every candidate, without creative variations in anatomy, expression, material, camera or pose.\n\nFIXED PLUSH MODEL\n- Earless cream companion made from dense, short, tightly curled sherpa fleece. A continuous softly rounded hood and body; no neck or separate spherical head.\n- The outer hood occupies approximately half of the full standing height. The compact belly is narrower than the hood. Short rounded mitten arms and two stubby cream feet; no fingers.\n- A smooth peach fabric face patch, a horizontal rounded oval about 1.35 times as wide as tall, surrounded by the same thick cream fleece.\n- Exactly two small round glossy black bead eyes, each about one tenth of the face width, with their centers about half a face width apart, at the same height. One tiny shallow U-shaped black stitched smile centered below the eyes. Two faint pink cheek spots.\n- The face is otherwise blank: no nose, eyebrows, eyelashes, eyelids, lips, makeup, hair or facial hair. No animal ears, horns or tail.\n\nCLOTHES, NOT A NEW CHARACTER\nDress this model in an olive Renaissance gown with a continuous long skirt ending just above the feet, a dark sheer veil resting outside the cream hood, and both mitten hands gently together in front. Clothing sits over the existing compact body; the hood, face, eye positions, cream color, curled material and body dimensions stay unchanged. No human likeness or human body. No logos or lettering on the clothing or props.\n\nRENDER\nOne realistic studio product photograph of the plush toy per image. Standing upright with both feet on the ground, facing directly forward, arms close to the body except as needed for the costume. Full body centered with margin around head and feet, plain white background, soft even light and a subtle ground shadow. All candidates use this same photographed plush style; no drawing, cartoon illustration, plastic figurine or seated pose.\n\nShow native Muse avatar candidates only. Do not select or activate one, or change my name, personality or saved preferences.",
+      "promptSha256": "3079e0cf3c316397cb0e13b0d8cc6478dbed1eecee7c43532453622f14f47c1b"
+    },
+    {
+      "id": "reference-mona-lisa",
+      "promptVersion": "muse-native-stability-2026-10-12-reference-v1",
+      "strategy": "reference",
+      "strategyLabel": "Concise uploaded-base preservation",
+      "character": {
+        "id": "mona-lisa",
+        "name": "Mona Lisa"
+      },
+      "referenceImage": "shared-base",
+      "prompt": "Generate native Muse avatar candidates using the attached image as the character reference. Dress that exact cream plush toy in an olive Renaissance gown with a continuous long skirt ending just above the feet, a dark sheer veil resting outside the cream hood, and both mitten hands gently together in front.\n\nPreserve the source face outline, bead-eye size and spacing, tiny stitched smile, cream hood contour, short curly sherpa texture, compact body, short limbs and standing front view. The outfit is the only design change. Keep the face completely unobscured; no hair, eyelashes, nose or additional features. Keep realistic photographed plush material in every option, never a drawing or plastic figure. Every candidate should use the same character, costume, pose and style rather than proposing different designs. Show the full body with both feet visible on a plain white background. No text or logos.\n\nIf your native avatar generator cannot use the attached image as a generation reference, tell me before generating. Show native Muse avatar candidates only. Do not select or activate one, or change my name, personality or saved preferences.",
+      "promptSha256": "b9335c959324b3abb07562e91787d48a8a1ba33a6404be61f9de004f815da258"
+    },
+    {
+      "id": "reference-taylor-swift",
+      "promptVersion": "muse-native-stability-2026-10-12-reference-v1",
+      "strategy": "reference",
+      "strategyLabel": "Concise uploaded-base preservation",
+      "character": {
+        "id": "taylor-swift",
+        "name": "Taylor Swift"
+      },
+      "referenceImage": "shared-base",
+      "prompt": "Generate native Muse avatar candidates using the attached image as the character reference. Dress that exact cream plush toy in a shimmering lavender stage dress with a single continuous skirt and a silver microphone held in one mitten hand.\n\nPreserve the source face outline, bead-eye size and spacing, tiny stitched smile, cream hood contour, short curly sherpa texture, compact body, short limbs and standing front view. The outfit is the only design change. Keep the face completely unobscured; no hair, eyelashes, nose or additional features. Keep realistic photographed plush material in every option, never a drawing or plastic figure. Every candidate should use the same character, costume, pose and style rather than proposing different designs. Show the full body with both feet visible on a plain white background. No text or logos.\n\nIf your native avatar generator cannot use the attached image as a generation reference, tell me before generating. Show native Muse avatar candidates only. Do not select or activate one, or change my name, personality or saved preferences.",
+      "promptSha256": "24124b2dba9225946843c7f6f98ed509d237dea723c090e437d311e9af600d18"
+    },
+    {
+      "id": "reference-mark-zuckerberg",
+      "promptVersion": "muse-native-stability-2026-10-12-reference-v1",
+      "strategy": "reference",
+      "strategyLabel": "Concise uploaded-base preservation",
+      "character": {
+        "id": "mark-zuckerberg",
+        "name": "Mark Zuckerberg"
+      },
+      "referenceImage": "shared-base",
+      "prompt": "Generate native Muse avatar candidates using the attached image as the character reference. Dress that exact cream plush toy in a plain gray T-shirt, full-length navy trousers covering both legs, white sneakers, and a tiny closed silver laptop with a completely blank unmarked lid held in one mitten hand.\n\nPreserve the source face outline, bead-eye size and spacing, tiny stitched smile, cream hood contour, short curly sherpa texture, compact body, short limbs and standing front view. The outfit is the only design change. Keep the face completely unobscured; no hair, eyelashes, nose or additional features. Keep realistic photographed plush material in every option, never a drawing or plastic figure. Every candidate should use the same character, costume, pose and style rather than proposing different designs. Show the full body with both feet visible on a plain white background. No text or logos.\n\nIf your native avatar generator cannot use the attached image as a generation reference, tell me before generating. Show native Muse avatar candidates only. Do not select or activate one, or change my name, personality or saved preferences.",
+      "promptSha256": "2fde4056ad04461ece5faa3848529904e514b8353651e870b1e7299a9ea4d810"
+    },
+    {
+      "id": "reference-revised-mona-lisa",
+      "promptVersion": "muse-native-stability-2026-10-12-reference-revised-v1",
+      "strategy": "reference-revised",
+      "strategyLabel": "Uploaded base with explicit mittens and complete garments",
+      "character": {
+        "id": "mona-lisa",
+        "name": "Mona Lisa"
+      },
+      "referenceImage": "shared-base",
+      "prompt": "Generate native Muse avatar candidates using the attached image as the character reference. Dress that exact cream plush toy in one olive Renaissance dress with long sleeves, a fitted bodice covering the whole torso and a single continuous skirt ending just above the feet; a dark sheer veil resting outside the cream hood; and both fleece mitten hands gently together in front.\n\nPreserve the source face outline, bead-eye size and spacing, tiny stitched smile, cream hood contour, short curly sherpa texture, compact body, short limbs and standing front view. The outfit is the only design change. Fit the clothes over the source body without lengthening its legs or changing the head-to-body ratio. Both hands remain simple rounded, fingerless cream fleece mittens: no fingers, thumbs, fingernails or smooth human skin. Keep the face completely unobscured; no hair, eyelashes, nose or additional features. Keep realistic photographed plush material in every option, never a drawing or plastic figure. Every candidate should use the same character, costume, pose and style rather than proposing different designs. Show the full body with both feet visible on a plain white background. No text or logos.\n\nIf your native avatar generator cannot use the attached image as a generation reference, tell me before generating. Show native Muse avatar candidates only. Do not select or activate one, or change my name, personality or saved preferences.",
+      "promptSha256": "afef918cdec4d6c80d75b1ad18e7b902534b7616e1bd134533b14523eecdaeae"
+    },
+    {
+      "id": "reference-revised-taylor-swift",
+      "promptVersion": "muse-native-stability-2026-10-12-reference-revised-v1",
+      "strategy": "reference-revised",
+      "strategyLabel": "Uploaded base with explicit mittens and complete garments",
+      "character": {
+        "id": "taylor-swift",
+        "name": "Taylor Swift"
+      },
+      "referenceImage": "shared-base",
+      "prompt": "Generate native Muse avatar candidates using the attached image as the character reference. Dress that exact cream plush toy in one shimmering lavender stage dress with shoulder straps, a fitted bodice covering the whole torso and a single continuous skirt; and a silver microphone held in one fleece mitten hand.\n\nPreserve the source face outline, bead-eye size and spacing, tiny stitched smile, cream hood contour, short curly sherpa texture, compact body, short limbs and standing front view. The outfit is the only design change. Fit the clothes over the source body without lengthening its legs or changing the head-to-body ratio. Both hands remain simple rounded, fingerless cream fleece mittens: no fingers, thumbs, fingernails or smooth human skin. Keep the face completely unobscured; no hair, eyelashes, nose or additional features. Keep realistic photographed plush material in every option, never a drawing or plastic figure. Every candidate should use the same character, costume, pose and style rather than proposing different designs. Show the full body with both feet visible on a plain white background. No text or logos.\n\nIf your native avatar generator cannot use the attached image as a generation reference, tell me before generating. Show native Muse avatar candidates only. Do not select or activate one, or change my name, personality or saved preferences.",
+      "promptSha256": "ebe54e2ff7adc509566421f5a4cb5bce7058d09199a87d8b0dd9fb170bd434e0"
+    },
+    {
+      "id": "reference-revised-mark-zuckerberg",
+      "promptVersion": "muse-native-stability-2026-10-12-reference-revised-v1",
+      "strategy": "reference-revised",
+      "strategyLabel": "Uploaded base with explicit mittens and complete garments",
+      "character": {
+        "id": "mark-zuckerberg",
+        "name": "Mark Zuckerberg"
+      },
+      "referenceImage": "shared-base",
+      "prompt": "Generate native Muse avatar candidates using the attached image as the character reference. Dress that exact cream plush toy in a plain gray T-shirt covering the torso, navy trousers cut to fit the source toy's short stubby legs and covering them down to the feet, small white sneakers fitted to its existing feet, and a tiny closed silver laptop with a completely blank unmarked lid held in one fleece mitten hand.\n\nPreserve the source face outline, bead-eye size and spacing, tiny stitched smile, cream hood contour, short curly sherpa texture, compact body, short limbs and standing front view. The outfit is the only design change. Fit the clothes over the source body without lengthening its legs or changing the head-to-body ratio. Both hands remain simple rounded, fingerless cream fleece mittens: no fingers, thumbs, fingernails or smooth human skin. Keep the face completely unobscured; no hair, eyelashes, nose or additional features. Keep realistic photographed plush material in every option, never a drawing or plastic figure. Every candidate should use the same character, costume, pose and style rather than proposing different designs. Show the full body with both feet visible on a plain white background. No text or logos.\n\nIf your native avatar generator cannot use the attached image as a generation reference, tell me before generating. Show native Muse avatar candidates only. Do not select or activate one, or change my name, personality or saved preferences.",
+      "promptSha256": "44a3f8befaa953204fb3310e8638ae1a70cb002ffda9ee702105b0bdc1cf3a0e"
+    }
+  ],
+  "plan": {
+    "screen": {
+      "plannedRequests": 3,
+      "character": "mona-lisa",
+      "strategies": [
+        "compact",
+        "structured",
+        "reference"
+      ],
+      "design": "Bundled strategies, not a causal ablation. White background accepted for this experiment; identity is scored separately.",
+      "selectionRule": "Prefer identity-close fraction then minimum score then costume adherence, across every returned option. Do not cherry-pick or call a single good output repeatability.",
+      "requests": [
+        {
+          "id": "screen-compact-mona-lisa-1",
+          "phase": "screen",
+          "recipe": "compact-mona-lisa",
+          "attempt": 1
+        },
+        {
+          "id": "screen-structured-mona-lisa-1",
+          "phase": "screen",
+          "recipe": "structured-mona-lisa",
+          "attempt": 1
+        },
+        {
+          "id": "screen-reference-mona-lisa-1",
+          "phase": "screen",
+          "recipe": "reference-mona-lisa",
+          "attempt": 1
+        }
+      ]
+    },
+    "confirmation": {
+      "plannedRequests": 9,
+      "requestsPerCharacter": 3,
+      "selectedStrategy": "reference",
+      "selectedBeforeConfirmation": true,
+      "recipeRule": "Repeat the same exact prompt and unchanged base image three times per character. Mona Lisa uses the same recipe as its reference screen; Taylor Swift and Mark Zuckerberg change only the wardrobe sentence.",
+      "separation": "Keep the screening requests separate from confirmation results; choosing a strategy for confirmation is not a stability pass.",
+      "requests": [
+        {
+          "id": "confirm-reference-mona-lisa-1",
+          "phase": "confirmation",
+          "recipe": "reference-mona-lisa",
+          "attempt": 1
+        },
+        {
+          "id": "confirm-reference-taylor-swift-1",
+          "phase": "confirmation",
+          "recipe": "reference-taylor-swift",
+          "attempt": 1
+        },
+        {
+          "id": "confirm-reference-mark-zuckerberg-1",
+          "phase": "confirmation",
+          "recipe": "reference-mark-zuckerberg",
+          "attempt": 1
+        },
+        {
+          "id": "confirm-reference-mona-lisa-2",
+          "phase": "confirmation",
+          "recipe": "reference-mona-lisa",
+          "attempt": 2
+        },
+        {
+          "id": "confirm-reference-taylor-swift-2",
+          "phase": "confirmation",
+          "recipe": "reference-taylor-swift",
+          "attempt": 2
+        },
+        {
+          "id": "confirm-reference-mark-zuckerberg-2",
+          "phase": "confirmation",
+          "recipe": "reference-mark-zuckerberg",
+          "attempt": 2
+        },
+        {
+          "id": "confirm-reference-mona-lisa-3",
+          "phase": "confirmation",
+          "recipe": "reference-mona-lisa",
+          "attempt": 3
+        },
+        {
+          "id": "confirm-reference-taylor-swift-3",
+          "phase": "confirmation",
+          "recipe": "reference-taylor-swift",
+          "attempt": 3
+        },
+        {
+          "id": "confirm-reference-mark-zuckerberg-3",
+          "phase": "confirmation",
+          "recipe": "reference-mark-zuckerberg",
+          "attempt": 3
+        }
+      ]
+    },
+    "workflow": {
+      "accountScope": "One signed-in desktop Muse account; fresh side chats do not imply independent accounts or a cleared account-level context.",
+      "freshSideChatPerRequest": true,
+      "captureAndReviewAllReturnedOptions": true,
+      "candidateCount": "Record the actual count returned per request; no fixed number is assumed.",
+      "avatarOnly": true,
+      "personalityTextSubmitted": false,
+      "selectOrActivateCandidate": false,
+      "namePersonalityOrPreferencesChangeRequested": false,
+      "endState": "Return to Main chat and check the visible profile. This does not audit hidden saved personality or memory state."
+    },
+    "repair": {
+      "plannedRequests": 9,
+      "requestsPerCharacter": 3,
+      "strategy": "reference-revised",
+      "purpose": "One bounded follow-up targeting fleece mitten anatomy, complete dress construction, and clothing fitted to the existing short limbs.",
+      "changes": [
+        "Explicit rounded fingerless cream fleece hands; no fingers/thumbs/human skin",
+        "Specify full dress bodice plus continuous skirt",
+        "Fit clothing and shoes to existing short source limbs without lengthening legs"
+      ],
+      "unchanged": [
+        "Uploaded exact shared base",
+        "Short preservation prompt and same-style options instruction",
+        "One account, fresh side chat each",
+        "All candidates captured, no Select",
+        "Same qualitative rubric, separate phase and denominators"
+      ],
+      "recipeRule": "Repeat each revised character recipe with the unchanged shared-base upload in three fresh side chats. Preserve original confirmation recipes and score this revision separately with the same qualitative rubric.",
+      "submissionOrder": "Begin only after the original nine-request confirmation round is complete.",
+      "stopRule": "Complete three identical requests per costume if native service returns normally. Any failure/refusal pauses for inspection; never bypass.",
+      "separation": "This is a new prompt version and a separate phase; do not combine its denominator with original confirmation or treat the revision as evidence of success.",
+      "requests": [
+        {
+          "id": "repair-reference-mona-lisa-1",
+          "phase": "repair",
+          "recipe": "reference-revised-mona-lisa",
+          "attempt": 1
+        },
+        {
+          "id": "repair-reference-taylor-swift-1",
+          "phase": "repair",
+          "recipe": "reference-revised-taylor-swift",
+          "attempt": 1
+        },
+        {
+          "id": "repair-reference-mark-zuckerberg-1",
+          "phase": "repair",
+          "recipe": "reference-revised-mark-zuckerberg",
+          "attempt": 1
+        },
+        {
+          "id": "repair-reference-mona-lisa-2",
+          "phase": "repair",
+          "recipe": "reference-revised-mona-lisa",
+          "attempt": 2
+        },
+        {
+          "id": "repair-reference-taylor-swift-2",
+          "phase": "repair",
+          "recipe": "reference-revised-taylor-swift",
+          "attempt": 2
+        },
+        {
+          "id": "repair-reference-mark-zuckerberg-2",
+          "phase": "repair",
+          "recipe": "reference-revised-mark-zuckerberg",
+          "attempt": 2
+        },
+        {
+          "id": "repair-reference-mona-lisa-3",
+          "phase": "repair",
+          "recipe": "reference-revised-mona-lisa",
+          "attempt": 3
+        },
+        {
+          "id": "repair-reference-taylor-swift-3",
+          "phase": "repair",
+          "recipe": "reference-revised-taylor-swift",
+          "attempt": 3
+        },
+        {
+          "id": "repair-reference-mark-zuckerberg-3",
+          "phase": "repair",
+          "recipe": "reference-revised-mark-zuckerberg",
+          "attempt": 3
+        }
+      ]
+    }
+  },
+  "assessmentPlan": {
+    "identityRubric": {
+      "dimensions": [
+        "Face shape and placement",
+        "Feature inventory and expression",
+        "Hood silhouette/opening",
+        "Cream/peach material and tight curly fleece",
+        "Body/head ratio and short standing limbs"
+      ],
+      "scores": "2 close reference match; 1 noticeable drift but same family; 0 redesign. Hidden critical dimensions unassessable.",
+      "identityClose": "At least 9/10, no 0, no unassessable critical dimension. Authored qualitative criterion, not validated identity metric.",
+      "rejectAdded": "Hair, nose, eyebrows, eyelashes, animal anatomy or flat illustration when forbidden."
+    },
+    "costume": "Score wardrobe, props, accessory counts and logo/lettering adherence separately from fixed-character identity.",
+    "background": "Plain white is requested and accepted for this experiment; it is not evidence that earlier lilac-background requests succeeded.",
+    "variation": "Compare every option with the shared base and with the other options, within and across requests. Recognizable plush-family resemblance is distinct from fixed-character identity.",
+    "limits": [
+      "One signed-in desktop account",
+      "Only three eligible previously generated costumes",
+      "No safety-refused subject retries",
+      "No personality, activation or mobile tests",
+      "Background no longer part of fixed-identity gate; white accepted explicitly",
+      "Qualitative authored scoring and a small sample; no guarantee of future outputs or all-roster compatibility.",
+      "Reference use must not be inferred solely from the service acknowledging the attachment."
+    ]
+  },
+  "privacy": "Only public prompt text, public character metadata and repository artwork provenance are included. Account data, chat URLs, private screenshots and raw conversations remain outside the repository."
+}

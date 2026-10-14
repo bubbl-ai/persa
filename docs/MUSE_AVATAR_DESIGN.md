@@ -102,18 +102,51 @@ output; historical source artwork can remain in the repository without shipping.
 
 ## Muse integration limits
 
-The website copies text describing the common base and costume. It does not
-transfer the reference image into Muse or directly install the displayed avatar.
-Independent Muse generations may change the face, proportions, or outfit even
-when supplied the same description. Never promise identical previews or a fixed
-avatar across generations.
+The legacy setup copies text describing the common base and costume. The
+three-preset shortcut in this checkout instead opens a prepared message asking
+Muse to download and verify the public shared base inside its workspace, then
+use that actual file for native avatar candidates. Users still press **Send**
+and **Select** themselves; Persa does not directly install the displayed avatar.
+See [the handoff reliability and release status](MUSE_HANDOFF_RELIABILITY.md).
+Independent Muse generations may change the face, proportions or outfit even
+with a reference. Never promise identical previews or a fixed avatar across
+generations.
 
 The [initial](MUSE_VALIDATION.md) and [batch](MUSE_BATCH_VALIDATION.md) Muse tests
-used earlier likeness-based prompts. The new costume prompts have not been
-tested in a signed-in Muse session. The earlier stale emoji preference finding
-for Barbie and SpongeBob also remains unresolved; this avatar redesign does not
-change the personality compiler. Mobile Muse and a direct import route remain
-unverified.
+used earlier likeness-based prompts. The [October 12 native generation test](MUSE_NATIVE_AVATAR_VALIDATION.md)
+covers Taylor Swift, Mona Lisa and Mark Zuckerberg: 3 identical avatar-only
+requests each in fresh side chats in one desktop account, yielding 36 reviewed
+options. All requests produced recognizable hairless plush-family/costume
+candidates, but faces, hoods, material and body proportions varied materially;
+all captured backgrounds were white or neutral rather than lilac. This is
+partial 3/18 generation evidence, not stable fixed-character dressing.
+
+The separate [prompt-engineering follow-up](MUSE_PROMPT_ENGINEERING.md) captured
+and reviewed 84 options from 21 requests across screening, original reference
+repeats and revised repeats. Uploaded-base prompts kept visible faces and fleece
+closer to the source, and revised wording improved dress coverage. Hand/hood
+variation and longer Mark leg silhouettes remained; bodies hidden by gowns
+could not be assessed. Those attachment-dependent recipes are versioned
+separately from artwork and do not replace the catalog's text-only prompts.
+The new handoff adapts the preferred three recipes to URL-based reference
+delivery and measures that route separately; the older 84 outputs cannot
+establish its reliability.
+
+Before that follow-up, a separate single request attached the shared base and
+used stricter preservation instructions. Its four options included three plush variants and a flat
+illustration, so it establishes no reference repeatability. A request including
+an uploaded reference returned candidates; Muse stated it used the reference,
+but actual image conditioning was not independently verified. Its statement
+that custom backgrounds were coming soon was also not independently verified.
+
+No candidate was selected in the October 12 unchanged-prompt matrix or its
+single-request probe, and no personality text was submitted. After a full reload,
+the prior Mona Lisa avatar and displayed name
+remained visible. Saved personality and memory were not audited. Current costume
+activation/persistence, the other 15 presets, mobile and multiple accounts remain
+untested. The earlier stale emoji preference finding for Barbie and SpongeBob
+also remains unresolved; the avatar tests do not change the personality compiler.
+A direct import route remains unverified.
 
 ## Verification — October 6, 2026
 

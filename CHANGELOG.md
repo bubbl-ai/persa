@@ -2,6 +2,49 @@
 
 ## Unreleased
 
+- Guided Muse setup (2026-10-14): add **Open in Muse** for Mona Lisa, Taylor
+  Swift and Mark Zuckerberg, with the current compiled personality and a
+  verified shared-base reference request in one prepared message. Keep
+  **Send** and avatar **Select** as user actions. Share one browser-safe
+  builder across link, complete-combo copy, displayed text and JSON export;
+  retain the existing text-only flow for the other 15 presets and clearly
+  label the separate legacy avatar-only prompt. Preserve all artwork and
+  catalog prompts. All 78 Node tests and 33 isolated browser checks pass.
+  The native matrix completes 9/9 requests with exact prefill and a median
+  88-second generation wait; all 36 options meet practical visible-identity/
+  usability criteria, and all nine saved-style checks pass after reload.
+  Detail/proportion variation, native acknowledgement reactions despite
+  no-emoji settings and one automatically recovered memory-history edit
+  remain documented. These single-account results support only the limited
+  guided trial; restoration and deployment status are tracked separately in
+  [the handoff reliability report](docs/MUSE_HANDOFF_RELIABILITY.md).
+
+- Muse link handoff validation (2026-10-14, Asia/Shanghai): verify exact
+  personality/avatar text transfer through an actual clicked `?prompt=` link
+  into signed-in Muse web, followed by native candidates without manual paste
+  or attachment. Record the separate Send action, workspace reference-path
+  recovery, existing Main chat context, encoding/responsive checks and login
+  gate in [the handoff report](docs/MUSE_ONE_CLICK_VALIDATION.md). Test only;
+  no personality persistence, avatar selection or production website change.
+- Native Muse prompt engineering (2026-10-12, Asia/Taipei): capture and review
+  84 outputs from 21 requests, keeping 3 screens, 9 original reference repeats
+  and 9 revised repeats separate. Uploaded-base prompts improve visible
+  face/hood/material similarity; revised wording improves dress coverage but
+  does not eliminate hand, hood or proportion variation. Preserve exact
+  experimental recipes and source hashes in [the experiment report](docs/MUSE_PROMPT_ENGINEERING.md).
+  No avatar selected; leave active prompts, artwork, runtime and deployment unchanged.
+- Native Muse avatar validation (2026-10-12, Asia/Taipei): submit unchanged
+  hairless Taylor Swift, Mona Lisa and Mark Zuckerberg avatar-only prompts
+  three times each in fresh side chats in one desktop account. Capture and
+  review all 36 options from 9 requests. All requests return recognizable
+  plush-family/costume candidates, but face/body identity varies and all
+  backgrounds are white or neutral rather than lilac. Separately test one
+  attached-base request: 4 options, including one flat illustration, with no
+  reference-repeatability conclusion. No Select or personality submission;
+  no new activation/persistence claim. Record the limited 3/18 coverage in
+  [the native report](docs/MUSE_NATIVE_AVATAR_VALIDATION.md); leave runtime,
+  source prompts, artwork and deployment unchanged.
+
 - Homepage layout (2026-10-10): give the spotlight a white, borderless stage
   and replace its generic caption with the featured personality's three
   adjectives. Place all 18 character tiles below the spotlight and make
@@ -30,8 +73,8 @@
 - Documentation (2026-10-10): record the version 6 publication and spotlight
   routes, update contributor guidance to the shared costume model, repair the
   website-status link, and document stage verification and saved-combo behavior.
-  Retain the limits of historical Muse tests; current costume prompts still
-  need signed-in Muse validation.
+  Retain the limits of historical Muse tests; at that date the current costume
+  prompts still needed signed-in Muse validation.
 
 - Adopt the approved spotlight as Persa’s homepage (2026-10-09). Connect the
   selected stage character to Muse setup, personality tuning, favorites, and

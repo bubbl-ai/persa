@@ -1,8 +1,10 @@
 # Muse candidate batch validation
 
 > Historical validation: these results cover the earlier likeness-based avatar
-> prompts. The October 6 shared-Muse costume redesign changes the avatar inputs;
-> its new prompts have not been tested in Muse. See [the current design](MUSE_AVATAR_DESIGN.md).
+> prompts. The October 6 shared-Muse costume redesign changes the avatar inputs.
+> [October 12 native testing](MUSE_NATIVE_AVATAR_VALIDATION.md) covers generation
+> for 3 of 18 current presets, with variable identity; it adds no current-costume
+> activation or persistence evidence. See [the current design](MUSE_AVATAR_DESIGN.md).
 
 
 Date: October 5, 2026 (UTC). Environment: one signed-in Muse account in

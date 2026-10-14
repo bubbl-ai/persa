@@ -2,7 +2,7 @@
 
 Two routes: connect an MCP client, or paste compiled text into the agent's instructions or a message. An MCP client must fetch the persona again to see later edits; connecting alone does not guarantee it will apply every rule.
 
-**CLI setup documentation checked: 2 October 2026; website notes updated: 10 October 2026; Grok Bot notes checked: 5 October 2026 (UTC).** Links below identify the product documentation used for these reviews. Separate [initial](MUSE_VALIDATION.md) and [batch](MUSE_BATCH_VALIDATION.md) signed-in desktop Muse tests cover the earlier likeness-based website combos, not the current costume prompts; the other routes below remain documentation checks. The character budgets in [`src/targets.js`](../src/targets.js) are Persa's configured values; a value of `null` means Persa does not trim, not that the receiving product has no limits. Where a current product limit or screen could not be verified, that is stated explicitly.
+**CLI setup documentation checked: 2 October 2026; Muse link notes updated: 14 October 2026 (Asia/Shanghai); Grok Bot notes checked: 5 October 2026 (UTC).** Links below identify the product documentation used for these reviews. The [initial](MUSE_VALIDATION.md) and [batch](MUSE_BATCH_VALIDATION.md) desktop Muse tests cover earlier likeness-based combos; the [October 12 native check](MUSE_NATIVE_AVATAR_VALIDATION.md) covers generation for 3 of 18 current costume presets, the [initial October 14 link check](MUSE_ONE_CLICK_VALIDATION.md) tests a prefilled Mona Lisa message, and the [subsequent reliability report](MUSE_HANDOFF_RELIABILITY.md) tracks the three-preset implementation and release status. The other routes below remain documentation checks. The character budgets in [`src/targets.js`](../src/targets.js) are Persa's configured values; a value of `null` means Persa does not trim, not that the receiving product has no limits. Where a current product limit or screen could not be verified, that is stated explicitly.
 
 ---
 
@@ -10,63 +10,101 @@ Two routes: connect an MCP client, or paste compiled text into the agent's instr
 
 ### Website character combos
 
-The [Persa website](https://persa.bubblai.com) is public on Vercel, verified
-October 10, 2026. The current homepage implementation uses a white, borderless
-spotlight stage with the selected personality's three adjectives below its
-portrait. Browse with the arrow buttons, a horizontal swipe, or the character
-picker. Left/right arrow keys also work while the stage has focus.
-**Tune personality** opens the voice controls and examples;
-**Use in Muse** opens the selected combo’s setup instructions directly. Copy the
-combo, then open Muse and paste it into a conversation. All 18 character tiles
-appear below the spotlight; **All characters** scrolls to them. The standalone
-grid remains at `/collection.html`, and **Saved** opens this browser’s saved
-combos at `/collection.html?view=saved`. The old `/spotlight.html` link redirects
-to the homepage. Stage and tiles open the same character controls and share
-saved state. A heart saves or removes that combo while preserving the current
-stage selection and focus. Saved combos retain their tone settings on reload
-in the same browser. The setup dialog also offers a JSON download, but Persa
-has no JSON import or restore control yet. The October 10 layout passed
-desktop and 390/320px browser checks; releases deploy through the existing
-main-branch Vercel workflow.
+The [Persa website](https://persa.bubblai.com) is public on Vercel. Its homepage
+has a white, borderless spotlight stage, the selected personality's three
+adjectives and all 18 character tiles below. Browse with arrows, a horizontal
+swipe or the character picker. **Tune personality** opens the voice controls;
+**Use in Muse** opens the selected combo's setup dialog. **All characters**
+scrolls to the tiles. The standalone collection remains at `/collection.html`,
+and **Saved** opens `/collection.html?view=saved`. The old `/spotlight.html`
+address redirects to the homepage.
 
-The copied message includes personality instructions and a costume prompt
-for Persa's shared cream plush Muse-style base. Each costume changes the outfit
-and accessories while keeping the same face and body description. Separate copy controls are available for each component. Current prompts explicitly exclude human hair; the homepage layout update does not change the artwork or add costume-specific hairstyles.
+This checkout implements a guided shortcut for **Mona Lisa, Taylor Swift and
+Mark Zuckerberg**. The [handoff reliability report](MUSE_HANDOFF_RELIABILITY.md)
+records native validation and whether that implementation has been deployed.
+For those three presets:
 
-The October 6 wardrobe replaces the older likeness designs. These new costume
-prompts have not been tested inside Muse. In the earlier desktop tests,
-13 previous likeness-based combos generated native avatar
-options. Choose an option, then click **Select** to apply it. All 13 selected
-avatars survived a full reload. Muse also saved summaries of the requested
-identity and personality, but preset replacement can retain old preferences
-when the new prompt omits them. Barbie and SpongeBob retained a no-emoji rule
-despite their catalog setting of sparing emoji. Inspect the saved settings when switching
-characters; see the [batch results](MUSE_BATCH_VALIDATION.md) for all cases.
-Those results apply to the old prompts. Mobile Muse setup also remains untested.
+1. Choose a character and adjust its tone if desired.
+2. In its setup dialog, click **Open in Muse**. The prepared message contains
+   the current personality and instructions to use Persa's shared image as
+   the avatar reference. Opening the link does not send anything.
+3. Review the message in Muse and press **Send**. It asks Muse to save the
+   selected style and generate native costume candidates.
+4. Review the options, choose one and click **Select** to activate it. Check
+   the saved personality and try a short conversation.
 
-Muse also has a native avatar entry point: the pencil beside the profile avatar
-→ **Change avatar** prefills “Change your avatar to…” in the chat composer. This
-was inspected separately; the combo test used Persa's copied message unchanged.
+If Muse opens with an empty composer, including after login, return to Persa,
+click **Copy complete combo**, and paste that message into Muse. If clipboard
+access is denied, Persa shows the complete text for manual copying. The copied
+message, prepared link, displayed complete combo and download use the same
+payload and current tone settings.
 
-Avatar prompts describe the same plush Muse dressed in each named preset's
-costume. They do not ask Muse to reproduce different human faces or body shapes.
-When matching costume artwork is unavailable, the preview says so and copying
-still works. If an existing image fails to load, open its character and select
-**Retry image**. See the [design contract](MUSE_AVATAR_DESIGN.md).
+For the **other 15 presets**, the existing setup remains: **Copy personality +
+avatar**, open Muse, paste and send, then choose and select an avatar option.
+All 18 remain available; three-preset shortcut eligibility is separate from
+choosing the eventual launch ten.
 
-This is a manual setup path. Persa does not yet provide a verified avatar import
-API or prefilled Muse link. Gallery art illustrates the intended look; all four
-Mona Lisa candidates differed from Persa's existing preview. Independent-generation
-repeatability has not been tested. Saving a combo in Persa saves it in the current
-browser, and does not update Muse. See the [batch test record](MUSE_BATCH_VALIDATION.md)
-and [current website status](../README.md#website-status--october-10-2026).
+The shortcut asks Muse to download the public shared base directly inside its
+workspace, verify its checksum and pass that file to the native generator.
+If it cannot obtain or use the reference, the message tells it to stop the
+avatar step and explain the problem. No manual image attachment is included
+in the intended shortcut. The separate **Text-only avatar prompt** control
+omits the reference and retains the legacy prompt; use the complete combo for
+the reference-based setup. **Personality only** remains available independently.
 
-Vercel migration to `persa.bubblai.com` was verified on October 10. Saved combos
-belong to the website origin, so the new domain starts a separate collection
-even in the same browser. Old saves remain on the previous
-[Sites address](https://persa-muse-characters.archerx03.chatgpt.site); JSON downloads
-cannot currently be imported into the new collection. See the
-[deployment notes](../README.md#vercel-deployment).
+The link uses an observed `?prompt=` behavior, not a documented Muse API
+contract. It enters the existing Main chat. Actual mobile devices/native apps
+and successful handoff through completed login remain unverified. Desktop
+responsive layout checks do not establish those flows. No custom connector,
+Persa sign-in or API token is required by this website shortcut.
+
+Each costume dresses the same cream plush Muse-style companion. The previews
+show the intended costume, not an identical avatar that Muse will reuse.
+Native generations can change hands, face details, garments and proportions.
+Current prompts exclude human hair. A missing preview does not prevent setup;
+if an image fails to load, reopen its character and use **Retry image**. See
+[the design contract](MUSE_AVATAR_DESIGN.md).
+
+Saved combos and tone settings belong to this browser and website origin;
+saving in Persa does not update Muse. JSON downloads preserve the persona,
+compiled personality, legacy text-only avatar prompt and complete combo. The
+three supported presets also include `museHandoff` with the exact version,
+prepared message, URL and reference metadata. There is no JSON import or
+restore control. The same saved collection and character dialogs are used by
+the stage and tiles; saving keeps the stage selection and originating focus.
+
+Keep the evidence for each route separate:
+
+- Earlier [initial](MUSE_VALIDATION.md) and [batch](MUSE_BATCH_VALIDATION.md)
+  desktop tests verified selection/persistence for 13 older likeness-based
+  avatars. They found stale preferences when changing characters. The new
+  message explicitly replaces prior voice, tone and emoji settings while
+  preserving unrelated preferences; see the new report for observed results.
+- The October 12 [unchanged-prompt check](MUSE_NATIVE_AVATAR_VALIDATION.md)
+  reviewed 36 options from 9 text-only requests for the three current costume
+  presets. The separate [prompt-engineering experiment](MUSE_PROMPT_ENGINEERING.md)
+  reviewed 84 options from 21 requests, including attachment-based reference
+  recipes. Neither selected a candidate or applied personality text.
+- The initial October 14 [link experiment](MUSE_ONE_CLICK_VALIDATION.md)
+  returned 8 options from 2 Mona Lisa requests without manual attachment. It
+  transferred personality text but explicitly prohibited applying it.
+- The [new reliability matrix](MUSE_HANDOFF_RELIABILITY.md) separately tests
+  the actual three-preset personality-application payload delivered by URL.
+  Its completed 9 requests/36 options are not part of the older 84-output count.
+  It retains the original active avatar and does not test current-costume
+  selection or automatic activation.
+
+The native avatar entry point observed in earlier tests was the pencil beside
+the profile avatar → **Change avatar**, which prefills “Change your avatar to…”
+in the composer. The website shortcut instead opens a prepared combo message.
+Neither Persa nor a JSON download provides a verified avatar import API or
+synchronizes subsequent changes automatically.
+
+Vercel migration to `persa.bubblai.com` was verified on October 10. The domain
+has a separate saved collection from the previous
+[Sites address](https://persa-muse-characters.archerx03.chatgpt.site); old saves
+remain on that origin. See the [website status](../README.md#website-status--october-14-2026)
+and [deployment notes](../README.md#vercel-deployment).
 
 ### CLI and connector route
 

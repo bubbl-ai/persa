@@ -1,5 +1,6 @@
 import { mountSpotlight } from './spotlight.js';
 import { compile } from './core/compile.js';
+import { buildMuseHandoff } from './core/muse-handoff.js';
 import { TRAITS, TRAIT_NAMES } from './core/traits.js';
 
 const icons = {
@@ -99,6 +100,8 @@ function renderPage() {
 function getPersona() { return { ...current.persona, voice: { ...current.persona.voice, ...drafts[current.id] } }; }
 function personalityPrompt() { return compile(getPersona(), 'muse').text; }
 function comboPrompt() {
+  const handoff = buildMuseHandoff(current, getPersona());
+  if (handoff) return handoff.prompt;
   return `I'd like to use this Persa character combo for my Muse: ${current.name}. Please apply the personality below as my style preferences, and use the matching costume prompt to dress the shared Muse-style companion. Preserve its base face and body while changing its outfit and accessories. If you cannot change the avatar directly, tell me how to do it in this app.\n\nPERSONALITY\n\n${personalityPrompt()}\n\nMATCHING MUSE COSTUME\n\n${current.avatar.prompt}`;
 }
 
@@ -133,19 +136,25 @@ function openCharacter(id) {
 }
 
 function renderSetup() {
+  const handoff = buildMuseHandoff(current, getPersona());
+  const firstSteps = handoff
+    ? `<div class="setup-step"><span class="step-number">1</span><div class="step-content"><h3>Open your prepared combo</h3><p>Your personality settings and shared-avatar instructions arrive together in Muse.</p><a class="button primary" data-muse-handoff href="${esc(handoff.url)}" target="_blank" rel="noopener noreferrer">Open in Muse ${icon('spark')}</a></div></div>
+    <div class="setup-step"><span class="step-number">2</span><div class="step-content"><h3>Press Send, then choose an avatar</h3><p>Review and send the message in Muse. It asks Muse to save your personality and generate costume options. Choose one and click Select to make it your avatar.</p></div></div>`
+    : `<div class="setup-step"><span class="step-number">1</span><div class="step-content"><h3>Copy your character combo</h3><p>One message includes both parts, with your tone adjustments.</p><button class="button primary" data-copy="combo">${icon('copy')} Copy personality + avatar</button></div></div>
+    <div class="setup-step"><span class="step-number">2</span><div class="step-content"><h3>Open Muse and paste</h3><p>Send the message. When Muse offers avatar options, choose one and click Select.</p><a class="button outline" href="https://muse.ai/" target="_blank" rel="noopener noreferrer">Open Muse ${icon('spark')}</a></div></div>`;
   showDialog(`${dialogHeader('Take your character into Muse', true)}<section class="setup"><p class="eyebrow">Personality + Muse costume</p><h2 id="dialog-title">Meet your ${esc(current.name)}.</h2><p class="setup-intro">Your combo pairs this personality with a costume for the same plush Muse base. Take both instructions into the same Muse conversation.</p>
-    <div class="setup-step"><span class="step-number">1</span><div class="step-content"><h3>Copy your character combo</h3><p>One message includes both parts, with your tone adjustments.</p><button class="button primary" data-copy="combo">${icon('copy')} Copy personality + avatar</button></div></div>
-    <div class="setup-step"><span class="step-number">2</span><div class="step-content"><h3>Open Muse and paste</h3><p>Send the message. When Muse offers avatar options, choose one and click Select.</p><a class="button outline" href="https://muse.ai/" target="_blank" rel="noopener noreferrer">Open Muse ${icon('spark')}</a></div></div>
+    ${firstSteps}
     <div class="setup-step"><span class="step-number">3</span><div class="step-content"><h3>Make sure it feels right</h3><p>Check the costume and saved personality, then try a short conversation. You can adjust the voice here and send an updated combo whenever you like.</p></div></div>
-    <div class="setup-note">Persa copies the setup instructions. You apply them in Muse; a direct avatar import is not available here yet. The preview shows the intended shared character and costume. Muse may generate a different face, outfit, or proportions; the same prompt does not guarantee an identical avatar.</div>
+    ${handoff ? `<div class="setup-note">This shortcut has been tested in signed-in Muse web. If signing in or your browser leaves the message empty, copy the complete combo below and paste it into Muse. You still send the message and select an avatar yourself. The preview shows the intended costume; Muse's face, outfit and proportions can vary.</div><button class="button secondary" data-copy="combo">${icon('copy')} Copy complete combo</button>` : '<div class="setup-note">Persa copies the setup instructions. You apply them in Muse; a direct avatar import is not available here yet. The preview shows the intended shared character and costume. Muse may generate a different face, outfit, or proportions; the same prompt does not guarantee an identical avatar.</div>'}
     <details class="prompt-details"><summary>View the complete combo ${icon('chevron')}</summary><pre class="prompt-text">${esc(comboPrompt())}</pre></details>
-    <div class="copy-options"><button class="button secondary" data-copy="personality">${icon('copy')} Personality only</button><button class="button secondary" data-copy="avatar">${icon('copy')} Avatar prompt only</button></div>
+    <div class="copy-options"><button class="button secondary" data-copy="personality">${icon('copy')} Personality only</button><button class="button secondary" data-copy="avatar">${icon('copy')} ${handoff ? 'Text-only avatar prompt' : 'Avatar prompt only'}</button></div>
+    ${handoff ? '<p class="sample-caption">The text-only avatar prompt omits the shared image reference. Use the complete combo for the reference-based setup.</p>' : ''}
     <div class="setup-links"><button class="text-button" data-download>${icon('download')} Download combo</button><button class="text-button" data-save-current>${icon('heart')} Save on this device</button></div>
     <details class="grok-details"><summary>Also use the personality with Grok Bot</summary><p>Copy the personality into your Bot's Description under Edit Profile. The avatar prompt in this combo is intended for Muse.</p><button class="button secondary" data-copy="grok">${icon('copy')} Copy Bot description</button></details></section>`, 'dialog-title');
 }
 
 function showHow() {
-  showDialog(`${dialogHeader('A little more personality')}<section class="setup"><p class="eyebrow">Made for your Muse</p><h2 id="dialog-title">One character. Two parts.</h2><div class="how-steps"><div><h3>Find someone you connect with</h3><p>Every preset dresses the same plush Muse in a different costume and pairs it with a personality. Preview the outfit and a few example replies.</p></div><div><h3>Make the tone yours</h3><p>Adjust warmth, humor, directness, and response length. Your changes update the personality instructions; the example replies show the original preset.</p></div><div><h3>Take the combo into Muse</h3><p>Copy the combined message, open Muse, and paste it into a conversation. Choose an avatar option and click Select when Muse offers them, then check the saved personality.</p></div><div><h3>Keep your favorites close</h3><p>Saved combos stay in this browser on this device. Download a combo if you want a backup or to take it somewhere else.</p></div></div><p class="setup-note">Persa provides style preferences and avatar prompts. It does not change Muse's permissions or guarantee that every instruction persists between conversations.</p></section>`, 'dialog-title');
+  showDialog(`${dialogHeader('A little more personality')}<section class="setup"><p class="eyebrow">Made for your Muse</p><h2 id="dialog-title">One character. Two parts.</h2><div class="how-steps"><div><h3>Find someone you connect with</h3><p>Every preset dresses the same plush Muse in a different costume and pairs it with a personality. Preview the outfit and a few example replies.</p></div><div><h3>Make the tone yours</h3><p>Adjust warmth, humor, directness, and response length. Your changes update the personality instructions; the example replies show the original preset.</p></div><div><h3>Take the combo into Muse</h3><p>Taylor Swift, Mona Lisa and Mark Zuckerberg can open Muse with the combo ready to send. For the other characters, copy and paste the combined message. Send it, choose an avatar option and click Select, then check the saved personality.</p></div><div><h3>Keep your favorites close</h3><p>Saved combos stay in this browser on this device. Download a combo if you want a backup or to take it somewhere else.</p></div></div><p class="setup-note">Persa provides style preferences and avatar prompts. It does not change Muse's permissions or guarantee that every instruction persists between conversations.</p></section>`, 'dialog-title');
 }
 
 async function copyText(kind, button) {
@@ -177,7 +186,8 @@ function toggleSave(id, source) {
 }
 
 function downloadCombo() {
-  const exportData={persaCharacter:1,id:current.id,name:current.name,persona:getPersona(),museAvatar:{designVersion:current.avatar.designVersion,baseId:current.avatar.baseId,costume:current.avatar.costume,prompt:current.avatar.prompt},personalityPrompt:personalityPrompt()};
+  const handoff=buildMuseHandoff(current,getPersona());
+  const exportData={persaCharacter:1,id:current.id,name:current.name,persona:getPersona(),museAvatar:{designVersion:current.avatar.designVersion,baseId:current.avatar.baseId,costume:current.avatar.costume,prompt:current.avatar.prompt,promptKind:'text-only'},personalityPrompt:personalityPrompt(),comboPrompt:comboPrompt(),...(handoff?{museHandoff:handoff}:{})};
   const url=URL.createObjectURL(new Blob([JSON.stringify(exportData,null,2)],{type:'application/json'}));
   const a=document.createElement('a');a.href=url;a.download=`persa-${current.id}.json`;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);notify('Combo downloaded.');
 }

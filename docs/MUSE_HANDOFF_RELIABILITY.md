@@ -4,8 +4,9 @@ Date: October 14, 2026 (Asia/Shanghai).
 
 **The three-preset guided trial passed its native generation, visible-identity
 and saved-style gates: 9/9 requests completed and all 36 candidates met the
-practical visual criteria. Baseline personality restoration is verified;
-deployment verification is pending.** These are results from one account, not a guaranteed future
+practical visual criteria. Baseline personality restoration is verified, and
+the shortcut is live at [persa.bubblai.com](https://persa.bubblai.com).**
+These are results from one account, not a guaranteed future
 success rate or proof of stable full figures.
 
 ## Implemented scope
@@ -223,9 +224,19 @@ Baseline restoration and the completed generation, reference,
 visual and saved-style gates passed. Keep the other 15 presets on the existing
 manual setup and preserve the complete-combo fallback.
 
-<!-- DEPLOYMENT_PENDING: record actual source commit, test/deployment workflow
-results and canonical live smoke checks after they complete. -->
+The implementation shipped in source commit
+[`e237c33`](https://github.com/bubbl-ai/persa/commit/e237c33a8b12545966994e7de7099453e7b32ec0).
+The [test workflow](https://github.com/bubbl-ai/persa/actions/runs/38588048898)
+passed on Node 20, 22 and 24, including the clean package-install check.
+The [Vercel deployment](https://github.com/bubbl-ai/persa/actions/runs/38588048608)
+also succeeded through the existing main-branch workflow.
 
-**Commit, CI, deployment and live smoke checks: pending.** The existing
-main-branch Vercel workflow remains the deployment path; this report does not
-yet claim the new shortcut is live.
+Production passed **26/26 smoke checks** on October 14. Deployed `app.js` and
+the handoff module matched the validated local files. All 18 characters and
+19 image assets loaded, including the shared base with its expected checksum.
+The three exact prepared links and 15 manual flows passed, as did desktop,
+390px and 320px layouts. There were no JavaScript errors or failed requests.
+Muse launches were intercepted during this public-site check; it added no
+native generations or account changes. Private evidence is in `live-smoke.json`
+under the local evidence directory above. This documentation follow-up records
+the verified implementation rollout without changing its runtime files.

@@ -2,7 +2,7 @@
 
 Date: October 15, 2026 (Asia/Shanghai).
 
-**Implemented in this checkout: direct Open in Muse links for all 18 presets.**
+**Deployed to Vercel: direct Open in Muse links for all 18 presets.**
 The Node suite, build, local browser checks and all 18 native prefills pass.
 **Native validation is incomplete:** the resumed
 Wednesday v2 run corrected its saved style but returned only two usable avatar
@@ -239,14 +239,17 @@ identity/style/memory files, account screenshots, chat URLs or raw conversations
 The older 84-output attachment experiment, two-request link probe and
 nine-request three-preset matrix retain their original scopes and counts.
 
-<!-- DEPLOYMENT_PENDING: record the release decision, source commit, test and
-Vercel workflow results and canonical live smoke checks after completion. -->
-
-**Release requested on October 15; deployment verification pending.** After
+**Released on October 15 at the user's request.** After
 being told that the revised Wednesday request failed the avatar quality gate
 and native validation was incomplete, the user explicitly requested pushing
-the current update to `main`. Publish the all-18 direct links through the existing
-GitHub Actions/Vercel workflow while retaining the known quality limitations.
+the current update to `main`. The all-18 direct links were published through the
+existing GitHub Actions/Vercel workflow with the known quality limitations retained.
 This release decision does not establish all-roster native compatibility or
-change any failed result. Record the source commit, both workflow outcomes and
-production smoke checks here after deployment.
+change any failed result.
+
+Source commit:
+[`d9f0775cd1d6635afda8e6a594e37dce5d4d6777`](https://github.com/bubbl-ai/persa/commit/d9f0775cd1d6635afda8e6a594e37dce5d4d6777).
+The [test workflow](https://github.com/bubbl-ai/persa/actions/runs/38753440484)
+passed on Node 20, 22 and 24, including the package clean-install check.
+The [Vercel deployment](https://github.com/bubbl-ai/persa/actions/runs/38753440449)
+succeeded and published production at [persa.bubblai.com](https://persa.bubblai.com).

@@ -4,7 +4,7 @@
 
 **A personality layer for personal agents.** Write down how you want an agent to talk to you — once — and install it into Muse, Grok, Instinct, Claude, ChatGPT, or anything else with a text box.
 
-**Try the Muse character website:** [persa.bubblai.com](https://persa.bubblai.com). The spotlight homepage is public on Vercel under Bubbl's domain: anyone with the link can view it. Each character pairs a personality with a matching avatar prompt. This checkout gives all 18 characters a direct **Open in Muse** link; the [all-character handoff report](docs/MUSE_ALL_CHARACTER_HANDOFF.md) records validation and deployment status. One click takes the chosen combo from Persa to a prepared Muse message. Users still press Send and choose an avatar in Muse.
+**Try the Muse character website:** [persa.bubblai.com](https://persa.bubblai.com). The spotlight homepage is public on Vercel under Bubbl's domain: anyone with the link can view it. Each character pairs a personality with a matching avatar prompt. All 18 characters have a direct **Open in Muse** link; the [all-character handoff report](docs/MUSE_ALL_CHARACTER_HANDOFF.md) records validation, known avatar-quality limitations and deployment status. One click takes the chosen combo from Persa to a prepared Muse message. Users still press Send and choose an avatar in Muse.
 
 Personal agents in 2026 are good at doing things and bad at sounding like anything. Most ship one house voice; the ones that let you change it make you write a system prompt from scratch, per agent, and rewrite it when you change your mind. Persa makes the personality a small file you own, and handles the rest.
 

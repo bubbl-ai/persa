@@ -2,7 +2,7 @@
 
 Two routes: connect an MCP client, or paste compiled text into the agent's instructions or a message. An MCP client must fetch the persona again to see later edits; connecting alone does not guarantee it will apply every rule.
 
-**CLI setup documentation checked: 2 October 2026; Muse link notes updated: 14 October 2026 (Asia/Shanghai); Grok Bot notes checked: 5 October 2026 (UTC).** Links below identify the product documentation used for these reviews. The [initial](MUSE_VALIDATION.md) and [batch](MUSE_BATCH_VALIDATION.md) desktop Muse tests cover earlier likeness-based combos; the [October 12 native check](MUSE_NATIVE_AVATAR_VALIDATION.md) covers generation for 3 of 18 current costume presets, the [initial October 14 link check](MUSE_ONE_CLICK_VALIDATION.md) tests a prefilled Mona Lisa message, and the [subsequent reliability report](MUSE_HANDOFF_RELIABILITY.md) tracks the three-preset implementation and release status. The other routes below remain documentation checks. The character budgets in [`src/targets.js`](../src/targets.js) are Persa's configured values; a value of `null` means Persa does not trim, not that the receiving product has no limits. Where a current product limit or screen could not be verified, that is stated explicitly.
+**CLI setup documentation checked: 2 October 2026; Muse handoff notes updated: 15 October 2026 (Asia/Shanghai); Grok Bot notes checked: 5 October 2026 (UTC).** Links below identify the product documentation used for these reviews. The [initial](MUSE_VALIDATION.md) and [batch](MUSE_BATCH_VALIDATION.md) desktop Muse tests cover older likeness-based combos. The [October 14 reliability report](MUSE_HANDOFF_RELIABILITY.md) covers three costume presets; the [October 15 all-character record](MUSE_ALL_CHARACTER_HANDOFF.md) tracks the expanded direct links, compatibility checks and release status. The other routes below remain documentation checks. Character budgets in [`src/targets.js`](../src/targets.js) are Persa's configured values; `null` means Persa does not trim, not that the receiving product has no limits.
 
 ---
 
@@ -14,35 +14,43 @@ The [Persa website](https://persa.bubblai.com) is public on Vercel. Its homepage
 has a white, borderless spotlight stage, the selected personality's three
 adjectives and all 18 character tiles below. Browse with arrows, a horizontal
 swipe or the character picker. **Tune personality** opens the voice controls;
-**Use in Muse** opens the selected combo's setup dialog. **All characters**
+**Open in Muse** opens the selected combo directly in Muse. **All characters**
 scrolls to the tiles. The standalone collection remains at `/collection.html`,
 and **Saved** opens `/collection.html?view=saved`. The old `/spotlight.html`
 address redirects to the homepage.
 
-This checkout implements a guided shortcut for **Mona Lisa, Taylor Swift and
-Mark Zuckerberg**. The [handoff reliability report](MUSE_HANDOFF_RELIABILITY.md)
-records native validation and whether that implementation has been deployed.
-For those three presets:
+This checkout has direct **Open in Muse** links for **all 18 presets**, on the
+stage, every tile and the personality detail dialog. The
+[all-character record](MUSE_ALL_CHARACTER_HANDOFF.md) records native validation
+and whether this implementation has been deployed. The shortest flow is:
 
-1. Choose a character and adjust its tone if desired.
-2. In its setup dialog, click **Open in Muse**. The prepared message contains
-   the current personality and instructions to use Persa's shared image as
-   the avatar reference. Opening the link does not send anything.
-3. Review the message in Muse and press **Send**. It asks Muse to save the
+1. Click **Open in Muse** on the chosen character. No setup dialog is required.
+   The prepared message contains its current personality and instructions to
+   use Persa's shared image as the avatar reference. Opening the link does not
+   send anything.
+2. Review the message in Muse and press **Send**. It asks Muse to save the
    selected style and generate native costume candidates.
-4. Review the options, choose one and click **Select** to activate it. Check
+3. Review the options, choose one and click **Select** to activate it. Check
    the saved personality and try a short conversation.
 
+Personality tuning is optional. Tone edits, reset and saved preferences update
+the direct links, so the selected settings travel with the character. This is
+one click from Persa to the prepared message, not one-click application inside
+Muse. The optional **Setup options** control opens copying, downloads and help.
+
 If Muse opens with an empty composer, including after login, return to Persa,
-click **Copy complete combo**, and paste that message into Muse. If clipboard
+open **Setup options**, click **Copy complete combo**, and paste that message
+into Muse. An existing unsent Muse draft can take precedence over the prepared
+message; review that draft before clearing the composer and reopening the link,
+or use complete-combo copy. If clipboard
 access is denied, Persa shows the complete text for manual copying. The copied
 message, prepared link, displayed complete combo and download use the same
 payload and current tone settings.
 
-For the **other 15 presets**, the existing setup remains: **Copy personality +
-avatar**, open Muse, paste and send, then choose and select an avatar option.
-All 18 remain available; three-preset shortcut eligibility is separate from
-choosing the eventual launch ten.
+All 18 use the direct-link flow. Mona Lisa, Taylor Swift and Mark Zuckerberg
+retain their exact previously tested payloads. The other 15 use their authored
+costumes with a shared preservation recipe. Availability is separate from
+repeated native validation and from choosing the eventual launch ten.
 
 The shortcut asks Muse to download the public shared base directly inside its
 workspace, verify its checksum and pass that file to the native generator.
@@ -67,8 +75,8 @@ if an image fails to load, reopen its character and use **Retry image**. See
 
 Saved combos and tone settings belong to this browser and website origin;
 saving in Persa does not update Muse. JSON downloads preserve the persona,
-compiled personality, legacy text-only avatar prompt and complete combo. The
-three supported presets also include `museHandoff` with the exact version,
+compiled personality, legacy text-only avatar prompt and complete combo. Every
+catalog preset also includes `museHandoff` with the exact version,
 prepared message, URL and reference metadata. There is no JSON import or
 restore control. The same saved collection and character dialogs are used by
 the stage and tiles; saving keeps the stage selection and originating focus.
@@ -88,11 +96,16 @@ Keep the evidence for each route separate:
 - The initial October 14 [link experiment](MUSE_ONE_CLICK_VALIDATION.md)
   returned 8 options from 2 Mona Lisa requests without manual attachment. It
   transferred personality text but explicitly prohibited applying it.
-- The [new reliability matrix](MUSE_HANDOFF_RELIABILITY.md) separately tests
+- The [October 14 reliability matrix](MUSE_HANDOFF_RELIABILITY.md) separately tested
   the actual three-preset personality-application payload delivered by URL.
   Its completed 9 requests/36 options are not part of the older 84-output count.
   It retains the original active avatar and does not test current-costume
   selection or automatic activation.
+- The [October 15 all-character record](MUSE_ALL_CHARACTER_HANDOFF.md) covers
+  all-18 prefill checks and one new production-payload compatibility request
+  per additional preset. One request per new costume is not a repeated
+  stability rate. Barbie/SpongeBob explicitly ask to replace a previous
+  no-emoji setting with sparing emoji; observed persistence is checked separately.
 
 The native avatar entry point observed in earlier tests was the pencil beside
 the profile avatar → **Change avatar**, which prefills “Change your avatar to…”
@@ -103,7 +116,7 @@ synchronizes subsequent changes automatically.
 Vercel migration to `persa.bubblai.com` was verified on October 10. The domain
 has a separate saved collection from the previous
 [Sites address](https://persa-muse-characters.archerx03.chatgpt.site); old saves
-remain on that origin. See the [website status](../README.md#website-status--october-14-2026)
+remain on that origin. See the [website status](../README.md#website-status--october-15-2026)
 and [deployment notes](../README.md#vercel-deployment).
 
 ### CLI and connector route

@@ -2,6 +2,10 @@
 
 Date: October 14, 2026 (Asia/Shanghai). **Historical transfer-only experiment.**
 
+For the current direct-link implementation covering all 18 presets, see
+[the October 15 handoff record](MUSE_ALL_CHARACTER_HANDOFF.md). This report's
+two-request scope and observations remain unchanged.
+
 The later [guided-handoff reliability report](MUSE_HANDOFF_RELIABILITY.md)
 tracks the three-preset implementation, production-payload repeats and release
 status. The observations below remain the earlier two Mona Lisa requests;

@@ -63,12 +63,14 @@ function imageMarkup(character, detail = false) {
 
 function card(character) {
   const isSaved = !!saved[character.id];
+  const handoff = getHandoff(character);
   return `<article class="card">
     <button class="save-card ${isSaved ? 'saved' : ''}" data-save="${character.id}" aria-label="${isSaved ? 'Remove' : 'Save'} ${esc(character.name)}${isSaved ? ' from' : ' to'} My collection" aria-pressed="${isSaved}">${icon('heart')}</button>
     <button class="card-open" data-character="${character.id}" id="card-${character.id}" aria-label="Preview ${esc(character.name)} personality and avatar">
       <div class="card-art">${imageMarkup(character)}<span class="card-category">${character.category === 'People' ? 'People' : 'Fiction & art'}</span></div>
       <div class="card-body"><h2 class="card-title">${esc(character.name)}</h2><p class="card-subtitle">${esc(character.subtitle)}</p><div class="tags">${character.tags.map(tag => `<span class="tag">${esc(tag)}</span>`).join('')}</div><div class="card-line"><span>Personality + costume</span><span>Meet ${character.id === 'the-rock' ? 'The Rock' : character.id === 'joker' ? 'Joker' : character.id === 'hello-kitty' ? 'Hello Kitty' : esc(character.name.split(' ')[0])}</span></div></div>
     </button>
+    ${handoff ? `<a class="card-handoff" data-muse-handoff data-muse-character="${character.id}" href="${esc(handoff.url)}" aria-label="Open ${esc(character.name)} in Muse">Open in Muse <span aria-hidden="true">↗</span></a>` : ''}
   </article>`;
 }
 
@@ -86,6 +88,7 @@ function renderHomeCollection() {
   document.querySelector('#home-collection-count').textContent = `/ ${characters.length}`;
   document.querySelector('#home-collection').setAttribute('aria-busy', 'false');
   document.querySelector('#home-collection-status').hidden = true;
+  updateMuseLinks();
 }
 
 function renderPage() {
@@ -97,7 +100,18 @@ function renderPage() {
     <footer class="footer"><div><strong>persa</strong> &nbsp; A little more personality.</div><div>Independent costume interpretations. Not affiliated with Muse or the people and franchises referenced.</div></footer></div>`;
 }
 
-function getPersona() { return { ...current.persona, voice: { ...current.persona.voice, ...drafts[current.id] } }; }
+function getPersona(character = current) {
+  return { ...character.persona, voice: { ...character.persona.voice, ...(drafts[character.id] || saved[character.id]?.voice) } };
+}
+function getHandoff(character = current) { return buildMuseHandoff(character, getPersona(character)); }
+function updateMuseLinks() {
+  for (const link of document.querySelectorAll('a[data-muse-character]')) {
+    const character = characters.find(item => item.id === link.dataset.museCharacter);
+    if (!character) continue;
+    const handoff = getHandoff(character);
+    if (handoff) link.href = handoff.url;
+  }
+}
 function personalityPrompt() { return compile(getPersona(), 'muse').text; }
 function comboPrompt() {
   const handoff = buildMuseHandoff(current, getPersona());
@@ -119,13 +133,14 @@ function showDialog(html, labelId) {
 
 function renderDetail() {
   const c = current, voice = getPersona().voice, sample = c.samples[sampleIndex];
+  const handoff = getHandoff();
   const knobs = ['warmth', 'humor', 'directness', 'verbosity'];
   showDialog(`${dialogHeader('Your Muse costume + personality')}
     <div class="detail"><section class="detail-visual"><div class="detail-art">${imageMarkup(c, true)}</div><h2 class="detail-name" id="dialog-title">${esc(c.name)}</h2><p class="detail-description">${esc(c.description)}<span class="costume-caption">Our shared plush Muse in a ${esc(c.name)}-inspired costume.</span></p><div class="tags">${c.tags.map(t => `<span class="tag">${esc(t)}</span>`).join('')}</div><div class="combo-label">${icon('check')} Personality and costume prompt included</div></section>
     <section class="detail-controls"><h3 class="section-label">A feel for their voice</h3><div class="sample-tabs" role="group" aria-label="Example conversation"><button class="sample-tab ${sampleIndex === 0 ? 'active' : ''}" data-sample="0" aria-pressed="${sampleIndex === 0}">A busy day</button><button class="sample-tab ${sampleIndex === 1 ? 'active' : ''}" data-sample="1" aria-pressed="${sampleIndex === 1}">Honest advice</button><button class="sample-tab ${sampleIndex === 2 ? 'active' : ''}" data-sample="2" aria-pressed="${sampleIndex === 2}">A little win</button></div><div class="conversation"><div class="sample-user">${esc(sample.user)}</div><p class="sample-reply">${esc(sample.reply)}</p></div><p class="sample-caption">Illustrative replies for this preset. Muse's responses will vary.</p>
     <div class="tune-head"><h3 class="section-label">Make it your kind of ${c.id === 'the-rock' ? 'Rock' : esc(c.name.split(' ')[0])}</h3><button class="reset" data-reset>Reset tone</button></div><div class="sliders">${knobs.map(trait => `<label class="slider"><span class="slider-top">${trait.charAt(0).toUpperCase()+trait.slice(1)}<output id="value-${trait}">${voice[trait]}</output></span><input type="range" min="0" max="100" step="1" value="${voice[trait]}" data-trait="${trait}" aria-label="${trait}" aria-describedby="ends-${trait}"><span class="slider-ends" id="ends-${trait}"><span>${TRAITS[trait].low}</span><span>${TRAITS[trait].high}</span></span></label>`).join('')}</div>
     <details class="prompt-details"><summary>The personality instructions ${icon('chevron')}</summary><pre class="prompt-text" id="personality-text">${esc(personalityPrompt())}</pre></details></section></div>
-    <div class="detail-bottom"><span class="detail-bottom-note">Your character. Your way.</span><div class="actions"><button class="save-detail ${saved[c.id] ? 'saved' : ''}" data-save-current>${icon(saved[c.id] ? 'check' : 'heart')}<span>${saved[c.id] ? 'Save changes' : 'Save combo'}</span></button><button class="button primary" data-setup>Use in Muse ${icon('spark')}</button></div></div>`, 'dialog-title');
+    <div class="detail-bottom"><div class="detail-bottom-guide"><p class="handoff-guidance">Send the message in Muse, then choose your avatar.</p><button class="text-button setup-options" data-setup>Setup options</button></div><div class="actions"><button class="save-detail ${saved[c.id] ? 'saved' : ''}" data-save-current aria-label="${saved[c.id] ? 'Save changes' : 'Save combo'}">${icon(saved[c.id] ? 'check' : 'heart')}<span>${saved[c.id] ? 'Save changes' : 'Save combo'}</span></button>${handoff ? `<a class="button primary" data-muse-handoff data-muse-character="${c.id}" href="${esc(handoff.url)}">Open in Muse ${icon('spark')}</a>` : '<button class="button primary" data-setup>Set up in Muse</button>'}</div></div>`, 'dialog-title');
 }
 
 function openCharacter(id) {
@@ -138,14 +153,14 @@ function openCharacter(id) {
 function renderSetup() {
   const handoff = buildMuseHandoff(current, getPersona());
   const firstSteps = handoff
-    ? `<div class="setup-step"><span class="step-number">1</span><div class="step-content"><h3>Open your prepared combo</h3><p>Your personality settings and shared-avatar instructions arrive together in Muse.</p><a class="button primary" data-muse-handoff href="${esc(handoff.url)}" target="_blank" rel="noopener noreferrer">Open in Muse ${icon('spark')}</a></div></div>
+    ? `<div class="setup-step"><span class="step-number">1</span><div class="step-content"><h3>Open your prepared combo</h3><p>Your personality settings and shared-avatar instructions arrive together in Muse.</p><a class="button primary" data-muse-handoff data-muse-character="${current.id}" href="${esc(handoff.url)}">Open in Muse ${icon('spark')}</a></div></div>
     <div class="setup-step"><span class="step-number">2</span><div class="step-content"><h3>Press Send, then choose an avatar</h3><p>Review and send the message in Muse. It asks Muse to save your personality and generate costume options. Choose one and click Select to make it your avatar.</p></div></div>`
     : `<div class="setup-step"><span class="step-number">1</span><div class="step-content"><h3>Copy your character combo</h3><p>One message includes both parts, with your tone adjustments.</p><button class="button primary" data-copy="combo">${icon('copy')} Copy personality + avatar</button></div></div>
     <div class="setup-step"><span class="step-number">2</span><div class="step-content"><h3>Open Muse and paste</h3><p>Send the message. When Muse offers avatar options, choose one and click Select.</p><a class="button outline" href="https://muse.ai/" target="_blank" rel="noopener noreferrer">Open Muse ${icon('spark')}</a></div></div>`;
   showDialog(`${dialogHeader('Take your character into Muse', true)}<section class="setup"><p class="eyebrow">Personality + Muse costume</p><h2 id="dialog-title">Meet your ${esc(current.name)}.</h2><p class="setup-intro">Your combo pairs this personality with a costume for the same plush Muse base. Take both instructions into the same Muse conversation.</p>
     ${firstSteps}
     <div class="setup-step"><span class="step-number">3</span><div class="step-content"><h3>Make sure it feels right</h3><p>Check the costume and saved personality, then try a short conversation. You can adjust the voice here and send an updated combo whenever you like.</p></div></div>
-    ${handoff ? `<div class="setup-note">This shortcut has been tested in signed-in Muse web. If signing in or your browser leaves the message empty, copy the complete combo below and paste it into Muse. You still send the message and select an avatar yourself. The preview shows the intended costume; Muse's face, outfit and proportions can vary.</div><button class="button secondary" data-copy="combo">${icon('copy')} Copy complete combo</button>` : '<div class="setup-note">Persa copies the setup instructions. You apply them in Muse; a direct avatar import is not available here yet. The preview shows the intended shared character and costume. Muse may generate a different face, outfit, or proportions; the same prompt does not guarantee an identical avatar.</div>'}
+    ${handoff ? `<div class="setup-note">If Muse keeps an old draft or opens without your combo, copy the complete combo below. Save any draft you want to keep, then paste the combo into Muse. You still send the message and select an avatar yourself. The preview shows the intended costume; Muse's face, outfit and proportions can vary.</div><button class="button secondary" data-copy="combo">${icon('copy')} Copy complete combo</button>` : '<div class="setup-note">Persa copies the setup instructions. You apply them in Muse; a direct avatar import is not available here yet. The preview shows the intended shared character and costume. Muse may generate a different face, outfit, or proportions; the same prompt does not guarantee an identical avatar.</div>'}
     <details class="prompt-details"><summary>View the complete combo ${icon('chevron')}</summary><pre class="prompt-text">${esc(comboPrompt())}</pre></details>
     <div class="copy-options"><button class="button secondary" data-copy="personality">${icon('copy')} Personality only</button><button class="button secondary" data-copy="avatar">${icon('copy')} ${handoff ? 'Text-only avatar prompt' : 'Avatar prompt only'}</button></div>
     ${handoff ? '<p class="sample-caption">The text-only avatar prompt omits the shared image reference. Use the complete combo for the reference-based setup.</p>' : ''}
@@ -154,7 +169,7 @@ function renderSetup() {
 }
 
 function showHow() {
-  showDialog(`${dialogHeader('A little more personality')}<section class="setup"><p class="eyebrow">Made for your Muse</p><h2 id="dialog-title">One character. Two parts.</h2><div class="how-steps"><div><h3>Find someone you connect with</h3><p>Every preset dresses the same plush Muse in a different costume and pairs it with a personality. Preview the outfit and a few example replies.</p></div><div><h3>Make the tone yours</h3><p>Adjust warmth, humor, directness, and response length. Your changes update the personality instructions; the example replies show the original preset.</p></div><div><h3>Take the combo into Muse</h3><p>Taylor Swift, Mona Lisa and Mark Zuckerberg can open Muse with the combo ready to send. For the other characters, copy and paste the combined message. Send it, choose an avatar option and click Select, then check the saved personality.</p></div><div><h3>Keep your favorites close</h3><p>Saved combos stay in this browser on this device. Download a combo if you want a backup or to take it somewhere else.</p></div></div><p class="setup-note">Persa provides style preferences and avatar prompts. It does not change Muse's permissions or guarantee that every instruction persists between conversations.</p></section>`, 'dialog-title');
+  showDialog(`${dialogHeader('A little more personality')}<section class="setup"><p class="eyebrow">Made for your Muse</p><h2 id="dialog-title">One character. Two parts.</h2><div class="how-steps"><div><h3>Find someone you connect with</h3><p>Every preset dresses the same plush Muse in a different costume and pairs it with a personality. Preview the outfit and a few example replies.</p></div><div><h3>Make the tone yours</h3><p>Adjust warmth, humor, directness, and response length. Your changes update the personality instructions; the example replies show the original preset.</p></div><div><h3>Take the combo into Muse</h3><p>Choose Open in Muse on any character to take its personality and avatar instructions into Muse. Press Send, choose an avatar option and click Select, then check the saved personality. Setup options includes a complete copy-and-paste fallback.</p></div><div><h3>Keep your favorites close</h3><p>Saved combos stay in this browser on this device. Download a combo if you want a backup or to take it somewhere else.</p></div></div><p class="setup-note">Persa provides style preferences and avatar prompts. It does not change Muse's permissions or guarantee that every instruction persists between conversations.</p></section>`, 'dialog-title');
 }
 
 async function copyText(kind, button) {
@@ -174,7 +189,7 @@ function saveCurrent() {
   if (!persist({ ...saved, [current.id]: { voice: { ...getPersona().voice } } })) return;
   renderPage();
   const button=dialog.querySelector('[data-save-current]');
-  if(button){button.classList.add('saved');button.innerHTML=`${icon('check')}<span>Saved on this device</span>`;}
+  if(button){button.classList.add('saved');button.innerHTML=`${icon('check')}<span>Saved on this device</span>`;button.setAttribute('aria-label','Saved on this device');}
   notify('Combo and tone settings saved on this device.');
 }
 
@@ -204,7 +219,7 @@ async function start() {
     const data=await response.json();characters=data.characters;
     if(!Array.isArray(characters)||!characters.length)throw new Error('Empty catalog');
     saved=readSaved();
-    if (spotlightHome) spotlight=mountSpotlight({characters,saved});
+    if (spotlightHome) spotlight=mountSpotlight({characters,saved,getHandoff});
     renderPage();
     dialog=document.createElement('dialog');dialog.id='character-dialog';document.body.append(dialog);
     const toast=document.createElement('div');toast.id='toast';toast.className='toast';toast.setAttribute('role','status');toast.setAttribute('aria-live','polite');document.body.append(toast);
@@ -226,7 +241,7 @@ async function start() {
         renderPage();renderDetail();
       }
       else if(button.hasAttribute('data-sample')){sampleIndex=Number(button.dataset.sample);renderDetail();dialog.querySelector(`[data-sample="${sampleIndex}"]`)?.focus({preventScroll:true});}
-      else if(button.hasAttribute('data-reset')){drafts[current.id]={...current.persona.voice};renderDetail();dialog.querySelector('[data-reset]')?.focus({preventScroll:true});notify('Original tone restored.');}
+      else if(button.hasAttribute('data-reset')){drafts[current.id]={...current.persona.voice};renderDetail();updateMuseLinks();dialog.querySelector('[data-reset]')?.focus({preventScroll:true});notify('Original tone restored.');}
       else if(button.hasAttribute('data-save-current'))saveCurrent();
       else if(button.hasAttribute('data-setup'))renderSetup();
       else if(button.dataset.copy)copyText(button.dataset.copy,button);
@@ -237,7 +252,8 @@ async function start() {
       drafts[current.id][trait]=Number(e.target.value);
       dialog.querySelector(`#value-${trait}`).textContent=e.target.value;
       dialog.querySelector('#personality-text').textContent=personalityPrompt();
-      const save=dialog.querySelector('[data-save-current]');if(save){save.classList.remove('saved');save.innerHTML=`${icon('heart')}<span>Save changes</span>`;}
+      updateMuseLinks();
+      const save=dialog.querySelector('[data-save-current]');if(save){save.classList.remove('saved');save.innerHTML=`${icon('heart')}<span>Save changes</span>`;save.setAttribute('aria-label','Save changes');}
     });
   }catch(error){
     if(spotlightHome){

@@ -2,6 +2,21 @@
 
 ## Unreleased
 
+- Direct Muse links for all characters (2026-10-15): add **Open in Muse** to
+  the spotlight stage, every character tile and the personality detail dialog,
+  opening the prepared combo immediately without a mandatory setup dialog.
+  Keep optional **Setup options** for copying, downloads and help; Muse still
+  requires **Send** and avatar **Select**. Extend the shared builder to all 18
+  authored costumes, preserving the original three default payloads exactly
+  and versioning the other 15 as `muse-reference-wardrobe-v2`. Explicitly allow
+  sparing emoji for Barbie/SpongeBob when replacing an old no-emoji preference.
+  Ask for four native candidates and a re-read of saved personality settings
+  after the earlier pilot exposed a stale Vibe and a two-candidate chooser;
+  preserve those pilot results separately from current-recipe validation.
+  Preserve artwork, legacy catalog prompts, current tone and saved state.
+  All 82 Node tests and the build pass; native compatibility, restoration and
+  deployment are tracked in [the all-character record](docs/MUSE_ALL_CHARACTER_HANDOFF.md).
+
 - Guided Muse setup (2026-10-14): add **Open in Muse** for Mona Lisa, Taylor
   Swift and Mark Zuckerberg, with the current compiled personality and a
   verified shared-base reference request in one prepared message. Keep

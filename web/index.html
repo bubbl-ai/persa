@@ -38,10 +38,11 @@
           <h2 id="character-name">A moment for your Muse.</h2>
           <p class="character-subtitle" id="character-subtitle">Choose a character to take the stage.</p>
           <div class="spotlight-actions">
-            <button class="button primary" id="spotlight-use" disabled>Use in Muse <span aria-hidden="true">↗</span></button>
+            <a class="button primary" id="spotlight-use" data-muse-handoff aria-disabled="true" tabindex="-1" aria-describedby="spotlight-guidance">Open in Muse <span aria-hidden="true">↗</span></a>
             <button class="button secondary" id="spotlight-customize" disabled>Tune personality</button>
             <button class="spotlight-save" id="spotlight-save" aria-label="Save character" aria-pressed="false" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></svg></button>
           </div>
+          <div class="spotlight-help"><p class="handoff-guidance" id="spotlight-guidance">Send the message in Muse, then choose your avatar.</p><button class="text-button setup-options" id="spotlight-setup" disabled>Setup options</button></div>
         </div>
         <div class="navigation">
           <button class="arrow" id="previous" aria-label="Previous character" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6M8 12h12"/></svg></button>

@@ -4,7 +4,7 @@
 
 **A personality layer for personal agents.** Write down how you want an agent to talk to you — once — and install it into Muse, Grok, Instinct, Claude, ChatGPT, or anything else with a text box.
 
-**Try the Muse character website:** [persa.bubblai.com](https://persa.bubblai.com). The spotlight homepage is public on Vercel under Bubbl's domain: anyone with the link can view it. Each character pairs a personality with a matching avatar prompt. This checkout adds a prepared-message shortcut for three presets; the [handoff report](docs/MUSE_HANDOFF_RELIABILITY.md) records its validation and deployment status. Users still send the message and choose an avatar in Muse.
+**Try the Muse character website:** [persa.bubblai.com](https://persa.bubblai.com). The spotlight homepage is public on Vercel under Bubbl's domain: anyone with the link can view it. Each character pairs a personality with a matching avatar prompt. This checkout gives all 18 characters a direct **Open in Muse** link; the [all-character handoff report](docs/MUSE_ALL_CHARACTER_HANDOFF.md) records validation and deployment status. One click takes the chosen combo from Persa to a prepared Muse message. Users still press Send and choose an avatar in Muse.
 
 Personal agents in 2026 are good at doing things and bad at sounding like anything. Most ship one house voice; the ones that let you change it make you write a system prompt from scratch, per agent, and rewrite it when you change your mind. Persa makes the personality a small file you own, and handles the rest.
 
@@ -26,19 +26,20 @@ These commands run from a source checkout; see [Install](#install). The reposito
 - Each preset is one complete character combo: **personality layer + Muse avatar**. The personality defines the character's voice, tone, response style, and behavioral preferences; the avatar gives that same character its visual identity.
 - The supplied people and characters below define the candidate pool for the first batch of default Muse combos. Each selected character gets both a personality and a matching avatar prompt.
 - The visual direction is one cream plush Muse-style base with the same face, hood, and body proportions throughout the collection. Clothing, headwear, and props express each named character. See the [avatar design contract](docs/MUSE_AVATAR_DESIGN.md).
-- The Muse setup shortcut opens a prepared message for Mona Lisa, Taylor Swift and Mark Zuckerberg. The user presses **Send**, reviews the options and clicks **Select**. The other 15 candidates keep the copy/paste flow. See the [reliability and release record](docs/MUSE_HANDOFF_RELIABILITY.md); automatic combo installation is not implemented.
+- Every preset has a direct **Open in Muse** link on the stage, tile and personality detail dialog. The primary action skips setup instructions; **Setup options** retains copying, downloads and help when needed. The user presses **Send** in Muse, reviews the options and clicks **Select**. See the [all-character implementation and release record](docs/MUSE_ALL_CHARACTER_HANDOFF.md); automatic combo installation is not implemented.
 - Users browse and choose the combo as a single preset. Personality instructions and avatar prompts may require different technical steps to apply, but both belong to the selected Muse character.
 
-The implemented flow is: browse default Muse characters → preview the matching avatar and personality → tune the voice → open the prepared combo for a supported preset, or copy and paste it → press Send in Muse → choose an avatar option and select it. Users can save combos and tone settings in the current browser. Grok Bot reuses the personality component as a secondary copy option. Earlier tests found stale preferences during preset replacement; the new message explicitly asks Muse to replace the prior character's voice, tone and emoji settings while preserving unrelated preferences. That request and its observed results are distinct; see the [current reliability report](docs/MUSE_HANDOFF_RELIABILITY.md) and [historical batch validation](docs/MUSE_BATCH_VALIDATION.md).
+The shortest flow is: choose a character → **Open in Muse** → press Send → choose an avatar and click Select. Previewing examples, tuning the voice and opening setup instructions are optional. Direct links carry the current draft or saved tone settings. Users can save combos in the current browser, and Grok Bot reuses the personality as a secondary copy option. The message explicitly asks Muse to replace the prior character's voice, tone and emoji settings while preserving unrelated preferences. Barbie and SpongeBob explicitly allow sparing emoji instead of inheriting an old no-emoji preference. Requests and observed persistence are distinct; see the [current handoff report](docs/MUSE_ALL_CHARACTER_HANDOFF.md) and [historical batch validation](docs/MUSE_BATCH_VALIDATION.md).
 
 A separate October 12 [prompt-engineering experiment](docs/MUSE_PROMPT_ENGINEERING.md)
 captured and reviewed 84 options from 21 requests. Uploading the shared base
 with experimental prompts improved visible face/hood/material similarity, but
-hand, clothing and proportion variation remained. Those 84 outputs used image
-uploads. The new three-preset shortcut adapts the preferred recipes to a
-downloaded workspace reference and tests that route separately; its results
-must not be inferred from the older experiment. Neither route guarantees
-stable fixed-character dressing or an identical gallery preview.
+hand, clothing and proportion variation remained. That experiment included
+text-only screens and attached-reference requests. The October 14 shortcut adapted three preferred recipes to a
+downloaded workspace reference; their default messages remain unchanged.
+The other 15 now use their authored catalog costumes with a shared preservation
+recipe, tested separately. Neither old results nor website availability
+establish stable fixed-character dressing or identical gallery previews.
 
 ### First default Muse batch: candidate roster
 
@@ -54,12 +55,12 @@ stable fixed-character dressing or an identical gallery preview.
 Primary-source review and earlier desktop tests: October 5, 2026. Native avatar-generation repeat evidence: October 12, 2026 (Asia/Taipei). Link handoff experiment: October 14, 2026 (Asia/Shanghai).
 
 - **Muse avatars:** Meta describes reference-media-driven avatars, but cautions that its research examples do not all represent avatars available in the Muse app. The earlier desktop Mona Lisa test verified prompt-based avatar generation and selection. On October 14, actual clicked `https://muse.ai/?prompt=…` links prefilled two test messages; sending each returned four native avatar candidates without manual image upload. The first required recovery from a rejected `/tmp` reference path. The revised workspace-first request succeeded with one visible generation event after the temporary connector was removed. User-facing activity showed the verified image passed as the native reference; this is not an independent guarantee of backend conditioning. The link is observed signed-in desktop behavior, not a documented integration contract. No public avatar-import API or actual mobile workflow has been verified. See the [handoff report](docs/MUSE_ONE_CLICK_VALIDATION.md), [Bringing Your Muse to Life](https://research.meta.ai/blog/bringing-your-muse-to-life), and the [earlier test record](docs/MUSE_VALIDATION.md).
-- **Muse combo behavior:** The [initial Mona Lisa test](docs/MUSE_VALIDATION.md) and [batch validation](docs/MUSE_BATCH_VALIDATION.md) verified avatar activation and persistence for 13 previous likeness-based combos. The [current costume test](docs/MUSE_NATIVE_AVATAR_VALIDATION.md) covers generation for Taylor Swift, Mona Lisa and Mark Zuckerberg only; it does not establish stable fixed-character dressing or new activation/persistence. Sequential preset replacement can retain old preferences when the new prompt omits them. Fresh side chats share account context. The remaining 15 costume presets, removal, automatic application, and synchronization remain unverified.
+- **Muse combo behavior:** The [initial Mona Lisa test](docs/MUSE_VALIDATION.md) and [batch validation](docs/MUSE_BATCH_VALIDATION.md) verified avatar activation/persistence for 13 older likeness-based combos. The [October 14 repeat matrix](docs/MUSE_HANDOFF_RELIABILITY.md) covers three current costumes; the [October 15 record](docs/MUSE_ALL_CHARACTER_HANDOFF.md) separately tracks compatibility for the additional 15. Sequential preset replacement can retain omitted preferences, so the wrapper explicitly replaces the authored voice/emoji settings. Fresh side chats share account context. Automatic application, current-costume selection/persistence, removal and synchronization remain unverified.
 - **Secondary Grok Bot compatibility:** Official guidance puts durable preferences in the Bot's Description and supports sharing an existing Bot through a template link. Recipients review it and add their own copy in Grok Bot. This is a possible personality distribution path; generating those templates directly from Persa has not been verified. The existing `grok` compiler target describes a different Custom Agent flow, so its 4,000-character budget is not a verified Grok Bot limit. See [Create and manage Bots](https://docs.x.ai/grok-bot/bots) and [Templates for Grok Bot](https://x.ai/bot/guides/templates-for-grok-bot).
 
-### Website status — October 14, 2026
+### Website status — October 15, 2026
 
-The website implementation lives in [`web/`](web/), with paired character definitions in [`characters/catalog.js`](characters/catalog.js). The homepage at `/` has a white, borderless spotlight stage with the featured personality's three adjectives beneath the portrait. Each character on stage has **Use in Muse**, **Tune personality**, and a save action. All 18 character tiles appear below the spotlight; **All characters** scrolls to that grid. The standalone grid remains at `/collection.html`, and saved combos are available at `/collection.html?view=saved`. The old `/spotlight.html` demo link redirects to the homepage.
+The website implementation lives in [`web/`](web/), with paired character definitions in [`characters/catalog.js`](characters/catalog.js). The homepage at `/` has a white, borderless spotlight stage with the featured personality's three adjectives beneath the portrait. The stage has direct **Open in Muse**, **Tune personality**, save and optional **Setup options** controls. All 18 character tiles appear below the spotlight with their own direct Muse links; **All characters** scrolls to that grid. The standalone grid remains at `/collection.html`, and saved combos are available at `/collection.html?view=saved`. The old `/spotlight.html` demo link redirects to the homepage.
 
 Sites version **6** was published successfully on October 9, 2026 (Asia/Taipei), from source commit `f5de98c1c43fdfdfeff9e14b69106ece6c2a7517`, with the existing public audience unchanged. The costume artwork first shipped in version 4; version 6 makes the approved stage the homepage and connects the existing combo controls. See the [publication record](docs/MUSE_AVATAR_DESIGN.md#publication-status).
 
@@ -70,9 +71,12 @@ transferred personality text without applying it and returned eight candidates
 from two Mona Lisa requests. The subsequent implementation adds the shortcut
 for Mona Lisa, Taylor Swift and Mark Zuckerberg, using the actual personality
 application payload and a shared reference downloaded inside Muse's workspace.
-The [separate reliability report](docs/MUSE_HANDOFF_RELIABILITY.md) tracks the
-native repeats and release status. The link does not send the message or
-activate an avatar automatically, and the two experiments have separate counts.
+The [three-preset reliability report](docs/MUSE_HANDOFF_RELIABILITY.md) retains
+the native repeats and verified October 14 release. The October 15 user-requested
+expansion covers all 18 presets and removes the setup dialog from the primary
+route; see [its separate validation and release record](docs/MUSE_ALL_CHARACTER_HANDOFF.md).
+The link does not send the message or activate an avatar automatically, and
+these experiments have separate counts.
 
 | Area | Current behavior |
 | --- | --- |
@@ -81,11 +85,11 @@ activate an avatar automatically, and the two experiments have separate counts.
 | Combo preview | Matching avatar, character description, traits, and three authored example replies. Examples illustrate the original preset; they are not live model responses and do not change with the sliders. |
 | Tone controls | Warmth, humor, directness, and response length update the compiled personality instructions immediately. Reset restores that character's defaults. |
 | My collection | Saves favorites and voice settings in this browser's `localStorage`, separately for each website origin. A new domain starts with an empty collection; previous saves remain on the old domain. There is no account or cross-device sync; clearing browser storage removes them. |
-| Muse setup | Mona Lisa, Taylor Swift and Mark Zuckerberg offer **Open in Muse**, carrying the compiled personality and a reference-based avatar request. **Copy complete combo** is the fallback. Users press **Send** and later choose an option and click **Select**. Other 15 presets keep the existing copy/paste setup. Separate personality and text-only avatar copying remains available. Native mobile and completed-login handoff are unverified; generated figures can differ from previews. |
-| Download | Exports the persona, compiled personality, costume/base metadata, legacy text-only avatar prompt and complete combo as JSON. Supported presets also export `museHandoff`, including the exact message, URL, version and reference metadata. There is no JSON import or restore control yet. |
+| Muse setup | Every character has a direct **Open in Muse** link from the stage, tile and detail dialog, carrying the current compiled personality and a reference-based avatar request. No setup dialog is required. Users press **Send** and later choose an option and click **Select**. **Setup options** keeps complete-combo copy, separate component copying and help available. Native mobile and completed-login handoff are unverified; generated figures can differ from previews. |
+| Download | Optional setup controls export the persona, compiled personality, costume/base metadata, legacy text-only avatar prompt and complete combo as JSON. Every catalog preset includes `museHandoff` with the exact message, URL, version and reference metadata. There is no JSON import or restore control yet. |
 | Grok Bot | Secondary option to copy personality text for a Bot's Description. It uses the `plain` compiler target, independently of the CLI's older `grok` Custom Agent target. |
 
-The October 6 collection uses one shared reference image and separate costume edits. The new shortcut reuses that base and its preferred tested costume recipes; it does not replace the legacy catalog avatar prompts. Complete-combo copy, link, displayed instructions and export use one shared builder. The separate text-only avatar control omits the image reference and is labeled accordingly. Artwork, personality definitions, character IDs, favorites and saved tone settings are preserved.
+The October 6 collection uses one shared reference image and separate costume edits. The shortcut reuses that base, the three original tested recipes and a shared preservation recipe for the other 15 authored costumes; it does not replace legacy catalog avatar prompts. Complete-combo copy, link, displayed instructions and export use one shared builder. The separate text-only avatar control omits the image reference and is labeled accordingly. Artwork, personality definitions, character IDs, favorites and saved tone settings are preserved.
 
 The October 10 homepage layout update changes no avatar assets or prompts. Current art-generation and Muse prompts explicitly exclude human hair, so costume-specific hairstyles are still absent; this layout update does not address that artwork limitation. See the [design contract](docs/MUSE_AVATAR_DESIGN.md#shared-design).
 
@@ -93,7 +97,7 @@ The image manifest retains earlier likeness attempts, refusals, and rejected unr
 
 If an image request fails in the browser, the stage, grid, and character dialog show a readable error state. **Tune personality** or a character tile opens the character dialog, where **Retry image** retries its preview, the stage image, and its homepage tile. Reopening the character also retries the dialog image. Personality tuning and copying remain available while the image is unavailable.
 
-The remaining product work is to choose the launch ten, improve fixed-character stability, expand native coverage beyond the three supported presets, and test mobile Muse and completed-login transfer. The link enters the account's existing Main chat; shared account and conversation context affect the evidence. Automatic combo activation, current-costume selection/persistence and removal remain outside this handoff matrix. Persa does not connect to a Muse account API or synchronize later changes. See the [current reliability and release status](docs/MUSE_HANDOFF_RELIABILITY.md), [historical transfer limits](docs/MUSE_ONE_CLICK_VALIDATION.md), and [design scope](docs/MUSE_AVATAR_DESIGN.md).
+The remaining product work is to choose the launch ten, improve fixed-character stability, expand repeated native coverage beyond the original three presets, and test mobile Muse and completed-login transfer. The link enters the account's existing Main chat; shared account and conversation context affect the evidence. Automatic combo activation, current-costume selection/persistence and removal remain outside this handoff matrix. Persa does not connect to a Muse account API or synchronize later changes. See the [current validation and release status](docs/MUSE_ALL_CHARACTER_HANDOFF.md), [historical transfer limits](docs/MUSE_ONE_CLICK_VALIDATION.md), and [design scope](docs/MUSE_AVATAR_DESIGN.md).
 
 ### Run the website
 
@@ -167,7 +171,7 @@ retire or redirect that address.
 | --- | --- |
 | [`characters/catalog.js`](characters/catalog.js) | Character identity, persona definitions, matching Muse avatar prompt, preview path, and authored sample replies. `launchSelection` is empty; it records a future selection and does not filter the current gallery. |
 | [`characters/avatar-design.js`](characters/avatar-design.js) | Versioned shared Muse base, 18 costume descriptions, and paired Muse avatar prompts. |
-| [`src/muse-handoff.js`](src/muse-handoff.js) | Browser-safe prepared-message builder for three supported presets, using the existing Muse compiler and a fixed public reference URL/checksum. One payload supplies the link, complete-combo copying, displayed instructions and export. |
+| [`src/muse-handoff.js`](src/muse-handoff.js) | Browser-safe prepared-message builder for all 18 named presets, using the existing Muse compiler and fixed public reference URL/checksum. Original three default payloads remain unchanged; the other 15 use authored catalog costumes. One payload supplies direct links, complete-combo copying, displayed instructions and export. |
 | [`characters/image-generation.json`](characters/image-generation.json) | Exact art prompts, output paths, and historical outcomes. Active costume replacements use `kind: "muse-costume"` with matching `subjectId`, `baseId`, and `designVersion`; earlier attempts are preserved. |
 | [`characters/avatar-design-generation.json`](characters/avatar-design-generation.json) | Shared reference image provenance and exact generation prompt. |
 | [`web/avatars/`](web/avatars/) | Current costume PNG previews and historical source art. The build ships only currently referenced images and their shared base. |
@@ -185,6 +189,13 @@ The website has no application backend, model calls, or application API-key requ
 
 ### Website verification
 
+The October 15 all-character/direct-link implementation passed **82 Node tests**
+and the website build. Native prefill checks for all 18 and one compatibility
+request for each of the new 15 are recorded separately in the
+[all-character report](docs/MUSE_ALL_CHARACTER_HANDOFF.md), along with current
+browser QA, baseline restoration and deployment status. One request per new
+preset does not establish repeated stability.
+
 The October 14 handoff implementation passed **78/78 Node tests**, the build,
 syntax/whitespace checks and **33/33 isolated browser checks**. Browser checks
 covered all 18 supported/fallback flows, current and saved tone, link/copy/export
@@ -193,7 +204,7 @@ Muse navigations in those UI checks were intercepted locally; they are not
 native integration or real mobile tests. The [reliability report](docs/MUSE_HANDOFF_RELIABILITY.md)
 records the separate native matrix, account restoration and deployment status.
 
-The native handoff matrix completed **9/9 requests** across the three supported
+The October 14 native handoff matrix completed **9/9 requests** across its three
 presets, with a median wait of about **88 seconds**. All **36/36 candidates**
 met the practical visible-identity and usability criteria; all nine saved-style
 checks passed after reload. This small single-account result supports the

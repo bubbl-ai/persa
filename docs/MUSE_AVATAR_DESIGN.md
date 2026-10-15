@@ -72,8 +72,8 @@ appear directly below the spotlight, with the header's **All characters** link
 scrolling to them. The standalone full grid and saved collection remain at
 `/collection.html`; the former `/spotlight.html` demo redirects to the homepage.
 
-Each stage selection uses the existing personality and avatar prompt for that
-preset. **Use in Muse**, **Tune personality**, and the heart share the same
+In the October 10 presentation, each stage selection used the existing
+personality and avatar prompt. **Use in Muse**, **Tune personality**, and the heart shared the same
 catalog, controls, dialogs, and saved settings as the grid. Saving from either
 view updates both while preserving the selected stage character and originating
 control's focus. This presentation change generated no new artwork and changed
@@ -83,6 +83,27 @@ for all 18 previews, adjectives, shared saves, focus, setup copying, and image
 recovery. See the [website verification record](../README.md#website-verification).
 This release uses the existing main-branch Vercel workflow and includes no new
 signed-in Muse validation.
+
+## Direct Muse links — October 15, 2026
+
+The user requested all 18 characters and a single action from Persa to Muse.
+The stage, each collection tile and the personality detail dialog now have
+real **Open in Muse** links. The primary route no longer opens a Persa setup
+dialog first. **Setup options** remains optional for complete-combo copying,
+downloads and help. Current drafts, reset and saved tone settings update those
+links. Muse still requires the user to send the prepared message and select
+an avatar; this is not automatic application or exact image import.
+
+The original Mona/Taylor/Mark default payloads remain unchanged. The other
+15 use their existing authored catalog costumes with a shared preservation
+recipe, versioned `muse-reference-wardrobe-v2`. Clothing, props, glasses and
+headwear must dress the same source plush; they do not introduce new human
+faces, animal bodies or hair. No preview image, legacy text-only catalog
+prompt or historical refusal outcome changed. See the
+[all-character validation and release record](MUSE_ALL_CHARACTER_HANDOFF.md).
+The v2 handoff asks for four candidates and tells Muse to verify saved personality
+settings before generation. These changes follow the preserved v1 pilot's stale Vibe
+and two-candidate result; they do not establish native success until checked.
 
 ## Provenance and failure handling
 
@@ -102,12 +123,12 @@ output; historical source artwork can remain in the repository without shipping.
 
 ## Muse integration limits
 
-The legacy setup copies text describing the common base and costume. The
-three-preset shortcut in this checkout instead opens a prepared message asking
+The legacy avatar-only control copies text describing the common base and
+costume. The all-character shortcut in this checkout opens a prepared message asking
 Muse to download and verify the public shared base inside its workspace, then
 use that actual file for native avatar candidates. Users still press **Send**
 and **Select** themselves; Persa does not directly install the displayed avatar.
-See [the handoff reliability and release status](MUSE_HANDOFF_RELIABILITY.md).
+See [the current handoff validation and release status](MUSE_ALL_CHARACTER_HANDOFF.md).
 Independent Muse generations may change the face, proportions or outfit even
 with a reference. Never promise identical previews or a fixed avatar across
 generations.
@@ -128,7 +149,7 @@ closer to the source, and revised wording improved dress coverage. Hand/hood
 variation and longer Mark leg silhouettes remained; bodies hidden by gowns
 could not be assessed. Those attachment-dependent recipes are versioned
 separately from artwork and do not replace the catalog's text-only prompts.
-The new handoff adapts the preferred three recipes to URL-based reference
+The October 14 handoff adapted the preferred three recipes to URL-based reference
 delivery and measures that route separately; the older 84 outputs cannot
 establish its reliability.
 
@@ -143,10 +164,12 @@ No candidate was selected in the October 12 unchanged-prompt matrix or its
 single-request probe, and no personality text was submitted. After a full reload,
 the prior Mona Lisa avatar and displayed name
 remained visible. Saved personality and memory were not audited. Current costume
-activation/persistence, the other 15 presets, mobile and multiple accounts remain
-untested. The earlier stale emoji preference finding for Barbie and SpongeBob
-also remains unresolved; the avatar tests do not change the personality compiler.
-A direct import route remains unverified.
+activation/persistence, the other 15 presets, mobile and multiple accounts were
+not tested in that experiment. The [October 15 record](MUSE_ALL_CHARACTER_HANDOFF.md)
+separately covers the additional costumes. Its wrapper explicitly requests
+sparing emoji for Barbie/SpongeBob to replace old no-emoji preferences, but
+that wording is separate from observed persistence. Direct import, automatic
+application and identical-avatar reproduction remain unverified.
 
 ## Verification — October 6, 2026
 

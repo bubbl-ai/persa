@@ -1,5 +1,5 @@
 // The shared app owns catalog, personality, favorites, dialogs, and setup.
-export function mountSpotlight({ characters, saved }) {
+export function mountSpotlight({ characters, saved, getHandoff }) {
   const stage = document.querySelector('#stage');
   const slidesRoot = document.querySelector('#slides');
   const previous = document.querySelector('#previous');
@@ -51,7 +51,8 @@ export function mountSpotlight({ characters, saved }) {
     document.querySelector('#stage-count').textContent = count;
     document.querySelector('#page-count').textContent = count;
     picker.value = character.id;
-    document.querySelector('#spotlight-use').dataset.setupCharacter = character.id;
+    document.querySelector('#spotlight-use').dataset.museCharacter = character.id;
+    document.querySelector('#spotlight-setup').dataset.setupCharacter = character.id;
     document.querySelector('#spotlight-customize').dataset.character = character.id;
     document.querySelector('#spotlight-save').dataset.save = character.id;
     updateSaved(savedRecords);
@@ -89,6 +90,17 @@ export function mountSpotlight({ characters, saved }) {
     const count = document.querySelector('#spotlight-saved-count');
     count.textContent = Object.keys(records).length;
     count.hidden = Object.keys(records).length === 0;
+    const handoff = getHandoff(character);
+    const link = document.querySelector('#spotlight-use');
+    if (handoff) {
+      link.href = handoff.url;
+      link.removeAttribute('aria-disabled');
+      link.removeAttribute('tabindex');
+    } else {
+      link.removeAttribute('href');
+      link.setAttribute('aria-disabled', 'true');
+      link.tabIndex = -1;
+    }
   }
 
   function retryImage(id) {
@@ -111,7 +123,7 @@ export function mountSpotlight({ characters, saved }) {
   picker.disabled = false;
   stage.setAttribute('aria-busy', 'false');
   document.querySelector('#character-info').setAttribute('aria-busy', 'false');
-  for (const id of ['spotlight-use', 'spotlight-customize', 'spotlight-save']) document.getElementById(id).disabled = false;
+  for (const id of ['spotlight-customize', 'spotlight-save', 'spotlight-setup']) document.getElementById(id).disabled = false;
   document.querySelector('[data-how]').disabled = false;
   message.hidden = true;
 

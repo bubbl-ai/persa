@@ -2,11 +2,15 @@
 
 Date: October 12, 2026 (Asia/Taipei). **Historical attached-image experiment.**
 
+Current all-character availability and direct-link behavior are tracked in
+[the October 15 handoff record](MUSE_ALL_CHARACTER_HANDOFF.md). The historical
+three-character experiments below do not measure the other 15 costumes.
+
 The later [guided-handoff implementation and reliability report](MUSE_HANDOFF_RELIABILITY.md)
 uses the preferred three recipes as the basis for a separate URL-delivered
 workflow. It preserves the costume constraints but changes reference delivery
-and explicitly requests personality application. The 84 outputs below remain
-attachment-based experimental evidence; they do not measure the later
+and explicitly requests personality application. The 84 outputs below include
+text-only screens and attachment-based experiments; they do not measure the later
 handoff's reliability. Catalog text-only avatar prompts remain unchanged.
 
 Uploading the shared base with a concise preservation prompt produced visibly

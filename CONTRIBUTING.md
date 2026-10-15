@@ -25,7 +25,7 @@ npm run preview:web       # http://127.0.0.1:4173
 
 The preview serves the last `dist/` build; rebuild after edits. The website is a
 static browser app that reuses the personality compiler. See the
-[website status and architecture](README.md#website-status--october-14-2026)
+[website status and architecture](README.md#website-status--october-15-2026)
 for the implemented flow, asset coverage, and remaining Muse integration work.
 
 The homepage is `/`, with a white, borderless spotlight stage, the selected
@@ -50,14 +50,27 @@ hood, material, and body proportions across costumes. Clothing, headwear, and
 props identify each named preset; do not restore the older individual faces or
 substitute unrelated mascots. See the [design contract](docs/MUSE_AVATAR_DESIGN.md).
 
-The guided Muse shortcut is deliberately scoped to Mona Lisa, Taylor Swift
-and Mark Zuckerberg. `src/muse-handoff.js` is a browser-safe pure builder that
-calls the existing compiler with the current tone and returns the exact prompt,
-encoded Muse URL, prompt version and reference metadata. The build copies it
-into `dist/core`. Link, complete-combo copy, displayed instructions and export
-must agree. Leave the other 15 presets on the existing copy flow until their
-native workflow is validated; do not modify catalog prompts to extend the
-shortcut implicitly. See [the current reliability and release record](docs/MUSE_HANDOFF_RELIABILITY.md).
+The Muse shortcut covers all 18 catalog presets as requested October 15.
+Use real **Open in Muse** links on the stage, each tile and the detail dialog,
+without a mandatory help/setup dialog. Keep **Setup options** separate and
+optional. `src/muse-handoff.js` is the browser-safe pure builder; it calls the
+existing compiler with the current tone and returns the exact prompt, encoded
+URL, recipe version and reference metadata. The build copies it into
+`dist/core`. Link, complete-combo copy, displayed instructions and export must
+agree. Update all direct URLs after tone edits/reset and when loading saved
+preferences. See [the all-character record](docs/MUSE_ALL_CHARACTER_HANDOFF.md).
+
+Preserve the exact original Mona/Taylor/Mark default payloads under
+`muse-reference-handoff-v1`. The other 15 use their existing authored catalog
+costumes and `muse-reference-wardrobe-v2`; legacy text-only prompts and artwork
+remain unchanged. All-character availability supersedes the old three-preset
+restriction, but does not extend the old reliability results to untested
+recipes. Barbie and SpongeBob's wrapper must explicitly permit sparing emoji
+and replace the prior setting because the compiler omits its neutral phrase.
+The v2 recipe asks for four candidates and requires Muse to re-read saved
+identity, style and standing personality preferences before generating,
+correcting conflicting old settings. This addresses failures observed in the
+separate v1 pilot; do not pool pilot outputs with the current recipe's results.
 
 Keep **Send** and **Select** explicit. Copy fallback must retain the full
 reference-based message. The separate legacy avatar-only prompt omits the
@@ -130,10 +143,12 @@ flows at desktop and narrow mobile widths:
 - Combo actions: the selected stage character must match setup, tuning, copied
   prompts, and JSON download. Check tone reset, independent drafts, saved-tone
   persistence, and clipboard failure fallback when changing those flows.
-- Muse handoff: check three supported presets and all 15 fallback presets.
+- Muse handoff: check all 18 direct links from the stage, tiles and detail.
   Decode the prepared URL and compare it with the complete displayed/copied/
   exported message, including changed and restored tone settings. Verify
-  keyboard activation, blank-composer copy guidance and clipboard denial.
+  keyboard activation, optional setup, blank/existing-draft composer guidance,
+  and clipboard denial. The primary action must open Muse directly without
+  displaying a Persa setup dialog.
   Keep UI navigation intercepted during local browser checks; native Muse
   generation, preference mutation and cleanup require their own protocol.
 - Shared state and focus: saving from either the stage or a homepage tile must
@@ -176,7 +191,12 @@ from catalog text-only prompts.
 Keep garment compliance, hand anatomy and visible identity separate, and mark
 hidden critical body geometry unassessable rather than inferring a match.
 
-The October 14 guided-handoff implementation passed 78 Node tests and 33
+The October 15 all-character implementation passed 82 Node tests and the build.
+The [current report](docs/MUSE_ALL_CHARACTER_HANDOFF.md) tracks all-18 native
+prefill, one compatibility request per new preset, current browser QA,
+restoration and release status. A single request is not a repeatability test.
+
+The historical October 14 guided-handoff implementation passed 78 Node tests and 33
 isolated browser checks, including all 18 setup paths, tuned/saved payloads,
 clipboard denial, keyboard/focus and 1440/390/320px layouts. Its native matrix
 uses the actual personality-application payload in the existing Main chat;

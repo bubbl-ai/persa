@@ -2,6 +2,13 @@
 
 Date: October 14, 2026 (Asia/Shanghai).
 
+**Historical three-preset release record.** The October 15
+[all-character direct handoff](MUSE_ALL_CHARACTER_HANDOFF.md) supersedes the
+product's three-preset eligibility restriction and removes the intermediate
+setup dialog from the primary action. The nine-request/36-output results,
+payload hashes and deployment evidence below retain their original scope;
+they do not establish repeated stability for the other 15 presets.
+
 **The three-preset guided trial passed its native generation, visible-identity
 and saved-style gates: 9/9 requests completed and all 36 candidates met the
 practical visual criteria. Baseline personality restoration is verified, and

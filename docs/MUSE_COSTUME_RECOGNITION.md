@@ -1,6 +1,6 @@
 # Clearer costumes for the three remaining presets
 
-October 16, 2026 (Asia/Shanghai). Implemented locally; not pushed or deployed.
+October 16, 2026 (Asia/Shanghai). Published at [persa.bubblai.com](https://persa.bubblai.com).
 
 The user requested a different approach to making the remaining characters
 recognizable. Harry Potter, Michael Jackson and Joker now use stronger clothing,
@@ -110,9 +110,28 @@ verifies all 16 output hashes, selected original bytes, exact current recipes,
 all 15 unaffected handoffs and image-history records, and the account/prefill
 evidence. The public export excludes private paths, account contents and candidate
 identifiers. The local preview server was restarted before browser verification;
-no commit, push or deployment was performed.
+the curation task ended before publication. The subsequent release is recorded below.
 
 This is one account and four different costume recipes, with correlated options
 within each request. It does not test repeated stability, native mobile behavior,
 cross-account behavior, current avatar activation or combined-personality
 persistence. Future Muse generations can differ from the curated previews.
+
+## Publication — October 16, 2026
+
+The user approved publishing the completed collection. Source commit
+[`b92fb6c`](https://github.com/bubbl-ai/persa/commit/b92fb6c77cd74c98a8f3229acd3b5362bcc8c887)
+was pushed to main. The [Vercel deployment](https://github.com/bubbl-ai/persa/actions/runs/38923293457) and
+[Node 20/22/24 plus package-install checks](https://github.com/bubbl-ai/persa/actions/runs/38923293331) both succeeded.
+
+Production [persa.bubblai.com](https://persa.bubblai.com) serves the expected
+18-preset catalog: 12 native wig previews, three native hairless costume
+previews and three retained PNGs. Live verification matched all 19 active
+image files (including the base), catalog and browser runtime bytes to the
+validated build. All 54 stage/tile/detail image surfaces and prepared links
+passed; the three changed presets' copy/export flows and desktop/mobile
+layouts also passed. No Muse message was sent during publication checks.
+
+The previous Sites deployment was left unchanged. This release publishes
+curated examples and matching instructions; it does not add a new native
+Muse stability or avatar-activation result.

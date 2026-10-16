@@ -1,7 +1,8 @@
 # Curated Muse wigs in Persa
 
 Date: October 16, 2026 (Asia/Shanghai). Local implementation;
-this document does not establish a production deployment.
+this document records the curation stage. The selected previews were subsequently
+published with the [October 16 costume release](MUSE_COSTUME_RECOGNITION.md#publication--october-16-2026).
 
 Later October 16 follow-up: the [costume recognition study](MUSE_COSTUME_RECOGNITION.md)
 replaces Harry, Michael and Joker with newly curated hairless native costumes.
@@ -125,9 +126,9 @@ fully framed in the reviewed grids. Muse navigation was intercepted in these
 website checks; actual signed-in prefill is the separate twelve-link check
 above. The absent local preview server was started before the successful run.
 
-The changes are implemented and verified locally. No commit, push or deployment
-was performed by this rollout task; the live site remains at its previous
-release. Local screenshots and the full website check log are stored under
+At the end of this curation task, the changes were implemented and verified
+locally, with no commit, push or deployment. They subsequently shipped in the
+October 16 release linked above. Local screenshots and the full website check log are stored under
 `persa-test-results/2026-10-16-wig-rollout/` outside Git.
 
 The build validates PNG and static WebP signatures, dimensions and relevant

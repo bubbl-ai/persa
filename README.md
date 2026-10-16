@@ -6,7 +6,7 @@
 
 **Try the Muse character website:** [persa.bubblai.com](https://persa.bubblai.com). The spotlight homepage is public on Vercel under Bubbl's domain: anyone with the link can view it. Each character pairs a personality with a matching avatar prompt. All 18 characters have a direct **Open in Muse** link; the [all-character handoff report](docs/MUSE_ALL_CHARACTER_HANDOFF.md) records validation, known avatar-quality limitations and deployment status. One click takes the chosen combo from Persa to a prepared Muse message. Users still press Send and choose an avatar in Muse.
 
-The October 16 avatar updates are **local and unpublished**. The collection
+The October 16 avatar updates are **live on [persa.bubblai.com](https://persa.bubblai.com)**. The collection
 combines 12 wig presets, three new hairless costume interpretations for Harry
 Potter, Michael Jackson and Joker, and three retained hairless PNG previews.
 The [costume follow-up](docs/MUSE_COSTUME_RECOGNITION.md) records current
@@ -98,7 +98,7 @@ these experiments have separate counts.
 | Download | Optional setup controls export the persona, compiled personality, costume/base metadata, text-only avatar prompt and complete combo as JSON. Wig presets also include hairstyle and construction; the three new hairless costumes include `costumeVariant`. Curated native previews include provenance metadata regardless of hairstyle. Every catalog preset includes `museHandoff` with the exact message, URL, version and reference metadata. There is no JSON import or restore control yet. |
 | Grok Bot | Secondary option to copy personality text for a Bot's Description. It uses the `plain` compiler target, independently of the CLI's older `grok` Custom Agent target. |
 
-The local collection uses `muse-reference-wig-v3` for 12 wig presets and
+The current collection uses `muse-reference-wig-v3` for 12 wig presets and
 `muse-reference-costume-v4` for Harry Potter, Michael Jackson and Joker. Their
 shared visual builders supply both native trials and complete combos; the
 text-only fallbacks omit image-reference claims while matching the active

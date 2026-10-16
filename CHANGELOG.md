@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- More recognizable hairless costumes (2026-10-16, local and unpublished):
+- More recognizable hairless costumes (2026-10-16, published on Vercel):
   add distinct clothing/headwear/prop recipes for Harry Potter, Michael Jackson
   and Joker while preserving the shared face and hairless hood. New selected
   native previews use `muse-costume-cues-v3`;
@@ -13,7 +13,7 @@
   no hairstyle exists. Preserve earlier artwork and blocked hair requests.
   The [costume follow-up](docs/MUSE_COSTUME_RECOGNITION.md) records selection,
   checks and publication; it makes no repeated-reliability or blind-recognition
-  claim. The earlier wig rollout below retains its original scope.
+  claim. The earlier wig rollout below retains its original scope; its 12 selected previews shipped alongside this update.
 
 - Initial curated Muse wigs (2026-10-16, local rollout): add 12 character-specific
   wig recipes and versioned native WebP preview slots, retaining six valid

@@ -2,7 +2,7 @@
 
 Two routes: connect an MCP client, or paste compiled text into the agent's instructions or a message. An MCP client must fetch the persona again to see later edits; connecting alone does not guarantee it will apply every rule.
 
-**CLI setup documentation checked: 2 October 2026; Muse handoff notes updated: 16 October 2026 (Asia/Shanghai); Grok Bot notes checked: 5 October 2026 (UTC).** Links below identify the product documentation used for these reviews. The [initial](MUSE_VALIDATION.md) and [batch](MUSE_BATCH_VALIDATION.md) desktop Muse tests cover older likeness-based combos. The [October 14 reliability report](MUSE_HANDOFF_RELIABILITY.md) covers three hairless costume presets; the [October 15 record](MUSE_ALL_CHARACTER_HANDOFF.md) tracks expanded direct links. The [costume follow-up](MUSE_COSTUME_RECOGNITION.md) tracks current local changes separately from deployment; the earlier [curated wig rollout](MUSE_WIG_ROLLOUT.md) retains its own results. The other routes below remain documentation checks. Character budgets in [`src/targets.js`](../src/targets.js) are Persa's configured values; `null` means Persa does not trim, not that the receiving product has no limits.
+**CLI setup documentation checked: 2 October 2026; Muse handoff notes updated: 16 October 2026 (Asia/Shanghai); Grok Bot notes checked: 5 October 2026 (UTC).** Links below identify the product documentation used for these reviews. The [initial](MUSE_VALIDATION.md) and [batch](MUSE_BATCH_VALIDATION.md) desktop Muse tests cover older likeness-based combos. The [October 14 reliability report](MUSE_HANDOFF_RELIABILITY.md) covers three hairless costume presets; the [October 15 record](MUSE_ALL_CHARACTER_HANDOFF.md) tracks expanded direct links. The [costume follow-up](MUSE_COSTUME_RECOGNITION.md) records the current published collection and deployment; the earlier [curated wig rollout](MUSE_WIG_ROLLOUT.md) retains its own results. The other routes below remain documentation checks. Character budgets in [`src/targets.js`](../src/targets.js) are Persa's configured values; `null` means Persa does not trim, not that the receiving product has no limits.
 
 ---
 
@@ -21,7 +21,7 @@ address redirects to the homepage.
 
 This checkout has direct **Open in Muse** links for **all 18 presets**, on the
 stage, every tile and the personality detail dialog. The wig and costume-only
-updates are local and unpublished; see the
+updates are published at [persa.bubblai.com](https://persa.bubblai.com); see the
 [costume follow-up](MUSE_COSTUME_RECOGNITION.md) and earlier
 [wig rollout](MUSE_WIG_ROLLOUT.md) for curation, validation and deployment
 status. The shortest flow is:
@@ -73,7 +73,7 @@ and successful handoff through completed login remain unverified. Desktop
 responsive layout checks do not establish those flows. No custom connector,
 Persa sign-in or API token is required by this website shortcut.
 
-Each costume dresses the same cream plush Muse-style companion. The local
+Each costume dresses the same cream plush Muse-style companion. The current
 collection pairs 12 wig presets and three new hairless costume recipes with
 curated native Muse previews. The Rock, SpongeBob and Hello Kitty keep their
 existing hairless PNG artwork. Harry Potter, Michael Jackson and Joker use

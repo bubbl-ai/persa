@@ -2,7 +2,7 @@
 
 Shared-base direction approved October 6, 2026; curated wigs and a separate
 costume-only follow-up authorized October 16, 2026 (Asia/Shanghai). These
-changes are local and unpublished. The
+changes are published at [persa.bubblai.com](https://persa.bubblai.com). The
 [costume follow-up](MUSE_COSTUME_RECOGNITION.md) records current curation and
 deployment status; the earlier [wig rollout](MUSE_WIG_ROLLOUT.md) retains its
 original evidence.
@@ -122,7 +122,7 @@ The v2 handoff asks for four candidates and tells Muse to verify saved personali
 settings before generation. These changes follow the preserved v1 pilot's stale Vibe
 and two-candidate result; they do not establish native success until checked.
 
-The October 16 local rollout uses `muse-reference-wig-v3` for 12 presets.
+The October 16 published collection uses `muse-reference-wig-v3` for 12 presets.
 `src/muse-wigs.js` supplies the same visual section to native avatar-only trials
 and combo construction, while their account instructions differ. The combo
 asks to save and verify the personality; a preview trial explicitly prohibits
@@ -237,11 +237,11 @@ They cover Persa's website, not the new prompts inside Muse.
 
 ## Publication status
 
-The wig rollout and costume-only follow-up are local and unpublished. The
-latest recorded all-character release is in the
-[October 15 deployment record](MUSE_ALL_CHARACTER_HANDOFF.md). New publication
-results belong in the [costume follow-up](MUSE_COSTUME_RECOGNITION.md), with the
-[wig rollout report](MUSE_WIG_ROLLOUT.md) retaining its earlier scope.
+The 12 curated wig previews and three new hairless costume previews were
+published on October 16. See the [current publication record](MUSE_COSTUME_RECOGNITION.md#publication--october-16-2026)
+for the source commit, successful deployment/tests and live verification. The
+[October 15 release](MUSE_ALL_CHARACTER_HANDOFF.md) and
+[wig curation report](MUSE_WIG_ROLLOUT.md) retain their historical evidence.
 
 The [public website](https://persa.bubblai.com) was first verified on Vercel
 October 10, 2026 (Asia/Taipei). The first successful

@@ -3,7 +3,7 @@
   "date": "2026-10-16",
   "timezone": "Asia/Shanghai",
   "purpose": "Best-image curation for Persa display; not an unchanged-repeat stability estimate.",
-  "deployment": "Not published by this task.",
+  "deployment": "Published to https://persa.bubblai.com on October 16, 2026, after the curation task.",
   "scope": {
     "catalogPresets": 18,
     "nativeWigPreviews": 12,
@@ -3279,5 +3279,17 @@
     "Earlier 48-output stability experiment remains separate.",
     "Three previously refused wig designs were not retried; three other presets stay hairless by design.",
     "No current costume activation or combined-personality persistence test; native mobile remains unverified."
-  ]
+  ],
+  "curationDeploymentStatus": "Not published by this task.",
+  "publication": {
+    "date": "2026-10-16",
+    "url": "https://persa.bubblai.com",
+    "sourceCommit": "b92fb6c77cd74c98a8f3229acd3b5362bcc8c887",
+    "deployRun": "https://github.com/bubbl-ai/persa/actions/runs/38923293457",
+    "testsRun": "https://github.com/bubbl-ai/persa/actions/runs/38923293331",
+    "liveVerified": true,
+    "activePreviews": 18,
+    "activeImageFiles": 19,
+    "scope": "Live website assets and handoffs verified; no additional native Muse generation or activation."
+  }
 }

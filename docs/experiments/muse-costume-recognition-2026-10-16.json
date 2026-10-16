@@ -3,7 +3,7 @@
   "date": "2026-10-16",
   "timezone": "Asia/Shanghai",
   "purpose": "User-approved materially different hairless costume designs: clearer clothing/headwear/prop cues for Harry, Michael and Joker; no hair or wig retry.",
-  "deployment": "Local implementation; no push or deployment performed by this task.",
+  "deployment": "Published to https://persa.bubblai.com on October 16, 2026, after the curation task.",
   "scope": {
     "catalogPresets": 18,
     "newCostumeCharacters": 3,
@@ -840,5 +840,17 @@
       "strictVisualPass": 1,
       "strictVisualUnresolved": 3
     }
-  ]
+  ],
+  "curationDeploymentStatus": "Local implementation; no push or deployment performed by this task.",
+  "publication": {
+    "date": "2026-10-16",
+    "url": "https://persa.bubblai.com",
+    "sourceCommit": "b92fb6c77cd74c98a8f3229acd3b5362bcc8c887",
+    "deployRun": "https://github.com/bubbl-ai/persa/actions/runs/38923293457",
+    "testsRun": "https://github.com/bubbl-ai/persa/actions/runs/38923293331",
+    "liveVerified": true,
+    "activePreviews": 18,
+    "activeImageFiles": 19,
+    "scope": "Live website assets and handoffs verified; no additional native Muse generation or activation."
+  }
 }

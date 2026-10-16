@@ -38,6 +38,6 @@ for (const preview of activeImages) {
   await cp(path.join(web, relative), path.join(dist, relative));
 }
 await mkdir(path.join(dist, 'core'), { recursive: true });
-for (const name of ['compile.js', 'traits.js', 'targets.js', 'errors.js', 'muse-handoff.js']) await cp(path.join(root, 'src', name), path.join(dist, 'core', name));
+for (const name of ['compile.js', 'traits.js', 'targets.js', 'errors.js', 'muse-handoff.js', 'muse-wigs.js', 'muse-costume-recipes.js']) await cp(path.join(root, 'src', name), path.join(dist, 'core', name));
 await writeFile(path.join(dist, 'catalog.json'), JSON.stringify({ characters: catalog, launchSelection }));
 console.log(`Built Persa: ${catalog.length} character combos → dist/`);

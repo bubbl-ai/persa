@@ -1,24 +1,17 @@
 import { compile } from './compile.js';
+import { buildWigAvatarPrompt } from './muse-wigs.js';
+import { buildCostumeAvatarPrompt } from './muse-costume-recipes.js';
 
-// Preserve the original three tested payloads. The remaining wardrobe uses the
-// catalog's authored costume text; availability does not imply native validation.
+// Curated previews use the same visual recipe as their native generation.
+// Three retained presets keep their original hairless wardrobe instructions.
 // Handoff recipes are versioned separately from gallery artwork/legacy prompts.
-const VERSION = 'muse-reference-handoff-v1';
 const BASE_URL = 'https://persa.bubblai.com/avatars/muse-costumes-v1/base.png';
 const BASE_SHA256 = 'c428fd4d8608ca5bd5d72a5c3f49a20be680a739a94bb9e658e3f4be23a4ec2f';
-
-const COSTUMES = Object.freeze({
-  'mona-lisa': 'one olive Renaissance dress with long sleeves, a fitted bodice covering the whole torso and a single continuous skirt ending just above the feet; a dark sheer veil resting outside the cream hood; and both fleece mitten hands gently together in front',
-  'taylor-swift': 'one shimmering lavender stage dress with shoulder straps, a fitted bodice covering the whole torso and a single continuous skirt; and a silver microphone held in one fleece mitten hand',
-  'mark-zuckerberg': 'a plain gray T-shirt, full-length navy trousers covering both legs, white sneakers, and a tiny closed silver laptop with a completely blank unmarked lid held in one mitten hand'
-});
 
 // An explicit roster prevents arbitrary IDs (or prototype properties) from
 // silently acquiring a handoff merely because they contain costume text.
 const CATALOG_COSTUMES = new Set([
-  'wednesday', 'barbie', 'harry-potter', 'charlie-chaplin', 'michael-jackson',
-  'olivia-rodrigo', 'marilyn-monroe', 'drake', 'lionel-messi', 'kylie-jenner',
-  'mrbeast', 'the-rock', 'spongebob', 'hello-kitty', 'joker'
+  'the-rock', 'spongebob', 'hello-kitty'
 ]);
 
 function catalogAvatarRecipe(costume) {
@@ -33,30 +26,22 @@ Keep realistic photographed plush material in every option, never a drawing or p
 If your native avatar generator cannot use the downloaded image as a generation reference, tell me before generating. Show native Muse avatar candidates for me to choose from. Do not select or activate a candidate automatically.`;
 }
 
-function avatarRecipe(id) {
-  const fit = id === 'mark-zuckerberg' ? '' : 'Fit the clothes over the source body without lengthening its legs or changing the head-to-body ratio. Both hands remain simple rounded, fingerless cream fleece mittens: no fingers, thumbs, fingernails or smooth human skin. ';
-  return `Generate native Muse avatar candidates using the downloaded image as the character reference. Dress that exact cream plush toy in ${COSTUMES[id]}.
-
-Preserve the source face outline, bead-eye size and spacing, tiny stitched smile, cream hood contour, short curly sherpa texture, compact body, short limbs and standing front view. The outfit is the only design change. ${fit}Keep the face completely unobscured; no hair, eyelashes, nose or additional features. Keep realistic photographed plush material in every option, never a drawing or plastic figure. Every candidate should use the same character, costume, pose and style rather than proposing different designs. Show the full body with both feet visible on a plain white background. No text or logos.
-
-If your native avatar generator cannot use the downloaded image as a generation reference, tell me before generating. Show native Muse avatar candidates for me to choose from. Do not select or activate a candidate automatically.`;
-}
-
 /** Prepare a guided Muse web handoff. Opening the URL never sends the message. */
 export function buildMuseHandoff(character, persona = character?.persona) {
   if (!character) return null;
-  const originalRecipe = Object.hasOwn(COSTUMES, character.id);
+  const costumeRecipe = buildCostumeAvatarPrompt(character.id);
+  const wigRecipe = buildWigAvatarPrompt(character.id);
   const catalogRecipe = CATALOG_COSTUMES.has(character.id)
     && typeof character.avatar?.costume === 'string' && character.avatar.costume.trim();
-  if (!originalRecipe && !catalogRecipe) return null;
+  if (!costumeRecipe && !wigRecipe && !catalogRecipe) return null;
   const personalityPrompt = compile(persona, 'muse').text;
-  const avatarPrompt = originalRecipe ? avatarRecipe(character.id) : catalogAvatarRecipe(character.avatar.costume);
+  const avatarPrompt = costumeRecipe || wigRecipe || catalogAvatarRecipe(character.avatar.costume);
   // The compiler omits its neutral "sparing" rule. State it here so switching
   // from a no-emoji character actually replaces that saved preference.
   const emojiSetting = persona.style?.emoji === 'never' ? 'its explicit no-emoji setting'
     : persona.style?.emoji === 'sparing' ? 'permission to use emoji sparingly (replace any previous no-emoji preference)'
       : 'the emoji preference stated below';
-  const verifySavedStyle = originalRecipe ? '' : '\nBefore generating the avatar, re-read your saved identity/vibe, current personality style and standing personality preferences in memory. Make those settings agree with the personality below, replacing conflicting previous-character settings while preserving unrelated content. Changing only the name while leaving a previous character\'s vibe is not sufficient. Check again after your final edit; correct any stale character voice or emoji preference. If you cannot save a consistent personality, explain that and stop instead of reporting the combo as complete.\n';
+  const verifySavedStyle = '\nBefore generating the avatar, re-read your saved identity/vibe, current personality style and standing personality preferences in memory. Make those settings agree with the personality below, replacing conflicting previous-character settings while preserving unrelated content. Changing only the name while leaving a previous character\'s vibe is not sufficient. Check again after your final edit; correct any stale character voice or emoji preference. If you cannot save a consistent personality, explain that and stop instead of reporting the combo as complete.\n';
   const prompt = `I'd like to set up this Persa character combo for my Muse: ${character.name}. Apply the personality below as my style preferences and offer the matching native avatar candidates for me to choose from.
 
 PERSONALITY SETUP
@@ -77,7 +62,7 @@ Show the native chooser and let me select the avatar. Sending this message is pe
   const url = new URL('https://muse.ai/');
   url.searchParams.set('prompt', prompt);
   return {
-    version: originalRecipe ? VERSION : 'muse-reference-wardrobe-v2',
+    version: costumeRecipe ? 'muse-reference-costume-v4' : wigRecipe ? 'muse-reference-wig-v3' : 'muse-reference-wardrobe-v2',
     characterId: character.id,
     prompt,
     url: url.href,

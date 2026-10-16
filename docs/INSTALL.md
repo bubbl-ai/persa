@@ -2,7 +2,7 @@
 
 Two routes: connect an MCP client, or paste compiled text into the agent's instructions or a message. An MCP client must fetch the persona again to see later edits; connecting alone does not guarantee it will apply every rule.
 
-**CLI setup documentation checked: 2 October 2026; Muse handoff notes updated: 15 October 2026 (Asia/Shanghai); Grok Bot notes checked: 5 October 2026 (UTC).** Links below identify the product documentation used for these reviews. The [initial](MUSE_VALIDATION.md) and [batch](MUSE_BATCH_VALIDATION.md) desktop Muse tests cover older likeness-based combos. The [October 14 reliability report](MUSE_HANDOFF_RELIABILITY.md) covers three costume presets; the [October 15 all-character record](MUSE_ALL_CHARACTER_HANDOFF.md) tracks the expanded direct links, compatibility checks and release status. The other routes below remain documentation checks. Character budgets in [`src/targets.js`](../src/targets.js) are Persa's configured values; `null` means Persa does not trim, not that the receiving product has no limits.
+**CLI setup documentation checked: 2 October 2026; Muse handoff notes updated: 16 October 2026 (Asia/Shanghai); Grok Bot notes checked: 5 October 2026 (UTC).** Links below identify the product documentation used for these reviews. The [initial](MUSE_VALIDATION.md) and [batch](MUSE_BATCH_VALIDATION.md) desktop Muse tests cover older likeness-based combos. The [October 14 reliability report](MUSE_HANDOFF_RELIABILITY.md) covers three hairless costume presets; the [October 15 record](MUSE_ALL_CHARACTER_HANDOFF.md) tracks expanded direct links. The [costume follow-up](MUSE_COSTUME_RECOGNITION.md) tracks current local changes separately from deployment; the earlier [curated wig rollout](MUSE_WIG_ROLLOUT.md) retains its own results. The other routes below remain documentation checks. Character budgets in [`src/targets.js`](../src/targets.js) are Persa's configured values; `null` means Persa does not trim, not that the receiving product has no limits.
 
 ---
 
@@ -20,9 +20,11 @@ and **Saved** opens `/collection.html?view=saved`. The old `/spotlight.html`
 address redirects to the homepage.
 
 This checkout has direct **Open in Muse** links for **all 18 presets**, on the
-stage, every tile and the personality detail dialog. The
-[all-character record](MUSE_ALL_CHARACTER_HANDOFF.md) records native validation
-and whether this implementation has been deployed. The shortest flow is:
+stage, every tile and the personality detail dialog. The wig and costume-only
+updates are local and unpublished; see the
+[costume follow-up](MUSE_COSTUME_RECOGNITION.md) and earlier
+[wig rollout](MUSE_WIG_ROLLOUT.md) for curation, validation and deployment
+status. The shortest flow is:
 
 1. Click **Open in Muse** on the chosen character. No setup dialog is required.
    The prepared message contains its current personality and instructions to
@@ -47,17 +49,22 @@ access is denied, Persa shows the complete text for manual copying. The copied
 message, prepared link, displayed complete combo and download use the same
 payload and current tone settings.
 
-All 18 use the direct-link flow. Mona Lisa, Taylor Swift and Mark Zuckerberg
-retain their exact previously tested payloads. The other 15 use their authored
-costumes with a shared preservation recipe. Availability is separate from
-repeated native validation and from choosing the eventual launch ten.
+All 18 use the direct-link flow. Twelve wig presets use
+`muse-reference-wig-v3`; Harry Potter, Michael Jackson and Joker use
+`muse-reference-costume-v4` for their new hairless clothing-and-prop recipes.
+The Rock, SpongeBob and Hello Kitty retain their exact
+`muse-reference-wardrobe-v2` messages. Both curated recipe modules supply
+the visual instructions used by their native trials and complete combos.
+All request saved-personality checks; avatar-only trial results do not verify
+the combo's personality application. Curation is separate from repeated
+native validation, blind recognition and choosing the eventual launch ten.
 
 The shortcut asks Muse to download the public shared base directly inside its
 workspace, verify its checksum and pass that file to the native generator.
 If it cannot obtain or use the reference, the message tells it to stop the
 avatar step and explain the problem. No manual image attachment is included
 in the intended shortcut. The separate **Text-only avatar prompt** control
-omits the reference and retains the legacy prompt; use the complete combo for
+describes the active costume and any hairstyle but omits the reference; use the complete combo for
 the reference-based setup. **Personality only** remains available independently.
 
 The link uses an observed `?prompt=` behavior, not a documented Muse API
@@ -66,16 +73,23 @@ and successful handoff through completed login remain unverified. Desktop
 responsive layout checks do not establish those flows. No custom connector,
 Persa sign-in or API token is required by this website shortcut.
 
-Each costume dresses the same cream plush Muse-style companion. The previews
-show the intended costume, not an identical avatar that Muse will reuse.
-Native generations can change hands, face details, garments and proportions.
-Current prompts exclude human hair. A missing preview does not prevent setup;
+Each costume dresses the same cream plush Muse-style companion. The local
+collection pairs 12 wig presets and three new hairless costume recipes with
+curated native Muse previews. The Rock, SpongeBob and Hello Kitty keep their
+existing hairless PNG artwork. Harry Potter, Michael Jackson and Joker use
+clothing, headwear and props only, with no hair or facial changes; their
+earlier blocked hair requests remain preserved as history. Muse generates
+new candidates rather than importing the displayed image; hair where
+requested, hands, face details, garments and proportions can vary. A missing preview does not prevent setup;
 if an image fails to load, reopen its character and use **Retry image**. See
 [the design contract](MUSE_AVATAR_DESIGN.md).
 
 Saved combos and tone settings belong to this browser and website origin;
 saving in Persa does not update Muse. JSON downloads preserve the persona,
-compiled personality, legacy text-only avatar prompt and complete combo. Every
+compiled personality, text-only avatar prompt and complete combo. Wig presets
+also include `hairstyle` and `hairstyleVariant`; the new hairless costume
+presets include `costumeVariant`. Curated native previews include
+`previewSource` and `previewSelection` independently of whether hair exists. Every
 catalog preset also includes `museHandoff` with the exact version,
 prepared message, URL and reference metadata. There is no JSON import or
 restore control. The same saved collection and character dialogs are used by
@@ -89,7 +103,7 @@ Keep the evidence for each route separate:
   message explicitly replaces prior voice, tone and emoji settings while
   preserving unrelated preferences; see the new report for observed results.
 - The October 12 [unchanged-prompt check](MUSE_NATIVE_AVATAR_VALIDATION.md)
-  reviewed 36 options from 9 text-only requests for the three current costume
+  reviewed 36 options from 9 text-only requests for three hairless costume
   presets. The separate [prompt-engineering experiment](MUSE_PROMPT_ENGINEERING.md)
   reviewed 84 options from 21 requests, including attachment-based reference
   recipes. Neither selected a candidate or applied personality text.
@@ -102,10 +116,17 @@ Keep the evidence for each route separate:
   It retains the original active avatar and does not test current-costume
   selection or automatic activation.
 - The [October 15 all-character record](MUSE_ALL_CHARACTER_HANDOFF.md) covers
-  all-18 prefill checks and one new production-payload compatibility request
-  per additional preset. One request per new costume is not a repeated
-  stability rate. Barbie/SpongeBob explicitly ask to replace a previous
-  no-emoji setting with sparing emoji; observed persistence is checked separately.
+  all-18 prefill checks and an incomplete broader generation matrix. It records
+  the actual completed requests. Barbie/SpongeBob explicitly ask to replace a
+  previous no-emoji setting with sparing emoji; observed persistence is separate.
+- The [native wig experiment](MUSE_WIG_STABILITY.md) keeps its screening and
+  selected confirmation results separate. The later [curated rollout](MUSE_WIG_ROLLOUT.md)
+  selects example previews and extends the recipes; it does not establish a new
+  all-character reliability percentage or identical future results.
+- The [costume-only follow-up](MUSE_COSTUME_RECOGNITION.md) studies new clothing
+  and prop cues for Harry, Michael and Joker without hair or facial changes.
+  Its curation records are separate from wig confirmation results and do not
+  establish blind recognition or repeated generation reliability.
 
 The native avatar entry point observed in earlier tests was the pencil beside
 the profile avatar → **Change avatar**, which prefills “Change your avatar to…”
@@ -116,7 +137,7 @@ synchronizes subsequent changes automatically.
 Vercel migration to `persa.bubblai.com` was verified on October 10. The domain
 has a separate saved collection from the previous
 [Sites address](https://persa-muse-characters.archerx03.chatgpt.site); old saves
-remain on that origin. See the [website status](../README.md#website-status--october-15-2026)
+remain on that origin. See the [website status](../README.md#website-status--october-16-2026)
 and [deployment notes](../README.md#vercel-deployment).
 
 ### CLI and connector route

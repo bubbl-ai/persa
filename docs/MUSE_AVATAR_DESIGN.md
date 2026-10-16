@@ -1,6 +1,11 @@
 # Shared Muse costume collection
 
-Direction approved October 6, 2026 (Asia/Taipei).
+Shared-base direction approved October 6, 2026; curated wigs and a separate
+costume-only follow-up authorized October 16, 2026 (Asia/Shanghai). These
+changes are local and unpublished. The
+[costume follow-up](MUSE_COSTUME_RECOGNITION.md) records current curation and
+deployment status; the earlier [wig rollout](MUSE_WIG_ROLLOUT.md) retains its
+original evidence.
 
 Each preset pairs a personality with the same recognizable Muse-style plush
 companion wearing a different costume. The collectible-series analogy describes
@@ -10,51 +15,66 @@ giving each person or franchise character a different face and body.
 ## Shared design
 
 The base is a cream plush toy with a round hood, peach face, small glossy black
-eyes, a tiny smile, rosy cheeks, a compact body, and stubby hands and feet. Its
-face, proportions, material, and cream color stay consistent. Clothing,
-headwear, accessories, and the hand positions needed for props may change.
-The images use the same front-facing studio composition and pale lilac backdrop.
+eyes, a tiny smile, rosy cheeks, a compact body, and stubby hands and feet.
+Recipes preserve that identity while changing clothing, headwear, accessories
+and the hand positions needed for props. Twelve presets now specify removable
+costume wigs over the hood, keeping a broad cream cheek/chin rim and clear eyes.
+The three new costume-only recipes keep the complete hood hairless and use
+clothing, headwear and props for recognition. Current recipes request a
+full-body studio portrait on white. Selected outputs may differ; the retained
+PNG artwork keeps its original pale lilac background. Generated details can vary.
 
-Current art-generation and Muse prompts explicitly exclude human hair, so the
-costumes do not include character-specific hairstyles. The October 10 website
-layout update changes no avatar assets or prompts and does not correct this
-limitation. A revised hairstyle direction remains unresolved. The white stage
-is a website presentation change; the committed portraits retain their pale
-lilac backdrop.
+The October 15 [wig experiment](MUSE_WIG_STABILITY.md) compared doll-fiber and
+sewn felt/yarn constructions, then repeated selected recipes for Taylor,
+Wednesday and Mark. The [curated rollout](MUSE_WIG_ROLLOUT.md) keeps those visual
+recipes and adds nine more eligible presets. Selecting a useful native preview
+does not establish repeated stability, exact compliance or identical future
+generation. Preserve the experimental results separately from curation.
+
+The Rock, SpongeBob and Hello Kitty keep their existing hairless designs.
+Harry Potter, Michael Jackson and Joker receive a separately approved
+[costume-only follow-up](MUSE_COSTUME_RECOGNITION.md): no wig, hair, facial hair,
+makeup, scars or facial changes. Their older blocked hair requests remain
+preserved. Clothing/prop curation is not a blind recognition study or new
+repeatability result.
 
 The base is Persa's Muse-inspired illustration, not a native avatar exported
 from Muse. Its source reference was Muse's observed default avatar. The same
-generated master image is supplied to every costume edit.
+generated master remains the reference for native costume/wig generation.
 
 The catalog owns these public identifiers:
 
-- Design version: `muse-costumes-v1`.
+- Preview design versions: `muse-wigs-v2` for 12 wigs, `muse-costume-cues-v3` for three new hairless costumes, and `muse-costumes-v1` for three retained PNGs.
 - Base: `persa-muse-v1`.
-- Assets: `web/avatars/muse-costumes-v1/`.
-- Prompt definitions and wardrobe: `characters/avatar-design.js`.
+- Native wig assets: original 1600px `.webp` outputs under `web/avatars/muse-wigs-v2/`, copied unchanged after curation.
+- Native hairless costume assets: unchanged selected `.webp` outputs under `web/avatars/muse-costume-cues-v3/`.
+- Retained PNGs and shared base: `web/avatars/muse-costumes-v1/`; superseded artwork remains historical source material.
+- Canonical wig costumes, hairstyles and visual instructions: `src/muse-wigs.js`.
+- Canonical hairless recognition recipes and text-only fallback: `src/muse-costume-recipes.js`.
+- Catalog preview metadata and text-only prompts: `characters/avatar-design.js`.
 
 ## Wardrobe
 
-| Preset | Costume cues |
-| --- | --- |
-| Mark Zuckerberg | Gray T-shirt, navy trousers, silver laptop |
-| Taylor Swift | Lavender stage dress, silver microphone |
-| Charlie Chaplin | Bowler hat, black suit, bow tie, cane |
-| Michael Jackson | Fedora, red stage jacket, one white glove |
-| Olivia Rodrigo | Lilac jacket, pleated skirt, purple guitar |
-| Marilyn Monroe | White halter dress, pearl earrings |
-| Drake | Navy puffer jacket, headphones |
-| Lionel Messi | Blue-and-white football kit, football |
-| Kylie Jenner | Black blazer outfit, rose makeup case |
-| MrBeast | Turquoise hoodie, gift box |
-| The Rock | Charcoal training outfit, small foam dumbbell |
-| Mona Lisa | Olive Renaissance gown, veil, folded hands |
-| Barbie | Pink dress, bow and shoes, heart purse |
-| Wednesday Addams | Black dress, white collar, ribbon bows, book |
-| Harry Potter | School robe, burgundy/gold scarf, glasses, wand |
-| SpongeBob | Yellow vest, white shirt, red tie, brown shorts |
-| Hello Kitty | Red bow and overalls |
-| The Joker | Purple top hat and tailcoat, orange waistcoat, green bow tie |
+| Preset | Costume cues | Requested hair |
+| --- | --- | --- |
+| Mark Zuckerberg | Gray T-shirt, navy trousers, silver laptop | Compact brown fiber curls |
+| Taylor Swift | Lavender stage dress, silver microphone | Blonde fiber bangs and shoulder waves |
+| Charlie Chaplin | Bowler hat, black suit, bow tie, cane | Short black waves below the hat |
+| Michael Jackson | White pinstriped suit, blue shirt, white fedora with black band, black armband and two-tone loafers | No hair or facial changes |
+| Olivia Rodrigo | Lilac jacket, pleated skirt, purple guitar | Long straight dark-brown fiber wig |
+| Marilyn Monroe | White halter dress, pearl earrings | Short platinum-blonde curled bob |
+| Drake | Navy puffer jacket, headphones | Close-cropped black loop-pile cap |
+| Lionel Messi | Blue-and-white football kit, football | Short brown side-swept fiber wig |
+| Kylie Jenner | Black blazer outfit, rose makeup case | Sleek black center-parted fiber wig |
+| MrBeast | Turquoise hoodie, gift box | Short light-brown side-swept fiber wig |
+| The Rock | Charcoal training outfit, small foam dumbbell | Hairless by design |
+| Mona Lisa | Olive Renaissance gown, veil, folded hands | Center-parted brown waves beneath the veil |
+| Barbie | Pink dress and shoes, heart purse, one ponytail bow | Blonde ponytail |
+| Wednesday Addams | Black dress, white collar, book; no hood bows | Two black textile braids with plain bands |
+| Harry Potter | Burgundy-lined school robe, striped tie/scarf, clear round glasses, wand and small winged golden ball | No hair or facial changes |
+| SpongeBob | Yellow vest, white shirt, red tie, brown shorts | Hairless by design |
+| Hello Kitty | Red bow and overalls | Hairless by design |
+| The Joker | Purple coat/trousers, green waistcoat, lavender shirt, playing card with a simple jester-hat emblem; no headwear | No hair or facial changes |
 
 There are 18 candidates; the user has not chosen the launch ten. Personality
 definitions and authored sample replies are unchanged. Existing saved favorites
@@ -94,23 +114,33 @@ downloads and help. Current drafts, reset and saved tone settings update those
 links. Muse still requires the user to send the prepared message and select
 an avatar; this is not automatic application or exact image import.
 
-The original Mona/Taylor/Mark default payloads remain unchanged. The other
-15 use their existing authored catalog costumes with a shared preservation
-recipe, versioned `muse-reference-wardrobe-v2`. Clothing, props, glasses and
-headwear must dress the same source plush; they do not introduce new human
-faces, animal bodies or hair. No preview image, legacy text-only catalog
-prompt or historical refusal outcome changed. See the
+At the October 15 release, the original Mona/Taylor/Mark payloads remained
+unchanged and the other 15 used `muse-reference-wardrobe-v2`. That release
+changed neither preview artwork nor text-only prompts. See the
 [all-character validation and release record](MUSE_ALL_CHARACTER_HANDOFF.md).
 The v2 handoff asks for four candidates and tells Muse to verify saved personality
 settings before generation. These changes follow the preserved v1 pilot's stale Vibe
 and two-candidate result; they do not establish native success until checked.
 
+The October 16 local rollout uses `muse-reference-wig-v3` for 12 presets.
+`src/muse-wigs.js` supplies the same visual section to native avatar-only trials
+and combo construction, while their account instructions differ. The combo
+asks to save and verify the personality; a preview trial explicitly prohibits
+those changes. The separate costume-only follow-up uses
+`muse-reference-costume-v4` and `src/muse-costume-recipes.js` for Harry, Michael
+and Joker. The other 15 messages remain byte-for-byte unchanged: 12 wig combos
+and three retained `muse-reference-wardrobe-v2` combos. Historical payload
+hashes and results stay recorded under their tested versions.
+
 ## Provenance and failure handling
 
-The built-in image-generation tool creates the master and costume edits. Exact
-art prompts and outcomes are recorded in `characters/image-generation.json`
-and `characters/avatar-design-generation.json`. These art-generation prompts
-are distinct from the instructions copied into Muse.
+The built-in image-generation tool produced the master and October 6 costume
+PNGs. Both the wig collection and the new hairless costume collection use
+curated native Muse outputs, with the original WebP bytes retained. `characters/image-generation.json` records active asset
+provenance, recipe/output hashes and superseded replacements;
+`characters/avatar-design-generation.json` retains the master's provenance.
+Native preview trials and combo messages share visual instructions, but their
+different wrappers are not interchangeable validation evidence.
 
 Original image attempts, refusal outcomes, and retired replacements are retained.
 New artwork has a versioned path; an old provenance record never points at a
@@ -120,15 +150,22 @@ unavailable, with personality and prompt copying still accessible. It must not
 fall back to a previous human likeness or a different mascot. The build copies
 only currently referenced costume images and the shared base into the published
 output; historical source artwork can remain in the repository without shipping.
+PNG and static WebP headers/dimensions are checked at build time; browser checks
+verify decoding. Per-character curation and checks belong in the
+[costume follow-up](MUSE_COSTUME_RECOGNITION.md) and earlier
+[wig rollout report](MUSE_WIG_ROLLOUT.md).
 
 ## Muse integration limits
 
-The legacy avatar-only control copies text describing the common base and
-costume. The all-character shortcut in this checkout opens a prepared message asking
+The text-only avatar control describes the active base, costume and applicable
+hairstyle, without an image reference. The all-character shortcut opens a prepared message asking
 Muse to download and verify the public shared base inside its workspace, then
 use that actual file for native avatar candidates. Users still press **Send**
 and **Select** themselves; Persa does not directly install the displayed avatar.
-See [the current handoff validation and release status](MUSE_ALL_CHARACTER_HANDOFF.md).
+JSON exports include the applicable hairstyle/construction or `costumeVariant`
+plus curated-preview metadata independently of whether hair exists.
+See [the current costume follow-up](MUSE_COSTUME_RECOGNITION.md) and
+[October 15 handoff validation](MUSE_ALL_CHARACTER_HANDOFF.md).
 Independent Muse generations may change the face, proportions or outfit even
 with a reference. Never promise identical previews or a fixed avatar across
 generations.
@@ -166,7 +203,7 @@ the prior Mona Lisa avatar and displayed name
 remained visible. Saved personality and memory were not audited. Current costume
 activation/persistence, the other 15 presets, mobile and multiple accounts were
 not tested in that experiment. The [October 15 record](MUSE_ALL_CHARACTER_HANDOFF.md)
-separately covers the additional costumes. Its wrapper explicitly requests
+separately tracks the incomplete broader generation matrix. Its wrapper explicitly requests
 sparing emoji for Barbie/SpongeBob to replace old no-emoji preferences, but
 that wording is separate from observed persistence. Direct import, automatic
 application and identical-avatar reproduction remain unverified.
@@ -176,7 +213,7 @@ application and identical-avatar reproduction remain unverified.
 All 18 costume previews and the shared base were generated with the built-in
 image tool and visually reviewed. The MrBeast hoodie required one targeted edit
 to remove an unrequested logo; both the original output and edit prompt are
-recorded. The deployment build contains only these 19 active images.
+recorded. That release's deployment build contained only those 19 active images.
 
 - `npm test`: 72 tests passed. The 11 avatar tests passed again after final
   artwork integration. Build, JavaScript syntax, and whitespace checks passed.
@@ -200,7 +237,13 @@ They cover Persa's website, not the new prompts inside Muse.
 
 ## Publication status
 
-The current [public website](https://persa.bubblai.com) was verified on Vercel
+The wig rollout and costume-only follow-up are local and unpublished. The
+latest recorded all-character release is in the
+[October 15 deployment record](MUSE_ALL_CHARACTER_HANDOFF.md). New publication
+results belong in the [costume follow-up](MUSE_COSTUME_RECOGNITION.md), with the
+[wig rollout report](MUSE_WIG_ROLLOUT.md) retaining its earlier scope.
+
+The [public website](https://persa.bubblai.com) was first verified on Vercel
 October 10, 2026 (Asia/Taipei). The first successful
 [GitHub auto-deploy run](https://github.com/bubbl-ai/persa/actions/runs/38014634795)
 used source `1e6fc0f2622aefe8bc38a78cefbcbb9bd69ef057`. The project is `persa`

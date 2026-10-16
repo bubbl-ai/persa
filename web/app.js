@@ -152,6 +152,9 @@ function openCharacter(id) {
 
 function renderSetup() {
   const handoff = buildMuseHandoff(current, getPersona());
+  const previewNote = current.avatar.previewSource === 'native-muse' && current.avatar.preview
+    ? `This preview is a selected Muse-generated avatar. A new generation can vary in ${current.avatar.hairstyle ? 'hairstyle, ' : ''}face, outfit and proportions.`
+    : "The preview shows the intended costume; Muse's face, outfit and proportions can vary.";
   const firstSteps = handoff
     ? `<div class="setup-step"><span class="step-number">1</span><div class="step-content"><h3>Open your prepared combo</h3><p>Your personality settings and shared-avatar instructions arrive together in Muse.</p><a class="button primary" data-muse-handoff data-muse-character="${current.id}" href="${esc(handoff.url)}">Open in Muse ${icon('spark')}</a></div></div>
     <div class="setup-step"><span class="step-number">2</span><div class="step-content"><h3>Press Send, then choose an avatar</h3><p>Review and send the message in Muse. It asks Muse to save your personality and generate costume options. Choose one and click Select to make it your avatar.</p></div></div>`
@@ -160,7 +163,7 @@ function renderSetup() {
   showDialog(`${dialogHeader('Take your character into Muse', true)}<section class="setup"><p class="eyebrow">Personality + Muse costume</p><h2 id="dialog-title">Meet your ${esc(current.name)}.</h2><p class="setup-intro">Your combo pairs this personality with a costume for the same plush Muse base. Take both instructions into the same Muse conversation.</p>
     ${firstSteps}
     <div class="setup-step"><span class="step-number">3</span><div class="step-content"><h3>Make sure it feels right</h3><p>Check the costume and saved personality, then try a short conversation. You can adjust the voice here and send an updated combo whenever you like.</p></div></div>
-    ${handoff ? `<div class="setup-note">If Muse keeps an old draft or opens without your combo, copy the complete combo below. Save any draft you want to keep, then paste the combo into Muse. You still send the message and select an avatar yourself. The preview shows the intended costume; Muse's face, outfit and proportions can vary.</div><button class="button secondary" data-copy="combo">${icon('copy')} Copy complete combo</button>` : '<div class="setup-note">Persa copies the setup instructions. You apply them in Muse; a direct avatar import is not available here yet. The preview shows the intended shared character and costume. Muse may generate a different face, outfit, or proportions; the same prompt does not guarantee an identical avatar.</div>'}
+    ${handoff ? `<div class="setup-note">If Muse keeps an old draft or opens without your combo, copy the complete combo below. Save any draft you want to keep, then paste the combo into Muse. You still send the message and select an avatar yourself. ${previewNote}</div><button class="button secondary" data-copy="combo">${icon('copy')} Copy complete combo</button>` : '<div class="setup-note">Persa copies the setup instructions. You apply them in Muse; a direct avatar import is not available here yet. The preview shows the intended shared character and costume. Muse may generate a different face, outfit, or proportions; the same prompt does not guarantee an identical avatar.</div>'}
     <details class="prompt-details"><summary>View the complete combo ${icon('chevron')}</summary><pre class="prompt-text">${esc(comboPrompt())}</pre></details>
     <div class="copy-options"><button class="button secondary" data-copy="personality">${icon('copy')} Personality only</button><button class="button secondary" data-copy="avatar">${icon('copy')} ${handoff ? 'Text-only avatar prompt' : 'Avatar prompt only'}</button></div>
     ${handoff ? '<p class="sample-caption">The text-only avatar prompt omits the shared image reference. Use the complete combo for the reference-based setup.</p>' : ''}
@@ -202,7 +205,7 @@ function toggleSave(id, source) {
 
 function downloadCombo() {
   const handoff=buildMuseHandoff(current,getPersona());
-  const exportData={persaCharacter:1,id:current.id,name:current.name,persona:getPersona(),museAvatar:{designVersion:current.avatar.designVersion,baseId:current.avatar.baseId,costume:current.avatar.costume,prompt:current.avatar.prompt,promptKind:'text-only'},personalityPrompt:personalityPrompt(),comboPrompt:comboPrompt(),...(handoff?{museHandoff:handoff}:{})};
+  const exportData={persaCharacter:1,id:current.id,name:current.name,persona:getPersona(),museAvatar:{designVersion:current.avatar.designVersion,baseId:current.avatar.baseId,costume:current.avatar.costume,...(current.avatar.previewSource?{previewSource:current.avatar.previewSource,previewSelection:current.avatar.previewSelection}:{}),...(current.avatar.hairstyle?{hairstyle:current.avatar.hairstyle,hairstyleVariant:current.avatar.hairstyleVariant}:{}),...(current.avatar.costumeVariant?{costumeVariant:current.avatar.costumeVariant}:{}),prompt:current.avatar.prompt,promptKind:'text-only'},personalityPrompt:personalityPrompt(),comboPrompt:comboPrompt(),...(handoff?{museHandoff:handoff}:{})};
   const url=URL.createObjectURL(new Blob([JSON.stringify(exportData,null,2)],{type:'application/json'}));
   const a=document.createElement('a');a.href=url;a.download=`persa-${current.id}.json`;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);notify('Combo downloaded.');
 }

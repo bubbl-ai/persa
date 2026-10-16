@@ -1,0 +1,929 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-15",
+  "timezone": "Asia/Shanghai",
+  "experiment": "Native Muse avatar-only wig construction comparison and selected unchanged repeats",
+  "sourceCommit": "feb6d34262a52005280679d082b6f640fcce7073",
+  "productionChanged": false,
+  "reference": {
+    "url": "https://persa.bubblai.com/avatars/muse-costumes-v1/base.png",
+    "sha256": "c428fd4d8608ca5bd5d72a5c3f49a20be680a739a94bb9e658e3f4be23a4ec2f"
+  },
+  "protocol": {
+    "date": "2026-10-15",
+    "timezone": "Asia/Shanghai",
+    "sourceCommit": "feb6d34262a52005280679d082b6f640fcce7073",
+    "purpose": "Measure native Muse wig inclusion and shared-base retention, with every returned candidate retained.",
+    "scope": "3 representative eligible characters, two constructions each; select preferred construction per character before two further identical confirmation requests per character. Six screens plus six confirmations planned; no claim of all-roster validation.",
+    "delivery": "Actual prompt URL; native chooser within240sec, fresh downloaded workspace image/checksum verified in visible activity. No manual attachment, no personality setup, no Select.",
+    "screenSelection": "Prefer the construction with more combined usable candidates for that character; tie favors closer source face and cream rim, then fiber for conventional hair appearance. Do not relabel misses or silently repair images. If neither construction yields at least3 usable options, stop confirmation for that character and record failure.",
+    "rubric": {
+      "hair": "Requested color and main silhouette/count are clearly present; face/eyes unobscured.",
+      "base": "Recognizable same wide peach face, bead eyes, tiny smile, cream plush cheek/chin rim and material; no major new human/animal features or ears.",
+      "costume": "Principal clothing and named prop are present and usable; record details separately.",
+      "combinedUsable": "Hair + base + principal costume all pass. Minor curls/waves/hem variation allowed and recorded; pixel identity is not promised.",
+      "strictCompliance": "All explicit hairstyle placements/counts, accessory inventory, fingerless hands and full framing; separately report stricter misses even when practical usability passes.",
+      "requestGate": "At least3 combined usable candidates per actual chooser; candidate denominator is actual returned count.",
+      "unassessable": "Hidden hood crown/body geometry never inferred preserved; score visible identity separately."
+    },
+    "priorEvidence": "Earlier image_gen editing experiments remain separate. This experiment uses the naked public shared base, not finished costume PNGs; results are not a controlled comparison with older preview edits or hairless batches.",
+    "excluded": [
+      "harry-potter",
+      "michael-jackson",
+      "joker"
+    ],
+    "exclusionReason": "Unresolved prior hair-image safety refusals; not retried through another service.",
+    "account": "Fresh exposed identity/soul/memory baseline captured before tests; compare after and restore if changed; original selected avatar retained.",
+    "limits": [
+      "One signed-in desktop account/Main chat; requests share account history.",
+      "Small selected sample; options within a chooser are correlated.",
+      "No native mobile, activation, animation, persistence or combined personality test.",
+      "Prompt instruction and activity report do not independently verify generator internal conditioning."
+    ],
+    "productionChanged": false
+  },
+  "selection": {
+    "rule": "usable count, then visible face/rim, then conventional fiber fallback",
+    "beforeAnyConfirmation": true,
+    "selected": [
+      {
+        "characterId": "taylor-swift",
+        "variant": "fiber",
+        "promptSha256": "e7c041b42159526fa6a662aa9671d98caea7c9da28e8210b25ff221258fa51da",
+        "screenRequestId": "taylor-swift-fiber-screen-1"
+      },
+      {
+        "characterId": "wednesday",
+        "variant": "textile",
+        "promptSha256": "c7f4f51ecb0ab0762a85be4c8a960c08814c73ac62037c932968b5e9d259cddf",
+        "screenRequestId": "wednesday-textile-screen-1"
+      },
+      {
+        "characterId": "mark-zuckerberg",
+        "variant": "fiber",
+        "promptSha256": "354870d8b41124f0b7aaa8f67bfbc2a14e175710fc91e394de20534921a1fbb1",
+        "screenRequestId": "mark-zuckerberg-fiber-screen-1"
+      }
+    ],
+    "recommendations": [
+      {
+        "characterId": "taylor-swift",
+        "preferredVariant": "fiber",
+        "selectedBeforeConfirmations": true,
+        "fiberUsable": 4,
+        "textileUsable": 2,
+        "selectionRuleStep": "more combined usable candidates",
+        "reason": "Fiber gives four practical candidates versus textile two; textile options 1/3 add two extra distinct front yarn locks. Best textile options have closer placement, but this does not override the primary usable-count rule.",
+        "confirmationEligible": true
+      },
+      {
+        "characterId": "wednesday",
+        "preferredVariant": "textile",
+        "selectedBeforeConfirmations": true,
+        "fiberUsable": 3,
+        "textileUsable": 4,
+        "selectionRuleStep": "more combined usable candidates",
+        "reason": "Textile gives four usable two-braid options versus fiber three, and preserves the external cap/cream rim placement more consistently.",
+        "confirmationEligible": true
+      },
+      {
+        "characterId": "mark-zuckerberg",
+        "preferredVariant": "fiber",
+        "selectedBeforeConfirmations": true,
+        "fiberUsable": 4,
+        "textileUsable": 4,
+        "selectionRuleStep": "usable count tied; no decisive visible face/rim advantage; conventional fiber fallback",
+        "reason": "Both constructions give four usable options with similar recognizable face and cream rims; both add forehead fringe in two options. No decisive source-face advantage justifies textile, so preregistered tie fallback selects fiber.",
+        "confirmationEligible": true
+      }
+    ]
+  },
+  "recipes": [
+    {
+      "id": "taylor-swift-fiber",
+      "characterId": "taylor-swift",
+      "variant": "fiber",
+      "version": "muse-wig-fiber-v1",
+      "costume": "one shimmering lavender stage dress with shoulder straps, a fitted bodice covering the whole torso and one continuous skirt ending above the feet, and one silver microphone held below the face in a cream fleece mitten",
+      "hair": "One removable golden-blonde synthetic doll-fiber wig: a low-volume crown, straight neat bangs across only the upper forehead, and exactly two shoulder-length softly wavy side sections. Group the fibers into tidy locks. The bangs stop at least one original bead-eye diameter above the eyes. The side sections pass behind the cream cheek rim. No bows, clips or other fasteners.",
+      "prompt": "This is a preview-only Persa wig experiment for the Taylor Swift-inspired costume. Generate four native Muse avatar candidates. Do not select or activate a candidate. Do not change my account name, selected avatar, personality, IDENTITY.md, SOUL.md, MEMORY.md or standing preferences, and do not save this temporary costume as a preference.\n\nREFERENCE\nDownload a fresh copy of https://persa.bubblai.com/avatars/muse-costumes-v1/base.png directly into your workspace, for example ~/workspace/persa-wig/base.png; create the workspace folder if needed. Verify SHA-256 c428fd4d8608ca5bd5d72a5c3f49a20be680a739a94bb9e658e3f4be23a4ec2f. Pass that actual downloaded image file to your native avatar generator as the character reference. If the download, checksum or image-reference input is unavailable, stop and explain; do not substitute text-only generation or a previous avatar.\n\nFIXED PLUSH CHARACTER\nUse the downloaded cream plush toy as the same base character in all candidates. Preserve its wide peach face outline, small black bead-eye size and spacing, tiny stitched smile, rosy cheeks, cream sherpa material, compact body, short limbs and standing front view. Both hands remain rounded fingerless cream fleece mittens. Do not add a human face or scalp, nose, eyebrows, eyelashes, makeup, facial hair, animal ears, extra cream protrusions, fingers or a different skin color. Fit the costume to the original body.\n\nCOSTUME\none shimmering lavender stage dress with shoulder straps, a fitted bodice covering the whole torso and one continuous skirt ending above the feet, and one silver microphone held below the face in a cream fleece mitten.\n\nREMOVABLE WIG\nOne removable golden-blonde synthetic doll-fiber wig: a low-volume crown, straight neat bangs across only the upper forehead, and exactly two shoulder-length softly wavy side sections. Group the fibers into tidy locks. The bangs stop at least one original bead-eye diameter above the eyes. The side sections pass behind the cream cheek rim. No bows, clips or other fasteners.\n\nWIG PLACEMENT\nThe wig is a separate costume accessory fitted over the outside of the existing cream hood; it does not replace the hood or change the face. Preserve a broad continuous cream U-shaped front rim along both cheeks and below the chin. At eye level, each visible cream cheek strip is at least as thick as one original bead eye. Place side hair behind this front rim, outside the face opening. Only explicitly requested bangs may overlap the upper peach forehead; all hair leaves the eyes, cheeks and mouth clear. Keep the hood round beneath the wig. If space is tight, reduce wig volume rather than changing the face, head size, body or clothes. Do not invent additional accessories or features.\n\nCOMPOSITION\nPhotographed plush collectible toy, full body with complete wig and both feet in frame, centered on plain white, soft studio light. All four candidates use this same costume, wig silhouette, pose and material; do not offer alternate hairstyles or art styles. No text, logos or watermark. Show native selectable candidates and keep the currently selected avatar unchanged.",
+      "promptSha256": "e7c041b42159526fa6a662aa9671d98caea7c9da28e8210b25ff221258fa51da",
+      "reference": {
+        "url": "https://persa.bubblai.com/avatars/muse-costumes-v1/base.png",
+        "sha256": "c428fd4d8608ca5bd5d72a5c3f49a20be680a739a94bb9e658e3f4be23a4ec2f"
+      }
+    },
+    {
+      "id": "wednesday-fiber",
+      "characterId": "wednesday",
+      "variant": "fiber",
+      "version": "muse-wig-fiber-v1",
+      "costume": "one black dress with a fitted bodice covering the whole torso, a crisp white Peter Pan collar, one continuous skirt ending above the feet, and one tiny black book held below the face in a cream fleece mitten. No bows attached to the hood",
+      "hair": "One removable jet-black synthetic doll-fiber wig with a clean center part, a shallow fitted crown and exactly two straight narrow braids, one on each side, ending near the waist. The braids pass behind the cream cheek rim. Secure each braid end with one plain slim black band: exactly two bands total. No fringe, bows, clips, extra braids or loose tendrils.",
+      "prompt": "This is a preview-only Persa wig experiment for the Wednesday Addams-inspired costume. Generate four native Muse avatar candidates. Do not select or activate a candidate. Do not change my account name, selected avatar, personality, IDENTITY.md, SOUL.md, MEMORY.md or standing preferences, and do not save this temporary costume as a preference.\n\nREFERENCE\nDownload a fresh copy of https://persa.bubblai.com/avatars/muse-costumes-v1/base.png directly into your workspace, for example ~/workspace/persa-wig/base.png; create the workspace folder if needed. Verify SHA-256 c428fd4d8608ca5bd5d72a5c3f49a20be680a739a94bb9e658e3f4be23a4ec2f. Pass that actual downloaded image file to your native avatar generator as the character reference. If the download, checksum or image-reference input is unavailable, stop and explain; do not substitute text-only generation or a previous avatar.\n\nFIXED PLUSH CHARACTER\nUse the downloaded cream plush toy as the same base character in all candidates. Preserve its wide peach face outline, small black bead-eye size and spacing, tiny stitched smile, rosy cheeks, cream sherpa material, compact body, short limbs and standing front view. Both hands remain rounded fingerless cream fleece mittens. Do not add a human face or scalp, nose, eyebrows, eyelashes, makeup, facial hair, animal ears, extra cream protrusions, fingers or a different skin color. Fit the costume to the original body.\n\nCOSTUME\none black dress with a fitted bodice covering the whole torso, a crisp white Peter Pan collar, one continuous skirt ending above the feet, and one tiny black book held below the face in a cream fleece mitten. No bows attached to the hood.\n\nREMOVABLE WIG\nOne removable jet-black synthetic doll-fiber wig with a clean center part, a shallow fitted crown and exactly two straight narrow braids, one on each side, ending near the waist. The braids pass behind the cream cheek rim. Secure each braid end with one plain slim black band: exactly two bands total. No fringe, bows, clips, extra braids or loose tendrils.\n\nWIG PLACEMENT\nThe wig is a separate costume accessory fitted over the outside of the existing cream hood; it does not replace the hood or change the face. Preserve a broad continuous cream U-shaped front rim along both cheeks and below the chin. At eye level, each visible cream cheek strip is at least as thick as one original bead eye. Place side hair behind this front rim, outside the face opening. Only explicitly requested bangs may overlap the upper peach forehead; all hair leaves the eyes, cheeks and mouth clear. Keep the hood round beneath the wig. If space is tight, reduce wig volume rather than changing the face, head size, body or clothes. Do not invent additional accessories or features.\n\nCOMPOSITION\nPhotographed plush collectible toy, full body with complete wig and both feet in frame, centered on plain white, soft studio light. All four candidates use this same costume, wig silhouette, pose and material; do not offer alternate hairstyles or art styles. No text, logos or watermark. Show native selectable candidates and keep the currently selected avatar unchanged.",
+      "promptSha256": "9f0e99bd44f7994bcf5fab5bad7c0cff2587d6eaf7f395950b4855a7cc154bd4",
+      "reference": {
+        "url": "https://persa.bubblai.com/avatars/muse-costumes-v1/base.png",
+        "sha256": "c428fd4d8608ca5bd5d72a5c3f49a20be680a739a94bb9e658e3f4be23a4ec2f"
+      }
+    },
+    {
+      "id": "mark-zuckerberg-fiber",
+      "characterId": "mark-zuckerberg",
+      "variant": "fiber",
+      "version": "muse-wig-fiber-v1",
+      "costume": "a plain gray T-shirt covering the whole torso, full-length navy trousers covering both legs, white sneakers, and one tiny closed silver laptop with a completely blank unmarked lid held below the face in a cream fleece mitten",
+      "hair": "One removable medium-brown synthetic doll-fiber wig: a shallow cap of tiny compact short curls covering the crown only, with a clean curved hairline entirely above the peach forehead. Keep the curls close to the original rounded hood silhouette. No bangs, sideburns, facial hair, loose locks or accessories.",
+      "prompt": "This is a preview-only Persa wig experiment for the Mark Zuckerberg-inspired costume. Generate four native Muse avatar candidates. Do not select or activate a candidate. Do not change my account name, selected avatar, personality, IDENTITY.md, SOUL.md, MEMORY.md or standing preferences, and do not save this temporary costume as a preference.\n\nREFERENCE\nDownload a fresh copy of https://persa.bubblai.com/avatars/muse-costumes-v1/base.png directly into your workspace, for example ~/workspace/persa-wig/base.png; create the workspace folder if needed. Verify SHA-256 c428fd4d8608ca5bd5d72a5c3f49a20be680a739a94bb9e658e3f4be23a4ec2f. Pass that actual downloaded image file to your native avatar generator as the character reference. If the download, checksum or image-reference input is unavailable, stop and explain; do not substitute text-only generation or a previous avatar.\n\nFIXED PLUSH CHARACTER\nUse the downloaded cream plush toy as the same base character in all candidates. Preserve its wide peach face outline, small black bead-eye size and spacing, tiny stitched smile, rosy cheeks, cream sherpa material, compact body, short limbs and standing front view. Both hands remain rounded fingerless cream fleece mittens. Do not add a human face or scalp, nose, eyebrows, eyelashes, makeup, facial hair, animal ears, extra cream protrusions, fingers or a different skin color. Fit the costume to the original body.\n\nCOSTUME\na plain gray T-shirt covering the whole torso, full-length navy trousers covering both legs, white sneakers, and one tiny closed silver laptop with a completely blank unmarked lid held below the face in a cream fleece mitten.\n\nREMOVABLE WIG\nOne removable medium-brown synthetic doll-fiber wig: a shallow cap of tiny compact short curls covering the crown only, with a clean curved hairline entirely above the peach forehead. Keep the curls close to the original rounded hood silhouette. No bangs, sideburns, facial hair, loose locks or accessories.\n\nWIG PLACEMENT\nThe wig is a separate costume accessory fitted over the outside of the existing cream hood; it does not replace the hood or change the face. Preserve a broad continuous cream U-shaped front rim along both cheeks and below the chin. At eye level, each visible cream cheek strip is at least as thick as one original bead eye. Place side hair behind this front rim, outside the face opening. Only explicitly requested bangs may overlap the upper peach forehead; all hair leaves the eyes, cheeks and mouth clear. Keep the hood round beneath the wig. If space is tight, reduce wig volume rather than changing the face, head size, body or clothes. Do not invent additional accessories or features.\n\nCOMPOSITION\nPhotographed plush collectible toy, full body with complete wig and both feet in frame, centered on plain white, soft studio light. All four candidates use this same costume, wig silhouette, pose and material; do not offer alternate hairstyles or art styles. No text, logos or watermark. Show native selectable candidates and keep the currently selected avatar unchanged.",
+      "promptSha256": "354870d8b41124f0b7aaa8f67bfbc2a14e175710fc91e394de20534921a1fbb1",
+      "reference": {
+        "url": "https://persa.bubblai.com/avatars/muse-costumes-v1/base.png",
+        "sha256": "c428fd4d8608ca5bd5d72a5c3f49a20be680a739a94bb9e658e3f4be23a4ec2f"
+      }
+    },
+    {
+      "id": "taylor-swift-textile",
+      "characterId": "taylor-swift",
+      "variant": "textile",
+      "version": "muse-wig-textile-v1",
+      "costume": "one shimmering lavender stage dress with shoulder straps, a fitted bodice covering the whole torso and one continuous skirt ending above the feet, and one silver microphone held below the face in a cream fleece mitten",
+      "hair": "One removable golden-blonde sewn felt-and-yarn hairpiece: a shallow fitted crown cap, one straight felt fringe panel with a scalloped lower edge across only the upper forehead, and exactly two softly wavy shoulder-length yarn locks. The fringe stops at least one original bead-eye diameter above the eyes. The locks pass behind the cream cheek rim. The felt/yarn seams should read as a toy wig accessory. No bows, clips or other fasteners.",
+      "prompt": "This is a preview-only Persa wig experiment for the Taylor Swift-inspired costume. Generate four native Muse avatar candidates. Do not select or activate a candidate. Do not change my account name, selected avatar, personality, IDENTITY.md, SOUL.md, MEMORY.md or standing preferences, and do not save this temporary costume as a preference.\n\nREFERENCE\nDownload a fresh copy of https://persa.bubblai.com/avatars/muse-costumes-v1/base.png directly into your workspace, for example ~/workspace/persa-wig/base.png; create the workspace folder if needed. Verify SHA-256 c428fd4d8608ca5bd5d72a5c3f49a20be680a739a94bb9e658e3f4be23a4ec2f. Pass that actual downloaded image file to your native avatar generator as the character reference. If the download, checksum or image-reference input is unavailable, stop and explain; do not substitute text-only generation or a previous avatar.\n\nFIXED PLUSH CHARACTER\nUse the downloaded cream plush toy as the same base character in all candidates. Preserve its wide peach face outline, small black bead-eye size and spacing, tiny stitched smile, rosy cheeks, cream sherpa material, compact body, short limbs and standing front view. Both hands remain rounded fingerless cream fleece mittens. Do not add a human face or scalp, nose, eyebrows, eyelashes, makeup, facial hair, animal ears, extra cream protrusions, fingers or a different skin color. Fit the costume to the original body.\n\nCOSTUME\none shimmering lavender stage dress with shoulder straps, a fitted bodice covering the whole torso and one continuous skirt ending above the feet, and one silver microphone held below the face in a cream fleece mitten.\n\nREMOVABLE WIG\nOne removable golden-blonde sewn felt-and-yarn hairpiece: a shallow fitted crown cap, one straight felt fringe panel with a scalloped lower edge across only the upper forehead, and exactly two softly wavy shoulder-length yarn locks. The fringe stops at least one original bead-eye diameter above the eyes. The locks pass behind the cream cheek rim. The felt/yarn seams should read as a toy wig accessory. No bows, clips or other fasteners.\n\nWIG PLACEMENT\nThe wig is a separate costume accessory fitted over the outside of the existing cream hood; it does not replace the hood or change the face. Preserve a broad continuous cream U-shaped front rim along both cheeks and below the chin. At eye level, each visible cream cheek strip is at least as thick as one original bead eye. Place side hair behind this front rim, outside the face opening. Only explicitly requested bangs may overlap the upper peach forehead; all hair leaves the eyes, cheeks and mouth clear. Keep the hood round beneath the wig. If space is tight, reduce wig volume rather than changing the face, head size, body or clothes. Do not invent additional accessories or features.\n\nCOMPOSITION\nPhotographed plush collectible toy, full body with complete wig and both feet in frame, centered on plain white, soft studio light. All four candidates use this same costume, wig silhouette, pose and material; do not offer alternate hairstyles or art styles. No text, logos or watermark. Show native selectable candidates and keep the currently selected avatar unchanged.",
+      "promptSha256": "fecdd1dff862ad31b8da88c515712284bd6645c3a2c4bbe7b43e41d21ab17a99",
+      "reference": {
+        "url": "https://persa.bubblai.com/avatars/muse-costumes-v1/base.png",
+        "sha256": "c428fd4d8608ca5bd5d72a5c3f49a20be680a739a94bb9e658e3f4be23a4ec2f"
+      }
+    },
+    {
+      "id": "wednesday-textile",
+      "characterId": "wednesday",
+      "variant": "textile",
+      "version": "muse-wig-textile-v1",
+      "costume": "one black dress with a fitted bodice covering the whole torso, a crisp white Peter Pan collar, one continuous skirt ending above the feet, and one tiny black book held below the face in a cream fleece mitten. No bows attached to the hood",
+      "hair": "One removable jet-black sewn felt-and-yarn hairpiece with a center seam on a shallow fitted felt crown cap and exactly two narrow braided yarn cords, one on each side, ending near the waist. The cords pass behind the cream cheek rim. Secure each braid end with one plain slim black band: exactly two bands total. The felt/yarn construction should read as a toy wig accessory. No fringe, bows, clips, extra braids or loose tendrils.",
+      "prompt": "This is a preview-only Persa wig experiment for the Wednesday Addams-inspired costume. Generate four native Muse avatar candidates. Do not select or activate a candidate. Do not change my account name, selected avatar, personality, IDENTITY.md, SOUL.md, MEMORY.md or standing preferences, and do not save this temporary costume as a preference.\n\nREFERENCE\nDownload a fresh copy of https://persa.bubblai.com/avatars/muse-costumes-v1/base.png directly into your workspace, for example ~/workspace/persa-wig/base.png; create the workspace folder if needed. Verify SHA-256 c428fd4d8608ca5bd5d72a5c3f49a20be680a739a94bb9e658e3f4be23a4ec2f. Pass that actual downloaded image file to your native avatar generator as the character reference. If the download, checksum or image-reference input is unavailable, stop and explain; do not substitute text-only generation or a previous avatar.\n\nFIXED PLUSH CHARACTER\nUse the downloaded cream plush toy as the same base character in all candidates. Preserve its wide peach face outline, small black bead-eye size and spacing, tiny stitched smile, rosy cheeks, cream sherpa material, compact body, short limbs and standing front view. Both hands remain rounded fingerless cream fleece mittens. Do not add a human face or scalp, nose, eyebrows, eyelashes, makeup, facial hair, animal ears, extra cream protrusions, fingers or a different skin color. Fit the costume to the original body.\n\nCOSTUME\none black dress with a fitted bodice covering the whole torso, a crisp white Peter Pan collar, one continuous skirt ending above the feet, and one tiny black book held below the face in a cream fleece mitten. No bows attached to the hood.\n\nREMOVABLE WIG\nOne removable jet-black sewn felt-and-yarn hairpiece with a center seam on a shallow fitted felt crown cap and exactly two narrow braided yarn cords, one on each side, ending near the waist. The cords pass behind the cream cheek rim. Secure each braid end with one plain slim black band: exactly two bands total. The felt/yarn construction should read as a toy wig accessory. No fringe, bows, clips, extra braids or loose tendrils.\n\nWIG PLACEMENT\nThe wig is a separate costume accessory fitted over the outside of the existing cream hood; it does not replace the hood or change the face. Preserve a broad continuous cream U-shaped front rim along both cheeks and below the chin. At eye level, each visible cream cheek strip is at least as thick as one original bead eye. Place side hair behind this front rim, outside the face opening. Only explicitly requested bangs may overlap the upper peach forehead; all hair leaves the eyes, cheeks and mouth clear. Keep the hood round beneath the wig. If space is tight, reduce wig volume rather than changing the face, head size, body or clothes. Do not invent additional accessories or features.\n\nCOMPOSITION\nPhotographed plush collectible toy, full body with complete wig and both feet in frame, centered on plain white, soft studio light. All four candidates use this same costume, wig silhouette, pose and material; do not offer alternate hairstyles or art styles. No text, logos or watermark. Show native selectable candidates and keep the currently selected avatar unchanged.",
+      "promptSha256": "c7f4f51ecb0ab0762a85be4c8a960c08814c73ac62037c932968b5e9d259cddf",
+      "reference": {
+        "url": "https://persa.bubblai.com/avatars/muse-costumes-v1/base.png",
+        "sha256": "c428fd4d8608ca5bd5d72a5c3f49a20be680a739a94bb9e658e3f4be23a4ec2f"
+      }
+    },
+    {
+      "id": "mark-zuckerberg-textile",
+      "characterId": "mark-zuckerberg",
+      "variant": "textile",
+      "version": "muse-wig-textile-v1",
+      "costume": "a plain gray T-shirt covering the whole torso, full-length navy trousers covering both legs, white sneakers, and one tiny closed silver laptop with a completely blank unmarked lid held below the face in a cream fleece mitten",
+      "hair": "One removable medium-brown sewn loop-pile yarn hairpiece: a shallow fitted crown cap with closely packed tiny yarn loops that read as compact short curls. Its clean curved lower edge stays entirely above the peach forehead. Keep the cap close to the original rounded hood silhouette; visible sewn edging identifies a toy wig accessory. No bangs, sideburns, facial hair, loose locks or accessories.",
+      "prompt": "This is a preview-only Persa wig experiment for the Mark Zuckerberg-inspired costume. Generate four native Muse avatar candidates. Do not select or activate a candidate. Do not change my account name, selected avatar, personality, IDENTITY.md, SOUL.md, MEMORY.md or standing preferences, and do not save this temporary costume as a preference.\n\nREFERENCE\nDownload a fresh copy of https://persa.bubblai.com/avatars/muse-costumes-v1/base.png directly into your workspace, for example ~/workspace/persa-wig/base.png; create the workspace folder if needed. Verify SHA-256 c428fd4d8608ca5bd5d72a5c3f49a20be680a739a94bb9e658e3f4be23a4ec2f. Pass that actual downloaded image file to your native avatar generator as the character reference. If the download, checksum or image-reference input is unavailable, stop and explain; do not substitute text-only generation or a previous avatar.\n\nFIXED PLUSH CHARACTER\nUse the downloaded cream plush toy as the same base character in all candidates. Preserve its wide peach face outline, small black bead-eye size and spacing, tiny stitched smile, rosy cheeks, cream sherpa material, compact body, short limbs and standing front view. Both hands remain rounded fingerless cream fleece mittens. Do not add a human face or scalp, nose, eyebrows, eyelashes, makeup, facial hair, animal ears, extra cream protrusions, fingers or a different skin color. Fit the costume to the original body.\n\nCOSTUME\na plain gray T-shirt covering the whole torso, full-length navy trousers covering both legs, white sneakers, and one tiny closed silver laptop with a completely blank unmarked lid held below the face in a cream fleece mitten.\n\nREMOVABLE WIG\nOne removable medium-brown sewn loop-pile yarn hairpiece: a shallow fitted crown cap with closely packed tiny yarn loops that read as compact short curls. Its clean curved lower edge stays entirely above the peach forehead. Keep the cap close to the original rounded hood silhouette; visible sewn edging identifies a toy wig accessory. No bangs, sideburns, facial hair, loose locks or accessories.\n\nWIG PLACEMENT\nThe wig is a separate costume accessory fitted over the outside of the existing cream hood; it does not replace the hood or change the face. Preserve a broad continuous cream U-shaped front rim along both cheeks and below the chin. At eye level, each visible cream cheek strip is at least as thick as one original bead eye. Place side hair behind this front rim, outside the face opening. Only explicitly requested bangs may overlap the upper peach forehead; all hair leaves the eyes, cheeks and mouth clear. Keep the hood round beneath the wig. If space is tight, reduce wig volume rather than changing the face, head size, body or clothes. Do not invent additional accessories or features.\n\nCOMPOSITION\nPhotographed plush collectible toy, full body with complete wig and both feet in frame, centered on plain white, soft studio light. All four candidates use this same costume, wig silhouette, pose and material; do not offer alternate hairstyles or art styles. No text, logos or watermark. Show native selectable candidates and keep the currently selected avatar unchanged.",
+      "promptSha256": "7e15d5606a2e4d28bd9a945c534b10c721da1767a8534ad1ad9c3ea08514e9ba",
+      "reference": {
+        "url": "https://persa.bubblai.com/avatars/muse-costumes-v1/base.png",
+        "sha256": "c428fd4d8608ca5bd5d72a5c3f49a20be680a739a94bb9e658e3f4be23a4ec2f"
+      }
+    }
+  ],
+  "requests": [
+    {
+      "id": "taylor-swift-fiber-screen-1",
+      "recipeId": "taylor-swift-fiber",
+      "phase": "screen",
+      "repeat": 1,
+      "status": "generated",
+      "exactPrefill": true,
+      "manualAttachment": false,
+      "selected": false,
+      "elapsedMs": 98522,
+      "timingIsUpperBound": false,
+      "timingBasis": "Measured from Send click to observed completed chooser with loaded images",
+      "captureRecovery": null,
+      "actualCandidates": 4,
+      "usableCandidates": 4,
+      "strictCandidates": 0,
+      "chooserGate": true,
+      "outputs": [
+        {
+          "option": 1,
+          "file": "images/taylor-swift-fiber-screen-1-option-1.webp",
+          "sha256": "a9cd02983b5d9cad058b4177b23944a7077c37701165822a449ff8df107860b1",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 2,
+          "file": "images/taylor-swift-fiber-screen-1-option-2.webp",
+          "sha256": "6a50f2c441f274cd004bab247cb111b1fd1416471e27c61499ec1a704d98c02d",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 3,
+          "file": "images/taylor-swift-fiber-screen-1-option-3.webp",
+          "sha256": "9881130aa17b516f6cc84da3a33761248f209c04b44fe93011b899b0d962738c",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 4,
+          "file": "images/taylor-swift-fiber-screen-1-option-4.webp",
+          "sha256": "985becea3cd74e3574057d847aba06046688f3b376019dfcd61d4596d1530924",
+          "width": 1600,
+          "height": 1600
+        }
+      ]
+    },
+    {
+      "id": "wednesday-fiber-screen-1",
+      "recipeId": "wednesday-fiber",
+      "phase": "screen",
+      "repeat": 1,
+      "status": "generated",
+      "exactPrefill": true,
+      "manualAttachment": false,
+      "selected": false,
+      "elapsedMs": 95885,
+      "timingIsUpperBound": false,
+      "timingBasis": "Measured from Send click to observed completed chooser with loaded images",
+      "captureRecovery": null,
+      "actualCandidates": 4,
+      "usableCandidates": 3,
+      "strictCandidates": 0,
+      "chooserGate": true,
+      "outputs": [
+        {
+          "option": 1,
+          "file": "images/wednesday-fiber-screen-1-option-1.webp",
+          "sha256": "f2d8abe3bb7a59d2723e1c8dcfa9e55163cf1755af4af4cbe548e496cb850a85",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 2,
+          "file": "images/wednesday-fiber-screen-1-option-2.webp",
+          "sha256": "c22246ba8749f5015a4c55dde12e2f8a38c6bcd85d50efc6aef4e47879fa17d2",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 3,
+          "file": "images/wednesday-fiber-screen-1-option-3.webp",
+          "sha256": "cb021f318e07cfa204d8269d5e3f21e230e598aa767afdf6bfc17f204b142db6",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 4,
+          "file": "images/wednesday-fiber-screen-1-option-4.webp",
+          "sha256": "4e9d5f4c78aa02bef044f9c97f3cf13f5871c4288fecf72bfb1d65950b0c17b4",
+          "width": 1600,
+          "height": 1600
+        }
+      ]
+    },
+    {
+      "id": "mark-zuckerberg-fiber-screen-1",
+      "recipeId": "mark-zuckerberg-fiber",
+      "phase": "screen",
+      "repeat": 1,
+      "status": "generated",
+      "exactPrefill": true,
+      "manualAttachment": false,
+      "selected": false,
+      "elapsedMs": 88279,
+      "timingIsUpperBound": false,
+      "timingBasis": "Measured from Send click to observed completed chooser with loaded images",
+      "captureRecovery": null,
+      "actualCandidates": 4,
+      "usableCandidates": 4,
+      "strictCandidates": 2,
+      "chooserGate": true,
+      "outputs": [
+        {
+          "option": 1,
+          "file": "images/mark-zuckerberg-fiber-screen-1-option-1.webp",
+          "sha256": "c52933321a307e5c92160cff8c80cb33895622ad71619a065ed9e0c1a194145d",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 2,
+          "file": "images/mark-zuckerberg-fiber-screen-1-option-2.webp",
+          "sha256": "955074b069c9aedaac605c45033a39399de211d013905ee05a8247176ad2bc20",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 3,
+          "file": "images/mark-zuckerberg-fiber-screen-1-option-3.webp",
+          "sha256": "729246a08079da09577400204bfaf714d63a743ee3d4c513334380e33de30bd0",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 4,
+          "file": "images/mark-zuckerberg-fiber-screen-1-option-4.webp",
+          "sha256": "eb3d5cee71e5e3cdfb830293f68d764d2608c5bcfb7ecc73b5d7a0751e1ba4ce",
+          "width": 1600,
+          "height": 1600
+        }
+      ]
+    },
+    {
+      "id": "taylor-swift-textile-screen-1",
+      "recipeId": "taylor-swift-textile",
+      "phase": "screen",
+      "repeat": 1,
+      "status": "generated",
+      "exactPrefill": true,
+      "manualAttachment": false,
+      "selected": false,
+      "elapsedMs": 205746,
+      "timingIsUpperBound": true,
+      "timingBasis": "upper-bound from first saved completed-page observation; exact chooser completion time was missed",
+      "captureRecovery": {
+        "cause": "Muse virtualized older choosers, so Select-control count stayed constant despite new chooser.",
+        "requestResubmitted": false
+      },
+      "actualCandidates": 4,
+      "usableCandidates": 2,
+      "strictCandidates": 2,
+      "chooserGate": false,
+      "outputs": [
+        {
+          "option": 1,
+          "file": "images/taylor-swift-textile-screen-1-option-1.webp",
+          "sha256": "e0cff2fbdffee1f670e7e5d440e51143ead28b6d0a0ba09249546d5a055a879e",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 2,
+          "file": "images/taylor-swift-textile-screen-1-option-2.webp",
+          "sha256": "e3ea15c4f89d71a5a9a8503390af8156026bbb9a62bb0697236db9aa52b5c69e",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 3,
+          "file": "images/taylor-swift-textile-screen-1-option-3.webp",
+          "sha256": "fe3b999ace156250fd52ed952c0133e4f9de67925b52ea13fb4a4167f85aea16",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 4,
+          "file": "images/taylor-swift-textile-screen-1-option-4.webp",
+          "sha256": "34181ffe2d78fad1aa098b0159010bc1235a3caaaa30fa20ba76876acb52a71e",
+          "width": 1600,
+          "height": 1600
+        }
+      ]
+    },
+    {
+      "id": "wednesday-textile-screen-1",
+      "recipeId": "wednesday-textile",
+      "phase": "screen",
+      "repeat": 1,
+      "status": "generated",
+      "exactPrefill": true,
+      "manualAttachment": false,
+      "selected": false,
+      "elapsedMs": 103680,
+      "timingIsUpperBound": false,
+      "timingBasis": "Measured from Send click to observed completed chooser with loaded images",
+      "captureRecovery": null,
+      "actualCandidates": 4,
+      "usableCandidates": 4,
+      "strictCandidates": 2,
+      "chooserGate": true,
+      "outputs": [
+        {
+          "option": 1,
+          "file": "images/wednesday-textile-screen-1-option-1.webp",
+          "sha256": "077e09a867aeca3ea320922311941d7b0c6a1c86b8fc4eafb51bfeab3417519e",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 2,
+          "file": "images/wednesday-textile-screen-1-option-2.webp",
+          "sha256": "7c994fb4cbbf6df51bfeb29c386e46b7db4412d999918ec817042b98bb0a1a02",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 3,
+          "file": "images/wednesday-textile-screen-1-option-3.webp",
+          "sha256": "23a21cf85b3cdaf9b62a569104611975052fa418927b4b78de3c4178461805eb",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 4,
+          "file": "images/wednesday-textile-screen-1-option-4.webp",
+          "sha256": "42a14f4c429e1a0fdad925f461cb9b026299aad680a87c6c459e93bf43bd6187",
+          "width": 1600,
+          "height": 1600
+        }
+      ]
+    },
+    {
+      "id": "mark-zuckerberg-textile-screen-1",
+      "recipeId": "mark-zuckerberg-textile",
+      "phase": "screen",
+      "repeat": 1,
+      "status": "generated",
+      "exactPrefill": true,
+      "manualAttachment": false,
+      "selected": false,
+      "elapsedMs": 96150,
+      "timingIsUpperBound": false,
+      "timingBasis": "Measured from Send click to observed completed chooser with loaded images",
+      "captureRecovery": null,
+      "actualCandidates": 4,
+      "usableCandidates": 4,
+      "strictCandidates": 1,
+      "chooserGate": true,
+      "outputs": [
+        {
+          "option": 1,
+          "file": "images/mark-zuckerberg-textile-screen-1-option-1.webp",
+          "sha256": "624a823a0cedc8b1dc877295f97a10df8804849e350694e69f1dd1a47d29ecd8",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 2,
+          "file": "images/mark-zuckerberg-textile-screen-1-option-2.webp",
+          "sha256": "5bcb05273956356206613edede3d04010c80c03bb294ab00082e535098fc2254",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 3,
+          "file": "images/mark-zuckerberg-textile-screen-1-option-3.webp",
+          "sha256": "454d7f8f29fcfb5b8415f4166f30d5a88a7794674c998097c0d35fc2bdef6bb2",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 4,
+          "file": "images/mark-zuckerberg-textile-screen-1-option-4.webp",
+          "sha256": "a3706057015749dff58d2be9a32c2b39be72b4aae6ace131b9dbf18e5f71a29b",
+          "width": 1600,
+          "height": 1600
+        }
+      ]
+    },
+    {
+      "id": "taylor-swift-fiber-confirmation-2",
+      "recipeId": "taylor-swift-fiber",
+      "phase": "confirmation",
+      "repeat": 2,
+      "status": "generated",
+      "exactPrefill": true,
+      "manualAttachment": false,
+      "selected": false,
+      "elapsedMs": 93638,
+      "timingIsUpperBound": false,
+      "timingBasis": "Measured from Send click to observed completed chooser with loaded images",
+      "captureRecovery": null,
+      "actualCandidates": 4,
+      "usableCandidates": 4,
+      "strictCandidates": 0,
+      "chooserGate": true,
+      "outputs": [
+        {
+          "option": 1,
+          "file": "images/taylor-swift-fiber-confirmation-2-option-1.webp",
+          "sha256": "a118db5e6517874fed38736bd18ba05468fb8acd0d3d056e9406d1938053fba9",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 2,
+          "file": "images/taylor-swift-fiber-confirmation-2-option-2.webp",
+          "sha256": "0067392391bb8024ca11198feafa83f9190dd451fc6e5dc3caaee715cd709cf3",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 3,
+          "file": "images/taylor-swift-fiber-confirmation-2-option-3.webp",
+          "sha256": "e355a3793a80346352254273888db58dc619325f4b70e6113625e5ca940ab7a2",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 4,
+          "file": "images/taylor-swift-fiber-confirmation-2-option-4.webp",
+          "sha256": "6851daa94f623d81071ffe440b2d4f7efd89a9a360313bdfc8916a9d6c5cce3c",
+          "width": 1600,
+          "height": 1600
+        }
+      ]
+    },
+    {
+      "id": "wednesday-textile-confirmation-2",
+      "recipeId": "wednesday-textile",
+      "phase": "confirmation",
+      "repeat": 2,
+      "status": "generated",
+      "exactPrefill": true,
+      "manualAttachment": false,
+      "selected": false,
+      "elapsedMs": 91115,
+      "timingIsUpperBound": false,
+      "timingBasis": "Measured from Send click to observed completed chooser with loaded images",
+      "captureRecovery": null,
+      "actualCandidates": 4,
+      "usableCandidates": 4,
+      "strictCandidates": 3,
+      "chooserGate": true,
+      "outputs": [
+        {
+          "option": 1,
+          "file": "images/wednesday-textile-confirmation-2-option-1.webp",
+          "sha256": "a02bb6b27e645b36327d4c449eb6d5e5242c544232395fbe1956ccfe8b5d8e57",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 2,
+          "file": "images/wednesday-textile-confirmation-2-option-2.webp",
+          "sha256": "21c50cd4ea1197b5e7c2b1d337b7a7c827cbb338714e5eb9d949d3b1e4ede9b9",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 3,
+          "file": "images/wednesday-textile-confirmation-2-option-3.webp",
+          "sha256": "470b17707f4d2339417bb73125603c44dce30acd2cc0573108f79d4d7a4b2d88",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 4,
+          "file": "images/wednesday-textile-confirmation-2-option-4.webp",
+          "sha256": "4227789e0ec5740a2b5459054502e2d6a2c497b0688d44d3cd50a3cd6f7ea19f",
+          "width": 1600,
+          "height": 1600
+        }
+      ]
+    },
+    {
+      "id": "mark-zuckerberg-fiber-confirmation-2",
+      "recipeId": "mark-zuckerberg-fiber",
+      "phase": "confirmation",
+      "repeat": 2,
+      "status": "generated",
+      "exactPrefill": true,
+      "manualAttachment": false,
+      "selected": false,
+      "elapsedMs": 98660,
+      "timingIsUpperBound": false,
+      "timingBasis": "Measured from Send click to observed completed chooser with loaded images",
+      "captureRecovery": null,
+      "actualCandidates": 4,
+      "usableCandidates": 4,
+      "strictCandidates": 1,
+      "chooserGate": true,
+      "outputs": [
+        {
+          "option": 1,
+          "file": "images/mark-zuckerberg-fiber-confirmation-2-option-1.webp",
+          "sha256": "75bf9179dba764dab28c55179e473f9a589bd96a3c2cc9906944778f6569788e",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 2,
+          "file": "images/mark-zuckerberg-fiber-confirmation-2-option-2.webp",
+          "sha256": "8be58f5d725f51e175f4af4216f6a0e9b4f8bfc734d5e6e2d5f810f8444366f0",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 3,
+          "file": "images/mark-zuckerberg-fiber-confirmation-2-option-3.webp",
+          "sha256": "5aa0092fa85b0c90aa72cd3f32e0bf3c63481166725f3abcb4b4f8c90088cafc",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 4,
+          "file": "images/mark-zuckerberg-fiber-confirmation-2-option-4.webp",
+          "sha256": "053359b27a81982a966b1ddd5ee7793986bc804cc4b3fb79394b3c33670a6ca9",
+          "width": 1600,
+          "height": 1600
+        }
+      ]
+    },
+    {
+      "id": "taylor-swift-fiber-confirmation-3",
+      "recipeId": "taylor-swift-fiber",
+      "phase": "confirmation",
+      "repeat": 3,
+      "status": "generated",
+      "exactPrefill": true,
+      "manualAttachment": false,
+      "selected": false,
+      "elapsedMs": 93636,
+      "timingIsUpperBound": false,
+      "timingBasis": "Measured from Send click to observed completed chooser with loaded images",
+      "captureRecovery": null,
+      "actualCandidates": 4,
+      "usableCandidates": 4,
+      "strictCandidates": 0,
+      "chooserGate": true,
+      "outputs": [
+        {
+          "option": 1,
+          "file": "images/taylor-swift-fiber-confirmation-3-option-1.webp",
+          "sha256": "d11a76f21633d8de41bfc63ef11f993f9d2bd99b6695bb2b933953990850a819",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 2,
+          "file": "images/taylor-swift-fiber-confirmation-3-option-2.webp",
+          "sha256": "8eaf16600da7643268b7075ad55c33d0eb756518762b1c8e91890d8ed5023cb9",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 3,
+          "file": "images/taylor-swift-fiber-confirmation-3-option-3.webp",
+          "sha256": "881c6bfad2045d64a611b364bd6b10b1477820f73118d42ddf3fa3c5e6110eac",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 4,
+          "file": "images/taylor-swift-fiber-confirmation-3-option-4.webp",
+          "sha256": "4d986f74b2224ad69665bbe3455cbb9c9585d1f7ee8acd1146cd4dc9ec8df70b",
+          "width": 1600,
+          "height": 1600
+        }
+      ]
+    },
+    {
+      "id": "wednesday-textile-confirmation-3",
+      "recipeId": "wednesday-textile",
+      "phase": "confirmation",
+      "repeat": 3,
+      "status": "generated",
+      "exactPrefill": true,
+      "manualAttachment": false,
+      "selected": false,
+      "elapsedMs": 96176,
+      "timingIsUpperBound": false,
+      "timingBasis": "Measured from Send click to observed completed chooser with loaded images",
+      "captureRecovery": null,
+      "actualCandidates": 4,
+      "usableCandidates": 4,
+      "strictCandidates": 3,
+      "chooserGate": true,
+      "outputs": [
+        {
+          "option": 1,
+          "file": "images/wednesday-textile-confirmation-3-option-1.webp",
+          "sha256": "230e8c22c2bf7b2c154bd56319a057280afd2038d781bf15807d0fda0ccd0441",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 2,
+          "file": "images/wednesday-textile-confirmation-3-option-2.webp",
+          "sha256": "04a06ed507cabe6918ea1e1e0eb068411da0db2222e6dfe5b5b337b9831d5e15",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 3,
+          "file": "images/wednesday-textile-confirmation-3-option-3.webp",
+          "sha256": "9a869d0fd489e7e860366f512c9dcccdaa8a30bd28cb25c3925b6a65f914edd6",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 4,
+          "file": "images/wednesday-textile-confirmation-3-option-4.webp",
+          "sha256": "7f7a2ef2c2040032d4cac6b9d90c0379b3271938373cfbec24adf85cffa10950",
+          "width": 1600,
+          "height": 1600
+        }
+      ]
+    },
+    {
+      "id": "mark-zuckerberg-fiber-confirmation-3",
+      "recipeId": "mark-zuckerberg-fiber",
+      "phase": "confirmation",
+      "repeat": 3,
+      "status": "generated",
+      "exactPrefill": true,
+      "manualAttachment": false,
+      "selected": false,
+      "elapsedMs": 86024,
+      "timingIsUpperBound": false,
+      "timingBasis": "Measured from Send click to observed completed chooser with loaded images",
+      "captureRecovery": null,
+      "actualCandidates": 4,
+      "usableCandidates": 4,
+      "strictCandidates": 1,
+      "chooserGate": true,
+      "outputs": [
+        {
+          "option": 1,
+          "file": "images/mark-zuckerberg-fiber-confirmation-3-option-1.webp",
+          "sha256": "0153d4c01ef5f3683cf41a9430ed54707153939995c7b9bd6e3383af4e67ae07",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 2,
+          "file": "images/mark-zuckerberg-fiber-confirmation-3-option-2.webp",
+          "sha256": "9f13454eca5aa6b68aa6a3ea3bbc3924126ed7a1b0d7f3358c43772d1db6552c",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 3,
+          "file": "images/mark-zuckerberg-fiber-confirmation-3-option-3.webp",
+          "sha256": "4926876d8b48e136afa42dd2931932dc99e113c879fdc9124af9200313d969e2",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 4,
+          "file": "images/mark-zuckerberg-fiber-confirmation-3-option-4.webp",
+          "sha256": "03230cdc2f51cc3957b17b0ae8fc999c526df1570e59e851358c5d0039ab299f",
+          "width": 1600,
+          "height": 1600
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "screen": {
+      "requestsEvaluated": 6,
+      "actualCandidates": 24,
+      "usableCandidates": 21,
+      "strictCandidates": 7,
+      "requestGatesPassed": 5,
+      "hairPassed": 21,
+      "visibleBasePassed": 24,
+      "principalCostumePassed": 24,
+      "byCharacter": {
+        "taylor-swift": {
+          "requests": 2,
+          "actualCandidates": 8,
+          "hairPassed": 6,
+          "visibleBasePassed": 8,
+          "principalCostumePassed": 8,
+          "combinedUsable": 6,
+          "strictCompliance": 2,
+          "requestGatesPassed": 1
+        },
+        "wednesday": {
+          "requests": 2,
+          "actualCandidates": 8,
+          "hairPassed": 7,
+          "visibleBasePassed": 8,
+          "principalCostumePassed": 8,
+          "combinedUsable": 7,
+          "strictCompliance": 2,
+          "requestGatesPassed": 2
+        },
+        "mark-zuckerberg": {
+          "requests": 2,
+          "actualCandidates": 8,
+          "hairPassed": 8,
+          "visibleBasePassed": 8,
+          "principalCostumePassed": 8,
+          "combinedUsable": 8,
+          "strictCompliance": 3,
+          "requestGatesPassed": 2
+        }
+      },
+      "strictMissCategories": {
+        "countUnit": "Number of candidates showing category; categories overlap.",
+        "candidatesWithAnyStrictMiss": 17,
+        "counts": {
+          "added_brim_or_raised_hat": 1,
+          "background_not_white": 3,
+          "bangs_too_close_to_eyes": 6,
+          "braids_replaced_by_ponytails": 1,
+          "extra_yarn_locks": 2,
+          "laptop_open": 4,
+          "side_hair_in_front_of_rim": 4,
+          "unrequested_forehead_fringe": 4,
+          "unrequested_forehead_overlap": 4,
+          "wig_under_hood": 6
+        }
+      },
+      "practicalMisses": [
+        {
+          "requestId": "wednesday-fiber-screen-1",
+          "option": 3,
+          "hair": [
+            "Jet-black center part and two side ponytails, but neither side is braided.",
+            "Black wrapped bands and tassel ends present."
+          ]
+        },
+        {
+          "requestId": "taylor-swift-textile-screen-1",
+          "option": 1,
+          "hair": [
+            "Golden-blonde felt scalloped fringe and wavy yarn hair.",
+            "Four separately visible locks: two thin front tendrils plus two larger rear side locks, instead of exactly two."
+          ]
+        },
+        {
+          "requestId": "taylor-swift-textile-screen-1",
+          "option": 3,
+          "hair": [
+            "Golden-blonde felt fringe and yarn hair.",
+            "Two separate front locks plus two rear locks form four distinct side locks."
+          ]
+        }
+      ]
+    },
+    "confirmation": {
+      "requestsEvaluated": 6,
+      "actualCandidates": 24,
+      "usableCandidates": 24,
+      "strictCandidates": 8,
+      "requestGatesPassed": 6,
+      "hairPassed": 24,
+      "visibleBasePassed": 24,
+      "principalCostumePassed": 24,
+      "byCharacter": {
+        "taylor-swift": {
+          "requests": 2,
+          "actualCandidates": 8,
+          "hairPassed": 8,
+          "visibleBasePassed": 8,
+          "principalCostumePassed": 8,
+          "combinedUsable": 8,
+          "strictCompliance": 0,
+          "requestGatesPassed": 2
+        },
+        "wednesday": {
+          "requests": 2,
+          "actualCandidates": 8,
+          "hairPassed": 8,
+          "visibleBasePassed": 8,
+          "principalCostumePassed": 8,
+          "combinedUsable": 8,
+          "strictCompliance": 6,
+          "requestGatesPassed": 2
+        },
+        "mark-zuckerberg": {
+          "requests": 2,
+          "actualCandidates": 8,
+          "hairPassed": 8,
+          "visibleBasePassed": 8,
+          "principalCostumePassed": 8,
+          "combinedUsable": 8,
+          "strictCompliance": 2,
+          "requestGatesPassed": 2
+        }
+      },
+      "strictMissCategories": {
+        "countUnit": "Number of candidates showing category; categories overlap.",
+        "candidatesWithAnyStrictMiss": 16,
+        "counts": {
+          "added_brim_or_raised_hat": 1,
+          "background_not_white": 2,
+          "bangs_not_straight": 1,
+          "bangs_too_close_to_eyes": 8,
+          "laptop_open": 3,
+          "prop_overlaps_lower_face": 1,
+          "side_hair_in_front_of_rim": 3,
+          "unrequested_forehead_fringe": 6,
+          "wig_under_hood": 6
+        }
+      },
+      "practicalMisses": []
+    },
+    "allObservedOutputsDescriptiveOnly": {
+      "actualCandidates": 48,
+      "hairPassed": 45,
+      "visibleBasePassed": 48,
+      "principalCostumePassed": 48,
+      "combinedUsable": 45,
+      "strictCompliance": 15,
+      "noAddedEarsObserved": 48,
+      "warning": "Descriptive count across screening plus selected confirmations; not an unbiased performance estimate."
+    }
+  },
+  "limitations": [
+    "Small selected sample in one existing desktop account; candidates within one chooser are correlated.",
+    "Screen selection introduces selection bias; confirmation counts are separate.",
+    "Visible-reference activity does not independently prove internal image conditioning.",
+    "Practical usability allows detail variation; strict compliance and unassessable hidden geometry are separate.",
+    "Earlier image_gen previews and hairless native datasets are not matched controls."
+  ]
+}

@@ -1,0 +1,844 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-16",
+  "timezone": "Asia/Shanghai",
+  "purpose": "User-approved materially different hairless costume designs: clearer clothing/headwear/prop cues for Harry, Michael and Joker; no hair or wig retry.",
+  "deployment": "Local implementation; no push or deployment performed by this task.",
+  "scope": {
+    "catalogPresets": 18,
+    "newCostumeCharacters": 3,
+    "unchangedPresets": 15,
+    "distinctRecipes": 4,
+    "userRequests": 4,
+    "nativeGenerationCalls": 5,
+    "actualCandidateImages": 16,
+    "selectedPreviews": 3
+  },
+  "selectionCriteria": "Review every returned candidate against current preview and shared base. Choose a clearer coherent character costume with recognizable plush face, complete clothing/full framing and no added hair or human facial features. Retain previous preview if none is suitable. Best-image curation is not a repeatability estimate.",
+  "priorWigRefusals": "Earlier Harry, Michael and Joker wig refusals remain in the historical records. These new studies explicitly omit hair, wigs, human scalps, scars, makeup and face changes; they test different clothing/headwear/prop designs.",
+  "selections": [
+    {
+      "characterId": "harry-potter",
+      "decision": "use-native-costume-preview",
+      "asset": "web/avatars/muse-costume-cues-v3/harry-potter.webp",
+      "assetSha256": "dbe874733901eb82efb6738751f978e36a38d988727eca053b36fc52362703c0",
+      "sourceExperiment": "2026-10-16-costume-recognition",
+      "requestId": "harry-potter-school-curation-1",
+      "option": 3,
+      "sourcePromptSha256": "e5baa5528208cf9a31128d4aff6e293b143179429596b2ec30ffc5a24ee7d328",
+      "sourceRecipeVersion": "muse-reference-costume-v4",
+      "avatarPromptSha256": "651e8300c4c68f4ed981f83fc0ee87b0c8bb515f16ccbd88c19efd4eb5d7b444",
+      "activeHandoffVersion": "muse-reference-costume-v4",
+      "rationale": "Clear round glasses, complete school uniform, wand and small correctly sized winged golden ball strengthen the costume cues while retaining the cream plush face and clean white framing.",
+      "visualReview": {
+        "reviewMethod": "Label-known comparison of native outputs and existing preview; not blind recognition.",
+        "selected": true,
+        "hairless": true,
+        "completeFraming": true,
+        "whiteBackground": true,
+        "reviewBasis": "full-image",
+        "practicallyUsable": true,
+        "strictVisualPromptPass": false,
+        "observations": "Selected: complete compact costume, clear eyes behind round glasses, wand and single winged golden ball. Scarf obscures the cream chin rim."
+      },
+      "observedDifferences": [
+        "The scarf obscures the continuous cream chin rim requested in the prompt.",
+        "The scarf is slimmer and its gold bands narrower than specified.",
+        "Covered body geometry and exact face/proportion identity cannot be established from this single view."
+      ],
+      "imageModified": false
+    },
+    {
+      "characterId": "michael-jackson",
+      "decision": "use-native-costume-preview",
+      "asset": "web/avatars/muse-costume-cues-v3/michael-jackson.webp",
+      "assetSha256": "ea38c6d736aa9e6514c68193492c6efb221860b68bf4c95c983d59ead2ccca57",
+      "sourceExperiment": "2026-10-16-costume-recognition",
+      "requestId": "michael-jackson-white-suit-curation-1",
+      "option": 2,
+      "sourcePromptSha256": "fbcfceacd4d9bf850b8c8c18e21a658d47f3079b4b4e3eedc06c667c399b2358",
+      "sourceRecipeVersion": "muse-reference-costume-v4",
+      "avatarPromptSha256": "6ea0916389c27b6d17e846532715898ab98fa7100b545b9c5ad1071fbefb68bf",
+      "activeHandoffVersion": "muse-reference-costume-v4",
+      "rationale": "The coherent white pinstripe suit, blue shirt, black armband, fedora and two-tone loafers provide a strong stage-costume interpretation. Both hands remain cream, avoiding the extra sequined coverings in the black-stage alternatives.",
+      "visualReview": {
+        "reviewMethod": "Label-known comparison of native outputs and existing preview; not blind recognition.",
+        "selected": true,
+        "hairless": true,
+        "completeFraming": true,
+        "whiteBackground": true,
+        "reviewBasis": "full-image",
+        "practicallyUsable": true,
+        "strictVisualPromptPass": null,
+        "observations": "Selected: crisp white pinstriped suit, blue shirt, black armband, complete fedora and contrasting loafers on white. Cream mittens retain small lobes; exact no-thumb compliance is not established."
+      },
+      "observedDifferences": [
+        "The raised cream mitten has small lobes; exact compliance with the no-thumbs instruction remains uncertain.",
+        "The source face and compact proportions are interpreted rather than reproduced exactly."
+      ],
+      "imageModified": false
+    },
+    {
+      "characterId": "joker",
+      "decision": "use-native-costume-preview",
+      "asset": "web/avatars/muse-costume-cues-v3/joker.webp",
+      "assetSha256": "e1606217cc0656bf72b9ee117a17e9c132d2d68b3237a8394564e797a833fa3b",
+      "sourceExperiment": "2026-10-16-costume-recognition",
+      "requestId": "joker-card-curation-1",
+      "option": 2,
+      "sourcePromptSha256": "b694b211b564aec947385c53c00b2c155f99df624575f9d69b7b9eaca9035669",
+      "sourceRecipeVersion": "muse-reference-costume-v4",
+      "avatarPromptSha256": "84868b429e40f8bb53deef171e4e7bd29315f10dcf5c32d55a312191251b7286",
+      "activeHandoffVersion": "muse-reference-costume-v4",
+      "rationale": "The purple coat and trousers, green waistcoat and single clean jester-emblem card are clearer costume cues than the former top-hat/bow-tie design, with an uncovered cream hood and fully framed plush body.",
+      "visualReview": {
+        "reviewMethod": "Label-known comparison of native outputs and existing preview; not blind recognition.",
+        "selected": true,
+        "hairless": true,
+        "completeFraming": true,
+        "whiteBackground": true,
+        "reviewBasis": "full-image",
+        "practicallyUsable": true,
+        "strictVisualPromptPass": true,
+        "observations": "Selected: uncovered cream hood, simple plush face, purple coat and trousers, green three-button waistcoat, one clean jester-emblem card and both shoes visible."
+      },
+      "observedDifferences": [
+        "The purple-and-green costume remains a stylized interpretation with the original smiling plush face; it is not a facial likeness."
+      ],
+      "imageModified": false
+    }
+  ],
+  "requests": [
+    {
+      "id": "harry-potter-school-curation-1",
+      "characterId": "harry-potter",
+      "phase": "costume-curation",
+      "variant": "school",
+      "version": "muse-reference-costume-v4",
+      "costume": "One black open school robe with deep burgundy lining and its garment hood down behind the body; a charcoal-gray V-neck sweater over a white collared shirt; one burgundy-and-gold striped tie; one long knitted burgundy scarf with wide golden-yellow horizontal bands; full-length black trousers and two black school shoes. Wear exactly one pair of large thin black circular glasses with clear lenses and both original bead eyes fully visible. Hold one slim brown wand diagonally down in one cream fleece mitten, and exactly one tiny golden ball with two small gold wings in the other mitten below the chest. The wings belong only to the held ball, never to the head or body. No other props, crests, letters or markings.",
+      "prompt": "This is a preview-only Persa costume study for the Harry Potter-inspired preset. The new design uses only clothing and accessories and keeps the shared plush head completely hairless. Do not generate a wig or add hair. Do not select or activate a candidate. Do not change my account name, selected avatar, personality, IDENTITY.md, SOUL.md, MEMORY.md or standing preferences, and do not save this temporary costume as a preference.\n\nREFERENCE\nDownload a fresh copy of https://persa.bubblai.com/avatars/muse-costumes-v1/base.png directly into your workspace, for example ~/workspace/persa-costume/base.png; create the workspace folder if needed. Verify SHA-256 c428fd4d8608ca5bd5d72a5c3f49a20be680a739a94bb9e658e3f4be23a4ec2f. Pass that actual downloaded image file to your native avatar generator as the character reference. If the download, checksum or image-reference input is unavailable, stop and explain; do not substitute text-only generation or a previous avatar.\n\nGenerate four native Muse avatar candidates using the downloaded image as the character reference.\n\nSHARED HAIRLESS PLUSH CHARACTER\nUse the downloaded cream sherpa plush toy as the same character. Preserve its wide peach face outline, small black bead-eye size and spacing, tiny stitched smile, rosy cheeks, broad round cream hood, compact body and short limbs. Preserve the full continuous cream hood rim around the face and chin. Keep the entire head hairless. Do not add hair, a wig, a human scalp, facial hair, eyebrows, eyelashes, a nose, scars, makeup, face paint, animal ears or a different face or skin color.\n\nCHARACTER COSTUME\nOne black open school robe with deep burgundy lining and its garment hood down behind the body; a charcoal-gray V-neck sweater over a white collared shirt; one burgundy-and-gold striped tie; one long knitted burgundy scarf with wide golden-yellow horizontal bands; full-length black trousers and two black school shoes. Wear exactly one pair of large thin black circular glasses with clear lenses and both original bead eyes fully visible. Hold one slim brown wand diagonally down in one cream fleece mitten, and exactly one tiny golden ball with two small gold wings in the other mitten below the chest. The wings belong only to the held ball, never to the head or body. No other props, crests, letters or markings.\n\nFIT AND PRESENTATION\nRecognition comes only from the specified clothing, headwear and props. Fit complete clothes over the same short plush body without lengthening the legs or changing its proportions. Both hands remain simple rounded fingerless fleece mittens: no fingers, thumbs, fingernails or smooth skin. Only an explicitly specified mitten cover may change the hand covering; uncovered hands remain cream. Headwear stays outside the existing hood, and its brim must leave both eyes and the mouth visible. Keep all props below the face. Do not add accessories beyond the specified inventory.\n\nPhotographed soft plush collectible with tactile cloth, a full body, complete headwear and both feet visible. Center the figure on a plain white background with soft studio lighting and a gentle ground shadow. All candidates use this same costume, materials and simple pose; do not propose alternate designs or art styles. No text, logos, interface elements or watermark. Show native selectable candidates; do not select or activate one.",
+      "promptSha256": "e5baa5528208cf9a31128d4aff6e293b143179429596b2ec30ffc5a24ee7d328",
+      "avatarPrompt": "Generate four native Muse avatar candidates using the downloaded image as the character reference.\n\nSHARED HAIRLESS PLUSH CHARACTER\nUse the downloaded cream sherpa plush toy as the same character. Preserve its wide peach face outline, small black bead-eye size and spacing, tiny stitched smile, rosy cheeks, broad round cream hood, compact body and short limbs. Preserve the full continuous cream hood rim around the face and chin. Keep the entire head hairless. Do not add hair, a wig, a human scalp, facial hair, eyebrows, eyelashes, a nose, scars, makeup, face paint, animal ears or a different face or skin color.\n\nCHARACTER COSTUME\nOne black open school robe with deep burgundy lining and its garment hood down behind the body; a charcoal-gray V-neck sweater over a white collared shirt; one burgundy-and-gold striped tie; one long knitted burgundy scarf with wide golden-yellow horizontal bands; full-length black trousers and two black school shoes. Wear exactly one pair of large thin black circular glasses with clear lenses and both original bead eyes fully visible. Hold one slim brown wand diagonally down in one cream fleece mitten, and exactly one tiny golden ball with two small gold wings in the other mitten below the chest. The wings belong only to the held ball, never to the head or body. No other props, crests, letters or markings.\n\nFIT AND PRESENTATION\nRecognition comes only from the specified clothing, headwear and props. Fit complete clothes over the same short plush body without lengthening the legs or changing its proportions. Both hands remain simple rounded fingerless fleece mittens: no fingers, thumbs, fingernails or smooth skin. Only an explicitly specified mitten cover may change the hand covering; uncovered hands remain cream. Headwear stays outside the existing hood, and its brim must leave both eyes and the mouth visible. Keep all props below the face. Do not add accessories beyond the specified inventory.\n\nPhotographed soft plush collectible with tactile cloth, a full body, complete headwear and both feet visible. Center the figure on a plain white background with soft studio lighting and a gentle ground shadow. All candidates use this same costume, materials and simple pose; do not propose alternate designs or art styles. No text, logos, interface elements or watermark. Show native selectable candidates; do not select or activate one.",
+      "avatarPromptSha256": "651e8300c4c68f4ed981f83fc0ee87b0c8bb515f16ccbd88c19efd4eb5d7b444",
+      "reference": {
+        "url": "https://persa.bubblai.com/avatars/muse-costumes-v1/base.png",
+        "sha256": "c428fd4d8608ca5bd5d72a5c3f49a20be680a739a94bb9e658e3f4be23a4ec2f"
+      },
+      "status": "generated",
+      "exactPrefill": true,
+      "selected": false,
+      "userRequests": 1,
+      "nativeGenerationCalls": 2,
+      "generationEventCandidateCounts": [
+        3,
+        1
+      ],
+      "initialChooserElapsedMs": 154354,
+      "fullOutputElapsedMs": null,
+      "supplementalCapture": {
+        "reason": "Muse automatically added one result after returning three; the fourth is a standalone image, not part of the initial chooser.",
+        "nativeGenerationCalls": 2,
+        "userRequests": 1,
+        "firstChooserCandidateCount": 3,
+        "initialChooserElapsedMs": 154354,
+        "finalOutputLatencyMs": null
+      },
+      "actualCandidates": 4,
+      "outputs": [
+        {
+          "option": 1,
+          "sha256": "554ae2b75ec3f7046979529f65d32377677790a87a58a7b58f0613e732435a54",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 2,
+          "sha256": "1b22422692efac272c89d7bf2f935fd98e4cc99bf875707cdf47f3698a02cbd5",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 3,
+          "sha256": "dbe874733901eb82efb6738751f978e36a38d988727eca053b36fc52362703c0",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 4,
+          "sha256": "448d5e0663fd3e191ce24ca48f565d9dafe57cc3797668178a469a5e8dd7151e",
+          "width": 1600,
+          "height": 1600,
+          "captureMethod": "standalone-inline-image-after-three-option-chooser"
+        }
+      ]
+    },
+    {
+      "id": "michael-jackson-black-stage-curation-1",
+      "characterId": "michael-jackson",
+      "phase": "costume-curation",
+      "variant": "black-stage",
+      "version": "muse-reference-costume-v4",
+      "costume": "One black felt fedora with a narrow black ribbon and a slightly tilted brim above the eyes; one short black sequined stage jacket worn open over a plain white V-neck shirt; full black trousers ending just above the ankles; clearly visible white socks; two small glossy black loafers. Exactly one hand wears a silver-white sequined rounded mitten cover, with the other hand remaining cream fleece. Keep both hands fingerless. The covered mitten lightly touches the hat brim, leaving the face clear, and the other mitten rests at the hip. Keep both feet on the ground with one toe slightly angled outward. No microphone, logos, extra jewelry or extra gloves.",
+      "prompt": "This is a preview-only Persa costume study for the Michael Jackson-inspired preset. The new design uses only clothing and accessories and keeps the shared plush head completely hairless. Do not generate a wig or add hair. Do not select or activate a candidate. Do not change my account name, selected avatar, personality, IDENTITY.md, SOUL.md, MEMORY.md or standing preferences, and do not save this temporary costume as a preference.\n\nREFERENCE\nDownload a fresh copy of https://persa.bubblai.com/avatars/muse-costumes-v1/base.png directly into your workspace, for example ~/workspace/persa-costume/base.png; create the workspace folder if needed. Verify SHA-256 c428fd4d8608ca5bd5d72a5c3f49a20be680a739a94bb9e658e3f4be23a4ec2f. Pass that actual downloaded image file to your native avatar generator as the character reference. If the download, checksum or image-reference input is unavailable, stop and explain; do not substitute text-only generation or a previous avatar.\n\nGenerate four native Muse avatar candidates using the downloaded image as the character reference.\n\nSHARED HAIRLESS PLUSH CHARACTER\nUse the downloaded cream sherpa plush toy as the same character. Preserve its wide peach face outline, small black bead-eye size and spacing, tiny stitched smile, rosy cheeks, broad round cream hood, compact body and short limbs. Preserve the full continuous cream hood rim around the face and chin. Keep the entire head hairless. Do not add hair, a wig, a human scalp, facial hair, eyebrows, eyelashes, a nose, scars, makeup, face paint, animal ears or a different face or skin color.\n\nCHARACTER COSTUME\nOne black felt fedora with a narrow black ribbon and a slightly tilted brim above the eyes; one short black sequined stage jacket worn open over a plain white V-neck shirt; full black trousers ending just above the ankles; clearly visible white socks; two small glossy black loafers. Exactly one hand wears a silver-white sequined rounded mitten cover, with the other hand remaining cream fleece. Keep both hands fingerless. The covered mitten lightly touches the hat brim, leaving the face clear, and the other mitten rests at the hip. Keep both feet on the ground with one toe slightly angled outward. No microphone, logos, extra jewelry or extra gloves.\n\nFIT AND PRESENTATION\nRecognition comes only from the specified clothing, headwear and props. Fit complete clothes over the same short plush body without lengthening the legs or changing its proportions. Both hands remain simple rounded fingerless fleece mittens: no fingers, thumbs, fingernails or smooth skin. Only an explicitly specified mitten cover may change the hand covering; uncovered hands remain cream. Headwear stays outside the existing hood, and its brim must leave both eyes and the mouth visible. Keep all props below the face. Do not add accessories beyond the specified inventory.\n\nPhotographed soft plush collectible with tactile cloth, a full body, complete headwear and both feet visible. Center the figure on a plain white background with soft studio lighting and a gentle ground shadow. All candidates use this same costume, materials and simple pose; do not propose alternate designs or art styles. No text, logos, interface elements or watermark. Show native selectable candidates; do not select or activate one.",
+      "promptSha256": "36a18f97ae64569bc4257d64999958bdabb25624af38576327b6de32d69eba6f",
+      "avatarPrompt": "Generate four native Muse avatar candidates using the downloaded image as the character reference.\n\nSHARED HAIRLESS PLUSH CHARACTER\nUse the downloaded cream sherpa plush toy as the same character. Preserve its wide peach face outline, small black bead-eye size and spacing, tiny stitched smile, rosy cheeks, broad round cream hood, compact body and short limbs. Preserve the full continuous cream hood rim around the face and chin. Keep the entire head hairless. Do not add hair, a wig, a human scalp, facial hair, eyebrows, eyelashes, a nose, scars, makeup, face paint, animal ears or a different face or skin color.\n\nCHARACTER COSTUME\nOne black felt fedora with a narrow black ribbon and a slightly tilted brim above the eyes; one short black sequined stage jacket worn open over a plain white V-neck shirt; full black trousers ending just above the ankles; clearly visible white socks; two small glossy black loafers. Exactly one hand wears a silver-white sequined rounded mitten cover, with the other hand remaining cream fleece. Keep both hands fingerless. The covered mitten lightly touches the hat brim, leaving the face clear, and the other mitten rests at the hip. Keep both feet on the ground with one toe slightly angled outward. No microphone, logos, extra jewelry or extra gloves.\n\nFIT AND PRESENTATION\nRecognition comes only from the specified clothing, headwear and props. Fit complete clothes over the same short plush body without lengthening the legs or changing its proportions. Both hands remain simple rounded fingerless fleece mittens: no fingers, thumbs, fingernails or smooth skin. Only an explicitly specified mitten cover may change the hand covering; uncovered hands remain cream. Headwear stays outside the existing hood, and its brim must leave both eyes and the mouth visible. Keep all props below the face. Do not add accessories beyond the specified inventory.\n\nPhotographed soft plush collectible with tactile cloth, a full body, complete headwear and both feet visible. Center the figure on a plain white background with soft studio lighting and a gentle ground shadow. All candidates use this same costume, materials and simple pose; do not propose alternate designs or art styles. No text, logos, interface elements or watermark. Show native selectable candidates; do not select or activate one.",
+      "avatarPromptSha256": "499b746039288b9220016d1a02bb02da45afad1828915e3588b1fe6e08bc518f",
+      "reference": {
+        "url": "https://persa.bubblai.com/avatars/muse-costumes-v1/base.png",
+        "sha256": "c428fd4d8608ca5bd5d72a5c3f49a20be680a739a94bb9e658e3f4be23a4ec2f"
+      },
+      "status": "generated",
+      "exactPrefill": true,
+      "selected": false,
+      "userRequests": 1,
+      "nativeGenerationCalls": 1,
+      "generationEventCandidateCounts": [
+        4
+      ],
+      "initialChooserElapsedMs": 91157,
+      "fullOutputElapsedMs": 91157,
+      "actualCandidates": 4,
+      "outputs": [
+        {
+          "option": 1,
+          "sha256": "ebf78fd7561c1bf4d8791021d1bb9f1b769d135da45add525a10b3000b4fbd96",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 2,
+          "sha256": "3dd80b724e1033f4a8cedf8d8c7cee27a81f87a4c44fa24e7d35ccfda1e0c19a",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 3,
+          "sha256": "cd92d192a89c4111448ae999c3ffd8b2097d73c3d292aee41299f41443e0285e",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 4,
+          "sha256": "ece3b51915f05babfed8cdcd3e3d11e78704a2bc3f8bab381c7fe2cae0a60fb0",
+          "width": 1600,
+          "height": 1600
+        }
+      ]
+    },
+    {
+      "id": "michael-jackson-white-suit-curation-1",
+      "characterId": "michael-jackson",
+      "phase": "costume-curation",
+      "variant": "white-suit",
+      "version": "muse-reference-costume-v4",
+      "costume": "One white felt fedora with a crisp broad black band, tilted slightly while staying above the eyes; one complete white pinstriped suit with a fitted jacket and full-length white trousers; a vivid blue collared shirt and a narrow white tie; one plain black fabric armband around the upper jacket sleeve; white ankle socks and two black-and-white loafers. One cream fingerless fleece mitten lightly touches the hat brim while the other rests at the hip. Keep the original compact plush body and both feet on the ground. No sequined glove, microphone, logos, extra jewelry or extra props.",
+      "prompt": "This is a preview-only Persa costume study for the Michael Jackson-inspired preset. The new design uses only clothing and accessories and keeps the shared plush head completely hairless. Do not generate a wig or add hair. Do not select or activate a candidate. Do not change my account name, selected avatar, personality, IDENTITY.md, SOUL.md, MEMORY.md or standing preferences, and do not save this temporary costume as a preference.\n\nREFERENCE\nDownload a fresh copy of https://persa.bubblai.com/avatars/muse-costumes-v1/base.png directly into your workspace, for example ~/workspace/persa-costume/base.png; create the workspace folder if needed. Verify SHA-256 c428fd4d8608ca5bd5d72a5c3f49a20be680a739a94bb9e658e3f4be23a4ec2f. Pass that actual downloaded image file to your native avatar generator as the character reference. If the download, checksum or image-reference input is unavailable, stop and explain; do not substitute text-only generation or a previous avatar.\n\nGenerate four native Muse avatar candidates using the downloaded image as the character reference.\n\nSHARED HAIRLESS PLUSH CHARACTER\nUse the downloaded cream sherpa plush toy as the same character. Preserve its wide peach face outline, small black bead-eye size and spacing, tiny stitched smile, rosy cheeks, broad round cream hood, compact body and short limbs. Preserve the full continuous cream hood rim around the face and chin. Keep the entire head hairless. Do not add hair, a wig, a human scalp, facial hair, eyebrows, eyelashes, a nose, scars, makeup, face paint, animal ears or a different face or skin color.\n\nCHARACTER COSTUME\nOne white felt fedora with a crisp broad black band, tilted slightly while staying above the eyes; one complete white pinstriped suit with a fitted jacket and full-length white trousers; a vivid blue collared shirt and a narrow white tie; one plain black fabric armband around the upper jacket sleeve; white ankle socks and two black-and-white loafers. One cream fingerless fleece mitten lightly touches the hat brim while the other rests at the hip. Keep the original compact plush body and both feet on the ground. No sequined glove, microphone, logos, extra jewelry or extra props.\n\nFIT AND PRESENTATION\nRecognition comes only from the specified clothing, headwear and props. Fit complete clothes over the same short plush body without lengthening the legs or changing its proportions. Both hands remain simple rounded fingerless fleece mittens: no fingers, thumbs, fingernails or smooth skin. Only an explicitly specified mitten cover may change the hand covering; uncovered hands remain cream. Headwear stays outside the existing hood, and its brim must leave both eyes and the mouth visible. Keep all props below the face. Do not add accessories beyond the specified inventory.\n\nPhotographed soft plush collectible with tactile cloth, a full body, complete headwear and both feet visible. Center the figure on a plain white background with soft studio lighting and a gentle ground shadow. All candidates use this same costume, materials and simple pose; do not propose alternate designs or art styles. No text, logos, interface elements or watermark. Show native selectable candidates; do not select or activate one.",
+      "promptSha256": "fbcfceacd4d9bf850b8c8c18e21a658d47f3079b4b4e3eedc06c667c399b2358",
+      "avatarPrompt": "Generate four native Muse avatar candidates using the downloaded image as the character reference.\n\nSHARED HAIRLESS PLUSH CHARACTER\nUse the downloaded cream sherpa plush toy as the same character. Preserve its wide peach face outline, small black bead-eye size and spacing, tiny stitched smile, rosy cheeks, broad round cream hood, compact body and short limbs. Preserve the full continuous cream hood rim around the face and chin. Keep the entire head hairless. Do not add hair, a wig, a human scalp, facial hair, eyebrows, eyelashes, a nose, scars, makeup, face paint, animal ears or a different face or skin color.\n\nCHARACTER COSTUME\nOne white felt fedora with a crisp broad black band, tilted slightly while staying above the eyes; one complete white pinstriped suit with a fitted jacket and full-length white trousers; a vivid blue collared shirt and a narrow white tie; one plain black fabric armband around the upper jacket sleeve; white ankle socks and two black-and-white loafers. One cream fingerless fleece mitten lightly touches the hat brim while the other rests at the hip. Keep the original compact plush body and both feet on the ground. No sequined glove, microphone, logos, extra jewelry or extra props.\n\nFIT AND PRESENTATION\nRecognition comes only from the specified clothing, headwear and props. Fit complete clothes over the same short plush body without lengthening the legs or changing its proportions. Both hands remain simple rounded fingerless fleece mittens: no fingers, thumbs, fingernails or smooth skin. Only an explicitly specified mitten cover may change the hand covering; uncovered hands remain cream. Headwear stays outside the existing hood, and its brim must leave both eyes and the mouth visible. Keep all props below the face. Do not add accessories beyond the specified inventory.\n\nPhotographed soft plush collectible with tactile cloth, a full body, complete headwear and both feet visible. Center the figure on a plain white background with soft studio lighting and a gentle ground shadow. All candidates use this same costume, materials and simple pose; do not propose alternate designs or art styles. No text, logos, interface elements or watermark. Show native selectable candidates; do not select or activate one.",
+      "avatarPromptSha256": "6ea0916389c27b6d17e846532715898ab98fa7100b545b9c5ad1071fbefb68bf",
+      "reference": {
+        "url": "https://persa.bubblai.com/avatars/muse-costumes-v1/base.png",
+        "sha256": "c428fd4d8608ca5bd5d72a5c3f49a20be680a739a94bb9e658e3f4be23a4ec2f"
+      },
+      "status": "generated",
+      "exactPrefill": true,
+      "selected": false,
+      "userRequests": 1,
+      "nativeGenerationCalls": 1,
+      "generationEventCandidateCounts": [
+        4
+      ],
+      "initialChooserElapsedMs": 91059,
+      "fullOutputElapsedMs": 91059,
+      "actualCandidates": 4,
+      "outputs": [
+        {
+          "option": 1,
+          "sha256": "cb42383d35c75a1c1048c09aad3ecf53d565fb34008918ef0c7b3b04879559dc",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 2,
+          "sha256": "ea38c6d736aa9e6514c68193492c6efb221860b68bf4c95c983d59ead2ccca57",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 3,
+          "sha256": "e9e6e5836c63905e188d6b05141c367e0f9bd216d5cfcf4121783a14c76291ac",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 4,
+          "sha256": "03eb7f4f4d4feaa446c3fdcc208c124e572abb0d43aadf43faf57b150391380f",
+          "width": 1600,
+          "height": 1600
+        }
+      ]
+    },
+    {
+      "id": "joker-card-curation-1",
+      "characterId": "joker",
+      "phase": "costume-curation",
+      "variant": "card",
+      "version": "muse-reference-costume-v4",
+      "costume": "One long rich-purple tailored coat with broad lapels and two visible tails; matching purple trousers covering both legs; a fitted deep-green waistcoat with three small buttons over a pale-lavender collared shirt; one small dark-purple necktie; and two black shoes. Exactly one cream fingerless fleece mitten holds one oversized ivory playing card below the chest. The card shows a single simple purple-and-green three-pointed jester-hat emblem, with no words, letters, numbers, faces or extra symbols. The other mitten rests at the side. Keep the cream head hood uncovered: no top hat or other headwear. No bow tie, extra cards, cane or additional props.",
+      "prompt": "This is a preview-only Persa costume study for the The Joker-inspired preset. The new design uses only clothing and accessories and keeps the shared plush head completely hairless. Do not generate a wig or add hair. Do not select or activate a candidate. Do not change my account name, selected avatar, personality, IDENTITY.md, SOUL.md, MEMORY.md or standing preferences, and do not save this temporary costume as a preference.\n\nREFERENCE\nDownload a fresh copy of https://persa.bubblai.com/avatars/muse-costumes-v1/base.png directly into your workspace, for example ~/workspace/persa-costume/base.png; create the workspace folder if needed. Verify SHA-256 c428fd4d8608ca5bd5d72a5c3f49a20be680a739a94bb9e658e3f4be23a4ec2f. Pass that actual downloaded image file to your native avatar generator as the character reference. If the download, checksum or image-reference input is unavailable, stop and explain; do not substitute text-only generation or a previous avatar.\n\nGenerate four native Muse avatar candidates using the downloaded image as the character reference.\n\nSHARED HAIRLESS PLUSH CHARACTER\nUse the downloaded cream sherpa plush toy as the same character. Preserve its wide peach face outline, small black bead-eye size and spacing, tiny stitched smile, rosy cheeks, broad round cream hood, compact body and short limbs. Preserve the full continuous cream hood rim around the face and chin. Keep the entire head hairless. Do not add hair, a wig, a human scalp, facial hair, eyebrows, eyelashes, a nose, scars, makeup, face paint, animal ears or a different face or skin color.\n\nCHARACTER COSTUME\nOne long rich-purple tailored coat with broad lapels and two visible tails; matching purple trousers covering both legs; a fitted deep-green waistcoat with three small buttons over a pale-lavender collared shirt; one small dark-purple necktie; and two black shoes. Exactly one cream fingerless fleece mitten holds one oversized ivory playing card below the chest. The card shows a single simple purple-and-green three-pointed jester-hat emblem, with no words, letters, numbers, faces or extra symbols. The other mitten rests at the side. Keep the cream head hood uncovered: no top hat or other headwear. No bow tie, extra cards, cane or additional props.\n\nFIT AND PRESENTATION\nRecognition comes only from the specified clothing, headwear and props. Fit complete clothes over the same short plush body without lengthening the legs or changing its proportions. Both hands remain simple rounded fingerless fleece mittens: no fingers, thumbs, fingernails or smooth skin. Only an explicitly specified mitten cover may change the hand covering; uncovered hands remain cream. Headwear stays outside the existing hood, and its brim must leave both eyes and the mouth visible. Keep all props below the face. Do not add accessories beyond the specified inventory.\n\nPhotographed soft plush collectible with tactile cloth, a full body, complete headwear and both feet visible. Center the figure on a plain white background with soft studio lighting and a gentle ground shadow. All candidates use this same costume, materials and simple pose; do not propose alternate designs or art styles. No text, logos, interface elements or watermark. Show native selectable candidates; do not select or activate one.",
+      "promptSha256": "b694b211b564aec947385c53c00b2c155f99df624575f9d69b7b9eaca9035669",
+      "avatarPrompt": "Generate four native Muse avatar candidates using the downloaded image as the character reference.\n\nSHARED HAIRLESS PLUSH CHARACTER\nUse the downloaded cream sherpa plush toy as the same character. Preserve its wide peach face outline, small black bead-eye size and spacing, tiny stitched smile, rosy cheeks, broad round cream hood, compact body and short limbs. Preserve the full continuous cream hood rim around the face and chin. Keep the entire head hairless. Do not add hair, a wig, a human scalp, facial hair, eyebrows, eyelashes, a nose, scars, makeup, face paint, animal ears or a different face or skin color.\n\nCHARACTER COSTUME\nOne long rich-purple tailored coat with broad lapels and two visible tails; matching purple trousers covering both legs; a fitted deep-green waistcoat with three small buttons over a pale-lavender collared shirt; one small dark-purple necktie; and two black shoes. Exactly one cream fingerless fleece mitten holds one oversized ivory playing card below the chest. The card shows a single simple purple-and-green three-pointed jester-hat emblem, with no words, letters, numbers, faces or extra symbols. The other mitten rests at the side. Keep the cream head hood uncovered: no top hat or other headwear. No bow tie, extra cards, cane or additional props.\n\nFIT AND PRESENTATION\nRecognition comes only from the specified clothing, headwear and props. Fit complete clothes over the same short plush body without lengthening the legs or changing its proportions. Both hands remain simple rounded fingerless fleece mittens: no fingers, thumbs, fingernails or smooth skin. Only an explicitly specified mitten cover may change the hand covering; uncovered hands remain cream. Headwear stays outside the existing hood, and its brim must leave both eyes and the mouth visible. Keep all props below the face. Do not add accessories beyond the specified inventory.\n\nPhotographed soft plush collectible with tactile cloth, a full body, complete headwear and both feet visible. Center the figure on a plain white background with soft studio lighting and a gentle ground shadow. All candidates use this same costume, materials and simple pose; do not propose alternate designs or art styles. No text, logos, interface elements or watermark. Show native selectable candidates; do not select or activate one.",
+      "avatarPromptSha256": "84868b429e40f8bb53deef171e4e7bd29315f10dcf5c32d55a312191251b7286",
+      "reference": {
+        "url": "https://persa.bubblai.com/avatars/muse-costumes-v1/base.png",
+        "sha256": "c428fd4d8608ca5bd5d72a5c3f49a20be680a739a94bb9e658e3f4be23a4ec2f"
+      },
+      "status": "generated",
+      "exactPrefill": true,
+      "selected": false,
+      "userRequests": 1,
+      "nativeGenerationCalls": 1,
+      "generationEventCandidateCounts": [
+        4
+      ],
+      "initialChooserElapsedMs": 131542,
+      "fullOutputElapsedMs": 131542,
+      "actualCandidates": 4,
+      "outputs": [
+        {
+          "option": 1,
+          "sha256": "46ebf44ff5eeca36d28f75a615039d603485583f528a2cb63858d37fae37c13d",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 2,
+          "sha256": "e1606217cc0656bf72b9ee117a17e9c132d2d68b3237a8394564e797a833fa3b",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 3,
+          "sha256": "16cdb9b13bfd17e475865c466528aae98538d8f1f3683c3c04eee1f3d1c31291",
+          "width": 1600,
+          "height": 1600
+        },
+        {
+          "option": 4,
+          "sha256": "b49848eb170590d0e7a116fa8293120bdaac4a8d498f93f86edcf0d1187161f3",
+          "width": 1600,
+          "height": 1600
+        }
+      ]
+    }
+  ],
+  "assessments": {
+    "date": "2026-10-16",
+    "method": "Label-known visual costume-cue review of all four saved chooser sheets, recovered Harry option 4, the shared base, and six full candidate images. No blind recognition test or repeatability estimate.",
+    "criteria": "Practical usability means a coherent hairless costume preview with recognizable plush face and complete framing. Strict visual pass concerns visible requested features only; null means fine compliance is unresolved or not fully inspected.",
+    "limitations": [
+      "One request per costume variant; four candidates each. Selection is best-image curation.",
+      "Identity fidelity is a visual impression, not measured equality to the reference. Costume labels were known during review.",
+      "Harry selected option 3 obscures the cream chin rim; Michael selected white-suit option 2 has ambiguous hand lobes."
+    ],
+    "assessments": [
+      {
+        "requestId": "harry-potter-school-curation-1",
+        "option": 1,
+        "image": "images/harry-potter-school-curation-1-option-1.webp",
+        "reviewBasis": "chooser",
+        "practicallyUsable": true,
+        "strictVisualPromptPass": false,
+        "observations": "Round glasses, striped scarf, wand and winged golden ball give clear school-wizard cues. Scarf covers the cream chin rim."
+      },
+      {
+        "requestId": "harry-potter-school-curation-1",
+        "option": 2,
+        "image": "images/harry-potter-school-curation-1-option-2.webp",
+        "reviewBasis": "chooser",
+        "practicallyUsable": true,
+        "strictVisualPromptPass": null,
+        "observations": "Clear round glasses, tie, robe, wand and winged ball; less scarf across the neck than the other options. Small details not audited at full resolution."
+      },
+      {
+        "requestId": "harry-potter-school-curation-1",
+        "option": 3,
+        "image": "images/harry-potter-school-curation-1-option-3.webp",
+        "reviewBasis": "full-image",
+        "practicallyUsable": true,
+        "strictVisualPromptPass": false,
+        "observations": "Selected: complete compact costume, clear eyes behind round glasses, wand and single winged golden ball. Scarf obscures the cream chin rim."
+      },
+      {
+        "requestId": "harry-potter-school-curation-1",
+        "option": 4,
+        "image": "images/harry-potter-school-curation-1-option-4.webp",
+        "reviewBasis": "recovered-visible-image",
+        "practicallyUsable": true,
+        "strictVisualPromptPass": false,
+        "observations": "Clear school-wizard accessories and full framing; lavender background differs from requested white, and scarf covers the chin rim."
+      },
+      {
+        "requestId": "michael-jackson-black-stage-curation-1",
+        "option": 1,
+        "image": "images/michael-jackson-black-stage-curation-1-option-1.webp",
+        "reviewBasis": "chooser",
+        "practicallyUsable": false,
+        "strictVisualPromptPass": false,
+        "observations": "Black fedora and stage jacket read clearly, but both hands have sequined coverings rather than exactly one."
+      },
+      {
+        "requestId": "michael-jackson-black-stage-curation-1",
+        "option": 2,
+        "image": "images/michael-jackson-black-stage-curation-1-option-2.webp",
+        "reviewBasis": "full-image",
+        "practicallyUsable": true,
+        "strictVisualPromptPass": false,
+        "observations": "Best black-stage candidate: one sequined glove and one cream hand, clear face and complete hat/shoes. Sequined glove has an explicit thumb-like lobe."
+      },
+      {
+        "requestId": "michael-jackson-black-stage-curation-1",
+        "option": 3,
+        "image": "images/michael-jackson-black-stage-curation-1-option-3.webp",
+        "reviewBasis": "chooser",
+        "practicallyUsable": false,
+        "strictVisualPromptPass": false,
+        "observations": "Black stage costume is coherent, but both hands have sequined coverings rather than exactly one."
+      },
+      {
+        "requestId": "michael-jackson-black-stage-curation-1",
+        "option": 4,
+        "image": "images/michael-jackson-black-stage-curation-1-option-4.webp",
+        "reviewBasis": "chooser",
+        "practicallyUsable": false,
+        "strictVisualPromptPass": false,
+        "observations": "Black stage costume is coherent, but the lower cream hand carries extra sequins in addition to the raised glove."
+      },
+      {
+        "requestId": "michael-jackson-white-suit-curation-1",
+        "option": 1,
+        "image": "images/michael-jackson-white-suit-curation-1-option-1.webp",
+        "reviewBasis": "full-image",
+        "practicallyUsable": true,
+        "strictVisualPromptPass": false,
+        "observations": "White fedora, pinstriped suit, blue shirt, white tie and black armband are clear. Lavender background and thumb-shaped glove details deviate from the prompt."
+      },
+      {
+        "requestId": "michael-jackson-white-suit-curation-1",
+        "option": 2,
+        "image": "images/michael-jackson-white-suit-curation-1-option-2.webp",
+        "reviewBasis": "full-image",
+        "practicallyUsable": true,
+        "strictVisualPromptPass": null,
+        "observations": "Selected: crisp white pinstriped suit, blue shirt, black armband, complete fedora and contrasting loafers on white. Cream mittens retain small lobes; exact no-thumb compliance is not established."
+      },
+      {
+        "requestId": "michael-jackson-white-suit-curation-1",
+        "option": 3,
+        "image": "images/michael-jackson-white-suit-curation-1-option-3.webp",
+        "reviewBasis": "full-image",
+        "practicallyUsable": true,
+        "strictVisualPromptPass": false,
+        "observations": "Clear white-suit costume and full framing. Raised hand looks like a cuffed glove with a distinct thumb; smooth forearm material differs from cream fleece."
+      },
+      {
+        "requestId": "michael-jackson-white-suit-curation-1",
+        "option": 4,
+        "image": "images/michael-jackson-white-suit-curation-1-option-4.webp",
+        "reviewBasis": "chooser",
+        "practicallyUsable": true,
+        "strictVisualPromptPass": null,
+        "observations": "Clear white-suit costume and full framing, with hairless plush face. Fine hand and garment compliance not audited at full resolution."
+      },
+      {
+        "requestId": "joker-card-curation-1",
+        "option": 1,
+        "image": "images/joker-card-curation-1-option-1.webp",
+        "reviewBasis": "chooser",
+        "practicallyUsable": true,
+        "strictVisualPromptPass": null,
+        "observations": "Purple coat, green waistcoat and one jester-emblem card provide costume cues; card is large and high over the torso. Fine compliance not audited at full resolution."
+      },
+      {
+        "requestId": "joker-card-curation-1",
+        "option": 2,
+        "image": "images/joker-card-curation-1-option-2.webp",
+        "reviewBasis": "full-image",
+        "practicallyUsable": true,
+        "strictVisualPromptPass": true,
+        "observations": "Selected: uncovered cream hood, simple plush face, purple coat and trousers, green three-button waistcoat, one clean jester-emblem card and both shoes visible."
+      },
+      {
+        "requestId": "joker-card-curation-1",
+        "option": 3,
+        "image": "images/joker-card-curation-1-option-3.webp",
+        "reviewBasis": "chooser",
+        "practicallyUsable": true,
+        "strictVisualPromptPass": null,
+        "observations": "Purple/green suit and one smaller jester-emblem card remain readable; three-quarter pose. Fine compliance not audited at full resolution."
+      },
+      {
+        "requestId": "joker-card-curation-1",
+        "option": 4,
+        "image": "images/joker-card-curation-1-option-4.webp",
+        "reviewBasis": "chooser",
+        "practicallyUsable": true,
+        "strictVisualPromptPass": null,
+        "observations": "Purple/green suit and large jester-emblem card remain readable; three-quarter pose. Fine compliance not audited at full resolution."
+      }
+    ]
+  },
+  "validation": {
+    "integrity": {
+      "passed": true,
+      "checks": 298,
+      "uniqueOutputs": 16,
+      "latencySummaryRuns": 3,
+      "medianSeconds": 91.157,
+      "minSeconds": 91.059,
+      "maxSeconds": 131.542,
+      "latencyScope": "Send to routine complete-chooser capture for runs with known full-output latency. Harry initial three-option chooser timing is separate; final automatic top-up latency is unknown. Upper-bound timings excluded."
+    },
+    "unchangedHandoffs": [
+      {
+        "characterId": "wednesday",
+        "version": "muse-reference-wig-v3",
+        "promptSha256": "d3f65258f45c3598111016d52be91d953081717e7e792bd90ee3042c8154456a",
+        "unchanged": true
+      },
+      {
+        "characterId": "taylor-swift",
+        "version": "muse-reference-wig-v3",
+        "promptSha256": "d66811236dde08adb855c1c2842a680f71e62e4e62b79e53efe072cc03e34aa0",
+        "unchanged": true
+      },
+      {
+        "characterId": "mark-zuckerberg",
+        "version": "muse-reference-wig-v3",
+        "promptSha256": "0259893548c1f95ea849669997429b4feb600d97a1f1a50a3333e298d4a17de9",
+        "unchanged": true
+      },
+      {
+        "characterId": "mona-lisa",
+        "version": "muse-reference-wig-v3",
+        "promptSha256": "34635b3fb5ed86c649b6fc2fa6093fd24b0dec3c9e899209c50a838b0f8f78cc",
+        "unchanged": true
+      },
+      {
+        "characterId": "barbie",
+        "version": "muse-reference-wig-v3",
+        "promptSha256": "bce7f49e61a6e802858711c6862273f4b13da3ecc3d6c3dda5e5130f226acfb4",
+        "unchanged": true
+      },
+      {
+        "characterId": "charlie-chaplin",
+        "version": "muse-reference-wig-v3",
+        "promptSha256": "751b0896650e2d3d5f951b4e8ef9e47b1fc1c70c6a5010cd6a9ce7d7260b9840",
+        "unchanged": true
+      },
+      {
+        "characterId": "olivia-rodrigo",
+        "version": "muse-reference-wig-v3",
+        "promptSha256": "6b0221489b39cb38f1339c226fe4f5ad2ceb53db728383083c4496dd9e336d54",
+        "unchanged": true
+      },
+      {
+        "characterId": "marilyn-monroe",
+        "version": "muse-reference-wig-v3",
+        "promptSha256": "f02bd10a9de08a9dd2f22c88ef9fd3caf0d99af81cb7c2b6657c60e2a537718b",
+        "unchanged": true
+      },
+      {
+        "characterId": "drake",
+        "version": "muse-reference-wig-v3",
+        "promptSha256": "7c54a79861b68014b30c0f1743b964028fef3efc8a943dd27654a84bca007b1f",
+        "unchanged": true
+      },
+      {
+        "characterId": "lionel-messi",
+        "version": "muse-reference-wig-v3",
+        "promptSha256": "01dd692fcadb722cd8aacd93c108cf297925dd8412e1f4cc605ca15d0b7ce1c3",
+        "unchanged": true
+      },
+      {
+        "characterId": "kylie-jenner",
+        "version": "muse-reference-wig-v3",
+        "promptSha256": "623ddb39bebd931c993cb6c197d4a89010380a610adaf38e77bdcd608f24cf38",
+        "unchanged": true
+      },
+      {
+        "characterId": "mrbeast",
+        "version": "muse-reference-wig-v3",
+        "promptSha256": "13eaa190f63c39bea09ab405ad22f44f7feb1f8a7c1c68462263272a5e47ba0e",
+        "unchanged": true
+      },
+      {
+        "characterId": "the-rock",
+        "version": "muse-reference-wardrobe-v2",
+        "promptSha256": "0a181703c7fe292567f01617a733109db01e20f466a27885506b417cd0754766",
+        "unchanged": true
+      },
+      {
+        "characterId": "spongebob",
+        "version": "muse-reference-wardrobe-v2",
+        "promptSha256": "95e217efcf82b62be1d7a9dd3633e1c9ce0ab027608c839cb4d914a483fd37e6",
+        "unchanged": true
+      },
+      {
+        "characterId": "hello-kitty",
+        "version": "muse-reference-wardrobe-v2",
+        "promptSha256": "d4f0b75358d21885a4dbd07599dcdcfc8cacffeeb8bbba6912ecb5ddaf401ae2",
+        "unchanged": true
+      }
+    ],
+    "activity": {
+      "audit": "Exposed native activity reviewed; raw account paths, candidate IDs and text excluded.",
+      "partialSnapshot": false,
+      "reviewedRuns": 4,
+      "summary": {
+        "freshDownloadAndMatchingHash": 4,
+        "referenceUse": 4,
+        "nativeToolRecoveries": 0,
+        "nativeTopUps": 1,
+        "safetyRefusals": 0,
+        "accountStyleWrites": 0,
+        "selectEvents": 0,
+        "thumbsUpReactions": 4
+      },
+      "rows": [
+        {
+          "runId": "harry-potter-school-curation-1",
+          "freshDownloadObserved": true,
+          "matchingHashResultObserved": true,
+          "referenceUseObserved": true,
+          "generationEventCounts": [
+            3,
+            1
+          ],
+          "observedCandidateCount": 4,
+          "capturedCandidateCount": 4,
+          "nativeTopUpObserved": true,
+          "nativeToolRecoveryObserved": false,
+          "staleCharacterLabelObserved": false,
+          "safetyRefusalObserved": false,
+          "accountStyleWriteObserved": false,
+          "selectEventObserved": false,
+          "thumbsUpReactionObserved": true,
+          "findings": [
+            "Multiple successful native generation events occurred within one user request; all returned candidates must be counted, including automatic top-up."
+          ]
+        },
+        {
+          "runId": "michael-jackson-black-stage-curation-1",
+          "freshDownloadObserved": true,
+          "matchingHashResultObserved": true,
+          "referenceUseObserved": true,
+          "generationEventCounts": [
+            4
+          ],
+          "observedCandidateCount": 4,
+          "capturedCandidateCount": 4,
+          "nativeTopUpObserved": false,
+          "nativeToolRecoveryObserved": false,
+          "staleCharacterLabelObserved": true,
+          "safetyRefusalObserved": false,
+          "accountStyleWriteObserved": false,
+          "selectEventObserved": false,
+          "thumbsUpReactionObserved": true,
+          "findings": [
+            "Activity candidate listing is abbreviated; captured chooser and original saved images determine count.",
+            "Activity header/reaction/download/completion prose retains Harry Potter labels, while generation detail names Michael Jackson and recorded composer prompt matches the exact Michael request."
+          ]
+        },
+        {
+          "runId": "michael-jackson-white-suit-curation-1",
+          "freshDownloadObserved": true,
+          "matchingHashResultObserved": true,
+          "referenceUseObserved": true,
+          "generationEventCounts": [
+            4
+          ],
+          "observedCandidateCount": 4,
+          "capturedCandidateCount": 4,
+          "nativeTopUpObserved": false,
+          "nativeToolRecoveryObserved": false,
+          "staleCharacterLabelObserved": false,
+          "safetyRefusalObserved": false,
+          "accountStyleWriteObserved": false,
+          "selectEventObserved": false,
+          "thumbsUpReactionObserved": true,
+          "findings": [
+            "Activity candidate listing is abbreviated; captured chooser and original saved images determine count."
+          ]
+        },
+        {
+          "runId": "joker-card-curation-1",
+          "freshDownloadObserved": true,
+          "matchingHashResultObserved": true,
+          "referenceUseObserved": true,
+          "generationEventCounts": [
+            4
+          ],
+          "observedCandidateCount": 4,
+          "capturedCandidateCount": 4,
+          "nativeTopUpObserved": false,
+          "nativeToolRecoveryObserved": false,
+          "staleCharacterLabelObserved": false,
+          "safetyRefusalObserved": false,
+          "accountStyleWriteObserved": false,
+          "selectEventObserved": false,
+          "thumbsUpReactionObserved": true,
+          "findings": [
+            "Activity candidate listing is abbreviated; captured chooser and original saved images determine count."
+          ]
+        }
+      ],
+      "limits": [
+        "Activity can be abbreviated or stale. Counts reconcile activity events against all saved outputs.",
+        "Fresh exposed account files and final profile are checked separately."
+      ]
+    },
+    "account": {
+      "exposedFiles": [
+        "IDENTITY",
+        "SOUL",
+        "MEMORY"
+      ],
+      "byteIdentical": true,
+      "avatarSelected": false,
+      "hiddenStateAudited": false
+    },
+    "prefill": {
+      "scope": "Current production combo links tested only for exact native prefill; none sent or applied.",
+      "passed": true,
+      "results": [
+        {
+          "characterId": "harry-potter",
+          "version": "muse-reference-costume-v4",
+          "promptSha256": "95fd6e1262db5d8fcf19cd3b33c3ba6d6d3557bccaf7bb558a7f1c0fc9ac7170",
+          "urlLength": 6937,
+          "exactPrefill": true,
+          "sent": false
+        },
+        {
+          "characterId": "michael-jackson",
+          "version": "muse-reference-costume-v4",
+          "promptSha256": "c6ff581beda7b0335eb410bd2bc67638d27932edd236a83aca540da8625b126d",
+          "urlLength": 6980,
+          "exactPrefill": true,
+          "sent": false
+        },
+        {
+          "characterId": "joker",
+          "version": "muse-reference-costume-v4",
+          "promptSha256": "5058377fb794d9855cf68a25197f4bc3ebc3be2aaf37bcbbf91dba21ca7df386",
+          "urlLength": 7083,
+          "exactPrefill": true,
+          "sent": false
+        }
+      ],
+      "composerEmpty": true
+    },
+    "unchangedImageRecords": [
+      {
+        "characterId": "mark-zuckerberg",
+        "unchanged": true
+      },
+      {
+        "characterId": "taylor-swift",
+        "unchanged": true
+      },
+      {
+        "characterId": "charlie-chaplin",
+        "unchanged": true
+      },
+      {
+        "characterId": "olivia-rodrigo",
+        "unchanged": true
+      },
+      {
+        "characterId": "marilyn-monroe",
+        "unchanged": true
+      },
+      {
+        "characterId": "drake",
+        "unchanged": true
+      },
+      {
+        "characterId": "lionel-messi",
+        "unchanged": true
+      },
+      {
+        "characterId": "kylie-jenner",
+        "unchanged": true
+      },
+      {
+        "characterId": "wednesday",
+        "unchanged": true
+      },
+      {
+        "characterId": "mona-lisa",
+        "unchanged": true
+      },
+      {
+        "characterId": "barbie",
+        "unchanged": true
+      },
+      {
+        "characterId": "mrbeast",
+        "unchanged": true
+      },
+      {
+        "characterId": "the-rock",
+        "unchanged": true
+      },
+      {
+        "characterId": "spongebob",
+        "unchanged": true
+      },
+      {
+        "characterId": "hello-kitty",
+        "unchanged": true
+      }
+    ]
+  },
+  "limits": [
+    "This is best-image curation from four different recipes, not an unchanged-repeat stability study or a general success-rate estimate.",
+    "Character recognition was judged with labels known; no blind recognition study was conducted.",
+    "All generated candidates and both Michael variants remain in the evidence, including unselected outputs and prompt-compliance failures.",
+    "Harry returned three candidates and one automatic additional candidate across two native calls under one user request. Initial chooser timing is retained; final fourth-output latency is unknown.",
+    "The run owner reports baseline reload and white-suit prefill timeouts resolved before submission; successful navigation timing does not include those earlier failures.",
+    "Fresh exposed account-file comparisons do not audit hidden account state, and native generation does not prove current combo personality persistence or avatar activation.",
+    "Curated examples do not guarantee an identical later Muse generation, native mobile support or cross-account repeatability."
+  ],
+  "assessmentSummary": [
+    {
+      "requestId": "harry-potter-school-curation-1",
+      "actualCandidates": 4,
+      "practicallyUsable": 4,
+      "strictVisualPass": 0,
+      "strictVisualUnresolved": 1
+    },
+    {
+      "requestId": "michael-jackson-black-stage-curation-1",
+      "actualCandidates": 4,
+      "practicallyUsable": 1,
+      "strictVisualPass": 0,
+      "strictVisualUnresolved": 0
+    },
+    {
+      "requestId": "michael-jackson-white-suit-curation-1",
+      "actualCandidates": 4,
+      "practicallyUsable": 4,
+      "strictVisualPass": 0,
+      "strictVisualUnresolved": 2
+    },
+    {
+      "requestId": "joker-card-curation-1",
+      "actualCandidates": 4,
+      "practicallyUsable": 4,
+      "strictVisualPass": 1,
+      "strictVisualUnresolved": 3
+    }
+  ]
+}

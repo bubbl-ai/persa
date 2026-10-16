@@ -2,6 +2,33 @@
 
 ## Unreleased
 
+- More recognizable hairless costumes (2026-10-16, local and unpublished):
+  add distinct clothing/headwear/prop recipes for Harry Potter, Michael Jackson
+  and Joker while preserving the shared face and hairless hood. New selected
+  native previews use `muse-costume-cues-v3`;
+  `src/muse-costume-recipes.js` supplies `muse-reference-costume-v4` combos and
+  a matching text-only fallback without an image-reference claim. Keep all
+  other 15 handoff payloads unchanged: 12 wigs and three retained hairless
+  PNG costumes. Export `costumeVariant` and curated-preview metadata even when
+  no hairstyle exists. Preserve earlier artwork and blocked hair requests.
+  The [costume follow-up](docs/MUSE_COSTUME_RECOGNITION.md) records selection,
+  checks and publication; it makes no repeated-reliability or blind-recognition
+  claim. The earlier wig rollout below retains its original scope.
+
+- Initial curated Muse wigs (2026-10-16, local rollout): add 12 character-specific
+  wig recipes and versioned native WebP preview slots, retaining six valid
+  hairless PNG costumes. The Rock, SpongeBob and Hello Kitty remain hairless
+  by design; Harry Potter, Michael Jackson and Joker keep their existing
+  costumes without retrying blocked hair requests. Share costume, hairstyle
+  and visual instructions through `src/muse-wigs.js` for native trials and
+  `muse-reference-wig-v3` combos; retain the six hairless messages unchanged.
+  Update text-only prompts, export metadata and PNG/WebP asset validation.
+  Preserve previous assets, refusal records and exact historical payloads.
+  The [rollout report](docs/MUSE_WIG_ROLLOUT.md) records per-character curation,
+  validation and publication status; this entry does not claim a live release
+  or a new reliability percentage. Keep the earlier [wig experiment](docs/MUSE_WIG_STABILITY.md)
+  separate from curation and the changed combo wrapper.
+
 - Direct Muse links for all characters (2026-10-15): add **Open in Muse** to
   the spotlight stage, every character tile and the personality detail dialog,
   opening the prepared combo immediately without a mandatory setup dialog.
@@ -66,8 +93,8 @@
   **All characters** scroll to them; retain the standalone full/saved collection
   routes. Reuse the shared dialogs and controls, synchronize stage/grid saves,
   and preserve stage selection and control focus. Retry image also repairs the
-  matching homepage tile. Avatar assets and prompts are unchanged; current
-  prompts still exclude human hair. All 72 tests, the build, syntax/whitespace
+  matching homepage tile. Avatar assets and prompts were unchanged at this
+  release, and its prompts excluded human hair. All 72 tests, the build, syntax/whitespace
   checks, and desktop/mobile browser checks passed; deployment uses the
   existing main-branch Vercel workflow.
 

@@ -106,7 +106,8 @@ signed-in Muse validation.
 
 ## Mobile spotlight — October 19, 2026
 
-This interaction update is local and not yet published. The existing swipe
+This interaction update was published on October 21 at
+[persa.bubblai.com](https://persa.bubblai.com). The existing swipe
 detector only changed the character after release; portraits now follow the
 finger or mouse during a horizontal drag and snap on release. A short drag
 returns to the same character, while a deliberate swipe or quick flick moves
@@ -136,7 +137,22 @@ The website build, JavaScript syntax checks, **89/89 Node tests** and
 `git diff --check` pass. Screenshots and the temporary browser harness are
 stored outside Git under `persa-test-results/2026-10-19-mobile-swipe/`.
 No avatar assets, character prompts, personality behavior or Muse account
-settings changed, and no publication was performed for this update.
+settings changed. The October 19 local validation ended before publication.
+
+### Publication — October 21, 2026
+
+Source [`06658d9`](https://github.com/bubbl-ai/persa/commit/06658d9b8487f3f4b6c3ffbd1f347ca890fe15ac)
+was pushed to main. The [Vercel deployment](https://github.com/bubbl-ai/persa/actions/runs/39527697323) and
+[Node 20/22/24 plus package-install checks](https://github.com/bubbl-ai/persa/actions/runs/39527697318) both succeeded.
+All 21 live checks passed. Chromium mobile emulation at 390px and 320px
+verified that portraits follow touch input, swipes change the selected
+character, short drags snap back, vertical
+page scrolling still works, and the hint is visible next to the stage.
+The served HTML, spotlight JavaScript and CSS match the verified build;
+the selected character's prepared Muse link stays in sync. No Muse message
+was sent during these website checks. Physical iOS/Safari remains unverified.
+Evidence is saved outside Git under
+`persa-test-results/2026-10-21-swipe-publication/`.
 
 ## Direct Muse links — October 15, 2026
 

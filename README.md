@@ -211,8 +211,9 @@ The website has no application backend, model calls, or application API-key requ
 
 ### Website verification
 
-The October 19 mobile spotlight update is implemented locally and not yet
-published. Portraits follow horizontal swipes or mouse drags and snap to the
+The October 19 mobile spotlight update was published on October 21 at
+[persa.bubblai.com](https://persa.bubblai.com). Portraits follow horizontal
+swipes or mouse drags and snap to the
 adjacent character on release; short drags return to the current character.
 A hint sits immediately below the stage. Vertical page scrolling and pinch
 zoom stay available, along with arrows, keyboard controls and the picker.

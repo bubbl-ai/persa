@@ -211,6 +211,14 @@ The website has no application backend, model calls, or application API-key requ
 
 ### Website verification
 
+The October 19 mobile spotlight update is implemented locally and not yet
+published. Portraits follow horizontal swipes or mouse drags and snap to the
+adjacent character on release; short drags return to the current character.
+A hint sits immediately below the stage. Vertical page scrolling and pinch
+zoom stay available, along with arrows, keyboard controls and the picker.
+See [the mobile interaction notes](docs/MUSE_AVATAR_DESIGN.md#mobile-spotlight--october-19-2026)
+for verification and scope.
+
 The [costume follow-up](docs/MUSE_COSTUME_RECOGNITION.md) tracks the three new
 hairless recipes and current validation/publication status. The earlier
 [October 16 wig rollout](docs/MUSE_WIG_ROLLOUT.md),

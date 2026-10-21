@@ -104,6 +104,40 @@ recovery. See the [website verification record](../README.md#website-verificatio
 This release uses the existing main-branch Vercel workflow and includes no new
 signed-in Muse validation.
 
+## Mobile spotlight — October 19, 2026
+
+This interaction update is local and not yet published. The existing swipe
+detector only changed the character after release; portraits now follow the
+finger or mouse during a horizontal drag and snap on release. A short drag
+returns to the same character, while a deliberate swipe or quick flick moves
+one position. The collection still wraps between its first and last presets.
+The swipe/drag hint sits directly below the stage, ahead of the character
+details and lower navigation controls.
+
+The stage uses horizontal gesture detection while leaving vertical page
+scrolling and pinch zoom to the browser. Cancellation, loss of pointer capture,
+window blur, resize and direct character selection clear the drag offset.
+Only the stage presentation moves: selected metadata, Muse links, tuning and
+saving still use the shared controller. Arrows, keyboard controls and the
+picker remain alternatives; reduced-motion preferences remove transitions.
+
+Verification: **29/29 browser checks passed** in Chromium: 22 touch checks
+at 390px/320px and seven additional gesture/desktop checks at 1440px.
+They cover movement during the drag, both directions, wraparound, snapback,
+quick flicks, vertical/diagonal page scrolling, cancellation, a second touch,
+loss of pointer capture, rapid swipes, mouse dragging, reduced motion,
+keyboard/picker/arrows, saved selection/DOM/focus and layout overflow.
+Actual touch input exposed an initial pointer-capture transfer bug; it was
+fixed and the touch suite rerun successfully. The final checks reported no
+browser errors. These are browser-emulated phone interactions, not physical
+iPhone/Safari validation; native pinch-zoom behavior was not measured.
+
+The website build, JavaScript syntax checks, **89/89 Node tests** and
+`git diff --check` pass. Screenshots and the temporary browser harness are
+stored outside Git under `persa-test-results/2026-10-19-mobile-swipe/`.
+No avatar assets, character prompts, personality behavior or Muse account
+settings changed, and no publication was performed for this update.
+
 ## Direct Muse links — October 15, 2026
 
 The user requested all 18 characters and a single action from Persa to Muse.

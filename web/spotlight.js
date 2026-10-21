@@ -7,7 +7,15 @@ export function mountSpotlight({ characters, saved, getHandoff }) {
   const picker = document.querySelector('#character-select');
   const message = document.querySelector('#stage-message');
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-  let slides = [], selected = 0, settleTimer, pointerStart, savedRecords = saved;
+  let slides = [], selected = 0, settleTimer, drag, savedRecords = saved;
+
+  function cancelDrag() {
+    const pointer = drag;
+    drag = null;
+    stage.classList.remove('is-dragging');
+    slidesRoot.style.removeProperty('--drag-x');
+    if (pointer && stage.hasPointerCapture(pointer.id)) stage.releasePointerCapture(pointer.id);
+  }
 
   function position(index) {
     const length = characters.length;
@@ -30,6 +38,7 @@ export function mountSpotlight({ characters, saved, getHandoff }) {
 
   function selectCharacter(index, animate = true) {
     if (!characters.length) return;
+    cancelDrag();
     selected = (index + characters.length) % characters.length;
     clearTimeout(settleTimer);
     const moving = animate && !reducedMotion.matches;
@@ -71,6 +80,7 @@ export function mountSpotlight({ characters, saved, getHandoff }) {
     if (character.avatar?.preview) {
       const image = document.createElement('img');
       image.alt = `Shared plush Muse in a ${character.name} costume`;
+      image.draggable = false;
       image.width = 1254; image.height = 1254; image.decoding = 'async';
       image.addEventListener('error', () => slide.classList.add('has-failed'));
       slide.append(image);
@@ -137,17 +147,43 @@ export function mountSpotlight({ characters, saved, getHandoff }) {
     }
   });
   stage.addEventListener('pointerdown', event => {
-    if (!event.isPrimary || event.button !== 0 || event.target.closest('button')) return;
-    pointerStart = { id: event.pointerId, x: event.clientX, y: event.clientY };
-    stage.setPointerCapture(event.pointerId);
+    if (!event.isPrimary) { cancelDrag(); return; }
+    if (characters.length < 2 || event.button !== 0 || event.target.closest('button,a,select,input,textarea')) return;
+    cancelDrag();
+    drag = { id: event.pointerId, x: event.clientX, y: event.clientY, startedAt: event.timeStamp, horizontal: false };
+  });
+  stage.addEventListener('pointermove', event => {
+    if (!drag || event.pointerId !== drag.id) return;
+    if (event.pointerType === 'mouse' && !(event.buttons & 1)) { cancelDrag(); return; }
+    const dx = event.clientX - drag.x, dy = event.clientY - drag.y;
+    if (!drag.horizontal) {
+      if (Math.max(Math.abs(dx), Math.abs(dy)) < 10) return;
+      // Leave vertical gestures and pinch zoom to the browser.
+      if (Math.abs(dy) >= Math.abs(dx)) { cancelDrag(); return; }
+      if (Math.abs(dx) < Math.abs(dy) * 1.25) return;
+      drag.horizontal = true;
+      stage.setPointerCapture(event.pointerId);
+      stage.classList.add('is-dragging');
+    }
+    slidesRoot.style.setProperty('--drag-x', `${dx}px`);
   });
   stage.addEventListener('pointerup', event => {
-    if (!pointerStart || event.pointerId !== pointerStart.id) return;
-    const dx = event.clientX - pointerStart.x, dy = event.clientY - pointerStart.y;
-    pointerStart = null;
-    if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.5) selectCharacter(selected + (dx < 0 ? 1 : -1));
+    if (!drag || event.pointerId !== drag.id) return;
+    const dx = event.clientX - drag.x;
+    const elapsed = Math.max(1, event.timeStamp - drag.startedAt);
+    const threshold = Math.max(32, Math.min(64, stage.clientWidth * .14));
+    const flick = Math.abs(dx) >= 20 && elapsed <= 250 && Math.abs(dx) / elapsed >= .4;
+    const advance = drag.horizontal && (Math.abs(dx) >= threshold || flick);
+    cancelDrag();
+    if (advance) selectCharacter(selected + (dx < 0 ? 1 : -1));
   });
-  stage.addEventListener('pointercancel', () => { pointerStart = null; });
+  for (const type of ['pointercancel', 'lostpointercapture']) stage.addEventListener(type, event => {
+    // Touch starts with implicit capture on the hit child. Transferring it to
+    // the stage emits a bubbling lostpointercapture on that child, not a cancel.
+    if (drag?.id === event.pointerId && (type === 'pointercancel' || event.target === stage)) cancelDrag();
+  });
+  window.addEventListener('blur', cancelDrag);
+  window.addEventListener('resize', cancelDrag);
   reducedMotion.addEventListener('change', () => { if (characters.length) { clearTimeout(settleTimer); settle(); } });
   return { updateSaved, retryImage };
 }

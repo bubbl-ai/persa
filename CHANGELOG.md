@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- Mobile spotlight (2026-10-19, local and unpublished): make portraits follow
+  horizontal swipes/drags and snap on release, including short flicks. Move
+  the swipe hint next to the stage so browsing is discoverable before the
+  lower arrow controls. Keep vertical page scrolling, pinch zoom, keyboard
+  navigation, arrows, picker and shared character actions available.
+
 - More recognizable hairless costumes (2026-10-16, published on Vercel):
   add distinct clothing/headwear/prop recipes for Harry Potter, Michael Jackson
   and Joker while preserving the shared face and hairless hood. New selected

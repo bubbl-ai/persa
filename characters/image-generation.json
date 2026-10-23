@@ -1060,16 +1060,42 @@
       "kind": "muse-costume",
       "subjectId": "the-rock",
       "baseId": "persa-muse-v1",
-      "designVersion": "muse-costumes-v1",
+      "designVersion": "muse-rock-v4",
       "status": "generated",
       "tool": "built-in image_gen",
-      "createdAt": "2026-10-06",
+      "createdAt": "2026-10-23",
       "referenceAsset": "web/avatars/muse-costumes-v1/base.png",
-      "prompt": "Use case: identity-preserve\nAsset type: one image in a consistent collectible plush costume avatar series.\nInput image 1 is the EDIT TARGET: the original Muse plush master base character. Use it as an exact reference for the same character in every costume.\nPrimary request: create the named costume variant described below. The name is the inspiration for wardrobe only. The visible subject remains this same original Muse plush character.\nInvariants: preserve this exact cream plush hood shape, peach round face, small glossy black eyes and catchlights, tiny simple smile, rosy cheeks, compact round body proportions, stubby cream hands and feet, fuzzy cream material, front-facing view and camera. Face, expression, hood, body, and toy identity must remain unchanged. Change ONLY wardrobe, headwear, and held props, with minimal hand repositioning needed for props. No individual human likeness, no human hairstyle, no animal ears, no teeth, no franchise-shaped body.\nComposition/framing: square image, 1024x1024 preferred, complete full body including headwear and feet visible, centered, about 75 percent of canvas height. Match the base's front-facing camera, soft diffuse studio lighting, pale lilac #efedf8 backdrop and subtle ground shadow. Clothing must fit the existing short round toy rather than change its body.\nStyle/medium: premium soft 3D plush collectible with tactile clothing fabrics; match the master image's visual style.\nText: none. No logos, lettering, UI, borders or watermark.\n\nCostume variant: The Rock (the-rock).\nWardrobe/headwear/props: Charcoal athletic tee, black training trousers, trainers and a tiny foam dumbbell held in one hand. Keep identical round compact plush body, no muscles.",
-      "asset": "web/avatars/muse-costumes-v1/the-rock.png",
+      "prompt": "Use case: identity-preserve\nAsset type: one square collectible character preview for the Persa Muse gallery.\nInput image 1 is the EDIT TARGET and exact identity reference: the shared original cream plush Muse base.\nPrimary request: dress this same toy in a wardrobe inspired by The Rock's recognizable black turtleneck, gold chain and waist-bag outfit. Change only the clothing and accessories. This remains a cute Muse plush costume, not a human portrait.\nCostume: fitted soft black knit turtleneck with the collar entirely below the cream chin rim; a clearly visible single short gold chain necklace over the black chest; light blue denim trousers fitted to the existing short stubby legs; a compact dark brown leather-look zippered waist bag centered in front with its belt at the waist; small black shoes. Keep the chain on the chest, not overlapping the face. Both cream mitten hands are visible and relaxed beside the bag. No dumbbell or gym T-shirt.\nInvariants: preserve the reference's exact face opening, cream round hood, bead eyes and catchlights, tiny smile, rosy peach cheeks, fuzzy cream sherpa texture, short rounded mitten hands, head-to-body ratio and compact plush body. No wig, human scalp, hair, eyebrows, nose, facial hair, muscles, human skin, long legs or fingers. Do not narrow the cream rim or redesign the character.\nComposition: full body in a square, front-facing, centered, complete hood and both shoes visible, figure about 78% of canvas height. Clean plain white studio background, soft light and very faint floor shadow. Premium photographed plush material, tactile black knit and denim. Match the source toy identity closely.\nNo text, no lettering, logos, watermarks, badges, panels or interface. One character only.",
+      "asset": "web/avatars/muse-rock-v4/the-rock.png",
       "failure": null,
-      "inspection": "Inspected rendered output: same Muse face, cream hood and compact proportions. Correct costume, full body visible."
-    }
+      "inspection": "Inspected full-size output: cream hood and peach face, black knit turtleneck below the chin, one gold chain, light blue denim, centered dark brown zippered waist bag, visible cream mitten hands and both black shoes. Full body on white. Recognition comes from the outfit; no hair, muscles or dumbbell. Generated design preview, not a native Muse avatar; matching recipe has not been tested natively.",
+      "generation": {
+        "sourceExperiment": "2026-10-23-product-feedback",
+        "promptSha256": "eee1aec51fbfa07dfd08db9eb9bac8df85df67478f924d7eb08e0b02200c4ae2",
+        "outputSha256": "28b2bfdc28b3c55b46fc1d5a79af8e9ed6efcf9b4314468ed528dbd9eb85529b",
+        "width": 1254,
+        "height": 1254,
+        "imageModified": false,
+        "nativeMuseValidated": false
+      }
+    },
+    "supersededReplacements": [
+      {
+        "kind": "muse-costume",
+        "subjectId": "the-rock",
+        "baseId": "persa-muse-v1",
+        "designVersion": "muse-costumes-v1",
+        "status": "generated",
+        "tool": "built-in image_gen",
+        "createdAt": "2026-10-06",
+        "referenceAsset": "web/avatars/muse-costumes-v1/base.png",
+        "prompt": "Use case: identity-preserve\nAsset type: one image in a consistent collectible plush costume avatar series.\nInput image 1 is the EDIT TARGET: the original Muse plush master base character. Use it as an exact reference for the same character in every costume.\nPrimary request: create the named costume variant described below. The name is the inspiration for wardrobe only. The visible subject remains this same original Muse plush character.\nInvariants: preserve this exact cream plush hood shape, peach round face, small glossy black eyes and catchlights, tiny simple smile, rosy cheeks, compact round body proportions, stubby cream hands and feet, fuzzy cream material, front-facing view and camera. Face, expression, hood, body, and toy identity must remain unchanged. Change ONLY wardrobe, headwear, and held props, with minimal hand repositioning needed for props. No individual human likeness, no human hairstyle, no animal ears, no teeth, no franchise-shaped body.\nComposition/framing: square image, 1024x1024 preferred, complete full body including headwear and feet visible, centered, about 75 percent of canvas height. Match the base's front-facing camera, soft diffuse studio lighting, pale lilac #efedf8 backdrop and subtle ground shadow. Clothing must fit the existing short round toy rather than change its body.\nStyle/medium: premium soft 3D plush collectible with tactile clothing fabrics; match the master image's visual style.\nText: none. No logos, lettering, UI, borders or watermark.\n\nCostume variant: The Rock (the-rock).\nWardrobe/headwear/props: Charcoal athletic tee, black training trousers, trainers and a tiny foam dumbbell held in one hand. Keep identical round compact plush body, no muscles.",
+        "asset": "web/avatars/muse-costumes-v1/the-rock.png",
+        "failure": null,
+        "inspection": "Inspected rendered output: same Muse face, cream hood and compact proportions. Correct costume, full body visible.",
+        "retiredReason": "User chose the black turtleneck, gold chain and waist-bag costume on October 23, 2026. Original gym costume artwork and prompt retained as history."
+      }
+    ]
   },
   {
     "id": "spongebob",

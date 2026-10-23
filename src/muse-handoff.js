@@ -3,7 +3,7 @@ import { buildWigAvatarPrompt } from './muse-wigs.js';
 import { buildCostumeAvatarPrompt } from './muse-costume-recipes.js';
 
 // Curated previews use the same visual recipe as their native generation.
-// Three retained presets keep their original hairless wardrobe instructions.
+// The Rock has an updated wardrobe; two presets retain their original costumes.
 // Handoff recipes are versioned separately from gallery artwork/legacy prompts.
 const BASE_URL = 'https://persa.bubblai.com/avatars/muse-costumes-v1/base.png';
 const BASE_SHA256 = 'c428fd4d8608ca5bd5d72a5c3f49a20be680a739a94bb9e658e3f4be23a4ec2f';
@@ -14,16 +14,21 @@ const CATALOG_COSTUMES = new Set([
   'the-rock', 'spongebob', 'hello-kitty'
 ]);
 
-function catalogAvatarRecipe(costume) {
-  return `Generate four native Muse avatar candidates using the downloaded image as the character reference. Dress that exact cream plush toy in ${costume}.
+export function buildWardrobeAvatarPrompt(costume, { textOnly = false } = {}) {
+  const reference = textOnly
+    ? 'Generate four native Muse avatar candidates using the shared cream plush description above. This text-only prompt does not include an image reference.'
+    : 'Generate four native Muse avatar candidates using the downloaded image as the character reference.';
+  const source = textOnly ? 'described base' : 'source';
+  const referenceCheck = textOnly ? '' : 'If your native avatar generator cannot use the downloaded image as a generation reference, tell me before generating. ';
+  return `${reference} Dress that exact cream plush toy in ${costume}.
 
-Preserve the source face outline, bead-eye size and spacing, tiny stitched smile, cream hood contour, short curly sherpa texture, compact body, short limbs and standing front view. Change only clothing, headwear, accessories and the hand positions needed to hold the named props. Fit complete clothes over the source body without lengthening its legs or changing the head-to-body ratio. Both hands remain simple rounded, fingerless fleece mittens: no fingers, thumbs, fingernails or smooth human skin. If the costume includes gloves, change only the mitten covering, never the hand shape; uncovered hands stay cream.
+Preserve the ${source} face outline, bead-eye size and spacing, tiny stitched smile, cream hood contour, short curly sherpa texture, compact body, short limbs and standing front view. Change only clothing, headwear, accessories and the hand positions needed to hold the named props. Fit complete clothes over the ${source} body without lengthening its legs or changing the head-to-body ratio. Both hands remain simple rounded, fingerless fleece mittens: no fingers, thumbs, fingernails or smooth human skin. If the costume includes gloves, change only the mitten covering, never the hand shape; uncovered hands stay cream.
 
-Keep the cream hood visible and the source face recognizable. Any hats, bows, veils or earrings sit outside the hood without changing its shape or adding ears. Any glasses have clear lenses that leave both bead eyes visible. Wear any extra garment hood down behind the cream head hood. Keep the small props below the face. Do not add hair, facial hair, eyelashes, a nose, makeup, animal features, a different face or a different skin color. Costume references never replace the base with a human, animal or another mascot.
+Keep the cream hood visible and the ${source} face recognizable. Any hats, bows, veils or earrings sit outside the hood without changing its shape or adding ears. Any glasses have clear lenses that leave both bead eyes visible. Wear any extra garment hood down behind the cream head hood. Keep the small props below the face. Do not add hair, facial hair, eyelashes, a nose, makeup, animal features, a different face or a different skin color. Costume references never replace the base with a human, animal or another mascot.
 
 Keep realistic photographed plush material in every option, never a drawing or plastic figure. Every candidate should use the same character, costume, pose and style rather than proposing different designs. Show the full body with both feet visible on a plain white background. No text or logos.
 
-If your native avatar generator cannot use the downloaded image as a generation reference, tell me before generating. Show native Muse avatar candidates for me to choose from. Do not select or activate a candidate automatically.`;
+${referenceCheck}Show native Muse avatar candidates for me to choose from. Do not select or activate a candidate automatically.`;
 }
 
 /** Prepare a guided Muse web handoff. Opening the URL never sends the message. */
@@ -35,7 +40,7 @@ export function buildMuseHandoff(character, persona = character?.persona) {
     && typeof character.avatar?.costume === 'string' && character.avatar.costume.trim();
   if (!costumeRecipe && !wigRecipe && !catalogRecipe) return null;
   const personalityPrompt = compile(persona, 'muse').text;
-  const avatarPrompt = costumeRecipe || wigRecipe || catalogAvatarRecipe(character.avatar.costume);
+  const avatarPrompt = costumeRecipe || wigRecipe || buildWardrobeAvatarPrompt(character.avatar.costume);
   // The compiler omits its neutral "sparing" rule. State it here so switching
   // from a no-emoji character actually replaces that saved preference.
   const emojiSetting = persona.style?.emoji === 'never' ? 'its explicit no-emoji setting'
@@ -62,7 +67,7 @@ Show the native chooser and let me select the avatar. Sending this message is pe
   const url = new URL('https://muse.ai/');
   url.searchParams.set('prompt', prompt);
   return {
-    version: costumeRecipe ? 'muse-reference-costume-v4' : wigRecipe ? 'muse-reference-wig-v3' : 'muse-reference-wardrobe-v2',
+    version: costumeRecipe ? 'muse-reference-costume-v4' : wigRecipe ? 'muse-reference-wig-v3' : character.id === 'the-rock' ? 'muse-reference-wardrobe-v5' : 'muse-reference-wardrobe-v2',
     characterId: character.id,
     prompt,
     url: url.href,

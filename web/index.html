@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Persa — In the spotlight</title>
-  <meta name="description" content="Meet the Muse wardrobe on a soft, sliding spotlight stage. Choose a personality, tune its voice, and take your character combo into Muse.">
+  <title>Persa — Personality + avatars for Muse</title>
+  <meta name="description" content="Discover Persa's curated character combos for Muse. Pair a personality with a matching avatar, tune the voice, and open the prepared combo in Muse.">
   <link rel="icon" href="/favicon.svg">
   <link rel="stylesheet" href="/styles.css">
   <link rel="stylesheet" href="/spotlight.css">
@@ -20,22 +20,29 @@
     </nav>
   </header>
   <main>
-    <div class="intro"><p class="eyebrow">One Muse. Many personalities.</p><h1>In the spotlight.</h1></div>
+    <section class="intro persa-intro" aria-labelledby="intro-title">
+      <div class="persa-intro-copy">
+        <p class="eyebrow">The Persa collection · Made for Muse</p>
+        <h1 id="intro-title">A little more personality.</h1>
+        <p class="intro-description">Give your Muse a distinct voice and a matching look. Explore Persa’s curated character combos, with a personality and avatar design prepared together.</p>
+        <ul class="combo-includes" aria-label="Every character combo includes"><li>A distinct voice</li><li>A matching look</li><li>One prepared combo</li></ul>
+      </div>
+    </section>
     <section class="showcase" aria-label="Muse character spotlight" aria-roledescription="carousel">
       <div class="stage" id="stage" tabindex="0" aria-label="Character stage. Swipe left or right, or use the arrow keys to browse." aria-describedby="stage-personality browse-hint" aria-busy="true">
-        <div class="stage-topline" aria-hidden="true"><span>The Muse wardrobe</span><span id="stage-count">— / 18</span></div>
+        <div class="stage-topline" aria-hidden="true"><span>The Persa collection</span><span id="stage-count">— / 18</span></div>
         <div class="stage-halo" aria-hidden="true"></div>
         <div class="spotlight-beam" aria-hidden="true"></div>
         <div class="floor-light" aria-hidden="true"></div>
         <div class="slides" id="slides"></div>
-        <p class="stage-message" id="stage-message" role="status">Opening the wardrobe…</p>
+        <p class="stage-message" id="stage-message" role="status">Opening the collection…</p>
         <button class="retry" id="retry" hidden>Try again</button>
         <p class="stage-personality" id="stage-personality"></p>
       </div>
       <p class="stage-browse-hint" id="browse-hint"><span aria-hidden="true">↔</span> Swipe or drag to explore</p>
       <div class="character-panel">
         <div class="character-info" id="character-info" aria-busy="true">
-          <p class="character-kicker" id="character-kicker">Personality + Muse costume</p>
+          <p class="character-kicker" id="character-kicker">Personality + Muse avatar</p>
           <h2 id="character-name">A moment for your Muse.</h2>
           <p class="character-subtitle" id="character-subtitle">Choose a character to take the stage.</p>
           <div class="spotlight-actions">
@@ -43,7 +50,7 @@
             <button class="button secondary" id="spotlight-customize" disabled>Tune personality</button>
             <button class="spotlight-save" id="spotlight-save" aria-label="Save character" aria-pressed="false" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></svg></button>
           </div>
-          <div class="spotlight-help"><p class="handoff-guidance" id="spotlight-guidance">Send the message in Muse, then choose your avatar.</p><button class="text-button setup-options" id="spotlight-setup" disabled>Setup options</button></div>
+          <div class="spotlight-help"><p class="handoff-guidance" id="spotlight-guidance">In Muse: press Send, choose an avatar, then click Select.</p><button class="text-button setup-options" id="spotlight-setup" disabled>Setup options</button></div>
         </div>
         <div class="navigation">
           <button class="arrow" id="previous" aria-label="Previous character" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6M8 12h12"/></svg></button>
@@ -56,10 +63,19 @@
       </div>
       <p class="sr-only" id="announcement" role="status" aria-live="polite" aria-atomic="true"></p>
     </section>
+    <section class="how-it-works" aria-labelledby="how-title">
+      <div class="journey-heading"><p class="eyebrow">From the collection to your Muse</p><h2 id="how-title">Your character, in three steps.</h2></div>
+      <ol class="journey-steps">
+        <li><span class="journey-number" aria-hidden="true">01</span><div><h3>Pick your combo</h3><p>Find a personality and matching avatar you love. Tune the voice if you like.</p></div></li>
+        <li><span class="journey-number" aria-hidden="true">02</span><div><h3>Open in Muse</h3><p>One click takes your prepared combo to Muse. Sign in if needed.</p></div></li>
+        <li><span class="journey-number" aria-hidden="true">03</span><div><h3>Send, then select</h3><p>Press Send in Muse. Choose your generated avatar and click Select.</p></div></li>
+      </ol>
+      <p class="journey-note">Muse creates a fresh avatar, so it may differ from the preview. If your message doesn’t appear, use Setup options beside Open in Muse.</p>
+    </section>
     <section class="home-collection" id="home-collection" aria-labelledby="collection-title" aria-busy="true">
       <div class="collection-head">
         <h2 class="collection-title" id="collection-title">All characters <span id="home-collection-count">/ 18</span></h2>
-        <span class="collection-note">Find your kind of company.</span>
+        <span class="collection-note">A personality. A matching look. Your kind of company.</span>
       </div>
       <p class="collection-status" id="home-collection-status" role="status">Opening the collection…</p>
       <div class="grid" id="home-character-grid"></div>

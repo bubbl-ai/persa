@@ -1,5 +1,6 @@
 import { wigStyles } from '../src/muse-wigs.js';
 import { costumeStyles, buildCostumeAvatarPrompt } from '../src/muse-costume-recipes.js';
+import { buildWardrobeAvatarPrompt } from '../src/muse-handoff.js';
 
 // One shared character, with a wardrobe for each personality preset.
 export const avatarDesign = Object.freeze({
@@ -12,7 +13,7 @@ export const avatarDesign = Object.freeze({
 
 // Curated costumes live beside their native recipe; retained costumes stay here.
 export const costumes = Object.freeze({
-  'the-rock': 'a charcoal athletic T-shirt, black training trousers, trainers, and a tiny foam dumbbell',
+  'the-rock': 'a soft black knit turtleneck with its collar entirely below the cream chin rim, one short gold chain on the chest, light blue denim trousers fitted to the existing stubby legs, a compact dark brown leather-look zippered waist bag centered on the front with its belt at the waist, and small black shoes; both cream mitten hands remain visible and relaxed beside the bag; no dumbbell, gym T-shirt or muscles',
   'spongebob': 'a yellow knit vest over a white collared shirt, a red tie, brown shorts, white socks, and black shoes',
   'hello-kitty': 'a red bow beside the hood, red overalls, and a white shirt',
   ...Object.fromEntries(Object.entries(costumeStyles).map(([id, style]) => [id, style.costume])),
@@ -24,6 +25,18 @@ export function avatarFor(id, name) {
   const wig = Object.hasOwn(wigStyles, id) ? wigStyles[id] : null;
   const costume = costumeStyle?.costume || wig?.costume || costumes[id];
   if (!costume) throw new Error(`Missing Muse costume: ${id}`);
+  if (id === 'the-rock') {
+    return {
+      preview: '/avatars/muse-rock-v4/the-rock.png',
+      designVersion: 'muse-rock-v4',
+      baseId: avatarDesign.baseId,
+      basePreview: avatarDesign.basePreview,
+      costume,
+      previewSource: 'imagegen',
+      previewSelection: 'design-preview',
+      prompt: `Please create a ${name}-inspired costume for my Muse. This is a text-only description of the avatar.\n\nSHARED BASE\n${avatarDesign.base}\n\n${buildWardrobeAvatarPrompt(costume, { textOnly: true })}`
+    };
+  }
   if (costumeStyle) {
     return {
       preview: `/avatars/muse-costume-cues-v3/${id}.webp`,

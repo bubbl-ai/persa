@@ -6,13 +6,21 @@
 
 **Try the Muse character website:** [persa.bubblai.com](https://persa.bubblai.com). The spotlight homepage is public on Vercel under Bubbl's domain: anyone with the link can view it. Each character pairs a personality with a matching avatar prompt. All 18 characters have a direct **Open in Muse** link; the [all-character handoff report](docs/MUSE_ALL_CHARACTER_HANDOFF.md) records validation, known avatar-quality limitations and deployment status. One click takes the chosen combo from Persa to a prepared Muse message. Users still press Send and choose an avatar in Muse.
 
-The October 16 avatar updates are **live on [persa.bubblai.com](https://persa.bubblai.com)**. The collection
+The October 16 avatar updates are **live on [persa.bubblai.com](https://persa.bubblai.com)**. That release
 combines 12 wig presets, three new hairless costume interpretations for Harry
 Potter, Michael Jackson and Joker, and three retained hairless PNG previews.
 The [costume follow-up](docs/MUSE_COSTUME_RECOGNITION.md) records current
 curation, validation and deployment; the earlier [wig rollout](docs/MUSE_WIG_ROLLOUT.md)
 keeps its separate results. A selected native preview is an example output;
 Muse can generate a different result from the same instructions.
+
+The October 23 product-feedback update is implemented and verified locally;
+publication is pending. It adds a clearer description and visible setup steps,
+packages each preset as one curated combo, and replaces The Rock's gym outfit
+with the approved turtleneck, chain and waist-bag look. The local collection has
+15 selected native Muse previews, one new built-in image-generation preview for
+The Rock, and two retained PNGs. Character animation was reviewed and deferred.
+See [the feedback record](docs/MUSE_AVATAR_DESIGN.md#product-feedback--october-23-2026).
 
 Personal agents in 2026 are good at doing things and bad at sounding like anything. Most ship one house voice; the ones that let you change it make you write a system prompt from scratch, per agent, and rewrite it when you change your mind. Persa makes the personality a small file you own, and handles the rest.
 
@@ -27,7 +35,7 @@ These commands run from a source checkout; see [Install](#install). The reposito
 
 ## Current product focus
 
-**Direction updated October 16, 2026: Meta Muse remains Persa's primary focus. Every preset pairs a personality with one shared Muse-style plush character wearing its costume and, where appropriate, a removable wig.** Grok Bot personality compatibility is secondary.
+**Direction updated October 23, 2026: Meta Muse remains Persa's primary focus. Every preset pairs a personality with one shared Muse-style plush character wearing its costume and, where appropriate, a removable wig.** Grok Bot personality compatibility is secondary.
 
 ### Default Muse character combos
 
@@ -67,9 +75,17 @@ Primary-source review and earlier desktop tests: October 5, 2026. Native avatar-
 - **Muse combo behavior:** The [initial Mona Lisa test](docs/MUSE_VALIDATION.md) and [batch validation](docs/MUSE_BATCH_VALIDATION.md) verified avatar activation/persistence for 13 older likeness-based combos. The [October 14 repeat matrix](docs/MUSE_HANDOFF_RELIABILITY.md) covers three hairless costume recipes; the [October 15 record](docs/MUSE_ALL_CHARACTER_HANDOFF.md) separately tracks compatibility for the additional 15. Sequential preset replacement can retain omitted preferences, so the wrapper explicitly replaces the authored voice/emoji settings. Fresh side chats share account context. Automatic application, current-costume selection/persistence, removal and synchronization remain unverified.
 - **Secondary Grok Bot compatibility:** Official guidance puts durable preferences in the Bot's Description and supports sharing an existing Bot through a template link. Recipients review it and add their own copy in Grok Bot. This is a possible personality distribution path; generating those templates directly from Persa has not been verified. The existing `grok` compiler target describes a different Custom Agent flow, so its 4,000-character budget is not a verified Grok Bot limit. See [Create and manage Bots](https://docs.x.ai/grok-bot/bots) and [Templates for Grok Bot](https://x.ai/bot/guides/templates-for-grok-bot).
 
-### Website status — October 16, 2026
+### Website status — October 23, 2026
 
 The website implementation lives in [`web/`](web/), with paired character definitions in [`characters/catalog.js`](characters/catalog.js). The homepage at `/` has a white, borderless spotlight stage with the featured personality's three adjectives beneath the portrait. The stage has direct **Open in Muse**, **Tune personality**, save and optional **Setup options** controls. All 18 character tiles appear below the spotlight with their own direct Muse links; **All characters** scrolls to that grid. The standalone grid remains at `/collection.html`, and saved combos are available at `/collection.html?view=saved`. The old `/spotlight.html` demo link redirects to the homepage.
+
+The local October 23 update adds a hero explaining what a Persa combo includes,
+plus visible **Pick your combo → Open in Muse → Send, then select** steps.
+Curated packaging emphasizes the paired personality and avatar instructions;
+it does not claim an exclusive license, official partnership or automatic
+application. Existing spotlight transitions and swipe behavior remain; true
+character gestures and audio are deferred. These local changes are not yet a
+verified public release.
 
 Sites version **6** was published successfully on October 9, 2026 (Asia/Taipei), from source commit `f5de98c1c43fdfdfeff9e14b69106ece6c2a7517`, with the existing public audience unchanged. The costume artwork first shipped in version 4; version 6 makes the approved stage the homepage and connects the existing combo controls. See the [publication record](docs/MUSE_AVATAR_DESIGN.md#publication-status).
 
@@ -102,13 +118,16 @@ The current collection uses `muse-reference-wig-v3` for 12 wig presets and
 `muse-reference-costume-v4` for Harry Potter, Michael Jackson and Joker. Their
 shared visual builders supply both native trials and complete combos; the
 text-only fallbacks omit image-reference claims while matching the active
-costume and any hairstyle. The Rock, SpongeBob and Hello Kitty retain their
-original PNGs and exact `muse-reference-wardrobe-v2` messages. The new three
+costume and any hairstyle. SpongeBob and Hello Kitty retain their original PNGs
+and exact `muse-reference-wardrobe-v2` messages. The local October 23 Rock update
+uses a new `muse-rock-v4` generated PNG and `muse-reference-wardrobe-v5` message;
+its native Muse recipe has not been validated. The three October 16 hairless
 costume recipes add no hair or facial changes; the earlier blocked hair
 requests remain recorded as history.
 
 Complete-combo copy, links, displayed instructions and export use one handoff
-builder. The costume follow-up preserves the other 15 payloads, all personality
+builder. The October 16 costume follow-up preserved the other 15 payloads;
+the October 23 Rock update preserves the other 17. Both retain personality
 definitions, character IDs, favorites and saved tone settings. See the
 [costume follow-up](docs/MUSE_COSTUME_RECOGNITION.md) and earlier
 [wig rollout](docs/MUSE_WIG_ROLLOUT.md) for validation and publication status.
@@ -193,7 +212,7 @@ retire or redirect that address.
 | [`characters/avatar-design.js`](characters/avatar-design.js) | Shared Muse base, versioned preview metadata and paired text-only avatar prompts; curated presets read costume and applicable hairstyle data from their shared visual builders. |
 | [`src/muse-wigs.js`](src/muse-wigs.js) | Canonical costume, hairstyle and visual recipe for 12 wig presets, shared by native preview trials and production combo construction. |
 | [`src/muse-costume-recipes.js`](src/muse-costume-recipes.js) | Canonical hairless costume recipes for Harry, Michael and Joker, shared by native trials and `muse-reference-costume-v4` combos; `textOnly: true` builds the matching fallback without an image-reference claim. |
-| [`src/muse-handoff.js`](src/muse-handoff.js) | Browser-safe prepared-message builder for all 18 presets, using the Muse compiler and fixed public reference URL/checksum. Twelve wigs use v3, three new hairless costumes use v4, and three retained hairless presets use wardrobe v2. One payload supplies links, complete-combo copying, displayed instructions and export. |
+| [`src/muse-handoff.js`](src/muse-handoff.js) | Browser-safe prepared-message builder for all 18 presets, using the Muse compiler and fixed public reference URL/checksum. Twelve wigs use v3, three native hairless costumes use v4, The Rock uses wardrobe v5, and SpongeBob/Hello Kitty retain wardrobe v2. One payload supplies links, complete-combo copying, displayed instructions and export. |
 | [`characters/image-generation.json`](characters/image-generation.json) | Exact art prompts, output paths, and historical outcomes. Active costume replacements use `kind: "muse-costume"` with matching `subjectId`, `baseId`, and `designVersion`; earlier attempts are preserved. |
 | [`characters/avatar-design-generation.json`](characters/avatar-design-generation.json) | Shared reference image provenance and exact generation prompt. |
 | [`web/avatars/`](web/avatars/) | Curated native WebPs, retained costume PNGs and historical source art. The build ships only currently referenced images and their shared base. |

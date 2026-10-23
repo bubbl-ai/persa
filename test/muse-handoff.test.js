@@ -4,7 +4,7 @@ import { readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { characters } from '../characters/catalog.js';
 import { compile } from '../src/compile.js';
-import { buildMuseHandoff } from '../src/muse-handoff.js';
+import { buildMuseHandoff, buildWardrobeAvatarPrompt } from '../src/muse-handoff.js';
 import { buildWigAvatarPrompt, wigStyles } from '../src/muse-wigs.js';
 import { buildCostumeAvatarPrompt, costumeStyles } from '../src/muse-costume-recipes.js';
 
@@ -19,7 +19,7 @@ test('reference handoff covers every catalog character and rejects unknown IDs',
   }
 });
 
-test('the roster uses 12 wig recipes, three costume recipes and three retained hairless recipes', () => {
+test('the roster uses 12 wig recipes, three costume recipes and three hairless wardrobe recipes', () => {
   const recipes = new Set();
   let wigs = 0, costumes = 0, retained = 0;
   for (const preset of characters) {
@@ -46,7 +46,7 @@ test('the roster uses 12 wig recipes, three costume recipes and three retained h
       assert.match(result.avatarPrompt, /Recognition comes only from the specified clothing, headwear and props/);
     } else {
       retained++;
-      assert.equal(result.version, 'muse-reference-wardrobe-v2');
+      assert.equal(result.version, preset.id === 'the-rock' ? 'muse-reference-wardrobe-v5' : 'muse-reference-wardrobe-v2');
       assert.match(result.avatarPrompt, /Dress that exact cream plush toy/);
       assert.match(result.avatarPrompt, /Preserve the source face outline/);
       assert.match(result.avatarPrompt, /Do not add hair/);
@@ -100,7 +100,7 @@ test('Barbie and SpongeBob replace old no-emoji settings with their sparing pref
   assert.match(buildMuseHandoff(character('mona-lisa'), tuned).prompt, /permission to use emoji sparingly/);
 });
 
-test('the 15 unrelated handoffs retain their recorded versions and exact payload hashes', () => {
+test('the 17 handoffs unrelated to the Rock wardrobe update retain their exact payloads', () => {
   const baseline = {
     "wednesday": {
       "version": "muse-reference-wig-v3",
@@ -150,9 +150,17 @@ test('the 15 unrelated handoffs retain their recorded versions and exact payload
       "version": "muse-reference-wig-v3",
       "promptSha256": "13eaa190f63c39bea09ab405ad22f44f7feb1f8a7c1c68462263272a5e47ba0e"
     },
-    "the-rock": {
-      "version": "muse-reference-wardrobe-v2",
-      "promptSha256": "0a181703c7fe292567f01617a733109db01e20f466a27885506b417cd0754766"
+    "harry-potter": {
+      "version": "muse-reference-costume-v4",
+      "promptSha256": "95fd6e1262db5d8fcf19cd3b33c3ba6d6d3557bccaf7bb558a7f1c0fc9ac7170"
+    },
+    "michael-jackson": {
+      "version": "muse-reference-costume-v4",
+      "promptSha256": "c6ff581beda7b0335eb410bd2bc67638d27932edd236a83aca540da8625b126d"
+    },
+    "joker": {
+      "version": "muse-reference-costume-v4",
+      "promptSha256": "5058377fb794d9855cf68a25197f4bc3ebc3be2aaf37bcbbf91dba21ca7df386"
     },
     "spongebob": {
       "version": "muse-reference-wardrobe-v2",
@@ -163,7 +171,7 @@ test('the 15 unrelated handoffs retain their recorded versions and exact payload
       "promptSha256": "d4f0b75358d21885a4dbd07599dcdcfc8cacffeeb8bbba6912ecb5ddaf401ae2"
     }
   };
-  assert.equal(Object.keys(baseline).length, 15);
+  assert.equal(Object.keys(baseline).length, 17);
   for (const [id, recorded] of Object.entries(baseline)) {
     const result = buildMuseHandoff(character(id));
     assert.equal(result.version, recorded.version, id);
@@ -231,7 +239,7 @@ test('wig catalog metadata and text-only fallback match their native visual reci
   for (const preset of characters) {
     const wig = Object.hasOwn(wigStyles, preset.id) ? wigStyles[preset.id] : null;
     if (!wig) {
-      if (Object.hasOwn(costumeStyles, preset.id)) continue;
+      if (Object.hasOwn(costumeStyles, preset.id) || preset.id === 'the-rock') continue;
       assert.equal(preset.avatar.designVersion, 'muse-costumes-v1');
       assert.match(preset.avatar.prompt, /Do not add human hair/);
       assert.equal(preset.avatar.hairstyle, undefined);
@@ -249,6 +257,33 @@ test('wig catalog metadata and text-only fallback match their native visual reci
     assert.doesNotMatch(preset.avatar.prompt, /Do not add human hair|using the downloaded image|using the attached image/i);
     assert.match(preset.avatar.prompt, /plain white/);
   }
+});
+
+test('the Rock design preview and text-only fallback share the new wardrobe without claiming native validation', () => {
+  const preset = character('the-rock');
+  const { avatar } = preset;
+  const handoff = buildMuseHandoff(preset);
+  assert.equal(avatar.designVersion, 'muse-rock-v4');
+  assert.equal(avatar.preview, '/avatars/muse-rock-v4/the-rock.png');
+  assert.equal(avatar.previewSource, 'imagegen');
+  assert.equal(avatar.previewSelection, 'design-preview');
+  assert.equal(avatar.hairstyle, undefined);
+  assert.equal(handoff.version, 'muse-reference-wardrobe-v5');
+  assert.equal(handoff.avatarPrompt, buildWardrobeAvatarPrompt(avatar.costume));
+  assert.ok(avatar.prompt.endsWith(buildWardrobeAvatarPrompt(avatar.costume, { textOnly: true })));
+  for (const prompt of [avatar.prompt, handoff.avatarPrompt]) {
+    assert.match(prompt, /black knit turtleneck/);
+    assert.match(prompt, /collar entirely below the cream chin rim/);
+    assert.match(prompt, /one short gold chain on the chest/);
+    assert.match(prompt, /light blue denim trousers/);
+    assert.match(prompt, /dark brown leather-look zippered waist bag centered on the front/);
+    assert.match(prompt, /cream mitten hands remain visible and relaxed beside the bag/);
+    assert.match(prompt, /no dumbbell, gym T-shirt or muscles/);
+    assert.match(prompt, /plain white background/);
+    assert.doesNotMatch(prompt, /charcoal athletic T-shirt|tiny foam dumbbell|pale lilac/);
+  }
+  assert.match(avatar.prompt, /text-only prompt does not include an image reference/);
+  assert.doesNotMatch(avatar.prompt, /downloaded|attached|source face/);
 });
 
 test('curated hairless costumes export a matching text-only recipe without a reference claim', () => {

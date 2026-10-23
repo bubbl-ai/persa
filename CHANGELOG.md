@@ -2,6 +2,20 @@
 
 ## Unreleased
 
+- Product feedback (2026-10-23, locally verified; publication pending): explain
+  Persa's curated personality-plus-avatar combos on the homepage and show a
+  visible three-step path: pick a combo, **Open in Muse**, then **Send** and
+  **Select**. Keep direct links for all 18 and optional setup/copy fallbacks;
+  packaging does not imply automatic installation or exact preview import.
+  Assess and defer character animation: current stage motion stays unchanged.
+  Replace The Rock's generic gym outfit with the approved black turtleneck,
+  gold chain, brown waist bag, light-blue denim and black shoes on the shared
+  plush base. The new `muse-rock-v4` preview comes from built-in image generation,
+  not Muse. Version only its changed combo as `muse-reference-wardrobe-v5`;
+  preserve the other 17 payloads and all earlier artwork/provenance. The new
+  native recipe and completed-login transfer remain unverified. See the
+  [feedback record](docs/MUSE_AVATAR_DESIGN.md#product-feedback--october-23-2026).
+
 - Mobile spotlight (implemented 2026-10-19, published 2026-10-21): make portraits follow
   horizontal swipes/drags and snap on release, including short flicks. Move
   the swipe hint next to the stage so browsing is discoverable before the

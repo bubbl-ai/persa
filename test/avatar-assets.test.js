@@ -40,6 +40,24 @@ test('every shipped character keeps its named avatar prompt and resolves to a pr
   }
 });
 
+test('the Rock preview preserves the generated image bytes and retired gym costume provenance', async () => {
+  const records = JSON.parse(await readFile(new URL('../characters/image-generation.json', import.meta.url), 'utf8'));
+  const record = records.find(item => item.id === 'the-rock');
+  const image = record.replacement;
+  const bytes = await readFile(new URL(`../${image.asset}`, import.meta.url));
+  assert.equal(image.designVersion, 'muse-rock-v4');
+  assert.equal(image.tool, 'built-in image_gen');
+  assert.equal(image.nativeGeneration, undefined);
+  assert.equal(image.generation.nativeMuseValidated, false);
+  assert.equal(image.generation.imageModified, false);
+  assert.equal(image.generation.outputSha256, createHash('sha256').update(bytes).digest('hex'));
+  assert.equal(image.generation.promptSha256, createHash('sha256').update(image.prompt).digest('hex'));
+  const retired = record.supersededReplacements.find(item => item.designVersion === 'muse-costumes-v1');
+  assert.equal(retired.asset, 'web/avatars/muse-costumes-v1/the-rock.png');
+  assert.match(retired.prompt, /tiny foam dumbbell/);
+  assert.ok((await readFile(new URL(`../${retired.asset}`, import.meta.url))).length > 0);
+});
+
 test('a declined original can use a matching character rendering without rewriting its history', async t => {
   const root = await fixture(t);
   const record = { ...declined, replacement: { status: 'generated', kind: 'character', subjectId: 'sample', asset: generated.asset } };

@@ -54,7 +54,7 @@ export function mountSpotlight({ characters, saved, getHandoff }) {
     });
     document.querySelector('#character-name').textContent = character.name;
     document.querySelector('#character-subtitle').textContent = character.subtitle;
-    document.querySelector('#character-kicker').textContent = 'Personality + Muse costume';
+    document.querySelector('#character-kicker').textContent = 'Personality + Muse avatar';
     document.querySelector('#stage-personality').textContent = character.tags.join(' · ');
     const count = `${String(selected + 1).padStart(2, '0')} / ${characters.length}`;
     document.querySelector('#stage-count').textContent = count;

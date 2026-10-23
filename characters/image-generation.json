@@ -1066,7 +1066,7 @@
       "createdAt": "2026-10-23",
       "referenceAsset": "web/avatars/muse-costumes-v1/base.png",
       "prompt": "Use case: identity-preserve\nAsset type: one square collectible character preview for the Persa Muse gallery.\nInput image 1 is the EDIT TARGET and exact identity reference: the shared original cream plush Muse base.\nPrimary request: dress this same toy in a wardrobe inspired by The Rock's recognizable black turtleneck, gold chain and waist-bag outfit. Change only the clothing and accessories. This remains a cute Muse plush costume, not a human portrait.\nCostume: fitted soft black knit turtleneck with the collar entirely below the cream chin rim; a clearly visible single short gold chain necklace over the black chest; light blue denim trousers fitted to the existing short stubby legs; a compact dark brown leather-look zippered waist bag centered in front with its belt at the waist; small black shoes. Keep the chain on the chest, not overlapping the face. Both cream mitten hands are visible and relaxed beside the bag. No dumbbell or gym T-shirt.\nInvariants: preserve the reference's exact face opening, cream round hood, bead eyes and catchlights, tiny smile, rosy peach cheeks, fuzzy cream sherpa texture, short rounded mitten hands, head-to-body ratio and compact plush body. No wig, human scalp, hair, eyebrows, nose, facial hair, muscles, human skin, long legs or fingers. Do not narrow the cream rim or redesign the character.\nComposition: full body in a square, front-facing, centered, complete hood and both shoes visible, figure about 78% of canvas height. Clean plain white studio background, soft light and very faint floor shadow. Premium photographed plush material, tactile black knit and denim. Match the source toy identity closely.\nNo text, no lettering, logos, watermarks, badges, panels or interface. One character only.",
-      "asset": "web/avatars/muse-rock-v4/the-rock.png",
+      "asset": "web/avatars/muse-rock-v4/the-rock.webp",
       "failure": null,
       "inspection": "Inspected full-size output: cream hood and peach face, black knit turtleneck below the chin, one gold chain, light blue denim, centered dark brown zippered waist bag, visible cream mitten hands and both black shoes. Full body on white. Recognition comes from the outfit; no hair, muscles or dumbbell. Generated design preview, not a native Muse avatar; matching recipe has not been tested natively.",
       "generation": {
@@ -1076,7 +1076,25 @@
         "width": 1254,
         "height": 1254,
         "imageModified": false,
-        "nativeMuseValidated": false
+        "nativeMuseValidated": false,
+        "asset": "web/avatars/muse-rock-v4/the-rock.png"
+      },
+      "displayDerivative": {
+        "asset": "web/avatars/muse-rock-v4/the-rock.webp",
+        "sourceAsset": "web/avatars/muse-rock-v4/the-rock.png",
+        "sourceSha256": "28b2bfdc28b3c55b46fc1d5a79af8e9ed6efcf9b4314468ed528dbd9eb85529b",
+        "outputSha256": "b20bd9dd45a3b99538ed5cbc90653315702876493b4f843e2bf802e71bf02a2b",
+        "codec": "WebP",
+        "lossy": true,
+        "encoder": "cwebp 1.6.0",
+        "quality": 85,
+        "method": 6,
+        "sourceBytes": 1876418,
+        "outputBytes": 115762,
+        "width": 1254,
+        "height": 1254,
+        "transformation": "Format compression only. No resizing, cropping or artwork edits. The original generated PNG remains unchanged.",
+        "inspection": "Inspected the WebP at full size against the original PNG: the same face, cream hood, chain, black knit, denim, waist bag and full-body framing remain visible. Minor lossy texture smoothing does not change the design."
       }
     },
     "supersededReplacements": [

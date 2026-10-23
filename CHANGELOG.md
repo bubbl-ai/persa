@@ -11,7 +11,9 @@
   Replace The Rock's generic gym outfit with the approved black turtleneck,
   gold chain, brown waist bag, light-blue denim and black shoes on the shared
   plush base. The new `muse-rock-v4` preview comes from built-in image generation,
-  not Muse. Version only its changed combo as `muse-reference-wardrobe-v5`;
+  not Muse. Serve a 116KB WebP display derivative after the original 1.88MB PNG
+  caused live loading timeouts; retain the original image and both hashes.
+  Version only its changed combo as `muse-reference-wardrobe-v5`;
   preserve the other 17 payloads and all earlier artwork/provenance. The new
   native recipe and completed-login transfer remain unverified. See the
   [feedback record](docs/MUSE_AVATAR_DESIGN.md#product-feedback--october-23-2026).

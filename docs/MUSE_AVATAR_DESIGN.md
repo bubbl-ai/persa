@@ -51,7 +51,7 @@ The catalog owns these public identifiers:
 - Base: `persa-muse-v1`.
 - Native wig assets: original 1600px `.webp` outputs under `web/avatars/muse-wigs-v2/`, copied unchanged after curation.
 - Native hairless costume assets: unchanged selected `.webp` outputs under `web/avatars/muse-costume-cues-v3/`.
-- New Rock preview: `web/avatars/muse-rock-v4/the-rock.png`, generated with the built-in image tool from the shared base, not native Muse output.
+- New Rock preview: `web/avatars/muse-rock-v4/the-rock.webp`, a compressed display derivative of the original generated `.png` beside it. The built-in image tool used the shared base; this is not native Muse output.
 - Retained PNGs (SpongeBob/Hello Kitty) and shared base: `web/avatars/muse-costumes-v1/`; superseded artwork, including the October 6 Rock costume, remains historical source material.
 - Canonical wig costumes, hairstyles and visual instructions: `src/muse-wigs.js`.
 - Canonical hairless recognition recipes and text-only fallback: `src/muse-costume-recipes.js`.
@@ -215,6 +215,13 @@ The built-in image-generation tool produced one new preview from
 stored at `web/avatars/muse-rock-v4/the-rock.png` without modifying its bytes;
 its SHA-256 is
 `28b2bfdc28b3c55b46fc1d5a79af8e9ed6efcf9b4314468ed528dbd9eb85529b`.
+The website serves a WebP display derivative at
+`web/avatars/muse-rock-v4/the-rock.webp`: 115,762 bytes versus 1,876,418 bytes
+for the original PNG (93.83% smaller), at the same 1254×1254 dimensions.
+Encoding uses `cwebp` quality 85/method 6, with no cropping or resizing. The
+original PNG remains unchanged; the derivative has minor texture smoothing
+and retains the reviewed design. Its SHA-256 is
+`b20bd9dd45a3b99538ed5cbc90653315702876493b4f843e2bf802e71bf02a2b`.
 The exact generation prompt, reference, inspection and output hash are in
 [`characters/image-generation.json`](../characters/image-generation.json),
 under `id: "the-rock"` → `replacement`. The old gym preview and prompt remain
@@ -234,6 +241,23 @@ persistence inside Muse. This artwork review does not establish native
 recognizability, repeated reliability or exact reproduction. Publication results will be recorded separately. Private
 screenshots and test evidence stay outside Git under
 `/Users/zachwang/bubbl/persa-test-results/2026-10-23-product-feedback/`.
+
+### Live loading issue and display derivative
+
+The first production smoke after source `407d5fa` passed 22/24 checks, including
+eight served-file hashes, the homepage explanation, direct links and mobile
+swiping. The original Rock PNG was valid but exceeded image-load timeouts at
+1440px and 390px. Focused retries at a 45-second bound also timed out; direct
+HTTP timing showed a slow download on the test connection. The 320px browser
+check decoded all three image surfaces. This was a delivery-size issue rather
+than invalid image content.
+
+The follow-up changes only Rock's display format to WebP, preserves the source
+PNG and records both assets in the manifest. All 18 complete handoff payloads
+and versions remain unchanged by compression. The 30 focused asset/handoff
+tests and website build passed after this change. Live verification of the
+smaller image will be recorded with the final publication result. Initial
+failures and timing evidence remain in the feedback evidence folder.
 
 ### Local verification
 

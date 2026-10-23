@@ -27,7 +27,7 @@ export function avatarFor(id, name) {
   if (!costume) throw new Error(`Missing Muse costume: ${id}`);
   if (id === 'the-rock') {
     return {
-      preview: '/avatars/muse-rock-v4/the-rock.png',
+      preview: '/avatars/muse-rock-v4/the-rock.webp',
       designVersion: 'muse-rock-v4',
       baseId: avatarDesign.baseId,
       basePreview: avatarDesign.basePreview,

@@ -264,7 +264,7 @@ test('the Rock design preview and text-only fallback share the new wardrobe with
   const { avatar } = preset;
   const handoff = buildMuseHandoff(preset);
   assert.equal(avatar.designVersion, 'muse-rock-v4');
-  assert.equal(avatar.preview, '/avatars/muse-rock-v4/the-rock.png');
+  assert.equal(avatar.preview, '/avatars/muse-rock-v4/the-rock.webp');
   assert.equal(avatar.previewSource, 'imagegen');
   assert.equal(avatar.previewSelection, 'design-preview');
   assert.equal(avatar.hairstyle, undefined);

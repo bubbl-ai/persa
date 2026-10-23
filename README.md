@@ -120,7 +120,7 @@ shared visual builders supply both native trials and complete combos; the
 text-only fallbacks omit image-reference claims while matching the active
 costume and any hairstyle. SpongeBob and Hello Kitty retain their original PNGs
 and exact `muse-reference-wardrobe-v2` messages. The local October 23 Rock update
-uses a new `muse-rock-v4` generated PNG and `muse-reference-wardrobe-v5` message;
+uses a new `muse-rock-v4` WebP display image and `muse-reference-wardrobe-v5` message;
 its native Muse recipe has not been validated. The three October 16 hairless
 costume recipes add no hair or facial changes; the earlier blocked hair
 requests remain recorded as history.

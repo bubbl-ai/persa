@@ -23,12 +23,12 @@ export function mountSpotlight({ characters, saved, getHandoff }) {
     return distance > length / 2 ? distance - length : distance;
   }
 
-  function prepareImage(index) {
+  function prepareImage(index, load = true) {
     const slide = slides[index];
     const image = slide.querySelector('img');
-    if (!image || image.hasAttribute('src')) return;
+    if (!image) return;
     image.fetchPriority = index === selected ? 'high' : 'low';
-    image.src = characters[index].avatar.preview;
+    if (load && !image.hasAttribute('src')) image.src = characters[index].avatar.preview;
   }
 
   function settle() {
@@ -50,7 +50,7 @@ export function mountSpotlight({ characters, saved, getHandoff }) {
       slide.classList.toggle('is-active', offset === 0);
       slide.classList.toggle('is-away', Math.abs(offset) > 1);
       slide.setAttribute('aria-hidden', String(offset !== 0));
-      if (Math.abs(offset) <= 1) prepareImage(i);
+      prepareImage(i, Math.abs(offset) <= 1);
     });
     document.querySelector('#character-name').textContent = character.name;
     document.querySelector('#character-subtitle').textContent = character.subtitle;

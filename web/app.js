@@ -21,6 +21,42 @@ const spotlightHome = document.body.classList.contains('spotlight-home');
 let spotlight;
 const STORE_KEY = 'persa.muse-combos.v1';
 let characters = [], saved = {}, current = null, drafts = {}, sampleIndex = 0, view = new URLSearchParams(location.search).get('view') === 'saved' ? 'saved' : 'explore', dialog, returnFocus, toastTimer;
+const pendingAvatarImages = new Set();
+// Native lazy loading may fetch several screens of portraits at once. Keep
+// gallery requests close to the viewport so a visible tile can load promptly.
+const avatarImageObserver = typeof IntersectionObserver === 'function'
+  ? new IntersectionObserver(entries => {
+    // A jump can reveal several rows together. Start the row being viewed
+    // before portraits at the edges of the preload margin.
+    const distanceFromCenter = entry => Math.abs(entry.boundingClientRect.top + entry.boundingClientRect.height / 2 - innerHeight / 2);
+    const visibleEntries = entries.filter(entry => entry.isIntersecting && entry.target.isConnected)
+      .sort((a, b) => distanceFromCenter(a) - distanceFromCenter(b));
+    for (const { target: image } of visibleEntries) {
+      const source = image.dataset.avatarSrc;
+      if (source) {
+        image.fetchPriority = 'high';
+        image.loading = 'eager';
+        image.src = source;
+        image.removeAttribute('data-avatar-src');
+      }
+      avatarImageObserver.unobserve(image);
+      pendingAvatarImages.delete(image);
+    }
+  }, { rootMargin: '200px 0px' })
+  : null;
+
+function observeAvatarImages() {
+  if (!avatarImageObserver) return;
+  // The standalone collection replaces its grid when filtering or saving.
+  for (const image of pendingAvatarImages) {
+    if (!image.isConnected) { avatarImageObserver.unobserve(image); pendingAvatarImages.delete(image); }
+  }
+  for (const image of app.querySelectorAll('img[data-avatar-src]')) {
+    if (pendingAvatarImages.has(image)) continue;
+    pendingAvatarImages.add(image);
+    avatarImageObserver.observe(image);
+  }
+}
 
 function readSaved() {
   try {
@@ -58,7 +94,8 @@ function unavailableMarkup(failed = false, detail = false) {
 
 function imageMarkup(character, detail = false) {
   if (!character.avatar.preview) return unavailableMarkup();
-  return `<img data-avatar-image data-detail="${detail}" src="${esc(character.avatar.preview)}" alt="Shared plush Muse wearing a ${esc(character.name)} costume" width="1254" height="1254" ${detail ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async">`;
+  const sourceAttribute = !detail && avatarImageObserver ? 'data-avatar-src' : 'src';
+  return `<img data-avatar-image data-detail="${detail}" ${sourceAttribute}="${esc(character.avatar.preview)}" alt="Shared plush Muse wearing a ${esc(character.name)} costume" width="1254" height="1254" ${detail ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async">`;
 }
 
 function card(character) {
@@ -88,6 +125,7 @@ function renderHomeCollection() {
   document.querySelector('#home-collection-count').textContent = `/ ${characters.length}`;
   document.querySelector('#home-collection').setAttribute('aria-busy', 'false');
   document.querySelector('#home-collection-status').hidden = true;
+  observeAvatarImages();
   updateMuseLinks();
 }
 
@@ -98,6 +136,7 @@ function renderPage() {
     <main><section class="intro"><div><div class="eyebrow">One Muse. Many characters.</div><h1>${view === 'saved' ? 'Your kind of <span>company.</span>' : 'Dress your <span>Muse.</span>'}</h1><p>${view === 'saved' ? 'Your saved characters, with the personality settings you chose.' : 'The same little Muse, dressed for a different personality.<br>Find your favorite costume and make the voice your own.'}</p></div><div class="intro-aside"><strong>A new outfit. A familiar Muse.</strong>Each costume comes with<br>a personality to match.</div></section>
     <section aria-labelledby="collection-title"><div class="collection-head"><h2 class="collection-title" id="collection-title">${view === 'saved' ? 'My collection' : 'The Muse wardrobe'} <span> / ${list.length}</span></h2><span class="collection-note">${view === 'saved' ? 'Saved on this device' : 'A shared Muse in every costume'}</span></div><div class="grid">${list.length ? list.map(card).join('') : `<div class="empty">${icon('heart')}<h2>A place for your favorites.</h2><p>Save a character and your tone settings to find them here.</p><button class="button primary" data-view="explore">Explore characters</button></div>`}</div></section></main>
     <footer class="footer"><div><strong>persa</strong> &nbsp; A little more personality.</div><div>Independent costume interpretations. Not affiliated with Muse or the people and franchises referenced.</div></footer></div>`;
+  observeAvatarImages();
 }
 
 function getPersona(character = current) {

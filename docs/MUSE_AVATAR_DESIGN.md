@@ -259,6 +259,23 @@ tests and website build passed after this change. Live verification of the
 smaller image will be recorded with the final publication result. Initial
 failures and timing evidence remain in the feedback evidence folder.
 
+The WebP follow-up verified all nine Rock surfaces across three widths, but
+cold desktop jumps directly to its tile still timed out on the test connection.
+Selecting the same character on stage loaded it. This suggested request
+contention; it was not a controlled causal benchmark. The next follow-up
+limits tile requests to within 200px of the viewport with an intersection
+observer, prioritizes visible tiles, and promotes the selected stage image
+when its request already exists. Browsers without the observer retain native
+lazy loading. Retry replacements and standalone collection rerenders register
+with the same loader, while saved-state updates preserve existing tile nodes.
+The 22 focused local loader checks passed: only three stage portraits were
+requested initially, jumps skipped intermediate rows, all 18 portraits loaded
+during normal scrolling, and retry/fallback/focus/observer cleanup worked.
+Under an isolated 64KB/s + 100ms-latency browser throttle, Rock's request
+started 40ms after the jump and decoded 16.1 seconds after navigation. This
+is one scenario, not a guarantee across real networks. Live follow-up remains
+to be recorded.
+
 ### Local verification
 
 The website build, JavaScript syntax and whitespace checks passed, along with

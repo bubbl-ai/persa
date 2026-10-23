@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- Product feedback (2026-10-23, locally verified; publication pending): explain
+- Product feedback (implemented 2026-10-23; live verification 2026-10-24): explain
   Persa's curated personality-plus-avatar combos on the homepage and show a
   visible three-step path: pick a combo, **Open in Muse**, then **Send** and
   **Select**. Keep direct links for all 18 and optional setup/copy fallbacks;

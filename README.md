@@ -14,10 +14,10 @@ curation, validation and deployment; the earlier [wig rollout](docs/MUSE_WIG_ROL
 keeps its separate results. A selected native preview is an example output;
 Muse can generate a different result from the same instructions.
 
-The October 23 product-feedback update is implemented and verified locally;
-publication is pending. It adds a clearer description and visible setup steps,
+The October 23 product-feedback update is live at
+[persa.bubblai.com](https://persa.bubblai.com), with final verification on October 24. It adds a clearer description and visible setup steps,
 packages each preset as one curated combo, and replaces The Rock's gym outfit
-with the approved turtleneck, chain and waist-bag look. The local collection has
+with the approved turtleneck, chain and waist-bag look. The current collection has
 15 selected native Muse previews, one new built-in image-generation preview for
 The Rock, and two retained PNGs. Character animation was reviewed and deferred.
 See [the feedback record](docs/MUSE_AVATAR_DESIGN.md#product-feedback--october-23-2026).
@@ -79,13 +79,12 @@ Primary-source review and earlier desktop tests: October 5, 2026. Native avatar-
 
 The website implementation lives in [`web/`](web/), with paired character definitions in [`characters/catalog.js`](characters/catalog.js). The homepage at `/` has a white, borderless spotlight stage with the featured personality's three adjectives beneath the portrait. The stage has direct **Open in Muse**, **Tune personality**, save and optional **Setup options** controls. All 18 character tiles appear below the spotlight with their own direct Muse links; **All characters** scrolls to that grid. The standalone grid remains at `/collection.html`, and saved combos are available at `/collection.html?view=saved`. The old `/spotlight.html` demo link redirects to the homepage.
 
-The local October 23 update adds a hero explaining what a Persa combo includes,
+The published October 23 update adds a hero explaining what a Persa combo includes,
 plus visible **Pick your combo → Open in Muse → Send, then select** steps.
 Curated packaging emphasizes the paired personality and avatar instructions;
 it does not claim an exclusive license, official partnership or automatic
 application. Existing spotlight transitions and swipe behavior remain; true
-character gestures and audio are deferred. These local changes are not yet a
-verified public release.
+character gestures and audio are deferred. These changes and the image-loading follow-up are published and verified.
 
 Sites version **6** was published successfully on October 9, 2026 (Asia/Taipei), from source commit `f5de98c1c43fdfdfeff9e14b69106ece6c2a7517`, with the existing public audience unchanged. The costume artwork first shipped in version 4; version 6 makes the approved stage the homepage and connects the existing combo controls. See the [publication record](docs/MUSE_AVATAR_DESIGN.md#publication-status).
 
@@ -119,7 +118,7 @@ The current collection uses `muse-reference-wig-v3` for 12 wig presets and
 shared visual builders supply both native trials and complete combos; the
 text-only fallbacks omit image-reference claims while matching the active
 costume and any hairstyle. SpongeBob and Hello Kitty retain their original PNGs
-and exact `muse-reference-wardrobe-v2` messages. The local October 23 Rock update
+and exact `muse-reference-wardrobe-v2` messages. The October 23 Rock update
 uses a new `muse-rock-v4` WebP display image and `muse-reference-wardrobe-v5` message;
 its native Muse recipe has not been validated. The three October 16 hairless
 costume recipes add no hair or facial changes; the earlier blocked hair

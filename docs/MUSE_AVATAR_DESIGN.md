@@ -6,7 +6,7 @@ changes are published at [persa.bubblai.com](https://persa.bubblai.com). The
 [costume follow-up](MUSE_COSTUME_RECOGNITION.md) records current curation and
 deployment status; the earlier [wig rollout](MUSE_WIG_ROLLOUT.md) retains its
 original evidence. The [October 23 feedback update](#product-feedback--october-23-2026)
-is implemented and verified locally; publication is pending.
+is published, with final delivery checks completed October 24.
 
 Each preset pairs a personality with the same recognizable Muse-style plush
 companion wearing a different costume. The collectible-series analogy describes
@@ -32,7 +32,7 @@ recipes and adds nine more eligible presets. Selecting a useful native preview
 does not establish repeated stability, exact compliance or identical future
 generation. Preserve the experimental results separately from curation.
 
-SpongeBob and Hello Kitty keep their existing hairless designs. The local
+SpongeBob and Hello Kitty keep their existing hairless designs. The
 October 23 update gives The Rock a new hairless turtleneck/chain/waist-bag
 costume while preserving the shared face and compact plush proportions.
 Harry Potter, Michael Jackson and Joker receive a separately approved
@@ -47,7 +47,7 @@ generated master remains the reference for native costume/wig generation.
 
 The catalog owns these public identifiers:
 
-- Preview design versions in the local October 23 collection: `muse-wigs-v2` for 12 wigs, `muse-costume-cues-v3` for three native hairless costumes, `muse-rock-v4` for the new generated Rock design, and `muse-costumes-v1` for two retained PNGs.
+- Preview design versions in the current collection: `muse-wigs-v2` for 12 wigs, `muse-costume-cues-v3` for three native hairless costumes, `muse-rock-v4` for the new generated Rock design, and `muse-costumes-v1` for two retained PNGs.
 - Base: `persa-muse-v1`.
 - Native wig assets: original 1600px `.webp` outputs under `web/avatars/muse-wigs-v2/`, copied unchanged after curation.
 - Native hairless costume assets: unchanged selected `.webp` outputs under `web/avatars/muse-costume-cues-v3/`.
@@ -71,7 +71,7 @@ The catalog owns these public identifiers:
 | Lionel Messi | Blue-and-white football kit, football | Short brown side-swept fiber wig |
 | Kylie Jenner | Black blazer outfit, rose makeup case | Sleek black center-parted fiber wig |
 | MrBeast | Turquoise hoodie, gift box | Short light-brown side-swept fiber wig |
-| The Rock | Black turtleneck, gold chain, brown waist bag, light-blue denim, black shoes | Hairless by design; local October 23 update |
+| The Rock | Black turtleneck, gold chain, brown waist bag, light-blue denim, black shoes | Hairless by design; October 23 update |
 | Mona Lisa | Olive Renaissance gown, veil, folded hands | Center-parted brown waves beneath the veil |
 | Barbie | Pink dress and shoes, heart purse, one ponytail bow | Blonde ponytail |
 | Wednesday Addams | Black dress, white collar, book; no hood bows | Two black textile braids with plain bands |
@@ -160,7 +160,8 @@ Evidence is saved outside Git under
 
 ## Product feedback — October 23, 2026
 
-Status: implemented and verified locally; publication is pending.
+Status: published at [persa.bubblai.com](https://persa.bubblai.com); final live
+delivery verification completed October 24, 2026 (Asia/Shanghai).
 This update addresses four reviewed product questions while retaining all 18
 presets, the shared Muse base, existing personality definitions and saved IDs.
 
@@ -231,14 +232,14 @@ The catalog marks the new preview as `previewSource: imagegen` and
 `designVersion: muse-rock-v4`. It is an intended design preview, not a native
 Muse-generated result. The matching text-only recipe and complete combo use
 the new wardrobe; only The Rock's handoff becomes `muse-reference-wardrobe-v5`.
-The other 17 payloads retain their versions and contents. Current local
+The other 17 payloads retain their versions and contents. Current
 inventory is 15 curated native previews, this new generated Rock preview,
 and two retained hairless PNGs. The October 16 published inventory remains
 historical evidence of 15 native previews plus three retained PNGs.
 
 The new Rock recipe has not been generated, selected or checked for
 persistence inside Muse. This artwork review does not establish native
-recognizability, repeated reliability or exact reproduction. Publication results will be recorded separately. Private
+recognizability, repeated reliability or exact reproduction. Publication results are recorded below. Private
 screenshots and test evidence stay outside Git under
 `/Users/zachwang/bubbl/persa-test-results/2026-10-23-product-feedback/`.
 
@@ -256,7 +257,7 @@ The follow-up changes only Rock's display format to WebP, preserves the source
 PNG and records both assets in the manifest. All 18 complete handoff payloads
 and versions remain unchanged by compression. The 30 focused asset/handoff
 tests and website build passed after this change. Live verification of the
-smaller image will be recorded with the final publication result. Initial
+smaller image is recorded with the final publication result below. Initial
 failures and timing evidence remain in the feedback evidence folder.
 
 The WebP follow-up verified all nine Rock surfaces across three widths, but
@@ -273,8 +274,7 @@ requested initially, jumps skipped intermediate rows, all 18 portraits loaded
 during normal scrolling, and retry/fallback/focus/observer cleanup worked.
 Under an isolated 64KB/s + 100ms-latency browser throttle, Rock's request
 started 40ms after the jump and decoded 16.1 seconds after navigation. This
-is one scenario, not a guarantee across real networks. Live follow-up remains
-to be recorded.
+is one scenario, not a guarantee across real networks. The successful live follow-up is recorded below.
 
 ### Local verification
 
@@ -290,6 +290,29 @@ There were no browser errors or overflow. The other 17 handoff payloads and
 avatar metadata remained unchanged. These are Chromium checks; physical
 Safari/iOS and native generation of the new Rock recipe remain unverified.
 The browser harness intercepted Muse navigation and made no account changes.
+
+### Publication and final live verification — October 24, 2026
+
+The homepage and wardrobe update first shipped in `407d5fa`, followed by the
+smaller display image in `2b2b113` and viewport loading in
+[`c2534b3`](https://github.com/bubbl-ai/persa/commit/c2534b3b874c79707718b2393f55f9a3da293c33).
+The [final source deployment](https://github.com/bubbl-ai/persa/actions/runs/39982893940) and
+[Node 20/22/24 plus package checks](https://github.com/bubbl-ai/persa/actions/runs/39982893904) both passed.
+
+The final loader smoke passed **11/11 checks** at 1440px, 390px and 320px:
+served JavaScript matched the tested build; the initial page requested only
+three stage portraits; all nine Rock tile/stage/detail surfaces decoded; and
+all nine corresponding Muse URLs matched the shared builder. Cold direct
+jumps started the Rock request within 19–22ms. Full image loading took
+11.5–17.1 seconds on this connection, so these observations support improved
+request scheduling, not instant loading or a latency guarantee across networks.
+
+The earlier homepage, all-character URLs, mobile gesture and local 88-check
+matrix remain separate evidence. Original PNG and first WebP timeout reports
+are preserved alongside the successful follow-up, not overwritten. There
+were no Muse account actions; new Rock generation in Muse, physical iOS/Safari
+and completed-login transfer remain unverified. Evidence remains in the
+original `persa-test-results/2026-10-23-product-feedback/` task folder.
 
 ## Direct Muse links — October 15, 2026
 
@@ -317,7 +340,7 @@ those changes. The separate costume-only follow-up uses
 `muse-reference-costume-v4` and `src/muse-costume-recipes.js` for Harry, Michael
 and Joker. That October 16 change left the other 15 messages byte-for-byte
 unchanged: 12 wig combos and three retained `muse-reference-wardrobe-v2` combos.
-The local October 23 update separately changes only The Rock to
+The October 23 update separately changes only The Rock to
 `muse-reference-wardrobe-v5`; SpongeBob and Hello Kitty keep v2. Historical
 payload hashes and results stay recorded under their tested versions.
 

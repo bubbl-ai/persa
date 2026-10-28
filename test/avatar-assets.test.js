@@ -74,6 +74,48 @@ test('the Rock display derivative preserves its original image and retired gym c
   assert.ok((await readFile(new URL(`../${retired.asset}`, import.meta.url))).length > 0);
 });
 
+test('Kylie runway preview preserves the original generation and superseded native wig provenance', async () => {
+  const records = JSON.parse(await readFile(new URL('../characters/image-generation.json', import.meta.url), 'utf8'));
+  const record = records.find(item => item.id === 'kylie-jenner');
+  const image = record.replacement;
+  const bytes = await readFile(new URL(`../${image.asset}`, import.meta.url));
+  const original = await readFile(new URL(`../${image.generation.asset}`, import.meta.url));
+  const derivative = image.displayDerivative;
+  const sha256 = value => createHash('sha256').update(value).digest('hex');
+  assert.equal(image.designVersion, 'muse-kylie-runway-v5');
+  assert.equal(image.tool, 'built-in image_gen');
+  assert.equal(image.nativeGeneration, undefined);
+  assert.equal(image.generation.nativeMuseValidated, false);
+  assert.equal(image.generation.imageModified, false);
+  assert.equal(image.generation.asset, 'web/avatars/muse-kylie-runway-v5/kylie-jenner.png');
+  assert.equal(image.generation.outputSha256, sha256(original));
+  assert.equal(image.generation.promptSha256, sha256(image.prompt));
+  assert.equal(image.generation.width, original.readUInt32BE(16));
+  assert.equal(image.generation.height, original.readUInt32BE(20));
+  assert.equal(image.asset, 'web/avatars/muse-kylie-runway-v5/kylie-jenner.webp');
+  assert.equal(derivative.asset, image.asset);
+  assert.equal(derivative.sourceAsset, image.generation.asset);
+  assert.equal(derivative.sourceSha256, image.generation.outputSha256);
+  assert.equal(derivative.outputSha256, sha256(bytes));
+  assert.equal(derivative.codec, 'WebP');
+  assert.equal(derivative.lossy, true);
+  assert.equal(derivative.width, image.generation.width);
+  assert.equal(derivative.height, image.generation.height);
+  assert.equal(derivative.sourceBytes, original.length);
+  assert.equal(derivative.outputBytes, bytes.length);
+  assert.ok(bytes.length < 350000, 'display asset should stay small enough for mobile loading');
+  const retired = record.supersededReplacements.find(item => item.designVersion === 'muse-wigs-v2');
+  assert.equal(retired.asset, 'web/avatars/muse-wigs-v2/kylie-jenner.webp');
+  assert.equal(retired.tool, 'native Muse avatar generator');
+  assert.equal(retired.nativeGeneration.recipeVersion, 'muse-reference-wig-v3');
+  assert.equal(retired.nativeGeneration.outputSha256, '04883fed4c8801a1fd1fd5bce9d12a5e49163705fd98c2306f6aa818e529b78a');
+  assert.equal(sha256(await readFile(new URL(`../${retired.asset}`, import.meta.url))), retired.nativeGeneration.outputSha256);
+  assert.match(retired.prompt, /black tailored blazer outfit/);
+  assert.equal(retired.visualReview.strictCompliance, false);
+  assert.ok(retired.visualReview.strictMisses.length > 0);
+  assert.ok(record.supersededReplacements.some(item => item.designVersion === 'muse-costumes-v1'));
+});
+
 test('a declined original can use a matching character rendering without rewriting its history', async t => {
   const root = await fixture(t);
   const record = { ...declined, replacement: { status: 'generated', kind: 'character', subjectId: 'sample', asset: generated.asset } };

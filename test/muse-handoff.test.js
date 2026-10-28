@@ -31,7 +31,7 @@ test('the roster uses 12 wig recipes, three costume recipes and three hairless w
     assert.ok(result.prompt.includes(result.personalityPrompt));
     if (Object.hasOwn(wigStyles, preset.id)) {
       wigs++;
-      assert.equal(result.version, 'muse-reference-wig-v3');
+      assert.equal(result.version, preset.id === 'kylie-jenner' ? 'muse-reference-wig-v6' : 'muse-reference-wig-v3');
       assert.equal(result.avatarPrompt, buildWigAvatarPrompt(preset.id));
       assert.ok(result.avatarPrompt.includes(wigStyles[preset.id].costume), preset.id);
       assert.ok(result.avatarPrompt.includes(wigStyles[preset.id].hair), preset.id);
@@ -100,7 +100,7 @@ test('Barbie and SpongeBob replace old no-emoji settings with their sparing pref
   assert.match(buildMuseHandoff(character('mona-lisa'), tuned).prompt, /permission to use emoji sparingly/);
 });
 
-test('the 17 handoffs unrelated to the Rock wardrobe update retain their exact payloads', () => {
+test('the 17 handoffs unrelated to the Kylie runway update retain their exact payloads', () => {
   const baseline = {
     "wednesday": {
       "version": "muse-reference-wig-v3",
@@ -142,9 +142,9 @@ test('the 17 handoffs unrelated to the Rock wardrobe update retain their exact p
       "version": "muse-reference-wig-v3",
       "promptSha256": "01dd692fcadb722cd8aacd93c108cf297925dd8412e1f4cc605ca15d0b7ce1c3"
     },
-    "kylie-jenner": {
-      "version": "muse-reference-wig-v3",
-      "promptSha256": "623ddb39bebd931c993cb6c197d4a89010380a610adaf38e77bdcd608f24cf38"
+    "the-rock": {
+      "version": "muse-reference-wardrobe-v5",
+      "promptSha256": "4e5c3a0c3cedd6e380eeb272ddbab1f8b82ed35029612baa1f55604535b26764"
     },
     "mrbeast": {
       "version": "muse-reference-wig-v3",
@@ -235,7 +235,7 @@ test('initial wig recipes preserve the costume and hairstyle chosen in the nativ
   }
 });
 
-test('wig catalog metadata and text-only fallback match their native visual recipe', () => {
+test('wig catalog metadata and text-only fallback match their visual recipe and preview provenance', () => {
   for (const preset of characters) {
     const wig = Object.hasOwn(wigStyles, preset.id) ? wigStyles[preset.id] : null;
     if (!wig) {
@@ -245,18 +245,46 @@ test('wig catalog metadata and text-only fallback match their native visual reci
       assert.equal(preset.avatar.hairstyle, undefined);
       continue;
     }
-    assert.equal(preset.avatar.designVersion, 'muse-wigs-v2');
-    assert.equal(preset.avatar.preview, `/avatars/muse-wigs-v2/${preset.id}.webp`);
+    const designPreview = preset.id === 'kylie-jenner';
+    const designVersion = designPreview ? 'muse-kylie-runway-v5' : 'muse-wigs-v2';
+    assert.equal(preset.avatar.designVersion, designVersion);
+    assert.equal(preset.avatar.preview, `/avatars/${designVersion}/${preset.id}.webp`);
     assert.equal(preset.avatar.basePreview, '/avatars/muse-costumes-v1/base.png');
     assert.equal(preset.avatar.hairstyle, wig.hair);
     assert.equal(preset.avatar.hairstyleVariant, wig.variant);
-    assert.equal(preset.avatar.previewSource, 'native-muse');
-    assert.equal(preset.avatar.previewSelection, 'curated');
+    assert.equal(preset.avatar.previewSource, designPreview ? 'imagegen' : 'native-muse');
+    assert.equal(preset.avatar.previewSelection, designPreview ? 'design-preview' : 'curated');
     assert.ok(preset.avatar.prompt.includes(wig.costume), preset.id);
     assert.ok(preset.avatar.prompt.includes(wig.hair), preset.id);
     assert.doesNotMatch(preset.avatar.prompt, /Do not add human hair|using the downloaded image|using the attached image/i);
     assert.match(preset.avatar.prompt, /plain white/);
   }
+});
+
+test('Kylie runway instructions share the winged costume and retain the plush identity and wig', () => {
+  const preset = character('kylie-jenner');
+  const { avatar } = preset;
+  const handoff = buildMuseHandoff(preset);
+  assert.equal(handoff.version, 'muse-reference-wig-v6');
+  assert.equal(avatar.designVersion, 'muse-kylie-runway-v5');
+  assert.equal(avatar.previewSource, 'imagegen');
+  assert.equal(avatar.previewSelection, 'design-preview');
+  assert.equal(avatar.hairstyleVariant, 'fiber');
+  for (const prompt of [avatar.prompt, handoff.avatarPrompt]) {
+    assert.match(prompt, /opaque silver crystal-covered bodice covering the whole torso/);
+    assert.match(prompt, /short hanging crystal fringe/);
+    assert.match(prompt, /one small yellow jewel centered on the chest/);
+    assert.match(prompt, /opaque white satin mini-skirt fully covering the lower torso/);
+    assert.match(prompt, /large white feather costume wings attached behind the shoulders/);
+    assert.match(prompt, /tiny silver toy shoes/);
+    assert.match(prompt, /show both complete wings and shoes in frame/);
+    assert.match(prompt, /jet-black synthetic doll-fiber wig with a clean center part/);
+    assert.match(prompt, /broad continuous cream U-shaped/);
+    assert.match(prompt, /rounded fingerless cream fleece mittens/);
+    assert.doesNotMatch(prompt, /black tailored blazer|black boots|rose-colored makeup case/);
+  }
+  assert.doesNotMatch(avatar.prompt, /using the downloaded image|using the attached image/i);
+  assert.equal(handoff.personalityPrompt, compile(preset.persona, 'muse').text);
 });
 
 test('the Rock design preview and text-only fallback share the new wardrobe without claiming native validation', () => {

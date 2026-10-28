@@ -613,45 +613,54 @@
       "kind": "muse-costume",
       "subjectId": "kylie-jenner",
       "baseId": "persa-muse-v1",
-      "designVersion": "muse-wigs-v2",
+      "designVersion": "muse-kylie-runway-v5",
       "status": "generated",
-      "tool": "native Muse avatar generator",
-      "createdAt": "2026-10-16",
-      "selectedAt": "2026-10-16",
+      "tool": "built-in image_gen",
+      "createdAt": "2026-10-28",
       "referenceAsset": "web/avatars/muse-costumes-v1/base.png",
-      "prompt": "This is a preview-only Persa wardrobe request for the Kylie Jenner-inspired costume. Generate four native Muse avatar candidates. Do not select or activate a candidate. Do not change my account name, selected avatar, personality, IDENTITY.md, SOUL.md, MEMORY.md or standing preferences, and do not save this temporary costume as a preference.\n\nREFERENCE\nDownload a fresh copy of https://persa.bubblai.com/avatars/muse-costumes-v1/base.png directly into your workspace, for example ~/workspace/persa-wig/base.png; create the workspace folder if needed. Verify SHA-256 c428fd4d8608ca5bd5d72a5c3f49a20be680a739a94bb9e658e3f4be23a4ec2f. Pass that actual downloaded image file to your native avatar generator as the character reference. If the download, checksum or image-reference input is unavailable, stop and explain; do not substitute text-only generation or a previous avatar.\n\nGenerate four native Muse avatar candidates using the downloaded image as the character reference.\n\nFIXED PLUSH CHARACTER\nUse the downloaded cream plush toy as the same base character in all candidates. Preserve its wide peach face outline, small black bead-eye size and spacing, tiny stitched smile, rosy cheeks, cream sherpa material, compact body, short limbs and standing front view. Both hands remain rounded fingerless cream fleece mittens. Do not add a human face or scalp, nose, eyebrows, eyelashes, makeup, facial hair, animal ears, extra cream protrusions, fingers or a different skin color. Fit the costume to the original body.\n\nCOSTUME\na black tailored blazer outfit, black boots, and a tiny rose-colored makeup case.\n\nREMOVABLE WIG\nOne removable jet-black synthetic doll-fiber wig with a clean center part, a smooth shallow crown and exactly two sleek straight side sections reaching the chest. The sections pass behind the cream cheek rim and rest over the back of the shoulders. No bangs, braids, hairclips, bows or extra locks.\n\nWIG PLACEMENT\nThe wig is a separate costume accessory fitted over the outside of the existing cream hood; it does not replace the hood or change the face. Preserve a broad continuous cream U-shaped front rim along both cheeks and below the chin. At eye level, each visible cream cheek strip is at least as thick as one original bead eye. Place side hair behind this front rim, outside the face opening. Only explicitly requested bangs may overlap the upper peach forehead; all hair leaves the eyes, cheeks and mouth clear. Keep the hood round beneath the wig. If space is tight, reduce wig volume rather than changing the face, head size, body or clothes. Do not invent additional accessories or features.\n\nCOMPOSITION\nPhotographed plush collectible toy, full body with complete wig and both feet in frame, centered on plain white, soft studio light. All four candidates use this same costume, wig silhouette, pose and material; do not offer alternate hairstyles or art styles. No text, logos or watermark. Show native selectable candidates and keep the currently selected avatar unchanged.",
-      "asset": "web/avatars/muse-wigs-v2/kylie-jenner.webp",
-      "failure": null,
-      "inspection": "Neutral white background, visible external black crown and two sleek side sections behind the shoulders, familiar unobstructed face/rim, clean tailored blazer and boots, and a clear rose-colored makeup case. Full framing. Inner front hair and excessive length remain documented misses.",
-      "nativeGeneration": {
-        "sourceExperiment": "2026-10-16-wig-rollout",
-        "requestId": "kylie-jenner-wig-curation-1",
-        "option": 1,
-        "recipeVersion": "muse-reference-wig-v3",
-        "promptSha256": "b93880ef7575abf8b190ab6f11a3928f69652b28beb9112d12404b43adeec561",
-        "avatarPromptSha256": "3c6a9d3dc8d3bc8001a50ab2e2348ecaa31084f733d36f5a60a80ebc3d83d9fd",
-        "outputSha256": "04883fed4c8801a1fd1fd5bce9d12a5e49163705fd98c2306f6aa818e529b78a",
-        "width": 1600,
-        "height": 1600,
-        "selectionReason": "Neutral white background, visible external black crown and two sleek side sections behind the shoulders, familiar unobstructed face/rim, clean tailored blazer and boots, and a clear rose-colored makeup case. Full framing. Inner front hair and excessive length remain documented misses.",
-        "observedDifferences": [
-          "Front hair overlaps the upper peach forehead or cheek opening instead of staying behind the cream rim.",
-          "Side hair extends to the waist/hip area rather than ending at the chest.",
-          "A visible cream band sits above the wig, placing the wig inside rather than over the exterior hood."
-        ],
-        "imageModified": false
+      "additionalReferenceAssets": [
+        "web/avatars/muse-wigs-v2/kylie-jenner.webp"
+      ],
+      "outfitReference": {
+        "title": "Kylie Jenner's 2026 Victoria's Secret runway look",
+        "url": "https://www.harpersbazaar.com/celebrity/latest/a74172579/kylie-jenner-victorias-secret-fashion-show-2026-fantasy-bra-photos/",
+        "accessedAt": "2026-10-28",
+        "use": "Outfit research only; the image-generation inputs were the shared plush base and the previous Kylie wig preview."
       },
-      "visualReview": {
-        "hair": true,
-        "visibleBase": true,
-        "costume": true,
-        "combinedUsable": true,
-        "strictCompliance": false,
-        "strictMisses": [
-          "Front hair overlaps the upper peach forehead or cheek opening instead of staying behind the cream rim.",
-          "Side hair extends to the waist/hip area rather than ending at the chest.",
-          "A visible cream band sits above the wig, placing the wig inside rather than over the exterior hood."
+      "prompt": "Edit the attached cream plush Muse toy into Persa's Kylie Jenner-inspired runway costume preview. Image 1 is the canonical identity reference. Image 2 shows the existing removable jet-black doll-fiber wig; use that wig direction, not its black outfit. Make one polished full-body studio product photograph on a plain white background with a small soft floor shadow. Keep the same wide peach fabric face, two small glossy black bead eyes, tiny curved stitched smile, rosy cheeks, cream sherpa texture, broad continuous cream U-shaped cheek/chin rim, compact round body, short fingerless mitten arms and stubby feet. Do not add a human face, nose, eyelashes, makeup, human skin, fingers or adult body proportions.\nChange clothing and accessories to a toy adaptation of Kylie's recent Victoria's Secret runway look: an opaque silver crystal-covered bodice covering the round plush torso, short delicate dangling crystal fringe and one small yellow jewel at its center; an opaque white satin mini-skirt covering the lower torso; a pair of large elegant layered white feather costume wings attached behind the shoulders, sweeping outward and upward behind the head; tiny silver toy shoes. Keep the existing wig direction: one removable jet-black synthetic doll-fiber wig with a clean center part, smooth shallow crown, and exactly two sleek straight side sections reaching the chest behind the cream cheek rim and resting over the back of the shoulders. Hair remains outside the plush face opening. No bangs, braids, hairclips or bows. No black blazer, black boots, makeup case, microphone, text or logos.\nKeep the face fully readable and wings entirely inside the frame, with comfortable white margin around every feather. Center the complete figure in a square composition. The wings are costume accessories on the same friendly cream Muse toy. Preserve its neutral standing pose, soft plush material and compact proportions.",
+      "asset": "web/avatars/muse-kylie-runway-v5/kylie-jenner.webp",
+      "failure": null,
+      "inspection": "Inspected full-size original and WebP: recognizable cream plush Muse face and cheek/chin rim, compact body, visible cream mittens, center-parted black wig, large white feather wings, silver crystal decoration and fringe with a yellow center jewel, white satin skirt and silver toy shoes. Complete wings and feet are in frame on white. The WebP preserves the design. This is a generated design preview, not native Muse output; the new handoff recipe has not been tested in Muse. Visible deviations from the exact prompt are recorded below.",
+      "generation": {
+        "sourceExperiment": "2026-10-28-kylie-runway",
+        "promptSha256": "775c910fec42a3f203cb4879418ac07a44012b2c3195301758018a3b5f63a550",
+        "outputSha256": "fa2326f15ac3463055cfe40767526537e89af2c9026c99b99ddfb0aaee7df139",
+        "width": 1254,
+        "height": 1254,
+        "imageModified": false,
+        "nativeMuseValidated": false,
+        "asset": "web/avatars/muse-kylie-runway-v5/kylie-jenner.png",
+        "observedDifferences": [
+          "The crystal fringe leaves cream plush visible between ornaments rather than forming a continuous opaque bodice.",
+          "Some front hair sits inside the upper cream hood rim, and the side sections extend below the requested chest length."
         ]
+      },
+      "displayDerivative": {
+        "asset": "web/avatars/muse-kylie-runway-v5/kylie-jenner.webp",
+        "sourceAsset": "web/avatars/muse-kylie-runway-v5/kylie-jenner.png",
+        "sourceSha256": "fa2326f15ac3463055cfe40767526537e89af2c9026c99b99ddfb0aaee7df139",
+        "outputSha256": "64aaccf7dbe5225ae184a99d5720ade580936facac0144ff52cfbd9351f22901",
+        "codec": "WebP",
+        "lossy": true,
+        "encoder": "cwebp 1.6.0",
+        "quality": 85,
+        "method": 6,
+        "sourceBytes": 2043680,
+        "outputBytes": 130054,
+        "width": 1254,
+        "height": 1254,
+        "transformation": "Format compression only. No resizing, cropping or artwork edits. The original generated PNG remains unchanged.",
+        "inspection": "Inspected the WebP against the original PNG: face, cream rim, black wig, feather wings, yellow jewel, silver crystals, white skirt and silver shoes remain visible with unchanged full-body framing. Minor lossy texture smoothing does not change the design."
       }
     },
     "supersededReplacements": [
@@ -669,6 +678,52 @@
         "failure": null,
         "inspection": "Inspected rendered output: same Muse face, cream hood and compact proportions. Correct costume, full body visible.",
         "retiredReason": "User approved curated native Muse wig previews on October 16, 2026; original costume artwork retained as history."
+      },
+      {
+        "kind": "muse-costume",
+        "subjectId": "kylie-jenner",
+        "baseId": "persa-muse-v1",
+        "designVersion": "muse-wigs-v2",
+        "status": "generated",
+        "tool": "native Muse avatar generator",
+        "createdAt": "2026-10-16",
+        "selectedAt": "2026-10-16",
+        "referenceAsset": "web/avatars/muse-costumes-v1/base.png",
+        "prompt": "This is a preview-only Persa wardrobe request for the Kylie Jenner-inspired costume. Generate four native Muse avatar candidates. Do not select or activate a candidate. Do not change my account name, selected avatar, personality, IDENTITY.md, SOUL.md, MEMORY.md or standing preferences, and do not save this temporary costume as a preference.\n\nREFERENCE\nDownload a fresh copy of https://persa.bubblai.com/avatars/muse-costumes-v1/base.png directly into your workspace, for example ~/workspace/persa-wig/base.png; create the workspace folder if needed. Verify SHA-256 c428fd4d8608ca5bd5d72a5c3f49a20be680a739a94bb9e658e3f4be23a4ec2f. Pass that actual downloaded image file to your native avatar generator as the character reference. If the download, checksum or image-reference input is unavailable, stop and explain; do not substitute text-only generation or a previous avatar.\n\nGenerate four native Muse avatar candidates using the downloaded image as the character reference.\n\nFIXED PLUSH CHARACTER\nUse the downloaded cream plush toy as the same base character in all candidates. Preserve its wide peach face outline, small black bead-eye size and spacing, tiny stitched smile, rosy cheeks, cream sherpa material, compact body, short limbs and standing front view. Both hands remain rounded fingerless cream fleece mittens. Do not add a human face or scalp, nose, eyebrows, eyelashes, makeup, facial hair, animal ears, extra cream protrusions, fingers or a different skin color. Fit the costume to the original body.\n\nCOSTUME\na black tailored blazer outfit, black boots, and a tiny rose-colored makeup case.\n\nREMOVABLE WIG\nOne removable jet-black synthetic doll-fiber wig with a clean center part, a smooth shallow crown and exactly two sleek straight side sections reaching the chest. The sections pass behind the cream cheek rim and rest over the back of the shoulders. No bangs, braids, hairclips, bows or extra locks.\n\nWIG PLACEMENT\nThe wig is a separate costume accessory fitted over the outside of the existing cream hood; it does not replace the hood or change the face. Preserve a broad continuous cream U-shaped front rim along both cheeks and below the chin. At eye level, each visible cream cheek strip is at least as thick as one original bead eye. Place side hair behind this front rim, outside the face opening. Only explicitly requested bangs may overlap the upper peach forehead; all hair leaves the eyes, cheeks and mouth clear. Keep the hood round beneath the wig. If space is tight, reduce wig volume rather than changing the face, head size, body or clothes. Do not invent additional accessories or features.\n\nCOMPOSITION\nPhotographed plush collectible toy, full body with complete wig and both feet in frame, centered on plain white, soft studio light. All four candidates use this same costume, wig silhouette, pose and material; do not offer alternate hairstyles or art styles. No text, logos or watermark. Show native selectable candidates and keep the currently selected avatar unchanged.",
+        "asset": "web/avatars/muse-wigs-v2/kylie-jenner.webp",
+        "failure": null,
+        "inspection": "Neutral white background, visible external black crown and two sleek side sections behind the shoulders, familiar unobstructed face/rim, clean tailored blazer and boots, and a clear rose-colored makeup case. Full framing. Inner front hair and excessive length remain documented misses.",
+        "nativeGeneration": {
+          "sourceExperiment": "2026-10-16-wig-rollout",
+          "requestId": "kylie-jenner-wig-curation-1",
+          "option": 1,
+          "recipeVersion": "muse-reference-wig-v3",
+          "promptSha256": "b93880ef7575abf8b190ab6f11a3928f69652b28beb9112d12404b43adeec561",
+          "avatarPromptSha256": "3c6a9d3dc8d3bc8001a50ab2e2348ecaa31084f733d36f5a60a80ebc3d83d9fd",
+          "outputSha256": "04883fed4c8801a1fd1fd5bce9d12a5e49163705fd98c2306f6aa818e529b78a",
+          "width": 1600,
+          "height": 1600,
+          "selectionReason": "Neutral white background, visible external black crown and two sleek side sections behind the shoulders, familiar unobstructed face/rim, clean tailored blazer and boots, and a clear rose-colored makeup case. Full framing. Inner front hair and excessive length remain documented misses.",
+          "observedDifferences": [
+            "Front hair overlaps the upper peach forehead or cheek opening instead of staying behind the cream rim.",
+            "Side hair extends to the waist/hip area rather than ending at the chest.",
+            "A visible cream band sits above the wig, placing the wig inside rather than over the exterior hood."
+          ],
+          "imageModified": false
+        },
+        "visualReview": {
+          "hair": true,
+          "visibleBase": true,
+          "costume": true,
+          "combinedUsable": true,
+          "strictCompliance": false,
+          "strictMisses": [
+            "Front hair overlaps the upper peach forehead or cheek opening instead of staying behind the cream rim.",
+            "Side hair extends to the waist/hip area rather than ending at the chest.",
+            "A visible cream band sits above the wig, placing the wig inside rather than over the exterior hood."
+          ]
+        },
+        "retiredReason": "User requested Kylie's recent Victoria's Secret runway outfit on October 28, 2026. Original native blazer/wig preview, prompt, selection and recorded deviations retained as history."
       }
     ]
   },

@@ -51,16 +51,18 @@ export function avatarFor(id, name) {
     };
   }
   if (wig) {
+    const designPreview = id === 'kylie-jenner';
+    const designVersion = designPreview ? 'muse-kylie-runway-v5' : 'muse-wigs-v2';
     return {
-      preview: `/avatars/muse-wigs-v2/${id}.webp`,
-      designVersion: 'muse-wigs-v2',
+      preview: `/avatars/${designVersion}/${id}.webp`,
+      designVersion,
       baseId: avatarDesign.baseId,
       basePreview: avatarDesign.basePreview,
       costume,
       hairstyle: wig.hair,
       hairstyleVariant: wig.variant,
-      previewSource: 'native-muse',
-      previewSelection: 'curated',
+      previewSource: designPreview ? 'imagegen' : 'native-muse',
+      previewSelection: designPreview ? 'design-preview' : 'curated',
       prompt: `Please create an avatar for my Muse: the same shared Muse-style plush companion wearing a ${name}-inspired costume and removable wig. This is a text-only description of the avatar.\n\nSHARED BASE\n${avatarDesign.base}\n\nCOSTUME\nDress that companion in ${costume}.\n\nREMOVABLE WIG\n${wig.hair}\n\nWIG PLACEMENT\nFit the wig outside the existing cream hood as a separate costume accessory. Keep a broad continuous cream U-shaped rim visible along both cheeks and below the chin. Side hair passes behind this rim, outside the face opening. Only explicitly requested bangs may overlap the upper peach forehead; leave the eyes, cheeks and mouth clear. Reduce wig volume rather than changing the face, head size, body or clothes. Do not add a human face or scalp, nose, eyebrows, eyelashes, makeup, facial hair, animal ears, fingers or a different skin color. Keep both hands rounded fingerless cream fleece mittens.\n\nCOMPOSITION\nPhotographed plush collectible toy, full body with the complete wig and both feet in frame, centered on plain white, soft studio light. Keep the same costume, hairstyle, pose and material in every option. No text, logos or watermark.\n\nThis is a costume interpretation for the ${name} personality preset, not a depiction of the actual person or an official character product. Keep my current avatar until I select a candidate.`
     };
   }

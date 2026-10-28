@@ -2,8 +2,8 @@ import { compile } from './compile.js';
 import { buildWigAvatarPrompt } from './muse-wigs.js';
 import { buildCostumeAvatarPrompt } from './muse-costume-recipes.js';
 
-// Curated previews use the same visual recipe as their native generation.
-// The Rock has an updated wardrobe; two presets retain their original costumes.
+// Curated native previews retain their visual recipes. The Rock and Kylie
+// have generated design previews; two presets retain their original costumes.
 // Handoff recipes are versioned separately from gallery artwork/legacy prompts.
 const BASE_URL = 'https://persa.bubblai.com/avatars/muse-costumes-v1/base.png';
 const BASE_SHA256 = 'c428fd4d8608ca5bd5d72a5c3f49a20be680a739a94bb9e658e3f4be23a4ec2f';
@@ -67,7 +67,7 @@ Show the native chooser and let me select the avatar. Sending this message is pe
   const url = new URL('https://muse.ai/');
   url.searchParams.set('prompt', prompt);
   return {
-    version: costumeRecipe ? 'muse-reference-costume-v4' : wigRecipe ? 'muse-reference-wig-v3' : character.id === 'the-rock' ? 'muse-reference-wardrobe-v5' : 'muse-reference-wardrobe-v2',
+    version: costumeRecipe ? 'muse-reference-costume-v4' : wigRecipe ? (character.id === 'kylie-jenner' ? 'muse-reference-wig-v6' : 'muse-reference-wig-v3') : character.id === 'the-rock' ? 'muse-reference-wardrobe-v5' : 'muse-reference-wardrobe-v2',
     characterId: character.id,
     prompt,
     url: url.href,

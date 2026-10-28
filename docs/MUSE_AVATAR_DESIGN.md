@@ -7,6 +7,8 @@ changes are published at [persa.bubblai.com](https://persa.bubblai.com). The
 deployment status; the earlier [wig rollout](MUSE_WIG_ROLLOUT.md) retains its
 original evidence. The [October 23 feedback update](#product-feedback--october-23-2026)
 is published, with final delivery checks completed October 24.
+The [October 28 Kylie runway update](#kylie-runway-update--october-28-2026)
+is implemented locally; validation is in progress and publication is pending.
 
 Each preset pairs a personality with the same recognizable Muse-style plush
 companion wearing a different costume. The collectible-series analogy describes
@@ -35,6 +37,9 @@ generation. Preserve the experimental results separately from curation.
 SpongeBob and Hello Kitty keep their existing hairless designs. The
 October 23 update gives The Rock a new hairless turtleneck/chain/waist-bag
 costume while preserving the shared face and compact plush proportions.
+The October 28 Kylie update retains her black fiber wig and changes only her
+wardrobe to a crystal-covered toy bodice, white skirt and feather wings; its
+generated preview is separate from the earlier native wig evidence.
 Harry Potter, Michael Jackson and Joker receive a separately approved
 [costume-only follow-up](MUSE_COSTUME_RECOGNITION.md): no wig, hair, facial hair,
 makeup, scars or facial changes. Their older blocked hair requests remain
@@ -47,11 +52,12 @@ generated master remains the reference for native costume/wig generation.
 
 The catalog owns these public identifiers:
 
-- Preview design versions in the current collection: `muse-wigs-v2` for 12 wigs, `muse-costume-cues-v3` for three native hairless costumes, `muse-rock-v4` for the new generated Rock design, and `muse-costumes-v1` for two retained PNGs.
+- Preview design versions in the current source collection: `muse-wigs-v2` for 11 native wig previews, `muse-costume-cues-v3` for three native hairless costumes, `muse-rock-v4` for the generated Rock design, `muse-kylie-runway-v5` for the generated Kylie design, and `muse-costumes-v1` for two retained PNGs.
 - Base: `persa-muse-v1`.
 - Native wig assets: original 1600px `.webp` outputs under `web/avatars/muse-wigs-v2/`, copied unchanged after curation.
 - Native hairless costume assets: unchanged selected `.webp` outputs under `web/avatars/muse-costume-cues-v3/`.
 - New Rock preview: `web/avatars/muse-rock-v4/the-rock.webp`, a compressed display derivative of the original generated `.png` beside it. The built-in image tool used the shared base; this is not native Muse output.
+- New Kylie preview: `web/avatars/muse-kylie-runway-v5/kylie-jenner.webp`, a display derivative of the unchanged generated `.png` beside it. Its provenance is `imagegen` / `design-preview`, not native Muse output. The former native Kylie WebP under `muse-wigs-v2` remains unchanged as history.
 - Retained PNGs (SpongeBob/Hello Kitty) and shared base: `web/avatars/muse-costumes-v1/`; superseded artwork, including the October 6 Rock costume, remains historical source material.
 - Canonical wig costumes, hairstyles and visual instructions: `src/muse-wigs.js`.
 - Canonical hairless recognition recipes and text-only fallback: `src/muse-costume-recipes.js`.
@@ -69,7 +75,7 @@ The catalog owns these public identifiers:
 | Marilyn Monroe | White halter dress, pearl earrings | Short platinum-blonde curled bob |
 | Drake | Navy puffer jacket, headphones | Close-cropped black loop-pile cap |
 | Lionel Messi | Blue-and-white football kit, football | Short brown side-swept fiber wig |
-| Kylie Jenner | Black blazer outfit, rose makeup case | Sleek black center-parted fiber wig |
+| Kylie Jenner | Opaque silver crystal-covered toy bodice, short crystal fringe, yellow center jewel, white satin mini skirt, large white feather wings, silver shoes | Sleek black center-parted fiber wig; October 28 outfit update |
 | MrBeast | Turquoise hoodie, gift box | Short light-brown side-swept fiber wig |
 | The Rock | Black turtleneck, gold chain, brown waist bag, light-blue denim, black shoes | Hairless by design; October 23 update |
 | Mona Lisa | Olive Renaissance gown, veil, folded hands | Center-parted brown waves beneath the veil |
@@ -232,8 +238,8 @@ The catalog marks the new preview as `previewSource: imagegen` and
 `designVersion: muse-rock-v4`. It is an intended design preview, not a native
 Muse-generated result. The matching text-only recipe and complete combo use
 the new wardrobe; only The Rock's handoff becomes `muse-reference-wardrobe-v5`.
-The other 17 payloads retain their versions and contents. Current
-inventory is 15 curated native previews, this new generated Rock preview,
+The other 17 payloads retain their versions and contents. At the October 23
+release, inventory was 15 curated native previews, this new generated Rock preview,
 and two retained hairless PNGs. The October 16 published inventory remains
 historical evidence of 15 native previews plus three retained PNGs.
 
@@ -314,6 +320,61 @@ were no Muse account actions; new Rock generation in Muse, physical iOS/Safari
 and completed-login transfer remain unverified. Evidence remains in the
 original `persa-test-results/2026-10-23-product-feedback/` task folder.
 
+## Kylie runway update — October 28, 2026
+
+**Status: locally verified; publication pending.**
+This update changes Kylie's outfit and matching avatar instructions. It keeps
+her sleek black center-parted fiber wig, the shared cream Muse face, visible
+cream cheek/chin rim and compact plush proportions.
+
+The researched [runway reference](https://www.harpersbazaar.com/celebrity/latest/a74172579/kylie-jenner-victorias-secret-fashion-show-2026-fantasy-bra-photos/)
+guides a toy costume: an opaque silver crystal-covered bodice with short
+crystal fringe and a yellow center jewel, a white satin mini skirt, large white
+feather wings and silver shoes. It replaces the black blazer and rose makeup
+case in the active recipe. The earlier native preview and experimental results
+remain historical evidence for that earlier outfit.
+
+The built-in image-generation tool produced the new design preview at
+`web/avatars/muse-kylie-runway-v5/kylie-jenner.png`. The site displays the WebP
+derivative at `web/avatars/muse-kylie-runway-v5/kylie-jenner.webp`, preserving
+the generated PNG bytes. The manifest records original and display provenance;
+the catalog uses `designVersion: muse-kylie-runway-v5`,
+`previewSource: imagegen` and `previewSelection: design-preview`. The former
+native `web/avatars/muse-wigs-v2/kylie-jenner.webp` is retained unchanged with
+its superseded recipe and provenance. This new artwork is not a native Muse
+output or evidence that Muse will reproduce the preview exactly.
+
+The manifest records visible departures from the intended recipe: cream plush
+shows between the crystal ornaments instead of a continuous opaque bodice;
+some front hair sits inside the upper cream rim, and the side sections extend
+below the requested chest length. Keep these observations with the generation
+record; the selected preview is not proof of exact prompt compliance.
+
+`src/muse-wigs.js` remains the shared visual recipe for Kylie's wig and outfit,
+including the text-only fallback. Only Kylie's complete handoff changes to
+`muse-reference-wig-v6`; links, complete-combo copying, setup instructions and
+export continue to use the same handoff builder. The other 17 catalog entries,
+complete handoffs and avatar assets remain unchanged. All 18 personality
+definitions, character IDs and browser-local saved tone settings are retained.
+
+The resulting source inventory is **14 curated native previews, two generated
+design previews (Rock and Kylie), and two retained PNGs (SpongeBob and Hello
+Kitty)**. The new Kylie recipe has not been generated, selected or checked for
+persistence inside Muse. Local implementation and artwork review do not
+establish native recognition, repeated stability or exact reproduction. Earlier native trials and the October 24 production checks do not validate
+this new native recipe.
+
+Local checks passed: **93/93 Node tests**, website build, JavaScript syntax and
+whitespace checks, plus **26/26 targeted browser checks** at 1440px, 390px and
+320px. All nine normal tile/stage/detail surfaces and three recovered surfaces
+decoded at 1254 × 1254. The checks verified 27 exact current-tone Muse URLs,
+complete-combo/text-only copying, JSON exports, design-preview provenance and
+mobile image failure/retry. No overflow or page errors occurred; visual review
+confirmed complete wings and shoes at all widths. External fonts used local
+fallbacks because of network delays. These Chromium checks made no Muse
+requests and do not cover physical iOS/Safari. Evidence is kept outside Git in
+`persa-test-results/2026-10-28-kylie-runway/browser-qa-local.json`.
+
 ## Direct Muse links — October 15, 2026
 
 The user requested all 18 characters and a single action from Persa to Muse.
@@ -343,13 +404,19 @@ unchanged: 12 wig combos and three retained `muse-reference-wardrobe-v2` combos.
 The October 23 update separately changes only The Rock to
 `muse-reference-wardrobe-v5`; SpongeBob and Hello Kitty keep v2. Historical
 payload hashes and results stay recorded under their tested versions.
+The October 28 source update changes only Kylie to `muse-reference-wig-v6`,
+preserving the other 17 complete handoffs. The remaining 11 wig presets keep
+v3; the shared wig recipe module still serves all 12. This implementation is
+pending publication and native Muse validation.
 
 ## Provenance and failure handling
 
 The built-in image-generation tool produced the master and October 6 costume
-PNGs, and the new October 23 Rock preview. Both the wig collection and the
-three October 16 hairless costumes use curated native Muse outputs, with
-the original WebP bytes retained. `characters/image-generation.json` records active asset
+PNGs, the October 23 Rock preview and the October 28 Kylie preview. The
+remaining 11 active wig previews and three October 16 hairless costumes use
+curated native Muse outputs, with the original WebP bytes retained. All 12
+original native wig previews, including the superseded Kylie outfit, remain
+preserved. `characters/image-generation.json` records active asset
 provenance, recipe/output hashes and superseded replacements;
 `characters/avatar-design-generation.json` retains the master's provenance.
 Native preview trials and combo messages share visual instructions, but their

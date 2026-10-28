@@ -2,6 +2,19 @@
 
 ## Unreleased
 
+- Kylie runway update (2026-10-28; locally verified, publication pending): keep the shared cream Muse base and black center-parted
+  fiber wig, with an opaque silver crystal-covered toy bodice, short crystal
+  fringe, yellow center jewel, white satin mini skirt, large white feather
+  wings and silver shoes. Use a generated `muse-kylie-runway-v5` design preview
+  and its WebP display derivative; preserve the original PNG and superseded
+  native Kylie WebP with their provenance. Change only Kylie's complete handoff
+  to `muse-reference-wig-v6`, retaining the shared wig recipe module and matching
+  text-only fallback. The other 17 presets, handoffs and assets and all 18
+  personalities remain unchanged. The source collection now has 14 native
+  previews, two generated design previews (Rock/Kylie) and two retained PNGs.
+  The new recipe is unverified in Muse; preview curation does not establish
+  repeatability or exact reproduction. See [the Kylie record](docs/MUSE_AVATAR_DESIGN.md#kylie-runway-update--october-28-2026).
+
 - Product feedback (implemented 2026-10-23; live verification 2026-10-24): explain
   Persa's curated personality-plus-avatar combos on the homepage and show a
   visible three-step path: pick a combo, **Open in Muse**, then **Send** and

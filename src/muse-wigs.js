@@ -53,7 +53,7 @@ export const wigStyles = Object.freeze({
   },
   "kylie-jenner": {
     "variant": "fiber",
-    "costume": "a black tailored blazer outfit, black boots, and a tiny rose-colored makeup case",
+    "costume": "an opaque silver crystal-covered bodice covering the whole torso, short hanging crystal fringe and one small yellow jewel centered on the chest, an opaque white satin mini-skirt fully covering the lower torso, one pair of large white feather costume wings attached behind the shoulders and clear of the face and cream hood rim, and tiny silver toy shoes; fit every garment to the existing compact plush body, keep both cream mitten hands visible, and show both complete wings and shoes in frame",
     "hair": "One removable jet-black synthetic doll-fiber wig with a clean center part, a smooth shallow crown and exactly two sleek straight side sections reaching the chest. The sections pass behind the cream cheek rim and rest over the back of the shoulders. No bangs, braids, hairclips, bows or extra locks."
   },
   "mrbeast": {

@@ -17,10 +17,18 @@ Muse can generate a different result from the same instructions.
 The October 23 product-feedback update is live at
 [persa.bubblai.com](https://persa.bubblai.com), with final verification on October 24. It adds a clearer description and visible setup steps,
 packages each preset as one curated combo, and replaces The Rock's gym outfit
-with the approved turtleneck, chain and waist-bag look. The current collection has
+with the approved turtleneck, chain and waist-bag look. That release had
 15 selected native Muse previews, one new built-in image-generation preview for
 The Rock, and two retained PNGs. Character animation was reviewed and deferred.
 See [the feedback record](docs/MUSE_AVATAR_DESIGN.md#product-feedback--october-23-2026).
+
+The **October 28 Kylie runway update is implemented locally; validation is in
+progress and publication is pending**. Kylie keeps the black center-parted wig
+and shared cream Muse base, with a silver crystal-covered toy bodice, white
+skirt and feather wings. The current source collection has 14 selected native
+Muse previews, two generated design previews (The Rock and Kylie), and two
+retained PNGs. Kylie's new preview is not a native Muse result, and its new
+recipe has not been tested inside Muse. See [the Kylie update](docs/MUSE_AVATAR_DESIGN.md#kylie-runway-update--october-28-2026).
 
 Personal agents in 2026 are good at doing things and bad at sounding like anything. Most ship one house voice; the ones that let you change it make you write a system prompt from scratch, per agent, and rewrite it when you change your mind. Persa makes the personality a small file you own, and handles the rest.
 
@@ -35,7 +43,7 @@ These commands run from a source checkout; see [Install](#install). The reposito
 
 ## Current product focus
 
-**Direction updated October 23, 2026: Meta Muse remains Persa's primary focus. Every preset pairs a personality with one shared Muse-style plush character wearing its costume and, where appropriate, a removable wig.** Grok Bot personality compatibility is secondary.
+**Direction updated October 28, 2026: Meta Muse remains Persa's primary focus. Every preset pairs a personality with one shared Muse-style plush character wearing its costume and, where appropriate, a removable wig.** Grok Bot personality compatibility is secondary.
 
 ### Default Muse character combos
 
@@ -75,7 +83,7 @@ Primary-source review and earlier desktop tests: October 5, 2026. Native avatar-
 - **Muse combo behavior:** The [initial Mona Lisa test](docs/MUSE_VALIDATION.md) and [batch validation](docs/MUSE_BATCH_VALIDATION.md) verified avatar activation/persistence for 13 older likeness-based combos. The [October 14 repeat matrix](docs/MUSE_HANDOFF_RELIABILITY.md) covers three hairless costume recipes; the [October 15 record](docs/MUSE_ALL_CHARACTER_HANDOFF.md) separately tracks compatibility for the additional 15. Sequential preset replacement can retain omitted preferences, so the wrapper explicitly replaces the authored voice/emoji settings. Fresh side chats share account context. Automatic application, current-costume selection/persistence, removal and synchronization remain unverified.
 - **Secondary Grok Bot compatibility:** Official guidance puts durable preferences in the Bot's Description and supports sharing an existing Bot through a template link. Recipients review it and add their own copy in Grok Bot. This is a possible personality distribution path; generating those templates directly from Persa has not been verified. The existing `grok` compiler target describes a different Custom Agent flow, so its 4,000-character budget is not a verified Grok Bot limit. See [Create and manage Bots](https://docs.x.ai/grok-bot/bots) and [Templates for Grok Bot](https://x.ai/bot/guides/templates-for-grok-bot).
 
-### Website status — October 23, 2026
+### Website status — October 28, 2026
 
 The website implementation lives in [`web/`](web/), with paired character definitions in [`characters/catalog.js`](characters/catalog.js). The homepage at `/` has a white, borderless spotlight stage with the featured personality's three adjectives beneath the portrait. The stage has direct **Open in Muse**, **Tune personality**, save and optional **Setup options** controls. All 18 character tiles appear below the spotlight with their own direct Muse links; **All characters** scrolls to that grid. The standalone grid remains at `/collection.html`, and saved combos are available at `/collection.html?view=saved`. The old `/spotlight.html` demo link redirects to the homepage.
 
@@ -85,6 +93,10 @@ Curated packaging emphasizes the paired personality and avatar instructions;
 it does not claim an exclusive license, official partnership or automatic
 application. Existing spotlight transitions and swipe behavior remain; true
 character gestures and audio are deferred. These changes and the image-loading follow-up are published and verified.
+
+The October 28 Kylie outfit and matching handoff are implemented in the source
+checkout. Local validation passed; publication is pending. The other
+17 presets and all 18 personality definitions remain unchanged by this update.
 
 Sites version **6** was published successfully on October 9, 2026 (Asia/Taipei), from source commit `f5de98c1c43fdfdfeff9e14b69106ece6c2a7517`, with the existing public audience unchanged. The costume artwork first shipped in version 4; version 6 makes the approved stage the homepage and connects the existing combo controls. See the [publication record](docs/MUSE_AVATAR_DESIGN.md#publication-status).
 
@@ -113,23 +125,30 @@ these experiments have separate counts.
 | Download | Optional setup controls export the persona, compiled personality, costume/base metadata, text-only avatar prompt and complete combo as JSON. Wig presets also include hairstyle and construction; the three new hairless costumes include `costumeVariant`. Curated native previews include provenance metadata regardless of hairstyle. Every catalog preset includes `museHandoff` with the exact message, URL, version and reference metadata. There is no JSON import or restore control yet. |
 | Grok Bot | Secondary option to copy personality text for a Bot's Description. It uses the `plain` compiler target, independently of the CLI's older `grok` Custom Agent target. |
 
-The current collection uses `muse-reference-wig-v3` for 12 wig presets and
+The current source collection uses `muse-reference-wig-v3` for 11 wig presets,
+`muse-reference-wig-v6` for Kylie's new runway outfit, and
 `muse-reference-costume-v4` for Harry Potter, Michael Jackson and Joker. Their
 shared visual builders supply both native trials and complete combos; the
 text-only fallbacks omit image-reference claims while matching the active
 costume and any hairstyle. SpongeBob and Hello Kitty retain their original PNGs
 and exact `muse-reference-wardrobe-v2` messages. The October 23 Rock update
 uses a new `muse-rock-v4` WebP display image and `muse-reference-wardrobe-v5` message;
-its native Muse recipe has not been validated. The three October 16 hairless
-costume recipes add no hair or facial changes; the earlier blocked hair
+its native Muse recipe has not been validated. The October 28 Kylie update
+uses a generated `muse-kylie-runway-v5` WebP display image, retains the existing
+wig construction in the shared recipe module, and also awaits native Muse
+validation. The three October 16 hairless costume recipes add no hair or
+facial changes; the earlier blocked hair
 requests remain recorded as history.
 
 Complete-combo copy, links, displayed instructions and export use one handoff
 builder. The October 16 costume follow-up preserved the other 15 payloads;
-the October 23 Rock update preserves the other 17. Both retain personality
-definitions, character IDs, favorites and saved tone settings. See the
+the October 23 Rock and October 28 Kylie updates each preserve the other 17.
+These changes retain personality definitions, character IDs, favorites and
+saved tone settings. See the
 [costume follow-up](docs/MUSE_COSTUME_RECOGNITION.md) and earlier
-[wig rollout](docs/MUSE_WIG_ROLLOUT.md) for validation and publication status.
+[wig rollout](docs/MUSE_WIG_ROLLOUT.md) for their validation and publication
+status; the [Kylie update](docs/MUSE_AVATAR_DESIGN.md#kylie-runway-update--october-28-2026)
+records the separate pending release.
 
 The image manifest retains earlier likeness attempts, refusals, and rejected unrelated substitutes as history. Current costume art uses versioned paths and matching preset/base metadata. A missing costume stays explicitly unavailable; the build never silently falls back to an old human or franchise-shaped avatar. Gallery artwork illustrates an intended appearance, not an avatar already installed in Muse.
 
@@ -211,10 +230,10 @@ retire or redirect that address.
 | [`characters/avatar-design.js`](characters/avatar-design.js) | Shared Muse base, versioned preview metadata and paired text-only avatar prompts; curated presets read costume and applicable hairstyle data from their shared visual builders. |
 | [`src/muse-wigs.js`](src/muse-wigs.js) | Canonical costume, hairstyle and visual recipe for 12 wig presets, shared by native preview trials and production combo construction. |
 | [`src/muse-costume-recipes.js`](src/muse-costume-recipes.js) | Canonical hairless costume recipes for Harry, Michael and Joker, shared by native trials and `muse-reference-costume-v4` combos; `textOnly: true` builds the matching fallback without an image-reference claim. |
-| [`src/muse-handoff.js`](src/muse-handoff.js) | Browser-safe prepared-message builder for all 18 presets, using the Muse compiler and fixed public reference URL/checksum. Twelve wigs use v3, three native hairless costumes use v4, The Rock uses wardrobe v5, and SpongeBob/Hello Kitty retain wardrobe v2. One payload supplies links, complete-combo copying, displayed instructions and export. |
+| [`src/muse-handoff.js`](src/muse-handoff.js) | Browser-safe prepared-message builder for all 18 presets, using the Muse compiler and fixed public reference URL/checksum. Eleven wigs use v3, Kylie's runway outfit uses wig v6, three native hairless costumes use v4, The Rock uses wardrobe v5, and SpongeBob/Hello Kitty retain wardrobe v2. One payload supplies links, complete-combo copying, displayed instructions and export. |
 | [`characters/image-generation.json`](characters/image-generation.json) | Exact art prompts, output paths, and historical outcomes. Active costume replacements use `kind: "muse-costume"` with matching `subjectId`, `baseId`, and `designVersion`; earlier attempts are preserved. |
 | [`characters/avatar-design-generation.json`](characters/avatar-design-generation.json) | Shared reference image provenance and exact generation prompt. |
-| [`web/avatars/`](web/avatars/) | Curated native WebPs, retained costume PNGs and historical source art. The build ships only currently referenced images and their shared base. |
+| [`web/avatars/`](web/avatars/) | Curated native WebPs, generated design previews with WebP display derivatives, retained costume PNGs and historical source art. The build ships only currently referenced images and their shared base. |
 | [`web/app.js`](web/app.js), [`web/styles.css`](web/styles.css), [`web/index.html`](web/index.html) | Static browser app, responsive layout, dialogs, local saving, clipboard actions, and downloads. |
 | [`web/spotlight.js`](web/spotlight.js), [`web/spotlight.css`](web/spotlight.css) | Homepage stage controller and styles scoped away from shared dialogs. Receives catalog/favorites from `app.js`; initially prepares only the center stage image and its neighbors. The inline grid requests previews within 200px of the viewport, prioritizing the viewed row; native lazy loading is the fallback. The active stage image gets high priority even if previously requested as a neighbor. Saving keeps the selected stage character and focus. |
 | [`web/collection.html`](web/collection.html), [`web/spotlight.html`](web/spotlight.html) | Full/saved collection entry point and redirect for the former demo URL. Both active views use the same app, compiler, and storage key. |

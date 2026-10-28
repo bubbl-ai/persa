@@ -8,7 +8,7 @@ deployment status; the earlier [wig rollout](MUSE_WIG_ROLLOUT.md) retains its
 original evidence. The [October 23 feedback update](#product-feedback--october-23-2026)
 is published, with final delivery checks completed October 24.
 The [October 28 Kylie runway update](#kylie-runway-update--october-28-2026)
-is implemented locally; validation is in progress and publication is pending.
+is published and verified; its native Muse recipe remains unverified.
 
 Each preset pairs a personality with the same recognizable Muse-style plush
 companion wearing a different costume. The collectible-series analogy describes

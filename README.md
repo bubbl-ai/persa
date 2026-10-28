@@ -22,8 +22,7 @@ with the approved turtleneck, chain and waist-bag look. That release had
 The Rock, and two retained PNGs. Character animation was reviewed and deferred.
 See [the feedback record](docs/MUSE_AVATAR_DESIGN.md#product-feedback--october-23-2026).
 
-The **October 28 Kylie runway update is implemented locally; validation is in
-progress and publication is pending**. Kylie keeps the black center-parted wig
+The **October 28 Kylie runway update is published and verified**. Kylie keeps the black center-parted wig
 and shared cream Muse base, with a silver crystal-covered toy bodice, white
 skirt and feather wings. The current source collection has 14 selected native
 Muse previews, two generated design previews (The Rock and Kylie), and two

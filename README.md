@@ -94,8 +94,8 @@ it does not claim an exclusive license, official partnership or automatic
 application. Existing spotlight transitions and swipe behavior remain; true
 character gestures and audio are deferred. These changes and the image-loading follow-up are published and verified.
 
-The October 28 Kylie outfit and matching handoff are implemented in the source
-checkout. Local validation passed; publication is pending. The other
+The October 28 Kylie outfit and matching handoff are published and verified
+at [persa.bubblai.com](https://persa.bubblai.com). The other
 17 presets and all 18 personality definitions remain unchanged by this update.
 
 Sites version **6** was published successfully on October 9, 2026 (Asia/Taipei), from source commit `f5de98c1c43fdfdfeff9e14b69106ece6c2a7517`, with the existing public audience unchanged. The costume artwork first shipped in version 4; version 6 makes the approved stage the homepage and connects the existing combo controls. See the [publication record](docs/MUSE_AVATAR_DESIGN.md#publication-status).
@@ -148,7 +148,7 @@ saved tone settings. See the
 [costume follow-up](docs/MUSE_COSTUME_RECOGNITION.md) and earlier
 [wig rollout](docs/MUSE_WIG_ROLLOUT.md) for their validation and publication
 status; the [Kylie update](docs/MUSE_AVATAR_DESIGN.md#kylie-runway-update--october-28-2026)
-records the separate pending release.
+records the separate verified release.
 
 The image manifest retains earlier likeness attempts, refusals, and rejected unrelated substitutes as history. Current costume art uses versioned paths and matching preset/base metadata. A missing costume stays explicitly unavailable; the build never silently falls back to an old human or franchise-shaped avatar. Gallery artwork illustrates an intended appearance, not an avatar already installed in Muse.
 

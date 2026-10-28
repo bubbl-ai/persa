@@ -322,7 +322,7 @@ original `persa-test-results/2026-10-23-product-feedback/` task folder.
 
 ## Kylie runway update — October 28, 2026
 
-**Status: locally verified; publication pending.**
+**Status: published and verified October 28; native Muse recipe unverified.**
 This update changes Kylie's outfit and matching avatar instructions. It keeps
 her sleek black center-parted fiber wig, the shared cream Muse face, visible
 cream cheek/chin rim and compact plush proportions.
@@ -361,8 +361,9 @@ The resulting source inventory is **14 curated native previews, two generated
 design previews (Rock and Kylie), and two retained PNGs (SpongeBob and Hello
 Kitty)**. The new Kylie recipe has not been generated, selected or checked for
 persistence inside Muse. Local implementation and artwork review do not
-establish native recognition, repeated stability or exact reproduction. Earlier native trials and the October 24 production checks do not validate
-this new native recipe.
+establish native recognition, repeated stability or exact reproduction. Earlier
+native trials and the October 24 production checks do not validate this new
+native recipe.
 
 Local checks passed: **93/93 Node tests**, website build, JavaScript syntax and
 whitespace checks, plus **26/26 targeted browser checks** at 1440px, 390px and
@@ -374,6 +375,28 @@ confirmed complete wings and shoes at all widths. External fonts used local
 fallbacks because of network delays. These Chromium checks made no Muse
 requests and do not cover physical iOS/Safari. Evidence is kept outside Git in
 `persa-test-results/2026-10-28-kylie-runway/browser-qa-local.json`.
+
+### Publication and live verification
+
+Source [`17b4e9f`](https://github.com/bubbl-ai/persa/commit/17b4e9f965047aaf1bf0703c1c6c84c088fa11e7)
+is live at [persa.bubblai.com](https://persa.bubblai.com). Both the
+[deployment](https://github.com/bubbl-ai/persa/actions/runs/40662648857) and
+[test workflow](https://github.com/bubbl-ai/persa/actions/runs/40662648702) passed.
+The initial SSH push connection closed; an authenticated HTTPS retry succeeded.
+
+Live verification passed **26/26 checks after targeted network retries**.
+The served catalog, changed browser modules and new WebP matched the tested
+build bytes. All 12 normal/recovery image surfaces decoded; 30 exact URL
+comparisons, current-tone copying/downloads, preview provenance and mobile
+failure/recovery passed. Visual review confirmed complete wings and shoes at
+1440px, 390px and 320px. There were no JavaScript errors or Muse requests.
+
+Initial image waits exceeded 15 seconds on the desktop and 45 seconds during
+recovery; targeted retries passed. Those failed network runs remain preserved
+separately from `browser-qa-live.json` in the same local evidence folder. This
+validates the deployed asset and flows, not a loading-speed guarantee. External
+fonts used fallbacks. Native Muse generation and physical iOS/Safari remain
+unverified.
 
 ## Direct Muse links — October 15, 2026
 
@@ -407,7 +430,7 @@ payload hashes and results stay recorded under their tested versions.
 The October 28 source update changes only Kylie to `muse-reference-wig-v6`,
 preserving the other 17 complete handoffs. The remaining 11 wig presets keep
 v3; the shared wig recipe module still serves all 12. This implementation is
-pending publication and native Muse validation.
+published; native Muse validation remains pending.
 
 ## Provenance and failure handling
 

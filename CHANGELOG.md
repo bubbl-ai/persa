@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- Kylie runway update (2026-10-28; locally verified, publication pending): keep the shared cream Muse base and black center-parted
+- Kylie runway update (published and verified 2026-10-28): keep the shared cream Muse base and black center-parted
   fiber wig, with an opaque silver crystal-covered toy bodice, short crystal
   fringe, yellow center jewel, white satin mini skirt, large white feather
   wings and silver shoes. Use a generated `muse-kylie-runway-v5` design preview

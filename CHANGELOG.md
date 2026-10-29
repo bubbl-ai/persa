@@ -2,8 +2,7 @@
 
 ## Unreleased
 
-- Kylie native-preview curation (2026-10-29; implemented, local verification and
-  publication pending): display unchanged native trial 3 option 1 at
+- Kylie native-preview curation (published and verified 2026-10-29): display unchanged native trial 3 option 1 at
   `muse-kylie-runway-native-v6/kylie-jenner.webp`, marked `native-muse` / `curated`.
   Choose its front-facing pose, clear outfit and wings on white while preserving
   the recorded strict misses: front locks inside the cream rim and excess hair

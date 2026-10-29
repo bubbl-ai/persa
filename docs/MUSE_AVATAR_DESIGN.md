@@ -12,7 +12,7 @@ is published and verified. Its visual recipe has limited avatar-only coverage
 in the [October 28–29 native follow-up](#native-muse-visual-follow-up--october-2829-2026);
 full-combo persistence and avatar activation remain untested for this outfit.
 The [October 29 native-preview curation](#kylie-native-preview-curation--october-29-2026)
-is locally verified; publication is pending.
+is published and verified.
 
 Each preset pairs a personality with the same recognizable Muse-style plush
 companion wearing a different costume. The collectible-series analogy describes
@@ -456,7 +456,7 @@ reproduction of the Persa preview. Private evidence remains outside Git in
 
 ## Kylie native-preview curation — October 29, 2026
 
-**Status: locally verified; publication pending.**
+**Status: published and verified.**
 At the user's request, the source collection now displays native trial 3 option 1.
 It was selected for its front-facing pose, clear silver outfit and white skirt,
 visible wings and shoes, and white background. The original 1600 × 1600 WebP
@@ -495,7 +495,20 @@ and external fonts blocked; physical iOS/Safari and native Muse activation were
 not tested. Release evidence is outside Git in
 `persa-test-results/2026-10-29-kylie-native-release/`.
 
-Production deployment and live verification remain pending.
+Publication succeeded at [persa.bubblai.com](https://persa.bubblai.com) from
+commit `3f2687b28dbde4ba695779641797c06458a731e7`.
+Both the [Vercel deployment](https://github.com/bubbl-ai/persa/actions/runs/40900917340)
+and [GitHub tests](https://github.com/bubbl-ai/persa/actions/runs/40900917433)
+completed successfully for that source commit.
+
+Live verification passed **20/20 on the first run**, October 29 at
+23:23–23:25 Asia/Shanghai. The live catalog and original selected image matched
+the local build byte for byte. All 12 checked image surfaces decoded at 1600px;
+18 direct-link comparisons, native/curated setup and download metadata, all
+three viewport widths and mobile failed-image recovery passed. Visual review
+confirmed full wings and shoes without clipping. No JavaScript errors or Muse
+account requests occurred. The same Chromium/font-fallback limitations above
+apply; this checks website delivery, not future Muse generation reliability.
 
 ## Direct Muse links — October 15, 2026
 

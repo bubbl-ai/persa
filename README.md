@@ -37,7 +37,7 @@ no-change violation remains recorded.
 This small observed sample is not a future success probability. See [the Kylie
 native test](docs/MUSE_AVATAR_DESIGN.md#native-muse-visual-follow-up--october-2829-2026).
 
-The **October 29 native-preview update is locally verified; publication is pending**. Kylie now uses unchanged trial 3 option 1 in the
+The **October 29 native-preview update is published and verified**. Kylie now uses unchanged trial 3 option 1 in the
 source collection, chosen for its clear front-facing outfit, visible wings and
 white background. The source inventory is 15 native previews, one generated
 Rock preview and two retained PNGs. The selected image still has front locks
@@ -165,7 +165,7 @@ saved tone settings. See the
 [wig rollout](docs/MUSE_WIG_ROLLOUT.md) for their validation and publication
 status; the [Kylie update](docs/MUSE_AVATAR_DESIGN.md#kylie-runway-update--october-28-2026)
 records the separate verified release and the [October 29 curation](docs/MUSE_AVATAR_DESIGN.md#kylie-native-preview-curation--october-29-2026)
-records its pending native-preview replacement.
+records its verified native-preview replacement.
 
 The image manifest retains earlier likeness attempts, refusals, and rejected unrelated substitutes as history. Current costume art uses versioned paths and matching preset/base metadata. A missing costume stays explicitly unavailable; the build never silently falls back to an old human or franchise-shaped avatar. Gallery artwork illustrates an intended appearance, not an avatar already installed in Muse.
 

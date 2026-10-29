@@ -8,7 +8,11 @@ deployment status; the earlier [wig rollout](MUSE_WIG_ROLLOUT.md) retains its
 original evidence. The [October 23 feedback update](#product-feedback--october-23-2026)
 is published, with final delivery checks completed October 24.
 The [October 28 Kylie runway update](#kylie-runway-update--october-28-2026)
-is published and verified; its native Muse recipe remains unverified.
+is published and verified. Its visual recipe has limited avatar-only coverage
+in the [October 28–29 native follow-up](#native-muse-visual-follow-up--october-2829-2026);
+full-combo persistence and avatar activation remain untested for this outfit.
+The [October 29 native-preview curation](#kylie-native-preview-curation--october-29-2026)
+is locally verified; publication is pending.
 
 Each preset pairs a personality with the same recognizable Muse-style plush
 companion wearing a different costume. The collectible-series analogy describes
@@ -39,7 +43,8 @@ October 23 update gives The Rock a new hairless turtleneck/chain/waist-bag
 costume while preserving the shared face and compact plush proportions.
 The October 28 Kylie update retains her black fiber wig and changes only her
 wardrobe to a crystal-covered toy bodice, white skirt and feather wings; its
-generated preview is separate from the earlier native wig evidence.
+original generated preview is preserved as history. The October 29 source
+update displays an unchanged native result from the later visual trial.
 Harry Potter, Michael Jackson and Joker receive a separately approved
 [costume-only follow-up](MUSE_COSTUME_RECOGNITION.md): no wig, hair, facial hair,
 makeup, scars or facial changes. Their older blocked hair requests remain
@@ -52,12 +57,12 @@ generated master remains the reference for native costume/wig generation.
 
 The catalog owns these public identifiers:
 
-- Preview design versions in the current source collection: `muse-wigs-v2` for 11 native wig previews, `muse-costume-cues-v3` for three native hairless costumes, `muse-rock-v4` for the generated Rock design, `muse-kylie-runway-v5` for the generated Kylie design, and `muse-costumes-v1` for two retained PNGs.
+- Preview design versions in the current source collection: `muse-wigs-v2` for 11 native wig previews, `muse-costume-cues-v3` for three native hairless costumes, `muse-rock-v4` for the generated Rock design, `muse-kylie-runway-native-v6` for the curated native Kylie preview, and `muse-costumes-v1` for two retained PNGs.
 - Base: `persa-muse-v1`.
 - Native wig assets: original 1600px `.webp` outputs under `web/avatars/muse-wigs-v2/`, copied unchanged after curation.
 - Native hairless costume assets: unchanged selected `.webp` outputs under `web/avatars/muse-costume-cues-v3/`.
 - New Rock preview: `web/avatars/muse-rock-v4/the-rock.webp`, a compressed display derivative of the original generated `.png` beside it. The built-in image tool used the shared base; this is not native Muse output.
-- New Kylie preview: `web/avatars/muse-kylie-runway-v5/kylie-jenner.webp`, a display derivative of the unchanged generated `.png` beside it. Its provenance is `imagegen` / `design-preview`, not native Muse output. The former native Kylie WebP under `muse-wigs-v2` remains unchanged as history.
+- Current source Kylie preview: `web/avatars/muse-kylie-runway-native-v6/kylie-jenner.webp`, unchanged native trial 3 option 1 with provenance `native-muse` / `curated`. The generated PNG/WebP under `muse-kylie-runway-v5` and former native blazer preview under `muse-wigs-v2` remain unchanged as history.
 - Retained PNGs (SpongeBob/Hello Kitty) and shared base: `web/avatars/muse-costumes-v1/`; superseded artwork, including the October 6 Rock costume, remains historical source material.
 - Canonical wig costumes, hairstyles and visual instructions: `src/muse-wigs.js`.
 - Canonical hairless recognition recipes and text-only fallback: `src/muse-costume-recipes.js`.
@@ -322,7 +327,7 @@ original `persa-test-results/2026-10-23-product-feedback/` task folder.
 
 ## Kylie runway update — October 28, 2026
 
-**Status: published and verified October 28; native Muse recipe unverified.**
+**Status: published and verified October 28; limited native visual testing completed October 29.**
 This update changes Kylie's outfit and matching avatar instructions. It keeps
 her sleek black center-parted fiber wig, the shared cream Muse face, visible
 cream cheek/chin rim and compact plush proportions.
@@ -335,10 +340,10 @@ case in the active recipe. The earlier native preview and experimental results
 remain historical evidence for that earlier outfit.
 
 The built-in image-generation tool produced the new design preview at
-`web/avatars/muse-kylie-runway-v5/kylie-jenner.png`. The site displays the WebP
+`web/avatars/muse-kylie-runway-v5/kylie-jenner.png`. The October 28 release displayed the WebP
 derivative at `web/avatars/muse-kylie-runway-v5/kylie-jenner.webp`, preserving
 the generated PNG bytes. The manifest records original and display provenance;
-the catalog uses `designVersion: muse-kylie-runway-v5`,
+that release used `designVersion: muse-kylie-runway-v5`,
 `previewSource: imagegen` and `previewSelection: design-preview`. The former
 native `web/avatars/muse-wigs-v2/kylie-jenner.webp` is retained unchanged with
 its superseded recipe and provenance. This new artwork is not a native Muse
@@ -357,9 +362,9 @@ export continue to use the same handoff builder. The other 17 catalog entries,
 complete handoffs and avatar assets remain unchanged. All 18 personality
 definitions, character IDs and browser-local saved tone settings are retained.
 
-The resulting source inventory is **14 curated native previews, two generated
+The October 28 release inventory was **14 curated native previews, two generated
 design previews (Rock and Kylie), and two retained PNGs (SpongeBob and Hello
-Kitty)**. The new Kylie recipe has not been generated, selected or checked for
+Kitty)**. At publication, the new Kylie recipe had not been generated, selected or checked for
 persistence inside Muse. Local implementation and artwork review do not
 establish native recognition, repeated stability or exact reproduction. Earlier
 native trials and the October 24 production checks do not validate this new
@@ -395,8 +400,102 @@ Initial image waits exceeded 15 seconds on the desktop and 45 seconds during
 recovery; targeted retries passed. Those failed network runs remain preserved
 separately from `browser-qa-live.json` in the same local evidence folder. This
 validates the deployed asset and flows, not a loading-speed guarantee. External
-fonts used fallbacks. Native Muse generation and physical iOS/Safari remain
-unverified.
+fonts used fallbacks. At that verification, native Muse generation and physical
+iOS/Safari were unverified; the later visual-only Muse test is recorded below.
+
+### Native Muse visual follow-up — October 28–29, 2026
+
+Three identical avatar-only requests used the current Kylie visual recipe in
+one signed-in desktop Muse account's Main chat. All three showed a fresh
+reference download, the expected SHA-256 and reference use in generation.
+All **12 original 1600px WebPs** were captured, hashed and individually reviewed,
+including an independent visual assessment. The practical rubric requires the
+recognizable cream plush base, black center-parted straight wig with a clear
+face, feather wings, silver crystal outfit/fringe, white skirt and silver shoes.
+Strict scoring additionally checks the detailed hair placement/length, opaque
+bodice, jewel/accessory count, hands, white background and complete framing.
+
+| Trial | Captured | Practical | Strict | Initial image delivery |
+| --- | --- | --- | --- | --- |
+| 1 | 4 | 4/4 | 0/4 | Failed after the 240-second window; originals recovered without regeneration |
+| 2 | 4 | 3/4 | 0/4 | Four loaded in 136.800 seconds |
+| 3 | 4 | 4/4 | 0/4 | Four loaded in 97.248 seconds |
+
+The observed practical score is **11/12 (91.7%)**, and each set meets the
+predeclared threshold of at least three usable candidates. **Strict compliance
+is 0/12**: all options miss external wig placement and/or keep front hair inside
+the hood, with side sections longer than requested. Trial 2 option 1 substitutes
+white shorts/bloomers for the skirt. Other variations include wrist cuffs,
+shoulder panels, extra jewels, incomplete bodice coverage and lilac backgrounds.
+Covered hood/body geometry cannot be assessed from the images.
+
+Normal delivery succeeded for **2/3 requests**, separately from visual quality.
+Trial 1 showed four “Image unavailable” entries in chat and “Image not found”
+in activity. Diagnostics found the existing originals and reattached them
+without generating replacements; all four recovered local hashes matched the
+originals. Trial 2 retained the stale activity title “Diagnose missing avatar
+images”; its file check reported three missing files while completion claimed
+all four existed. Four valid original files were nevertheless captured and
+reviewed. That contradiction remains unresolved; no cause is inferred.
+
+The final account-file audit found one unexpected 886-byte test-history bullet
+added to `MEMORY.md`, despite an explicit no-memory-change instruction.
+`IDENTITY.md` and `SOUL.md` were byte-identical to their before-test captures.
+The unintended note was removed October 29. Fresh downloads of all three
+exposed account documents matched their before-test baselines byte for byte.
+The original no-change violation remains recorded despite verified restoration.
+No private memory content is reproduced here.
+
+No avatar was selected inside Muse and no personality-application request was submitted.
+The native test itself changed no website artwork or recipes. These are three requests in one
+account with shared Main-chat context and diagnostic carryover, not independent
+fresh-account trials or a general future success probability. They do not test
+full-combo personality persistence, avatar activation, native mobile or exact
+reproduction of the Persa preview. Private evidence remains outside Git in
+`persa-test-results/2026-10-28-kylie-native/`.
+
+## Kylie native-preview curation — October 29, 2026
+
+**Status: locally verified; publication pending.**
+At the user's request, the source collection now displays native trial 3 option 1.
+It was selected for its front-facing pose, clear silver outfit and white skirt,
+visible wings and shoes, and white background. The original 1600 × 1600 WebP
+is copied unchanged to
+`web/avatars/muse-kylie-runway-native-v6/kylie-jenner.webp` (349,630 bytes;
+SHA-256 `1755108b6b308aa8defdd033bc3a47c2e8be67dc48986ec2c8e4dc4670976d45`).
+Catalog provenance is `designVersion: muse-kylie-runway-native-v6`,
+`previewSource: native-muse` and `previewSelection: curated`.
+
+The selected candidate passes the practical visual rubric but fails strict
+compliance: front locks sit inside the cream rim and side hair is longer than
+requested. Those differences remain recorded. Its selection does not change
+the 11/12 practical, 0/12 strict and 2/3 normal-delivery test results or resolve
+the recorded activity contradiction and memory-protocol violation.
+
+The generated v5 PNG and WebP and the former native blazer preview remain in
+their original paths, with superseded provenance in the manifest. Current source
+inventory is **15 native previews, one generated Rock preview and two retained
+PNGs**. Kylie's `muse-reference-wig-v6` recipe and all 18 complete handoff payloads
+and personalities remain unchanged. No new native generation or Muse avatar
+activation was performed for this curation.
+
+Local verification passed all **93 Node tests**, the website build, browser-script
+syntax checks and `git diff --check`. A baseline comparison confirms all 18
+personas and complete Muse handoff payloads are unchanged, as are the other 17
+avatar definitions and image records. All earlier Kylie assets and records are
+preserved.
+
+Targeted browser checks passed **20/20** at desktop 1440px and mobile 390px/320px:
+stage, tile and detail images decoded at 1600px with complete wings and shoes;
+18 link comparisons matched the unchanged handoff builder; setup and downloads
+report native/curated provenance; failed-image retry recovered; layouts had no
+horizontal overflow or JavaScript errors. Served catalog and image bytes matched
+the build. These were isolated Chromium contexts with Muse links intercepted
+and external fonts blocked; physical iOS/Safari and native Muse activation were
+not tested. Release evidence is outside Git in
+`persa-test-results/2026-10-29-kylie-native-release/`.
+
+Production deployment and live verification remain pending.
 
 ## Direct Muse links — October 15, 2026
 
@@ -430,14 +529,16 @@ payload hashes and results stay recorded under their tested versions.
 The October 28 source update changes only Kylie to `muse-reference-wig-v6`,
 preserving the other 17 complete handoffs. The remaining 11 wig presets keep
 v3; the shared wig recipe module still serves all 12. This implementation is
-published; native Muse validation remains pending.
+published. The October 28–29 follow-up tests its visual recipe only; it does not
+validate full-combo personality persistence or avatar activation.
 
 ## Provenance and failure handling
 
 The built-in image-generation tool produced the master and October 6 costume
-PNGs, the October 23 Rock preview and the October 28 Kylie preview. The
-remaining 11 active wig previews and three October 16 hairless costumes use
-curated native Muse outputs, with the original WebP bytes retained. All 12
+PNGs, the October 23 Rock preview and the superseded October 28 Kylie preview.
+The current 12 wig previews, including the October 29 Kylie selection, and
+three October 16 hairless costumes use curated native Muse outputs, with the
+original WebP bytes retained. All 12
 original native wig previews, including the superseded Kylie outfit, remain
 preserved. `characters/image-generation.json` records active asset
 provenance, recipe/output hashes and superseded replacements;

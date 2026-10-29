@@ -2,6 +2,32 @@
 
 ## Unreleased
 
+- Kylie native-preview curation (2026-10-29; implemented, local verification and
+  publication pending): display unchanged native trial 3 option 1 at
+  `muse-kylie-runway-native-v6/kylie-jenner.webp`, marked `native-muse` / `curated`.
+  Choose its front-facing pose, clear outfit and wings on white while preserving
+  the recorded strict misses: front locks inside the cream rim and excess hair
+  length. Preserve the generated v5 PNG/WebP and earlier native blazer preview
+  as history. Inventory becomes 15 native previews, one generated Rock preview
+  and two retained PNGs. Keep all 18 handoff payloads and personalities unchanged;
+  no new native generation or avatar activation was performed for this curation.
+  See [the curation record](docs/MUSE_AVATAR_DESIGN.md#kylie-native-preview-curation--october-29-2026).
+
+- Kylie native visual follow-up (2026-10-28–29, Asia/Shanghai): submit three
+  identical avatar-only requests using the current visual recipe and capture
+  all 12 native originals. Practical visual scores are 4/4, 3/4 and 4/4
+  (11/12 observed, 91.7%); strict compliance is 0/12. All sets contain at least
+  three usable candidates, but only two requests display normally. The first
+  needs reattachment of existing originals after image-delivery failure,
+  without regeneration. Preserve the second trial's contradictory activity
+  file reports as unresolved. The final audit also found an unexpected
+  test-history note in memory despite the no-memory-change instruction;
+  the note was removed October 29 and fresh downloads of all three exposed
+  account documents matched baseline byte for byte. Preserve the original
+  no-change violation despite verified restoration. No avatar selection, personality application,
+  recipe/art change or native-mobile test; these observations are not a
+  general success probability. See [the native follow-up](docs/MUSE_AVATAR_DESIGN.md#native-muse-visual-follow-up--october-2829-2026).
+
 - Kylie runway update (published and verified 2026-10-28): keep the shared cream Muse base and black center-parted
   fiber wig, with an opaque silver crystal-covered toy bodice, short crystal
   fringe, yellow center jewel, white satin mini skirt, large white feather
@@ -10,9 +36,9 @@
   native Kylie WebP with their provenance. Change only Kylie's complete handoff
   to `muse-reference-wig-v6`, retaining the shared wig recipe module and matching
   text-only fallback. The other 17 presets, handoffs and assets and all 18
-  personalities remain unchanged. The source collection now has 14 native
+  personalities remain unchanged. That release contained 14 native
   previews, two generated design previews (Rock/Kylie) and two retained PNGs.
-  The new recipe is unverified in Muse; preview curation does not establish
+  At release, the new recipe was unverified in Muse; preview curation does not establish
   repeatability or exact reproduction. See [the Kylie record](docs/MUSE_AVATAR_DESIGN.md#kylie-runway-update--october-28-2026).
 
 - Product feedback (implemented 2026-10-23; live verification 2026-10-24): explain

@@ -245,15 +245,14 @@ test('wig catalog metadata and text-only fallback match their visual recipe and 
       assert.equal(preset.avatar.hairstyle, undefined);
       continue;
     }
-    const designPreview = preset.id === 'kylie-jenner';
-    const designVersion = designPreview ? 'muse-kylie-runway-v5' : 'muse-wigs-v2';
+    const designVersion = preset.id === 'kylie-jenner' ? 'muse-kylie-runway-native-v6' : 'muse-wigs-v2';
     assert.equal(preset.avatar.designVersion, designVersion);
     assert.equal(preset.avatar.preview, `/avatars/${designVersion}/${preset.id}.webp`);
     assert.equal(preset.avatar.basePreview, '/avatars/muse-costumes-v1/base.png');
     assert.equal(preset.avatar.hairstyle, wig.hair);
     assert.equal(preset.avatar.hairstyleVariant, wig.variant);
-    assert.equal(preset.avatar.previewSource, designPreview ? 'imagegen' : 'native-muse');
-    assert.equal(preset.avatar.previewSelection, designPreview ? 'design-preview' : 'curated');
+    assert.equal(preset.avatar.previewSource, 'native-muse');
+    assert.equal(preset.avatar.previewSelection, 'curated');
     assert.ok(preset.avatar.prompt.includes(wig.costume), preset.id);
     assert.ok(preset.avatar.prompt.includes(wig.hair), preset.id);
     assert.doesNotMatch(preset.avatar.prompt, /Do not add human hair|using the downloaded image|using the attached image/i);
@@ -266,9 +265,9 @@ test('Kylie runway instructions share the winged costume and retain the plush id
   const { avatar } = preset;
   const handoff = buildMuseHandoff(preset);
   assert.equal(handoff.version, 'muse-reference-wig-v6');
-  assert.equal(avatar.designVersion, 'muse-kylie-runway-v5');
-  assert.equal(avatar.previewSource, 'imagegen');
-  assert.equal(avatar.previewSelection, 'design-preview');
+  assert.equal(avatar.designVersion, 'muse-kylie-runway-native-v6');
+  assert.equal(avatar.previewSource, 'native-muse');
+  assert.equal(avatar.previewSelection, 'curated');
   assert.equal(avatar.hairstyleVariant, 'fiber');
   for (const prompt of [avatar.prompt, handoff.avatarPrompt]) {
     assert.match(prompt, /opaque silver crystal-covered bodice covering the whole torso/);

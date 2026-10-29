@@ -74,10 +74,26 @@ test('the Rock display derivative preserves its original image and retired gym c
   assert.ok((await readFile(new URL(`../${retired.asset}`, import.meta.url))).length > 0);
 });
 
-test('Kylie runway preview preserves the original generation and superseded native wig provenance', async () => {
+test('Kylie native runway preview preserves its output hash and superseded design provenance', async () => {
   const records = JSON.parse(await readFile(new URL('../characters/image-generation.json', import.meta.url), 'utf8'));
   const record = records.find(item => item.id === 'kylie-jenner');
-  const image = record.replacement;
+  const selected = record.replacement;
+  const selectedBytes = await readFile(new URL(`../${selected.asset}`, import.meta.url));
+  const selectedHash = createHash('sha256').update(selectedBytes).digest('hex');
+  assert.equal(selected.designVersion, 'muse-kylie-runway-native-v6');
+  assert.equal(selected.tool, 'native Muse avatar generator');
+  assert.equal(selected.asset, 'web/avatars/muse-kylie-runway-native-v6/kylie-jenner.webp');
+  assert.equal(selected.nativeGeneration.outputSha256, selectedHash);
+  assert.equal(selectedHash, '1755108b6b308aa8defdd033bc3a47c2e8be67dc48986ec2c8e4dc4670976d45');
+  assert.equal(selected.nativeGeneration.promptSha256, createHash('sha256').update(selected.prompt).digest('hex'));
+  assert.equal(selected.nativeGeneration.recipeVersion, 'muse-reference-wig-v6');
+  assert.equal(selected.nativeGeneration.imageModified, false);
+  assert.equal(selected.nativeGeneration.outputBytes, selectedBytes.length);
+  assert.equal(selected.visualReview.combinedUsable, true);
+  assert.equal(selected.visualReview.strictCompliance, false);
+  assert.ok(selected.visualReview.strictMisses.length > 0);
+  assert.equal(selected.displayDerivative, undefined);
+  const image = record.supersededReplacements.find(item => item.designVersion === 'muse-kylie-runway-v5');
   const bytes = await readFile(new URL(`../${image.asset}`, import.meta.url));
   const original = await readFile(new URL(`../${image.generation.asset}`, import.meta.url));
   const derivative = image.displayDerivative;

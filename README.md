@@ -24,10 +24,25 @@ See [the feedback record](docs/MUSE_AVATAR_DESIGN.md#product-feedback--october-2
 
 The **October 28 Kylie runway update is published and verified**. Kylie keeps the black center-parted wig
 and shared cream Muse base, with a silver crystal-covered toy bodice, white
-skirt and feather wings. The current source collection has 14 selected native
+skirt and feather wings. That release contained 14 selected native
 Muse previews, two generated design previews (The Rock and Kylie), and two
-retained PNGs. Kylie's new preview is not a native Muse result, and its new
-recipe has not been tested inside Muse. See [the Kylie update](docs/MUSE_AVATAR_DESIGN.md#kylie-runway-update--october-28-2026).
+retained PNGs; its Kylie display preview came from built-in image generation. A separate
+October 28–29 avatar-only Muse test captured all 12 options from three identical
+requests: 11/12 met the practical visual rubric, none met every detailed
+instruction, and only two requests displayed normally without recovery.
+Muse also added a test-history memory note despite the no-memory-change
+instruction. The note was removed October 29, and fresh downloads of all three
+exposed account documents matched their baselines byte for byte. The original
+no-change violation remains recorded.
+This small observed sample is not a future success probability. See [the Kylie
+native test](docs/MUSE_AVATAR_DESIGN.md#native-muse-visual-follow-up--october-2829-2026).
+
+The **October 29 native-preview update is locally verified; publication is pending**. Kylie now uses unchanged trial 3 option 1 in the
+source collection, chosen for its clear front-facing outfit, visible wings and
+white background. The source inventory is 15 native previews, one generated
+Rock preview and two retained PNGs. The selected image still has front locks
+inside the cream rim and hair longer than requested. All personality and
+handoff payloads remain unchanged. See [the curation record](docs/MUSE_AVATAR_DESIGN.md#kylie-native-preview-curation--october-29-2026).
 
 Personal agents in 2026 are good at doing things and bad at sounding like anything. Most ship one house voice; the ones that let you change it make you write a system prompt from scratch, per agent, and rewrite it when you change your mind. Persa makes the personality a small file you own, and handles the rest.
 
@@ -82,7 +97,7 @@ Primary-source review and earlier desktop tests: October 5, 2026. Native avatar-
 - **Muse combo behavior:** The [initial Mona Lisa test](docs/MUSE_VALIDATION.md) and [batch validation](docs/MUSE_BATCH_VALIDATION.md) verified avatar activation/persistence for 13 older likeness-based combos. The [October 14 repeat matrix](docs/MUSE_HANDOFF_RELIABILITY.md) covers three hairless costume recipes; the [October 15 record](docs/MUSE_ALL_CHARACTER_HANDOFF.md) separately tracks compatibility for the additional 15. Sequential preset replacement can retain omitted preferences, so the wrapper explicitly replaces the authored voice/emoji settings. Fresh side chats share account context. Automatic application, current-costume selection/persistence, removal and synchronization remain unverified.
 - **Secondary Grok Bot compatibility:** Official guidance puts durable preferences in the Bot's Description and supports sharing an existing Bot through a template link. Recipients review it and add their own copy in Grok Bot. This is a possible personality distribution path; generating those templates directly from Persa has not been verified. The existing `grok` compiler target describes a different Custom Agent flow, so its 4,000-character budget is not a verified Grok Bot limit. See [Create and manage Bots](https://docs.x.ai/grok-bot/bots) and [Templates for Grok Bot](https://x.ai/bot/guides/templates-for-grok-bot).
 
-### Website status — October 28, 2026
+### Website status — October 29, 2026
 
 The website implementation lives in [`web/`](web/), with paired character definitions in [`characters/catalog.js`](characters/catalog.js). The homepage at `/` has a white, borderless spotlight stage with the featured personality's three adjectives beneath the portrait. The stage has direct **Open in Muse**, **Tune personality**, save and optional **Setup options** controls. All 18 character tiles appear below the spotlight with their own direct Muse links; **All characters** scrolls to that grid. The standalone grid remains at `/collection.html`, and saved combos are available at `/collection.html?view=saved`. The old `/spotlight.html` demo link redirects to the homepage.
 
@@ -133,9 +148,11 @@ costume and any hairstyle. SpongeBob and Hello Kitty retain their original PNGs
 and exact `muse-reference-wardrobe-v2` messages. The October 23 Rock update
 uses a new `muse-rock-v4` WebP display image and `muse-reference-wardrobe-v5` message;
 its native Muse recipe has not been validated. The October 28 Kylie update
-uses a generated `muse-kylie-runway-v5` WebP display image, retains the existing
-wig construction in the shared recipe module, and also awaits native Muse
-validation. The three October 16 hairless costume recipes add no hair or
+used a generated `muse-kylie-runway-v5` WebP display image. The October 29 source
+update replaces it with an unchanged native `muse-kylie-runway-native-v6` WebP,
+while retaining the shared recipe and all 18 handoff payloads. Its visual recipe has limited
+avatar-only Muse test coverage; full-combo personality persistence and avatar
+activation remain untested for this outfit. The three October 16 hairless costume recipes add no hair or
 facial changes; the earlier blocked hair
 requests remain recorded as history.
 
@@ -147,7 +164,8 @@ saved tone settings. See the
 [costume follow-up](docs/MUSE_COSTUME_RECOGNITION.md) and earlier
 [wig rollout](docs/MUSE_WIG_ROLLOUT.md) for their validation and publication
 status; the [Kylie update](docs/MUSE_AVATAR_DESIGN.md#kylie-runway-update--october-28-2026)
-records the separate verified release.
+records the separate verified release and the [October 29 curation](docs/MUSE_AVATAR_DESIGN.md#kylie-native-preview-curation--october-29-2026)
+records its pending native-preview replacement.
 
 The image manifest retains earlier likeness attempts, refusals, and rejected unrelated substitutes as history. Current costume art uses versioned paths and matching preset/base metadata. A missing costume stays explicitly unavailable; the build never silently falls back to an old human or franchise-shaped avatar. Gallery artwork illustrates an intended appearance, not an avatar already installed in Muse.
 

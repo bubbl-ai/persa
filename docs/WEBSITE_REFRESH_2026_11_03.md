@@ -1,6 +1,6 @@
 # Homepage refresh — November 3, 2026
 
-Status: locally verified; publication pending.
+Status: published and verified.
 
 The homepage now uses the supplied heading **Persa Avatars. Made for Muse AI.**
 and this exact opening paragraph:
@@ -105,8 +105,23 @@ check. On the smallest tested 320×568 portrait viewport, stage bottom was 394px
 name bottom 428px and primary action bottom 503px. No horizontal overflow or
 uncaught JavaScript errors were observed.
 
-Production deployment and live verification are pending. Tests use isolated Chromium contexts with Muse navigation
-intercepted; no Muse account is connected. Physical iOS/Safari and native Muse
+Production is live at [persa.bubblai.com](https://persa.bubblai.com), from source
+commit `43131e4fe599148338d466c2d15af14043abd8a2`.
+The [Vercel deployment](https://github.com/bubbl-ai/persa/actions/runs/41583397327)
+and [GitHub tests](https://github.com/bubbl-ai/persa/actions/runs/41583397414)
+both succeeded for this source commit.
+
+The combined live suite passed **68/68 on its first run**, November 3 at
+13:22–13:23 Asia/Shanghai. Ten served files matched local build hashes: HTML,
+three JavaScript modules, two stylesheets, catalog and three edited display
+WebPs. Checks covered all 18 direct links, finite poses, white backgrounds,
+saved-tone isolation, clipboard denial, history, six layouts and failed-image
+recovery. There were 39 image decodes, 14 screenshots, no uncaught JavaScript
+errors and no Muse account requests. Every homepage layout and the three edited
+detail previews were visually reviewed after paint; full figures remained
+visible without clipping. No live retries were needed. Tests use isolated Chromium contexts with Muse navigation
+intercepted and external fonts blocked; screenshots use font fallbacks. No Muse
+account is connected. Physical iOS/Safari and native Muse
 behavior are outside this website verification.
 
 Private/local test evidence remains outside Git in

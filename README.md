@@ -6,7 +6,7 @@
 
 **Try the Muse character website:** [persa.bubblai.com](https://persa.bubblai.com). The spotlight homepage is public on Vercel under Bubbl's domain: anyone with the link can view it. Each character pairs a personality with a matching avatar prompt. All 18 characters have a direct **Open in Muse** link; the [all-character handoff report](docs/MUSE_ALL_CHARACTER_HANDOFF.md) records validation, known avatar-quality limitations and deployment status. One click takes the chosen combo from Persa to a prepared Muse message. Users still press Send and choose an avatar in Muse.
 
-The **November 3 homepage refresh is locally verified; publication pending**.
+The **November 3 homepage refresh is published and verified**.
 It uses the supplied Meta Muse AI introduction, keeps carousel arrows and the
 selected character's name within the first screen, and adds short optional pose
 motions. All 18 presets have shareable character URLs and Copy link controls.

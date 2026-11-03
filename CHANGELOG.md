@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- November 3 homepage refresh (locally verified; publication pending): use the
+- November 3 homepage refresh (published and verified): use the
   supplied Meta Muse AI copy, remove redundant collection/bullet/step text, move
   carousel arrows into the stage and names directly below the portrait, add
   shareable links and Copy link for all 18 presets, and add short pose motions

@@ -1,5 +1,10 @@
 # Shared Muse costume collection
 
+The [November 3 website refresh](WEBSITE_REFRESH_2026_11_03.md) records the current
+compact homepage, per-character links, short preview poses, and three white-background
+display edits. It supersedes earlier homepage layout/no-motion guidance while
+preserving original avatar generations and their validation limits.
+
 Shared-base direction approved October 6, 2026; curated wigs and a separate
 costume-only follow-up authorized October 16, 2026 (Asia/Shanghai). These
 changes are published at [persa.bubblai.com](https://persa.bubblai.com). The

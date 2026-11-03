@@ -25,6 +25,13 @@ export function avatarFor(id, name) {
   const wig = Object.hasOwn(wigStyles, id) ? wigStyles[id] : null;
   const costume = costumeStyle?.costume || wig?.costume || costumes[id];
   if (!costume) throw new Error(`Missing Muse costume: ${id}`);
+  // Display-only background edits do not alter the native costume recipe.
+  const backgroundPreview = ['charlie-chaplin', 'spongebob', 'hello-kitty'].includes(id) ? {
+    preview: `/avatars/muse-white-background-v7/${id}.webp`,
+    designVersion: 'muse-white-background-v7',
+    previewSource: 'imagegen-edit',
+    previewSelection: 'background-edit'
+  } : {};
   if (id === 'the-rock') {
     return {
       preview: '/avatars/muse-rock-v4/the-rock.webp',
@@ -62,6 +69,7 @@ export function avatarFor(id, name) {
       hairstyleVariant: wig.variant,
       previewSource: 'native-muse',
       previewSelection: 'curated',
+      ...backgroundPreview,
       prompt: `Please create an avatar for my Muse: the same shared Muse-style plush companion wearing a ${name}-inspired costume and removable wig. This is a text-only description of the avatar.\n\nSHARED BASE\n${avatarDesign.base}\n\nCOSTUME\nDress that companion in ${costume}.\n\nREMOVABLE WIG\n${wig.hair}\n\nWIG PLACEMENT\nFit the wig outside the existing cream hood as a separate costume accessory. Keep a broad continuous cream U-shaped rim visible along both cheeks and below the chin. Side hair passes behind this rim, outside the face opening. Only explicitly requested bangs may overlap the upper peach forehead; leave the eyes, cheeks and mouth clear. Reduce wig volume rather than changing the face, head size, body or clothes. Do not add a human face or scalp, nose, eyebrows, eyelashes, makeup, facial hair, animal ears, fingers or a different skin color. Keep both hands rounded fingerless cream fleece mittens.\n\nCOMPOSITION\nPhotographed plush collectible toy, full body with the complete wig and both feet in frame, centered on plain white, soft studio light. Keep the same costume, hairstyle, pose and material in every option. No text, logos or watermark.\n\nThis is a costume interpretation for the ${name} personality preset, not a depiction of the actual person or an official character product. Keep my current avatar until I select a candidate.`
     };
   }
@@ -71,6 +79,7 @@ export function avatarFor(id, name) {
     baseId: avatarDesign.baseId,
     basePreview: avatarDesign.basePreview,
     costume,
+    ...backgroundPreview,
     prompt: `Please create an avatar for my Muse: the same shared Muse-style plush companion dressed in a ${name}-inspired costume.\n\nSHARED BASE\n${avatarDesign.base}\n\nCOSTUME\nDress that companion in ${costume}. Change only its clothing, headwear, accessories, and the hand positions needed to hold the props. Keep the base character visible and recognizable. Do not add human hair, facial hair, makeup, a different skin color, animal features, a different body shape, or a real-person face.\n\nCOMPOSITION\n${avatarDesign.framing}\n\nThis is a costume interpretation for the ${name} personality preset, not a depiction of the actual person or an official character product. No text, logos, interface elements, or watermark.`
   };
 }

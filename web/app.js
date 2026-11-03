@@ -1,4 +1,5 @@
 import { mountSpotlight } from './spotlight.js';
+import { characterShareUrl, characterIdFromUrl, withCharacterInUrl } from './character-links.js';
 import { compile } from './core/compile.js';
 import { buildMuseHandoff } from './core/muse-handoff.js';
 import { TRAITS, TRAIT_NAMES } from './core/traits.js';
@@ -13,12 +14,14 @@ const icons = {
   chevron: '<path d="m7 10 5 5 5-5"/>',
   download: '<path d="M12 3v12m-4-4 4 4 4-4M4 16v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4"/>',
   back: '<path d="m14 6-6 6 6 6"/>',
+  link: '<path d="m10 13 4-4m-6 7-1 1a4 4 0 0 1-6-6l4-4a4 4 0 0 1 6 0m2-1 1-1a4 4 0 0 1 6 6l-4 4a4 4 0 0 1-6 0"/>',
 };
 const icon = name => `<svg viewBox="0 0 24 24" aria-hidden="true">${icons[name] || icons.spark}</svg>`;
 const esc = value => String(value).replace(/[&<>"']/g, ch => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[ch]));
 const app = document.querySelector('#app');
 const spotlightHome = document.body.classList.contains('spotlight-home');
 let spotlight;
+let spotlightCharacterId = null, applyingLocation = false;
 const STORE_KEY = 'persa.muse-combos.v1';
 let characters = [], saved = {}, current = null, drafts = {}, sampleIndex = 0, view = new URLSearchParams(location.search).get('view') === 'saved' ? 'saved' : 'explore', dialog, returnFocus, toastTimer;
 const pendingAvatarImages = new Set();
@@ -108,6 +111,7 @@ function card(character) {
       <div class="card-body"><h2 class="card-title">${esc(character.name)}</h2><p class="card-subtitle">${esc(character.subtitle)}</p><div class="tags">${character.tags.map(tag => `<span class="tag">${esc(tag)}</span>`).join('')}</div><div class="card-line"><span>Personality + costume</span><span>Meet ${character.id === 'the-rock' ? 'The Rock' : character.id === 'joker' ? 'Joker' : character.id === 'hello-kitty' ? 'Hello Kitty' : esc(character.name.split(' ')[0])}</span></div></div>
     </button>
     ${handoff ? `<a class="card-handoff" data-muse-handoff data-muse-character="${character.id}" href="${esc(handoff.url)}" aria-label="Open ${esc(character.name)} in Muse">Open in Muse <span aria-hidden="true">↗</span></a>` : ''}
+    <button class="text-button card-share" data-share-character="${character.id}" aria-label="Copy link to ${esc(character.name)}">${icon('link')} Copy link</button>
   </article>`;
 }
 
@@ -151,6 +155,32 @@ function updateMuseLinks() {
     if (handoff) link.href = handoff.url;
   }
 }
+
+function replaceCharacterLocation(id) {
+  if (applyingLocation) return;
+  const next = withCharacterInUrl(location.href, id);
+  if (next !== location.href) history.replaceState(history.state, '', next);
+}
+
+function onSpotlightSelect(character) {
+  const firstSelection = spotlightCharacterId === null;
+  spotlightCharacterId = character.id;
+  // Do not add a parameter merely because someone opened the homepage.
+  if (firstSelection && !new URL(location.href).searchParams.has('character')) return;
+  replaceCharacterLocation(character.id);
+}
+
+function applyCharacterLocation() {
+  const id = characterIdFromUrl(location.href, characters);
+  applyingLocation = true;
+  try {
+    if (spotlightHome) {
+      spotlight.selectCharacter(id || characters.find(c => c.id === 'taylor-swift')?.id || characters[0].id, false);
+      if (dialog.open) dialog.close();
+    } else if (id) openCharacter(id);
+    else if (dialog.open) dialog.close();
+  } finally { applyingLocation = false; }
+}
 function personalityPrompt() { return compile(getPersona(), 'muse').text; }
 function comboPrompt() {
   const handoff = buildMuseHandoff(current, getPersona());
@@ -179,11 +209,13 @@ function renderDetail() {
     <section class="detail-controls"><h3 class="section-label">A feel for their voice</h3><div class="sample-tabs" role="group" aria-label="Example conversation"><button class="sample-tab ${sampleIndex === 0 ? 'active' : ''}" data-sample="0" aria-pressed="${sampleIndex === 0}">A busy day</button><button class="sample-tab ${sampleIndex === 1 ? 'active' : ''}" data-sample="1" aria-pressed="${sampleIndex === 1}">Honest advice</button><button class="sample-tab ${sampleIndex === 2 ? 'active' : ''}" data-sample="2" aria-pressed="${sampleIndex === 2}">A little win</button></div><div class="conversation"><div class="sample-user">${esc(sample.user)}</div><p class="sample-reply">${esc(sample.reply)}</p></div><p class="sample-caption">Illustrative replies for this preset. Muse's responses will vary.</p>
     <div class="tune-head"><h3 class="section-label">Make it your kind of ${c.id === 'the-rock' ? 'Rock' : esc(c.name.split(' ')[0])}</h3><button class="reset" data-reset>Reset tone</button></div><div class="sliders">${knobs.map(trait => `<label class="slider"><span class="slider-top">${trait.charAt(0).toUpperCase()+trait.slice(1)}<output id="value-${trait}">${voice[trait]}</output></span><input type="range" min="0" max="100" step="1" value="${voice[trait]}" data-trait="${trait}" aria-label="${trait}" aria-describedby="ends-${trait}"><span class="slider-ends" id="ends-${trait}"><span>${TRAITS[trait].low}</span><span>${TRAITS[trait].high}</span></span></label>`).join('')}</div>
     <details class="prompt-details"><summary>The personality instructions ${icon('chevron')}</summary><pre class="prompt-text" id="personality-text">${esc(personalityPrompt())}</pre></details></section></div>
-    <div class="detail-bottom"><div class="detail-bottom-guide"><p class="handoff-guidance">In Muse: press Send, choose an avatar, then click Select.</p><button class="text-button setup-options" data-setup>Setup options</button></div><div class="actions"><button class="save-detail ${saved[c.id] ? 'saved' : ''}" data-save-current aria-label="${saved[c.id] ? 'Save changes' : 'Save combo'}">${icon(saved[c.id] ? 'check' : 'heart')}<span>${saved[c.id] ? 'Save changes' : 'Save combo'}</span></button>${handoff ? `<a class="button primary" data-muse-handoff data-muse-character="${c.id}" href="${esc(handoff.url)}">Open in Muse ${icon('spark')}</a>` : '<button class="button primary" data-setup>Set up in Muse</button>'}</div></div>`, 'dialog-title');
+    <div class="detail-bottom"><div class="detail-bottom-guide"><p class="handoff-guidance">In Muse: press Send, choose an avatar, then click Select.</p><button class="text-button setup-options" data-setup>Setup options</button><button class="text-button detail-share" data-share-character="${c.id}">${icon('link')} Copy link</button></div><div class="actions"><button class="save-detail ${saved[c.id] ? 'saved' : ''}" data-save-current aria-label="${saved[c.id] ? 'Save changes' : 'Save combo'}">${icon(saved[c.id] ? 'check' : 'heart')}<span>${saved[c.id] ? 'Save changes' : 'Save combo'}</span></button>${handoff ? `<a class="button primary" data-muse-handoff data-muse-character="${c.id}" href="${esc(handoff.url)}">Open in Muse ${icon('spark')}</a>` : '<button class="button primary" data-setup>Set up in Muse</button>'}</div></div>`, 'dialog-title');
 }
 
 function openCharacter(id) {
   const found = characters.find(c => c.id === id); if (!found) return;
+  if (spotlightHome) spotlight.selectCharacter(id, false);
+  else replaceCharacterLocation(id);
   current = found; sampleIndex = 0;
   if (!drafts[id]) drafts[id] = { ...(saved[id]?.voice || found.persona.voice) };
   renderDetail();
@@ -227,6 +259,20 @@ async function copyText(kind, button) {
   }
 }
 
+async function copyCharacterLink(id, button) {
+  if (!characters.some(character => character.id === id)) return;
+  const url = characterShareUrl(id);
+  try {
+    await navigator.clipboard.writeText(url);
+    const old = button.innerHTML; button.innerHTML = `${icon('check')} Copied`;
+    setTimeout(() => { if (button.isConnected) button.innerHTML = old; }, 1800);
+    notify('Character link copied. Tone changes stay on this device.');
+  } catch {
+    showDialog(`${dialogHeader('Copy character link')}<section class="setup copy-fallback"><h2 id="dialog-title">Share this character.</h2><p class="setup-intro">Copy this link for your Reel or message. It opens the character preset; your tone changes stay on this device.</p><textarea aria-label="Character link to copy" readonly>${esc(url)}</textarea></section>`, 'dialog-title');
+    const textarea = dialog.querySelector('textarea'); textarea.focus(); textarea.select();
+  }
+}
+
 function saveCurrent() {
   if (!persist({ ...saved, [current.id]: { voice: { ...getPersona().voice } } })) return;
   renderPage();
@@ -261,7 +307,7 @@ async function start() {
     const data=await response.json();characters=data.characters;
     if(!Array.isArray(characters)||!characters.length)throw new Error('Empty catalog');
     saved=readSaved();
-    if (spotlightHome) spotlight=mountSpotlight({characters,saved,getHandoff});
+    if (spotlightHome) spotlight=mountSpotlight({characters,saved,getHandoff,initialCharacterId:characterIdFromUrl(location.href,characters),onSelect:onSpotlightSelect});
     renderPage();
     dialog=document.createElement('dialog');dialog.id='character-dialog';document.body.append(dialog);
     const toast=document.createElement('div');toast.id='toast';toast.className='toast';toast.setAttribute('role','status');toast.setAttribute('aria-live','polite');document.body.append(toast);
@@ -270,6 +316,7 @@ async function start() {
     document.addEventListener('click',e=>{
       const button=e.target.closest('button');if(!button)return;
       if(button.hasAttribute('data-close'))dialog.close();
+      else if(button.dataset.shareCharacter)copyCharacterLink(button.dataset.shareCharacter,button);
       else if(button.dataset.setupCharacter){openCharacter(button.dataset.setupCharacter);renderSetup();}
       else if(button.dataset.character)openCharacter(button.dataset.character);
       else if(button.dataset.save)toggleSave(button.dataset.save,button);
@@ -297,6 +344,10 @@ async function start() {
       updateMuseLinks();
       const save=dialog.querySelector('[data-save-current]');if(save){save.classList.remove('saved');save.innerHTML=`${icon('heart')}<span>Save changes</span>`;save.setAttribute('aria-label','Save changes');}
     });
+    window.addEventListener('popstate', applyCharacterLocation);
+    // Canonical shared links open the homepage spotlight. Support collection
+    // links too, without redirecting or losing an incoming campaign parameter.
+    if (!spotlightHome && characterIdFromUrl(location.href, characters)) applyCharacterLocation();
   }catch(error){
     if(spotlightHome){
       document.querySelector('#stage-message').textContent='The wardrobe couldn’t load. Please try again.';

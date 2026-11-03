@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Persa — Personality + avatars for Muse</title>
-  <meta name="description" content="Discover Persa's curated character combos for Muse. Pair a personality with a matching avatar, tune the voice, and open the prepared combo in Muse.">
+  <title>Persa Avatars. Made for Muse AI.</title>
+  <meta name="description" content="Make your Meta Muse AI assistant look like and talk like your favorite celebrity! Choose from one of our fun presets and click open in Muse. It's that simple.">
   <link rel="icon" href="/favicon.svg">
   <link rel="stylesheet" href="/styles.css">
   <link rel="stylesheet" href="/spotlight.css">
@@ -22,29 +22,29 @@
   <main>
     <section class="intro persa-intro" aria-labelledby="intro-title">
       <div class="persa-intro-copy">
-        <p class="eyebrow">The Persa collection · Made for Muse</p>
-        <h1 id="intro-title">A little more personality.</h1>
-        <p class="intro-description">Give your Muse a distinct voice and a matching look. Explore Persa’s curated character combos, with a personality and avatar design prepared together.</p>
-        <ul class="combo-includes" aria-label="Every character combo includes"><li>A distinct voice</li><li>A matching look</li><li>One prepared combo</li></ul>
+        <h1 id="intro-title">Persa Avatars. <span>Made for Muse AI.</span></h1>
+        <p class="intro-description">Make your Meta Muse AI assistant look like and talk like your favorite celebrity! Choose from one of our fun presets and click open in Muse. It's that simple.</p>
       </div>
     </section>
     <section class="showcase" aria-label="Muse character spotlight" aria-roledescription="carousel">
       <div class="stage" id="stage" tabindex="0" aria-label="Character stage. Swipe left or right, or use the arrow keys to browse." aria-describedby="stage-personality browse-hint" aria-busy="true">
-        <div class="stage-topline" aria-hidden="true"><span>The Persa collection</span><span id="stage-count">— / 18</span></div>
+        <div class="stage-topline" aria-hidden="true"><span id="stage-count">— / 18</span></div>
         <div class="stage-halo" aria-hidden="true"></div>
         <div class="spotlight-beam" aria-hidden="true"></div>
         <div class="floor-light" aria-hidden="true"></div>
         <div class="slides" id="slides"></div>
-        <p class="stage-message" id="stage-message" role="status">Opening the collection…</p>
+        <p class="stage-message" id="stage-message" role="status">Loading avatars…</p>
         <button class="retry" id="retry" hidden>Try again</button>
-        <p class="stage-personality" id="stage-personality"></p>
+        <div class="navigation">
+          <button class="arrow" id="previous" aria-label="Previous character" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6M8 12h12"/></svg></button>
+          <span class="page-count sr-only" id="page-count" aria-hidden="true">— / 18</span>
+          <button class="arrow next" id="next" aria-label="Next character" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 6 6 6-6 6M16 12H4"/></svg></button>
+        </div>
       </div>
-      <p class="stage-browse-hint" id="browse-hint"><span aria-hidden="true">↔</span> Swipe or drag to explore</p>
       <div class="character-panel">
         <div class="character-info" id="character-info" aria-busy="true">
-          <p class="character-kicker" id="character-kicker">Personality + Muse avatar</p>
-          <h2 id="character-name">A moment for your Muse.</h2>
-          <p class="character-subtitle" id="character-subtitle">Choose a character to take the stage.</p>
+          <h2 id="character-name">Choose your avatar</h2>
+          <p class="stage-personality" id="stage-personality"></p>
           <div class="spotlight-actions">
             <a class="button primary" id="spotlight-use" data-muse-handoff aria-disabled="true" tabindex="-1" aria-describedby="spotlight-guidance">Open in Muse <span aria-hidden="true">↗</span></a>
             <button class="button secondary" id="spotlight-customize" disabled>Tune personality</button>
@@ -52,35 +52,23 @@
           </div>
           <div class="spotlight-help"><p class="handoff-guidance" id="spotlight-guidance">In Muse: press Send, choose an avatar, then click Select.</p><button class="text-button setup-options" id="spotlight-setup" disabled>Setup options</button></div>
         </div>
-        <div class="navigation">
-          <button class="arrow" id="previous" aria-label="Previous character" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6M8 12h12"/></svg></button>
-          <span class="page-count" id="page-count" aria-hidden="true">— / 18</span>
-          <button class="arrow next" id="next" aria-label="Next character" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 6 6 6-6 6M16 12H4"/></svg></button>
-        </div>
       </div>
       <div class="browse-row">
+        <p class="stage-browse-hint" id="browse-hint"><span aria-hidden="true">↔</span> Swipe to explore</p>
         <label class="character-picker" for="character-select">Jump to <select id="character-select" disabled><option>Choose a character</option></select></label>
+        <button class="text-button" id="spotlight-share" data-share-character disabled>Copy character link</button>
+        <button class="motion-toggle text-button" id="motion-toggle" aria-pressed="true" disabled>Motion on</button>
       </div>
       <p class="sr-only" id="announcement" role="status" aria-live="polite" aria-atomic="true"></p>
-    </section>
-    <section class="how-it-works" aria-labelledby="how-title">
-      <div class="journey-heading"><p class="eyebrow">From the collection to your Muse</p><h2 id="how-title">Your character, in three steps.</h2></div>
-      <ol class="journey-steps">
-        <li><span class="journey-number" aria-hidden="true">01</span><div><h3>Pick your combo</h3><p>Find a personality and matching avatar you love. Tune the voice if you like.</p></div></li>
-        <li><span class="journey-number" aria-hidden="true">02</span><div><h3>Open in Muse</h3><p>One click takes your prepared combo to Muse. Sign in if needed.</p></div></li>
-        <li><span class="journey-number" aria-hidden="true">03</span><div><h3>Send, then select</h3><p>Press Send in Muse. Choose your generated avatar and click Select.</p></div></li>
-      </ol>
-      <p class="journey-note">Muse creates a fresh avatar, so it may differ from the preview. If your message doesn’t appear, use Setup options beside Open in Muse.</p>
     </section>
     <section class="home-collection" id="home-collection" aria-labelledby="collection-title" aria-busy="true">
       <div class="collection-head">
         <h2 class="collection-title" id="collection-title">All characters <span id="home-collection-count">/ 18</span></h2>
-        <span class="collection-note">A personality. A matching look. Your kind of company.</span>
       </div>
-      <p class="collection-status" id="home-collection-status" role="status">Opening the collection…</p>
+      <p class="collection-status" id="home-collection-status" role="status">Loading avatars…</p>
       <div class="grid" id="home-character-grid"></div>
     </section>
-    <footer><span>The same little Muse. A different kind of company.</span><span>Independent costume interpretations. Not affiliated with Muse.</span></footer>
+    <footer><span>Muse generates a new avatar; results may differ from these previews. Preview motion stays in Persa.</span><span>Independent celebrity-inspired costumes. Not affiliated with Meta, Muse, or the people depicted.</span></footer>
   </main>
 </div>
   <script type="module" src="/app.js"></script>

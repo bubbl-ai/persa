@@ -159,47 +159,58 @@
       "kind": "muse-costume",
       "subjectId": "charlie-chaplin",
       "baseId": "persa-muse-v1",
-      "designVersion": "muse-wigs-v2",
+      "designVersion": "muse-white-background-v7",
       "status": "generated",
-      "tool": "native Muse avatar generator",
-      "createdAt": "2026-10-16",
-      "selectedAt": "2026-10-16",
-      "referenceAsset": "web/avatars/muse-costumes-v1/base.png",
-      "prompt": "This is a preview-only Persa wardrobe request for the Charlie Chaplin-inspired costume. Generate four native Muse avatar candidates. Do not select or activate a candidate. Do not change my account name, selected avatar, personality, IDENTITY.md, SOUL.md, MEMORY.md or standing preferences, and do not save this temporary costume as a preference.\n\nREFERENCE\nDownload a fresh copy of https://persa.bubblai.com/avatars/muse-costumes-v1/base.png directly into your workspace, for example ~/workspace/persa-wig/base.png; create the workspace folder if needed. Verify SHA-256 c428fd4d8608ca5bd5d72a5c3f49a20be680a739a94bb9e658e3f4be23a4ec2f. Pass that actual downloaded image file to your native avatar generator as the character reference. If the download, checksum or image-reference input is unavailable, stop and explain; do not substitute text-only generation or a previous avatar.\n\nGenerate four native Muse avatar candidates using the downloaded image as the character reference.\n\nFIXED PLUSH CHARACTER\nUse the downloaded cream plush toy as the same base character in all candidates. Preserve its wide peach face outline, small black bead-eye size and spacing, tiny stitched smile, rosy cheeks, cream sherpa material, compact body, short limbs and standing front view. Both hands remain rounded fingerless cream fleece mittens. Do not add a human face or scalp, nose, eyebrows, eyelashes, makeup, facial hair, animal ears, extra cream protrusions, fingers or a different skin color. Fit the costume to the original body.\n\nCOSTUME\none black bowler hat, a complete black two-piece suit consisting of a jacket and full-length black trousers covering both legs down to the ankles, a white shirt, a black bow tie, two black shoes covering the feet, and one slim black cane held in a cream fleece mitten below the face. Both trouser legs must be clearly visible between the jacket hem and shoes; no bare plush thighs or bare feet.\n\nREMOVABLE WIG\nOne removable black synthetic doll-fiber wig with two small tidy softly waved side sections visible below the bowler hat. The hat sits over the low wig crown; the short waves stay behind the cream cheek rim and end at cheek level. No forehead fringe, sideburns, moustache or other facial hair.\n\nWIG PLACEMENT\nThe wig is a separate costume accessory fitted over the outside of the existing cream hood; it does not replace the hood or change the face. Preserve a broad continuous cream U-shaped front rim along both cheeks and below the chin. At eye level, each visible cream cheek strip is at least as thick as one original bead eye. Place side hair behind this front rim, outside the face opening. Only explicitly requested bangs may overlap the upper peach forehead; all hair leaves the eyes, cheeks and mouth clear. Keep the hood round beneath the wig. If space is tight, reduce wig volume rather than changing the face, head size, body or clothes. Do not invent additional accessories or features.\n\nCOMPOSITION\nPhotographed plush collectible toy, full body with complete wig and both feet in frame, centered on plain white, soft studio light. All four candidates use this same costume, wig silhouette, pose and material; do not offer alternate hairstyles or art styles. No text, logos or watermark. Show native selectable candidates and keep the currently selected avatar unchanged.",
-      "asset": "web/avatars/muse-wigs-v2/charlie-chaplin.webp",
+      "tool": "built-in image_gen",
+      "createdAt": "2026-11-03",
+      "editType": "background-only",
+      "referenceAsset": "web/avatars/muse-wigs-v2/charlie-chaplin.webp",
+      "prompt": "Use case: precise-object-edit\nAsset type: existing Persa plush avatar website preview; background correction only.\nInput image 1 is the EDIT TARGET, not merely inspiration.\nPrimary request: replace only the pale lilac/purple backdrop with a seamless neutral pure white (#ffffff) studio background, including all corners and the space around the figure. Keep a very subtle neutral gray ground contact shadow beneath the feet, with no lavender or colored haze. Do not make the background transparent.\nConstraints: preserve the same exact plush character, face outline, bead eyes, eye catchlights, smile, cheek blush, cream face/hood, all costume details, materials and textures, pose, silhouette, full-body framing, camera angle, proportions, lighting on the figure, and existing margins. Do not reinterpret or redesign the figure. Do not brighten, recolor, reshape, retouch or replace any part of the character. Preserve fine fuzzy edge fibers. Keep the entire hat or bow, hands, feet, and all props fully inside the square frame. Output one image, same composition and input dimensions if supported. No text, logos, border, watermark, new accessories, extra limbs or alternate pose.\nSpecific figure invariants: Preserve the black bowler hat, curled black side locks, black suit jacket and trousers, white shirt, black bow tie, two jacket buttons, glossy black shoes and the single black cane held at image right. Keep the familiar cream plush Muse hood/face and both cream mitten hands unchanged.",
+      "asset": "web/avatars/muse-white-background-v7/charlie-chaplin.webp",
       "failure": null,
-      "inspection": "Only revision candidate with exactly two side curls, no added facial features, and a complete black suit, shoes, bowler and cane. Full framing; the pale lavender background is a deliberate selection limitation because every white-background revision candidate has practical hair/base failures. Side curls remain inside the face opening.",
-      "nativeGeneration": {
-        "sourceExperiment": "2026-10-16-wig-rollout",
-        "requestId": "charlie-chaplin-wig-curation-2",
-        "option": 3,
-        "recipeVersion": "muse-reference-wig-v3",
-        "promptSha256": "e6daa389d50e7538d4ad967491d02e9d9d6a26b899cb45b15ae0bc76922eadb9",
-        "avatarPromptSha256": "35de5989644599375227b1d11a30d239eda4e3e248f8046f33cfc216a452f25d",
+      "inspection": "Full-size generated PNG visually reviewed against the source. Familiar plush face, outfit, pose and complete framing retained; white background appears consistent. No extra props, missing limbs, cropped feet or changed outfit features observed.",
+      "sourceImage": {
+        "asset": "web/avatars/muse-wigs-v2/charlie-chaplin.webp",
+        "designVersion": "muse-wigs-v2",
+        "tool": "native Muse avatar generator",
         "outputSha256": "21ee48aeb0e970de550b87d3674529e142edbad1d045bf01adbfea96a18fe38f",
         "width": 1600,
         "height": 1600,
-        "selectionReason": "Only revision candidate with exactly two side curls, no added facial features, and a complete black suit, shoes, bowler and cane. Full framing; the pale lavender background is a deliberate selection limitation because every white-background revision candidate has practical hair/base failures. Side curls remain inside the face opening.",
-        "observedDifferences": [
-          "A visible cream band sits above the wig, placing the wig inside rather than over the exterior hood.",
-          "Front hair overlaps the upper peach forehead or cheek opening instead of staying behind the cream rim.",
-          "The background is visibly pale lavender rather than plain white.",
-          "The two side curls end near the chin rather than cheek level."
-        ],
+        "bytes": 294418,
         "imageModified": false
       },
-      "visualReview": {
-        "hair": true,
-        "visibleBase": true,
-        "costume": true,
-        "combinedUsable": true,
-        "strictCompliance": false,
-        "strictMisses": [
-          "A visible cream band sits above the wig, placing the wig inside rather than over the exterior hood.",
-          "Front hair overlaps the upper peach forehead or cheek opening instead of staying behind the cream rim.",
-          "The background is visibly pale lavender rather than plain white.",
-          "The two side curls end near the chin rather than cheek level."
+      "generation": {
+        "sourceExperiment": "2026-11-03-homepage",
+        "promptSha256": "338b7733fd4498a56876f5b15366e5e7e0b9f7d9f1be927aaae2ad0daca9c6c4",
+        "outputSha256": "cf5b18df09aeb8d1243e27c175b736e8f0d6d8a56b66f6ecb401553f7a4e2747",
+        "width": 1254,
+        "height": 1254,
+        "outputBytes": 1551762,
+        "imageModified": false,
+        "nativeMuseValidated": false,
+        "asset": "web/avatars/muse-white-background-v7/charlie-chaplin.png",
+        "observedDifferences": [
+          "The lilac backdrop and tinted ground shadow are replaced by a neutral near-white backdrop and subtle neutral gray contact shadow.",
+          "This is a generated image edit; fine fabric texture and edge fibers are not asserted to be pixel-identical to the source.",
+          "The generator returned 1254×1254 pixels from the 1600×1600 native source; the square full-body framing remains visually consistent."
         ]
+      },
+      "displayDerivative": {
+        "asset": "web/avatars/muse-white-background-v7/charlie-chaplin.webp",
+        "sourceAsset": "web/avatars/muse-white-background-v7/charlie-chaplin.png",
+        "sourceSha256": "cf5b18df09aeb8d1243e27c175b736e8f0d6d8a56b66f6ecb401553f7a4e2747",
+        "outputSha256": "4ecebe119be39492ec8bd9f25956c5c61ee3a3f2e306d96c9030718f50199281",
+        "codec": "WebP",
+        "lossy": true,
+        "encoder": "cwebp 1.6.0",
+        "quality": 85,
+        "method": 6,
+        "sourceBytes": 1551762,
+        "outputBytes": 55154,
+        "width": 1254,
+        "height": 1254,
+        "transformation": "Format compression only; no resizing, cropping or artwork edits. Generated PNG preserved unchanged.",
+        "inspection": "Inspected WebP against the generated PNG: face, costume, props and full-body framing preserved visually; minor lossy texture smoothing only."
       }
     },
     "supersededReplacements": [
@@ -217,6 +228,54 @@
         "failure": null,
         "inspection": "Inspected rendered output: same Muse face, cream hood and compact proportions. Correct costume, full body visible.",
         "retiredReason": "User approved curated native Muse wig previews on October 16, 2026; original costume artwork retained as history."
+      },
+      {
+        "kind": "muse-costume",
+        "subjectId": "charlie-chaplin",
+        "baseId": "persa-muse-v1",
+        "designVersion": "muse-wigs-v2",
+        "status": "generated",
+        "tool": "native Muse avatar generator",
+        "createdAt": "2026-10-16",
+        "selectedAt": "2026-10-16",
+        "referenceAsset": "web/avatars/muse-costumes-v1/base.png",
+        "prompt": "This is a preview-only Persa wardrobe request for the Charlie Chaplin-inspired costume. Generate four native Muse avatar candidates. Do not select or activate a candidate. Do not change my account name, selected avatar, personality, IDENTITY.md, SOUL.md, MEMORY.md or standing preferences, and do not save this temporary costume as a preference.\n\nREFERENCE\nDownload a fresh copy of https://persa.bubblai.com/avatars/muse-costumes-v1/base.png directly into your workspace, for example ~/workspace/persa-wig/base.png; create the workspace folder if needed. Verify SHA-256 c428fd4d8608ca5bd5d72a5c3f49a20be680a739a94bb9e658e3f4be23a4ec2f. Pass that actual downloaded image file to your native avatar generator as the character reference. If the download, checksum or image-reference input is unavailable, stop and explain; do not substitute text-only generation or a previous avatar.\n\nGenerate four native Muse avatar candidates using the downloaded image as the character reference.\n\nFIXED PLUSH CHARACTER\nUse the downloaded cream plush toy as the same base character in all candidates. Preserve its wide peach face outline, small black bead-eye size and spacing, tiny stitched smile, rosy cheeks, cream sherpa material, compact body, short limbs and standing front view. Both hands remain rounded fingerless cream fleece mittens. Do not add a human face or scalp, nose, eyebrows, eyelashes, makeup, facial hair, animal ears, extra cream protrusions, fingers or a different skin color. Fit the costume to the original body.\n\nCOSTUME\none black bowler hat, a complete black two-piece suit consisting of a jacket and full-length black trousers covering both legs down to the ankles, a white shirt, a black bow tie, two black shoes covering the feet, and one slim black cane held in a cream fleece mitten below the face. Both trouser legs must be clearly visible between the jacket hem and shoes; no bare plush thighs or bare feet.\n\nREMOVABLE WIG\nOne removable black synthetic doll-fiber wig with two small tidy softly waved side sections visible below the bowler hat. The hat sits over the low wig crown; the short waves stay behind the cream cheek rim and end at cheek level. No forehead fringe, sideburns, moustache or other facial hair.\n\nWIG PLACEMENT\nThe wig is a separate costume accessory fitted over the outside of the existing cream hood; it does not replace the hood or change the face. Preserve a broad continuous cream U-shaped front rim along both cheeks and below the chin. At eye level, each visible cream cheek strip is at least as thick as one original bead eye. Place side hair behind this front rim, outside the face opening. Only explicitly requested bangs may overlap the upper peach forehead; all hair leaves the eyes, cheeks and mouth clear. Keep the hood round beneath the wig. If space is tight, reduce wig volume rather than changing the face, head size, body or clothes. Do not invent additional accessories or features.\n\nCOMPOSITION\nPhotographed plush collectible toy, full body with complete wig and both feet in frame, centered on plain white, soft studio light. All four candidates use this same costume, wig silhouette, pose and material; do not offer alternate hairstyles or art styles. No text, logos or watermark. Show native selectable candidates and keep the currently selected avatar unchanged.",
+        "asset": "web/avatars/muse-wigs-v2/charlie-chaplin.webp",
+        "failure": null,
+        "inspection": "Only revision candidate with exactly two side curls, no added facial features, and a complete black suit, shoes, bowler and cane. Full framing; the pale lavender background is a deliberate selection limitation because every white-background revision candidate has practical hair/base failures. Side curls remain inside the face opening.",
+        "nativeGeneration": {
+          "sourceExperiment": "2026-10-16-wig-rollout",
+          "requestId": "charlie-chaplin-wig-curation-2",
+          "option": 3,
+          "recipeVersion": "muse-reference-wig-v3",
+          "promptSha256": "e6daa389d50e7538d4ad967491d02e9d9d6a26b899cb45b15ae0bc76922eadb9",
+          "avatarPromptSha256": "35de5989644599375227b1d11a30d239eda4e3e248f8046f33cfc216a452f25d",
+          "outputSha256": "21ee48aeb0e970de550b87d3674529e142edbad1d045bf01adbfea96a18fe38f",
+          "width": 1600,
+          "height": 1600,
+          "selectionReason": "Only revision candidate with exactly two side curls, no added facial features, and a complete black suit, shoes, bowler and cane. Full framing; the pale lavender background is a deliberate selection limitation because every white-background revision candidate has practical hair/base failures. Side curls remain inside the face opening.",
+          "observedDifferences": [
+            "A visible cream band sits above the wig, placing the wig inside rather than over the exterior hood.",
+            "Front hair overlaps the upper peach forehead or cheek opening instead of staying behind the cream rim.",
+            "The background is visibly pale lavender rather than plain white.",
+            "The two side curls end near the chin rather than cheek level."
+          ],
+          "imageModified": false
+        },
+        "visualReview": {
+          "hair": true,
+          "visibleBase": true,
+          "costume": true,
+          "combinedUsable": true,
+          "strictCompliance": false,
+          "strictMisses": [
+            "A visible cream band sits above the wig, placing the wig inside rather than over the exterior hood.",
+            "Front hair overlaps the upper peach forehead or cheek opening instead of staying behind the cream rim.",
+            "The background is visibly pale lavender rather than plain white.",
+            "The two side curls end near the chin rather than cheek level."
+          ]
+        },
+        "retiredReason": "November 3, 2026: a generated white-background display edit replaces this preview to remove the gallery’s lilac-background inconsistency. Original artwork, prompt and provenance retained unchanged; native generation recipes are not changed."
       }
     ]
   },
@@ -1233,6 +1292,21 @@
         "asset": "web/avatars/concepts/sunny-crab.png",
         "failure": null,
         "retiredReason": "User rejected unrelated concept companion; named figure must remain recognizable."
+      },
+      {
+        "kind": "muse-costume",
+        "subjectId": "spongebob",
+        "baseId": "persa-muse-v1",
+        "designVersion": "muse-costumes-v1",
+        "status": "generated",
+        "tool": "built-in image_gen",
+        "createdAt": "2026-10-06",
+        "referenceAsset": "web/avatars/muse-costumes-v1/base.png",
+        "prompt": "Use case: identity-preserve\nAsset type: one image in a consistent collectible plush costume avatar series.\nInput image 1 is the EDIT TARGET: the original Muse plush master base character. Use it as an exact reference for the same character in every costume.\nPrimary request: create the named costume variant described below. The name is the inspiration for wardrobe only. The visible subject remains this same original Muse plush character.\nInvariants: preserve this exact cream plush hood shape, peach round face, small glossy black eyes and catchlights, tiny simple smile, rosy cheeks, compact round body proportions, stubby cream hands and feet, fuzzy cream material, front-facing view and camera. Face, expression, hood, body, and toy identity must remain unchanged. Change ONLY wardrobe, headwear, and held props, with minimal hand repositioning needed for props. No individual human likeness, no human hairstyle, no animal ears, no teeth, no franchise-shaped body.\nComposition/framing: square image, 1024x1024 preferred, complete full body including headwear and feet visible, centered, about 75 percent of canvas height. Match the base's front-facing camera, soft diffuse studio lighting, pale lilac #efedf8 backdrop and subtle ground shadow. Clothing must fit the existing short round toy rather than change its body.\nStyle/medium: premium soft 3D plush collectible with tactile clothing fabrics; match the master image's visual style.\nText: none. No logos, lettering, UI, borders or watermark.\n\nCostume variant: SpongeBob (spongebob).\nWardrobe/headwear/props: Yellow knit vest, white shirt collar, red tie, brown shorts, white socks and black shoes. Preserve original cream round plush body and peach face; no sponge body or sponge texture.",
+        "asset": "web/avatars/muse-costumes-v1/spongebob.png",
+        "failure": null,
+        "inspection": "Inspected rendered output: same Muse face, cream hood and compact proportions. Correct costume, full body visible.",
+        "retiredReason": "November 3, 2026: a generated white-background display edit replaces this preview to remove the gallery’s lilac-background inconsistency. Original artwork, prompt and provenance retained unchanged; native generation recipes are not changed."
       }
     ],
     "attempts": [
@@ -1250,15 +1324,58 @@
       "kind": "muse-costume",
       "subjectId": "spongebob",
       "baseId": "persa-muse-v1",
-      "designVersion": "muse-costumes-v1",
+      "designVersion": "muse-white-background-v7",
       "status": "generated",
       "tool": "built-in image_gen",
-      "createdAt": "2026-10-06",
-      "referenceAsset": "web/avatars/muse-costumes-v1/base.png",
-      "prompt": "Use case: identity-preserve\nAsset type: one image in a consistent collectible plush costume avatar series.\nInput image 1 is the EDIT TARGET: the original Muse plush master base character. Use it as an exact reference for the same character in every costume.\nPrimary request: create the named costume variant described below. The name is the inspiration for wardrobe only. The visible subject remains this same original Muse plush character.\nInvariants: preserve this exact cream plush hood shape, peach round face, small glossy black eyes and catchlights, tiny simple smile, rosy cheeks, compact round body proportions, stubby cream hands and feet, fuzzy cream material, front-facing view and camera. Face, expression, hood, body, and toy identity must remain unchanged. Change ONLY wardrobe, headwear, and held props, with minimal hand repositioning needed for props. No individual human likeness, no human hairstyle, no animal ears, no teeth, no franchise-shaped body.\nComposition/framing: square image, 1024x1024 preferred, complete full body including headwear and feet visible, centered, about 75 percent of canvas height. Match the base's front-facing camera, soft diffuse studio lighting, pale lilac #efedf8 backdrop and subtle ground shadow. Clothing must fit the existing short round toy rather than change its body.\nStyle/medium: premium soft 3D plush collectible with tactile clothing fabrics; match the master image's visual style.\nText: none. No logos, lettering, UI, borders or watermark.\n\nCostume variant: SpongeBob (spongebob).\nWardrobe/headwear/props: Yellow knit vest, white shirt collar, red tie, brown shorts, white socks and black shoes. Preserve original cream round plush body and peach face; no sponge body or sponge texture.",
-      "asset": "web/avatars/muse-costumes-v1/spongebob.png",
+      "createdAt": "2026-11-03",
+      "editType": "background-only",
+      "referenceAsset": "web/avatars/muse-costumes-v1/spongebob.png",
+      "prompt": "Use case: precise-object-edit\nAsset type: existing Persa plush avatar website preview; background correction only.\nInput image 1 is the EDIT TARGET, not merely inspiration.\nPrimary request: replace only the pale lilac/purple backdrop with a seamless neutral pure white (#ffffff) studio background, including all corners and the space around the figure. Keep a very subtle neutral gray ground contact shadow beneath the feet, with no lavender or colored haze. Do not make the background transparent.\nConstraints: preserve the same exact plush character, face outline, bead eyes, eye catchlights, smile, cheek blush, cream face/hood, all costume details, materials and textures, pose, silhouette, full-body framing, camera angle, proportions, lighting on the figure, and existing margins. Do not reinterpret or redesign the figure. Do not brighten, recolor, reshape, retouch or replace any part of the character. Preserve fine fuzzy edge fibers. Keep the entire hat or bow, hands, feet, and all props fully inside the square frame. Output one image, same composition and input dimensions if supported. No text, logos, border, watermark, new accessories, extra limbs or alternate pose.\nSpecific figure invariants: Preserve the same round cream plush Muse hood/face, yellow knitted vest, white collared shirt, red knitted tie, brown shorts and belt, white socks with red and blue stripes, black shoes and both rounded cream mitten hands. Keep the exact original outfit textures and proportions.",
+      "asset": "web/avatars/muse-white-background-v7/spongebob.webp",
       "failure": null,
-      "inspection": "Inspected rendered output: same Muse face, cream hood and compact proportions. Correct costume, full body visible."
+      "inspection": "Full-size generated PNG visually reviewed against the source. Familiar plush face, outfit, pose and complete framing retained; white background appears consistent. No extra props, missing limbs, cropped feet or changed outfit features observed.",
+      "sourceImage": {
+        "asset": "web/avatars/muse-costumes-v1/spongebob.png",
+        "designVersion": "muse-costumes-v1",
+        "tool": "built-in image_gen",
+        "outputSha256": "10efde573ce4721bea48637148da8b530830f6ce73fe279032e955ba6508a58f",
+        "width": 1254,
+        "height": 1254,
+        "bytes": 1863261,
+        "imageModified": false
+      },
+      "generation": {
+        "sourceExperiment": "2026-11-03-homepage",
+        "promptSha256": "8d121481c9e31c8f735da071e82f3d4522bb455837fc9b28e4b17e3a20bd629e",
+        "outputSha256": "c922596d0e1475aac8a6fed76d31d1e06cdca884f47c14940153ba15dde8ed8a",
+        "width": 1254,
+        "height": 1254,
+        "outputBytes": 1705971,
+        "imageModified": false,
+        "nativeMuseValidated": false,
+        "asset": "web/avatars/muse-white-background-v7/spongebob.png",
+        "observedDifferences": [
+          "The lilac backdrop and tinted ground shadow are replaced by a neutral near-white backdrop and subtle neutral gray contact shadow.",
+          "This is a generated image edit; fine fabric texture and edge fibers are not asserted to be pixel-identical to the source."
+        ]
+      },
+      "displayDerivative": {
+        "asset": "web/avatars/muse-white-background-v7/spongebob.webp",
+        "sourceAsset": "web/avatars/muse-white-background-v7/spongebob.png",
+        "sourceSha256": "c922596d0e1475aac8a6fed76d31d1e06cdca884f47c14940153ba15dde8ed8a",
+        "outputSha256": "2fe5b1b0c35cf78756a74f40f98575b5a4739b951b860f04a747a53a69885892",
+        "codec": "WebP",
+        "lossy": true,
+        "encoder": "cwebp 1.6.0",
+        "quality": 85,
+        "method": 6,
+        "sourceBytes": 1705971,
+        "outputBytes": 86714,
+        "width": 1254,
+        "height": 1254,
+        "transformation": "Format compression only; no resizing, cropping or artwork edits. Generated PNG preserved unchanged.",
+        "inspection": "Inspected WebP against the generated PNG: face, costume, props and full-body framing preserved visually; minor lossy texture smoothing only."
+      }
     }
   },
   {
@@ -1272,16 +1389,76 @@
       "kind": "muse-costume",
       "subjectId": "hello-kitty",
       "baseId": "persa-muse-v1",
-      "designVersion": "muse-costumes-v1",
+      "designVersion": "muse-white-background-v7",
       "status": "generated",
       "tool": "built-in image_gen",
-      "createdAt": "2026-10-06",
-      "referenceAsset": "web/avatars/muse-costumes-v1/base.png",
-      "prompt": "Use case: identity-preserve\nAsset type: one image in a consistent collectible plush costume avatar series.\nInput image 1 is the EDIT TARGET: the original Muse plush master base character. Use it as an exact reference for the same character in every costume.\nPrimary request: create the named costume variant described below. The name is the inspiration for wardrobe only. The visible subject remains this same original Muse plush character.\nInvariants: preserve this exact cream plush hood shape, peach round face, small glossy black eyes and catchlights, tiny simple smile, rosy cheeks, compact round body proportions, stubby cream hands and feet, fuzzy cream material, front-facing view and camera. Face, expression, hood, body, and toy identity must remain unchanged. Change ONLY wardrobe, headwear, and held props, with minimal hand repositioning needed for props. No individual human likeness, no human hairstyle, no animal ears, no teeth, no franchise-shaped body.\nComposition/framing: square image, 1024x1024 preferred, complete full body including headwear and feet visible, centered, about 75 percent of canvas height. Match the base's front-facing camera, soft diffuse studio lighting, pale lilac #efedf8 backdrop and subtle ground shadow. Clothing must fit the existing short round toy rather than change its body.\nStyle/medium: premium soft 3D plush collectible with tactile clothing fabrics; match the master image's visual style.\nText: none. No logos, lettering, UI, borders or watermark.\n\nCostume variant: Hello Kitty (hello-kitty).\nWardrobe/headwear/props: Red bow beside the cream hood, red overalls and white shirt. Preserve the original peach face, tiny smile, black eyes and round cream hood; no cat ears or whiskers.",
-      "asset": "web/avatars/muse-costumes-v1/hello-kitty.png",
+      "createdAt": "2026-11-03",
+      "editType": "background-only",
+      "referenceAsset": "web/avatars/muse-costumes-v1/hello-kitty.png",
+      "prompt": "Use case: precise-object-edit\nAsset type: existing Persa plush avatar website preview; background correction only.\nInput image 1 is the EDIT TARGET, not merely inspiration.\nPrimary request: replace only the pale lilac/purple backdrop with a seamless neutral pure white (#ffffff) studio background, including all corners and the space around the figure. Keep a very subtle neutral gray ground contact shadow beneath the feet, with no lavender or colored haze. Do not make the background transparent.\nConstraints: preserve the same exact plush character, face outline, bead eyes, eye catchlights, smile, cheek blush, cream face/hood, all costume details, materials and textures, pose, silhouette, full-body framing, camera angle, proportions, lighting on the figure, and existing margins. Do not reinterpret or redesign the figure. Do not brighten, recolor, reshape, retouch or replace any part of the character. Preserve fine fuzzy edge fibers. Keep the entire hat or bow, hands, feet, and all props fully inside the square frame. Output one image, same composition and input dimensions if supported. No text, logos, border, watermark, new accessories, extra limbs or alternate pose.\nSpecific figure invariants: Preserve the same round cream plush Muse hood/face, large textured red bow at image upper right, white shirt, red plush overalls with two yellow buttons, both cream mitten hands and both cream feet. Keep the exact original outfit textures and proportions.",
+      "asset": "web/avatars/muse-white-background-v7/hello-kitty.webp",
       "failure": null,
-      "inspection": "Inspected rendered output: same Muse face, cream hood and compact proportions. Correct costume, full body visible."
-    }
+      "inspection": "Full-size generated PNG visually reviewed against the source. Familiar plush face, outfit, pose and complete framing retained; white background appears consistent. No extra props, missing limbs, cropped feet or changed outfit features observed.",
+      "sourceImage": {
+        "asset": "web/avatars/muse-costumes-v1/hello-kitty.png",
+        "designVersion": "muse-costumes-v1",
+        "tool": "built-in image_gen",
+        "outputSha256": "9f7761bb4bd3fd0202ca8cae0e3c606394fb761a543d123583c527f332d1d43e",
+        "width": 1254,
+        "height": 1254,
+        "bytes": 1895343,
+        "imageModified": false
+      },
+      "generation": {
+        "sourceExperiment": "2026-11-03-homepage",
+        "promptSha256": "280e295360e8161856b8c481d82fd58d305be33a10f7ea8220526b476f3acbc1",
+        "outputSha256": "9af2a8b83640fcda44364a4ab8131d2c920c3ddbd09290dccfa5eba9362d5f02",
+        "width": 1254,
+        "height": 1254,
+        "outputBytes": 1693402,
+        "imageModified": false,
+        "nativeMuseValidated": false,
+        "asset": "web/avatars/muse-white-background-v7/hello-kitty.png",
+        "observedDifferences": [
+          "The lilac backdrop and tinted ground shadow are replaced by a neutral near-white backdrop and subtle neutral gray contact shadow.",
+          "This is a generated image edit; fine fabric texture and edge fibers are not asserted to be pixel-identical to the source."
+        ]
+      },
+      "displayDerivative": {
+        "asset": "web/avatars/muse-white-background-v7/hello-kitty.webp",
+        "sourceAsset": "web/avatars/muse-white-background-v7/hello-kitty.png",
+        "sourceSha256": "9af2a8b83640fcda44364a4ab8131d2c920c3ddbd09290dccfa5eba9362d5f02",
+        "outputSha256": "a35f0baf28dcb8fdf8a0e935c9c9a76625136d5343946a5fdd56276e514d0e76",
+        "codec": "WebP",
+        "lossy": true,
+        "encoder": "cwebp 1.6.0",
+        "quality": 85,
+        "method": 6,
+        "sourceBytes": 1693402,
+        "outputBytes": 80834,
+        "width": 1254,
+        "height": 1254,
+        "transformation": "Format compression only; no resizing, cropping or artwork edits. Generated PNG preserved unchanged.",
+        "inspection": "Inspected WebP against the generated PNG: face, costume, props and full-body framing preserved visually; minor lossy texture smoothing only."
+      }
+    },
+    "supersededReplacements": [
+      {
+        "kind": "muse-costume",
+        "subjectId": "hello-kitty",
+        "baseId": "persa-muse-v1",
+        "designVersion": "muse-costumes-v1",
+        "status": "generated",
+        "tool": "built-in image_gen",
+        "createdAt": "2026-10-06",
+        "referenceAsset": "web/avatars/muse-costumes-v1/base.png",
+        "prompt": "Use case: identity-preserve\nAsset type: one image in a consistent collectible plush costume avatar series.\nInput image 1 is the EDIT TARGET: the original Muse plush master base character. Use it as an exact reference for the same character in every costume.\nPrimary request: create the named costume variant described below. The name is the inspiration for wardrobe only. The visible subject remains this same original Muse plush character.\nInvariants: preserve this exact cream plush hood shape, peach round face, small glossy black eyes and catchlights, tiny simple smile, rosy cheeks, compact round body proportions, stubby cream hands and feet, fuzzy cream material, front-facing view and camera. Face, expression, hood, body, and toy identity must remain unchanged. Change ONLY wardrobe, headwear, and held props, with minimal hand repositioning needed for props. No individual human likeness, no human hairstyle, no animal ears, no teeth, no franchise-shaped body.\nComposition/framing: square image, 1024x1024 preferred, complete full body including headwear and feet visible, centered, about 75 percent of canvas height. Match the base's front-facing camera, soft diffuse studio lighting, pale lilac #efedf8 backdrop and subtle ground shadow. Clothing must fit the existing short round toy rather than change its body.\nStyle/medium: premium soft 3D plush collectible with tactile clothing fabrics; match the master image's visual style.\nText: none. No logos, lettering, UI, borders or watermark.\n\nCostume variant: Hello Kitty (hello-kitty).\nWardrobe/headwear/props: Red bow beside the cream hood, red overalls and white shirt. Preserve the original peach face, tiny smile, black eyes and round cream hood; no cat ears or whiskers.",
+        "asset": "web/avatars/muse-costumes-v1/hello-kitty.png",
+        "failure": null,
+        "inspection": "Inspected rendered output: same Muse face, cream hood and compact proportions. Correct costume, full body visible.",
+        "retiredReason": "November 3, 2026: a generated white-background display edit replaces this preview to remove the gallery’s lilac-background inconsistency. Original artwork, prompt and provenance retained unchanged; native generation recipes are not changed."
+      }
+    ]
   },
   {
     "id": "joker",

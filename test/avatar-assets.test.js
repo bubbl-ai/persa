@@ -132,6 +132,55 @@ test('Kylie native runway preview preserves its output hash and superseded desig
   assert.ok(record.supersededReplacements.some(item => item.designVersion === 'muse-costumes-v1'));
 });
 
+test('white-background display edits retain original sources and distinguish generated edits from native output', async () => {
+  const records = JSON.parse(await readFile(new URL('../characters/image-generation.json', import.meta.url), 'utf8'));
+  const sha256 = bytes => createHash('sha256').update(bytes).digest('hex');
+  const originalHashes = {
+    'charlie-chaplin': '21ee48aeb0e970de550b87d3674529e142edbad1d045bf01adbfea96a18fe38f',
+    'spongebob': '10efde573ce4721bea48637148da8b530830f6ce73fe279032e955ba6508a58f',
+    'hello-kitty': '9f7761bb4bd3fd0202ca8cae0e3c606394fb761a543d123583c527f332d1d43e'
+  };
+  for (const [id, originalHash] of Object.entries(originalHashes)) {
+    const record = records.find(item => item.id === id);
+    const image = record.replacement;
+    const avatar = characters.find(item => item.id === id).avatar;
+    const source = await readFile(new URL(`../${image.sourceImage.asset}`, import.meta.url));
+    const generated = await readFile(new URL(`../${image.generation.asset}`, import.meta.url));
+    const display = await readFile(new URL(`../${image.asset}`, import.meta.url));
+    assert.equal(avatar.previewSource, 'imagegen-edit', id);
+    assert.equal(avatar.previewSelection, 'background-edit', id);
+    assert.equal(image.designVersion, 'muse-white-background-v7', id);
+    assert.equal(image.tool, 'built-in image_gen', id);
+    assert.equal(image.nativeGeneration, undefined, id);
+    assert.equal(image.generation.nativeMuseValidated, false, id);
+    assert.equal(image.sourceImage.imageModified, false, id);
+    assert.equal(sha256(source), originalHash, id);
+    assert.equal(image.sourceImage.outputSha256, originalHash, id);
+    assert.equal(image.generation.outputSha256, sha256(generated), id);
+    assert.equal(image.generation.promptSha256, sha256(image.prompt), id);
+    assert.equal(image.generation.width, generated.readUInt32BE(16), id);
+    assert.equal(image.generation.height, generated.readUInt32BE(20), id);
+    assert.equal(image.displayDerivative.outputSha256, sha256(display), id);
+    assert.equal(image.displayDerivative.sourceSha256, sha256(generated), id);
+    assert.equal(image.displayDerivative.sourceBytes, generated.length, id);
+    assert.equal(image.displayDerivative.outputBytes, display.length, id);
+    assert.equal(image.displayDerivative.asset, image.asset, id);
+    assert.equal(image.displayDerivative.sourceAsset, image.generation.asset, id);
+    assert.equal(image.displayDerivative.width, image.generation.width, id);
+    assert.equal(image.displayDerivative.height, image.generation.height, id);
+    assert.ok(image.generation.observedDifferences.length > 0, id);
+    const retired = record.supersededReplacements.find(item => item.asset === image.sourceImage.asset);
+    assert.ok(retired, id);
+    assert.equal(retired.designVersion, image.sourceImage.designVersion, id);
+    assert.equal(retired.tool, image.sourceImage.tool, id);
+    assert.ok(retired.prompt && retired.retiredReason, id);
+    if (id === 'charlie-chaplin') {
+      assert.equal(retired.nativeGeneration.outputSha256, originalHash);
+      assert.equal(retired.nativeGeneration.imageModified, false);
+    }
+  }
+});
+
 test('a declined original can use a matching character rendering without rewriting its history', async t => {
   const root = await fixture(t);
   const record = { ...declined, replacement: { status: 'generated', kind: 'character', subjectId: 'sample', asset: generated.asset } };

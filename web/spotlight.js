@@ -1,5 +1,5 @@
 // The shared app owns catalog, personality, favorites, dialogs, and setup.
-export function mountSpotlight({ characters, saved, getHandoff }) {
+export function mountSpotlight({ characters, saved, getHandoff, initialCharacterId, onSelect }) {
   const stage = document.querySelector('#stage');
   const slidesRoot = document.querySelector('#slides');
   const previous = document.querySelector('#previous');
@@ -7,7 +7,32 @@ export function mountSpotlight({ characters, saved, getHandoff }) {
   const picker = document.querySelector('#character-select');
   const message = document.querySelector('#stage-message');
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  const motionToggle = document.querySelector('#motion-toggle');
+  let motionEnabled = true, poseFrame;
+  try { motionEnabled = localStorage.getItem('persa.preview-motion') !== 'off'; } catch {}
   let slides = [], selected = 0, settleTimer, drag, savedRecords = saved;
+
+  function stopPose() {
+    cancelAnimationFrame(poseFrame);
+    slides.forEach(slide => slide.classList.remove('is-posing'));
+  }
+
+  function playPose() {
+    stopPose();
+    if (!motionEnabled || reducedMotion.matches || document.hidden || drag) return;
+    const slide = slides[selected], image = slide?.querySelector('img');
+    if (!image?.complete || !image.naturalWidth || slide.classList.contains('has-failed')) return;
+    poseFrame = requestAnimationFrame(() => slide.classList.add('is-posing'));
+  }
+
+  function updateMotion() {
+    stopPose();
+    motionToggle.disabled = reducedMotion.matches;
+    motionToggle.setAttribute('aria-pressed', String(motionEnabled && !reducedMotion.matches));
+    motionToggle.textContent = reducedMotion.matches ? 'Motion reduced' : motionEnabled ? 'Motion on' : 'Motion off';
+    motionToggle.title = reducedMotion.matches ? 'Your device preference reduces motion' : 'Toggle short avatar preview poses';
+    playPose();
+  }
 
   function cancelDrag() {
     const pointer = drag;
@@ -34,11 +59,13 @@ export function mountSpotlight({ characters, saved, getHandoff }) {
   function settle() {
     stage.classList.remove('is-moving');
     document.querySelector('#announcement').textContent = `${characters[selected].name}, ${selected + 1} of ${characters.length}. ${characters[selected].tags.join(', ')}.`;
+    playPose();
   }
 
   function selectCharacter(index, animate = true) {
     if (!characters.length) return;
     cancelDrag();
+    stopPose();
     selected = (index + characters.length) % characters.length;
     clearTimeout(settleTimer);
     const moving = animate && !reducedMotion.matches;
@@ -53,8 +80,6 @@ export function mountSpotlight({ characters, saved, getHandoff }) {
       prepareImage(i, Math.abs(offset) <= 1);
     });
     document.querySelector('#character-name').textContent = character.name;
-    document.querySelector('#character-subtitle').textContent = character.subtitle;
-    document.querySelector('#character-kicker').textContent = 'Personality + Muse avatar';
     document.querySelector('#stage-personality').textContent = character.tags.join(' · ');
     const count = `${String(selected + 1).padStart(2, '0')} / ${characters.length}`;
     document.querySelector('#stage-count').textContent = count;
@@ -64,13 +89,21 @@ export function mountSpotlight({ characters, saved, getHandoff }) {
     document.querySelector('#spotlight-setup').dataset.setupCharacter = character.id;
     document.querySelector('#spotlight-customize').dataset.character = character.id;
     document.querySelector('#spotlight-save').dataset.save = character.id;
+    document.querySelector('#spotlight-share').dataset.shareCharacter = character.id;
+    document.querySelector('#spotlight-share').setAttribute('aria-label', `Copy link to ${character.name}`);
     updateSaved(savedRecords);
+    onSelect?.(character);
     if (moving) settleTimer = setTimeout(settle, 550); else settle();
   }
 
   function makeSlide(character, index) {
     const slide = document.createElement('div');
     slide.className = 'slide is-away';
+    slide.dataset.character = character.id;
+    const sway = ['taylor-swift', 'michael-jackson', 'olivia-rodrigo', 'drake'];
+    const bow = ['charlie-chaplin', 'mona-lisa', 'harry-potter', 'wednesday'];
+    const bounce = ['spongebob', 'hello-kitty', 'mrbeast', 'lionel-messi'];
+    slide.dataset.pose = sway.includes(character.id) ? 'sway' : bow.includes(character.id) ? 'bow' : bounce.includes(character.id) ? 'bounce' : 'pose';
     slide.setAttribute('role', 'group');
     slide.setAttribute('aria-roledescription', 'slide');
     slide.setAttribute('aria-label', `${character.name}, ${index + 1} of ${characters.length}`);
@@ -82,7 +115,9 @@ export function mountSpotlight({ characters, saved, getHandoff }) {
       image.alt = `Shared plush Muse in a ${character.name} costume`;
       image.draggable = false;
       image.width = 1254; image.height = 1254; image.decoding = 'async';
-      image.addEventListener('error', () => slide.classList.add('has-failed'));
+      image.addEventListener('error', () => { slide.classList.add('has-failed'); slide.classList.remove('is-posing'); });
+      image.addEventListener('load', () => { if (index === selected && !stage.classList.contains('is-moving')) playPose(); });
+      image.addEventListener('animationend', () => slide.classList.remove('is-posing'));
       slide.append(image);
     } else slide.classList.add('has-failed');
     slide.append(fallback);
@@ -127,13 +162,20 @@ export function mountSpotlight({ characters, saved, getHandoff }) {
   picker.replaceChildren(...characters.map(character => {
     const option = document.createElement('option'); option.value = character.id; option.textContent = character.name; return option;
   }));
-  selected = Math.max(0, characters.findIndex(character => character.id === 'taylor-swift'));
+  selected = Math.max(0, characters.findIndex(character => character.id === (initialCharacterId || 'taylor-swift')));
   selectCharacter(selected, false);
   previous.disabled = next.disabled = characters.length < 2;
   picker.disabled = false;
   stage.setAttribute('aria-busy', 'false');
   document.querySelector('#character-info').setAttribute('aria-busy', 'false');
-  for (const id of ['spotlight-customize', 'spotlight-save', 'spotlight-setup']) document.getElementById(id).disabled = false;
+  for (const id of ['spotlight-customize', 'spotlight-save', 'spotlight-setup', 'spotlight-share']) document.getElementById(id).disabled = false;
+  updateMotion();
+  motionToggle.addEventListener('click', () => {
+    motionEnabled = !motionEnabled;
+    try { localStorage.setItem('persa.preview-motion', motionEnabled ? 'on' : 'off'); } catch {}
+    updateMotion();
+  });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) stopPose(); });
   document.querySelector('[data-how]').disabled = false;
   message.hidden = true;
 
@@ -150,6 +192,7 @@ export function mountSpotlight({ characters, saved, getHandoff }) {
     if (!event.isPrimary) { cancelDrag(); return; }
     if (characters.length < 2 || event.button !== 0 || event.target.closest('button,a,select,input,textarea')) return;
     cancelDrag();
+    stopPose();
     drag = { id: event.pointerId, x: event.clientX, y: event.clientY, startedAt: event.timeStamp, horizontal: false };
   });
   stage.addEventListener('pointermove', event => {
@@ -184,6 +227,20 @@ export function mountSpotlight({ characters, saved, getHandoff }) {
   });
   window.addEventListener('blur', cancelDrag);
   window.addEventListener('resize', cancelDrag);
-  reducedMotion.addEventListener('change', () => { if (characters.length) { clearTimeout(settleTimer); settle(); } });
-  return { updateSaved, retryImage };
+  reducedMotion.addEventListener('change', () => {
+    if (characters.length) {
+      clearTimeout(settleTimer);
+      stage.classList.remove('is-moving');
+      updateMotion();
+    }
+  });
+  return {
+    updateSaved,
+    retryImage,
+    selectCharacter(id, animate = false) {
+      const index = characters.findIndex(character => character.id === id);
+      if (index !== -1) selectCharacter(index, animate);
+    },
+    get selectedId() { return characters[selected].id; }
+  };
 }

@@ -240,19 +240,24 @@ test('wig catalog metadata and text-only fallback match their visual recipe and 
     const wig = Object.hasOwn(wigStyles, preset.id) ? wigStyles[preset.id] : null;
     if (!wig) {
       if (Object.hasOwn(costumeStyles, preset.id) || preset.id === 'the-rock') continue;
-      assert.equal(preset.avatar.designVersion, 'muse-costumes-v1');
+      assert.equal(preset.avatar.designVersion, 'muse-white-background-v7');
+      assert.equal(preset.avatar.preview, `/avatars/muse-white-background-v7/${preset.id}.webp`);
+      assert.equal(preset.avatar.previewSource, 'imagegen-edit');
+      assert.equal(preset.avatar.previewSelection, 'background-edit');
       assert.match(preset.avatar.prompt, /Do not add human hair/);
       assert.equal(preset.avatar.hairstyle, undefined);
       continue;
     }
-    const designVersion = preset.id === 'kylie-jenner' ? 'muse-kylie-runway-native-v6' : 'muse-wigs-v2';
+    const backgroundEdit = preset.id === 'charlie-chaplin';
+    const designVersion = backgroundEdit ? 'muse-white-background-v7'
+      : preset.id === 'kylie-jenner' ? 'muse-kylie-runway-native-v6' : 'muse-wigs-v2';
     assert.equal(preset.avatar.designVersion, designVersion);
     assert.equal(preset.avatar.preview, `/avatars/${designVersion}/${preset.id}.webp`);
     assert.equal(preset.avatar.basePreview, '/avatars/muse-costumes-v1/base.png');
     assert.equal(preset.avatar.hairstyle, wig.hair);
     assert.equal(preset.avatar.hairstyleVariant, wig.variant);
-    assert.equal(preset.avatar.previewSource, 'native-muse');
-    assert.equal(preset.avatar.previewSelection, 'curated');
+    assert.equal(preset.avatar.previewSource, backgroundEdit ? 'imagegen-edit' : 'native-muse');
+    assert.equal(preset.avatar.previewSelection, backgroundEdit ? 'background-edit' : 'curated');
     assert.ok(preset.avatar.prompt.includes(wig.costume), preset.id);
     assert.ok(preset.avatar.prompt.includes(wig.hair), preset.id);
     assert.doesNotMatch(preset.avatar.prompt, /Do not add human hair|using the downloaded image|using the attached image/i);

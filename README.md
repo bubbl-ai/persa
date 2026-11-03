@@ -6,6 +6,15 @@
 
 **Try the Muse character website:** [persa.bubblai.com](https://persa.bubblai.com). The spotlight homepage is public on Vercel under Bubbl's domain: anyone with the link can view it. Each character pairs a personality with a matching avatar prompt. All 18 characters have a direct **Open in Muse** link; the [all-character handoff report](docs/MUSE_ALL_CHARACTER_HANDOFF.md) records validation, known avatar-quality limitations and deployment status. One click takes the chosen combo from Persa to a prepared Muse message. Users still press Send and choose an avatar in Muse.
 
+The **November 3 homepage refresh is locally verified; publication pending**.
+It uses the supplied Meta Muse AI introduction, keeps carousel arrows and the
+selected character's name within the first screen, and adds short optional pose
+motions. All 18 presets have shareable character URLs and Copy link controls.
+Avatar backgrounds and surrounding surfaces are white; the three background
+edits preserve their source art and carry separate provenance. See the
+[refresh record](docs/WEBSITE_REFRESH_2026_11_03.md) and
+[character links for Reels](docs/CHARACTER_LINKS.md).
+
 The October 16 avatar updates are **live on [persa.bubblai.com](https://persa.bubblai.com)**. That release
 combines 12 wig presets, three new hairless costume interpretations for Harry
 Potter, Michael Jackson and Joker, and three retained hairless PNG previews.
@@ -15,7 +24,7 @@ keeps its separate results. A selected native preview is an example output;
 Muse can generate a different result from the same instructions.
 
 The October 23 product-feedback update is live at
-[persa.bubblai.com](https://persa.bubblai.com), with final verification on October 24. It adds a clearer description and visible setup steps,
+[persa.bubblai.com](https://persa.bubblai.com), with final verification on October 24. At that release it added a clearer description and visible setup steps,
 packages each preset as one curated combo, and replaces The Rock's gym outfit
 with the approved turtleneck, chain and waist-bag look. That release had
 15 selected native Muse previews, one new built-in image-generation preview for
@@ -97,16 +106,19 @@ Primary-source review and earlier desktop tests: October 5, 2026. Native avatar-
 - **Muse combo behavior:** The [initial Mona Lisa test](docs/MUSE_VALIDATION.md) and [batch validation](docs/MUSE_BATCH_VALIDATION.md) verified avatar activation/persistence for 13 older likeness-based combos. The [October 14 repeat matrix](docs/MUSE_HANDOFF_RELIABILITY.md) covers three hairless costume recipes; the [October 15 record](docs/MUSE_ALL_CHARACTER_HANDOFF.md) separately tracks compatibility for the additional 15. Sequential preset replacement can retain omitted preferences, so the wrapper explicitly replaces the authored voice/emoji settings. Fresh side chats share account context. Automatic application, current-costume selection/persistence, removal and synchronization remain unverified.
 - **Secondary Grok Bot compatibility:** Official guidance puts durable preferences in the Bot's Description and supports sharing an existing Bot through a template link. Recipients review it and add their own copy in Grok Bot. This is a possible personality distribution path; generating those templates directly from Persa has not been verified. The existing `grok` compiler target describes a different Custom Agent flow, so its 4,000-character budget is not a verified Grok Bot limit. See [Create and manage Bots](https://docs.x.ai/grok-bot/bots) and [Templates for Grok Bot](https://x.ai/bot/guides/templates-for-grok-bot).
 
-### Website status — October 29, 2026
+### Website status — November 3, 2026
 
-The website implementation lives in [`web/`](web/), with paired character definitions in [`characters/catalog.js`](characters/catalog.js). The homepage at `/` has a white, borderless spotlight stage with the featured personality's three adjectives beneath the portrait. The stage has direct **Open in Muse**, **Tune personality**, save and optional **Setup options** controls. All 18 character tiles appear below the spotlight with their own direct Muse links; **All characters** scrolls to that grid. The standalone grid remains at `/collection.html`, and saved combos are available at `/collection.html?view=saved`. The old `/spotlight.html` demo link redirects to the homepage.
+The website implementation lives in [`web/`](web/), with paired character definitions in [`characters/catalog.js`](characters/catalog.js). The homepage at `/` has a compact white spotlight stage, visible side arrows, and the selected character's name and three adjectives immediately beneath the portrait (beside it on short landscape screens). The stage has direct **Open in Muse**, **Tune personality**, save and optional **Setup options** controls. **Copy character link** shares the selected preset; short pose motions have a persistent on/off switch and honor reduced-motion settings. All 18 character tiles appear below the spotlight with their own direct Muse links; **All characters** scrolls to that grid. The standalone grid remains at `/collection.html`, and saved combos are available at `/collection.html?view=saved`. The old `/spotlight.html` demo link redirects to the homepage.
 
-The published October 23 update adds a hero explaining what a Persa combo includes,
-plus visible **Pick your combo → Open in Muse → Send, then select** steps.
+The historical October 23 update added a longer combo introduction and three-step
+section. The November 3 refresh replaces those with the supplied direct headline
+and Meta Muse AI copy. Send/select guidance remains beside the primary action
+and in optional setup help.
 Curated packaging emphasizes the paired personality and avatar instructions;
 it does not claim an exclusive license, official partnership or automatic
-application. Existing spotlight transitions and swipe behavior remain; true
-character gestures and audio are deferred. These changes and the image-loading follow-up are published and verified.
+application. Swipe and keyboard browsing remain. The new poses move existing artwork for
+2–2.4 seconds when a character comes into focus; they do not animate individual
+hands, sing, play audio or transfer motion to Muse.
 
 The October 28 Kylie outfit and matching handoff are published and verified
 at [persa.bubblai.com](https://persa.bubblai.com). The other

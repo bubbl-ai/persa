@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+- November 3 homepage refresh (locally verified; publication pending): use the
+  supplied Meta Muse AI copy, remove redundant collection/bullet/step text, move
+  carousel arrows into the stage and names directly below the portrait, add
+  shareable links and Copy link for all 18 presets, and add short pose motions
+  with an off switch and reduced-motion support. Unify avatar surfaces on white;
+  Chaplin, SpongeBob and Hello Kitty receive labeled background edits while
+  preserving originals and all Muse payloads. See [the refresh record](docs/WEBSITE_REFRESH_2026_11_03.md)
+  and [campaign links](docs/CHARACTER_LINKS.md).
+
 - Kylie native-preview curation (published and verified 2026-10-29): display unchanged native trial 3 option 1 at
   `muse-kylie-runway-native-v6/kylie-jenner.webp`, marked `native-muse` / `curated`.
   Choose its front-facing pose, clear outfit and wings on white while preserving

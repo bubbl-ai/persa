@@ -11,6 +11,9 @@ return http.createServer(async(req,res)=>{
   try {
     const url=new URL(req.url,'http://localhost');
     const pathname=decodeURIComponent(url.pathname);
+    if (url.pathname !== '/' && url.pathname.endsWith('/')) {
+      res.writeHead(308, { location: url.pathname.replace(/\/+$/, '') + url.search }); res.end(); return;
+    }
     const characterRoute=pathname.startsWith('/character/') && characterIdFromUrl(url.href,characters);
     const file=path.resolve(directory,'.'+(pathname==='/' || characterRoute?'/index.html':pathname));
     if(!file.startsWith(directory+path.sep)){res.writeHead(403);res.end();return;}

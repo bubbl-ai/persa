@@ -4,6 +4,7 @@
   "installCommand": "npm ci",
   "buildCommand": "npm run build:web",
   "outputDirectory": "dist",
+  "trailingSlash": false,
   "rewrites": [
     {
       "source": "/character/:slug(wednesday|taylorswift|taylor-swift|markzuckerberg|mark-zuckerberg|monalisa|mona-lisa|barbie|harrypotter|harry-potter|charliechaplin|charlie-chaplin|michaeljackson|michael-jackson|oliviarodrigo|olivia-rodrigo|marilynmonroe|marilyn-monroe|drake|lionelmessi|lionel-messi|kyliejenner|kylie-jenner|mrbeast|therock|the-rock|spongebob|hellokitty|hello-kitty|joker)",

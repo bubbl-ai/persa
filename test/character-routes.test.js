@@ -8,6 +8,7 @@ import { createPreviewServer } from '../scripts/preview-web.js';
 
 test('Vercel clean route allowlist covers exactly the current characters and their ID aliases', async () => {
   const config = JSON.parse(await readFile(new URL('../vercel.json', import.meta.url), 'utf8'));
+  assert.equal(config.trailingSlash, false, 'Vercel must normalize slash-suffixed campaign links before rewriting');
   const rule = config.rewrites.find(rule => rule.source.startsWith('/character/:slug('));
   assert.ok(rule, 'Character route must survive direct navigation and reload on Vercel');
   assert.equal(rule.destination, '/index.html');
@@ -28,6 +29,9 @@ test('preview serves every direct character URL and rejects unknown routes witho
     await rm(directory, { recursive: true, force: true });
   });
   const origin = `http://127.0.0.1:${server.address().port}`;
+  const trailing = await fetch(`${origin}/character/lionelmessi/?utm_source=instagram`, { redirect: 'manual' });
+  assert.equal(trailing.status, 308);
+  assert.equal(trailing.headers.get('location'), '/character/lionelmessi?utm_source=instagram');
   for (const { id } of characters) {
     for (const slug of new Set([id, id.replaceAll('-', '')])) {
       for (const suffix of ['', '/?utm_source=instagram']) {

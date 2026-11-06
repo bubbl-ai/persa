@@ -2,9 +2,10 @@
 
 ## Unreleased
 
-- November 6 sharing update (implemented; publication pending verification):
+- November 6 sharing update (published and verified):
   replace Copy character link with native Share plus a copy-link fallback;
-  use `/character/<compact-name>` URLs with legacy query compatibility;
+  use `/character/<compact-name>` URLs with legacy query compatibility and
+  campaign-preserving trailing-slash redirects;
   replace the homepage Setup options control with compact inline How it works
   instructions and remove Jump to. Add self-contained HTML character downloads
   with the current tone, embedded preview, exact complete combo and Open in Muse

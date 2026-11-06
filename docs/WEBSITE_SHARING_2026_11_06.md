@@ -1,6 +1,6 @@
 # Sharing and portable character cards — November 6, 2026
 
-Status: implemented; publication and live verification pending.
+Status: published and verified at https://persa.bubblai.com. Actual waving/singing remains pending new animation assets.
 
 ## Requested changes
 
@@ -22,7 +22,8 @@ Status: implemented; publication and live verification pending.
    to the clean path while preserving UTM parameters/hash and history state.
    Collection links keep `collection.html?view=saved&character=<id>` so saved
    views are preserved. Vercel rewrites and the local preview allow only known
-   character slugs; unknown paths return 404. All links are in
+   character slugs; unknown paths return 404. Trailing slashes redirect with 308
+   while preserving campaign parameters before the character rewrite. All links are in
    [Character links](CHARACTER_LINKS.md).
 4. **How it works** is a compact three-step section below the spotlight:
    choose a character, Open in Muse and Send, then choose an avatar and Select.
@@ -55,7 +56,8 @@ The script-free card still has its primary link and selectable fallback text.
 
 Web Share requires a user action and has browser-dependent availability; see
 [MDN's share API reference](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share).
-Routing uses [Vercel rewrites](https://vercel.com/docs/routing/rewrites).
+Routing uses [Vercel rewrites](https://vercel.com/docs/routing/rewrites) and explicit
+[`trailingSlash: false`](https://vercel.com/docs/project-configuration/vercel-json#trailingslash).
 
 ## Verification
 
@@ -75,7 +77,40 @@ Routing uses [Vercel rewrites](https://vercel.com/docs/routing/rewrites).
   failed-preview HTML fallback, motion preferences and image recovery. Zero
   uncaught browser errors or Muse requests. Screenshots visually checked with
   active portraits and primary controls visible down to 320×568.
-- Live deployment and production verification: pending.
+- Four final local smoke checks passed: seven served-file byte matches, touch
+  swipe with campaign/hash preservation, vertical scrolling without a character
+  change, and no browser errors/Muse requests.
+- Vercel deployment and GitHub tests succeeded for `67aca00021e0c7b4bf52fe1369e57318081647a2`.
+  The initial production browser run passed 43/45 checks. It found that a
+  slash-suffixed character campaign URL returned 404 on Vercel while local
+  preview accepted it. A hosting-only fix explicitly sets `trailingSlash: false`
+  and mirrors the 308/query-preserving behavior in local preview. The eight
+  focused route/link tests passed after adding regression assertions.
+  The other initial failed assertion checked reduced-motion state immediately
+  after emulating the OS setting. A focused check waited for the media change
+  event (observed after 8.8ms) and passed with the button disabled and animation
+  stopped; no application code changed. Existing finite poses and persistent off
+  behavior also passed. Keep both original failures in the evidence.
+- Final targeted live checks: **23/23 passed** after the hosting fix. All 18
+  slash-suffixed URLs returned 308 then 200 and preserved campaign parameters;
+  compact/hyphen aliases retained selection, query and hash across reload;
+  unknown routes stayed 404. Eight served files, including the catalog, matched
+  the local build byte for byte. The 43 initially passing checks plus the motion
+  follow-up and route-fix checks cover all 45 original cases. No uncaught browser
+  errors or Muse requests. Live screenshots at desktop, 390px and 320px were
+  visually inspected; no active-avatar clipping or horizontal overflow.
+
+## Publication
+
+Implementation: `67aca00021e0c7b4bf52fe1369e57318081647a2` on `main`.
+Trailing-slash fix: `e59e9754d577a046665486898c4ecefd8cc1a9ae`.
+Production remains [persa.bubblai.com](https://persa.bubblai.com).
+[Deployment](https://github.com/bubbl-ai/persa/actions/runs/42149557392)
+and [CI](https://github.com/bubbl-ai/persa/actions/runs/42149557396) succeeded.
+The trailing-slash [fix deployment](https://github.com/bubbl-ai/persa/actions/runs/42149940708)
+and [fix CI](https://github.com/bubbl-ai/persa/actions/runs/42149940748) also succeeded.
+The existing Vercel project and workflow were reused; the historical Sites
+hosting record was left unchanged.
 
 Local evidence is outside Git in
 `/Users/zachwang/bubbl/persa-test-results/2026-11-06-share/` and

@@ -35,7 +35,8 @@ copy or open a fallback. Unsupported/rejected sharing shows a selectable URL and
 explicit Copy link button. All 18 canonical links use `/character/<compact-id>`
 (e.g. `/character/lionelmessi`); preserve legacy query and hyphen-path aliases,
 campaign/hash state and saved-collection context. Vercel and local preview must
-both serve known character routes on reload; unknown routes remain 404. Keep the
+both serve known character routes on reload; unknown routes remain 404. Keep
+explicit `trailingSlash: false` and query-preserving 308 normalization in preview. Keep the
 allowlist tested against the catalog and `docs/CHARACTER_LINKS.md` current.
 
 The homepage has compact inline **How it works** below the stage; there is no

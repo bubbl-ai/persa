@@ -1,6 +1,6 @@
 # Homepage refresh — November 3, 2026
 
-Status: published and verified.
+Status: published and verified. The [November 6 sharing update](WEBSITE_SHARING_2026_11_06.md) supersedes the URL, sharing, picker and setup controls described here; this record preserves the November 3 release.
 
 The homepage now uses the supplied heading **Persa Avatars. Made for Muse AI.**
 and this exact opening paragraph:

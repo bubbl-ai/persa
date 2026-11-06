@@ -27,6 +27,33 @@
 - Short finite pose motions animate existing stage artwork only, once per selection/image load. Respect reduced motion, the persistent `persa.preview-motion` toggle, tab visibility and drag interruption. No audio, actual waving/singing animation assets or Muse animation import. Preserve separate image and slide transforms.
 - November 3 backgrounds: active Charlie Chaplin, SpongeBob and Hello Kitty use `muse-white-background-v7` WebPs with `previewSource: imagegen-edit` / `previewSelection: background-edit`. Preserve source assets and superseded records; these regenerated background edits are not unmodified native Muse outputs. Keep generated PNGs and compressed WebP hashes/provenance. Current inventory is 14 native previews, one generated Rock preview and three background edits. All 18 personality, visual-recipe and full handoff payloads stay unchanged. Use white avatar surfaces without brightness/blend/masking filters. See [the refresh record](docs/WEBSITE_REFRESH_2026_11_03.md).
 
+## Current website direction — November 6, 2026
+
+This supersedes the November 3 sharing/picker/setup UI rules above. Share controls
+use `navigator.share` from the user's click when available; cancellation must not
+copy or open a fallback. Unsupported/rejected sharing shows a selectable URL and
+explicit Copy link button. All 18 canonical links use `/character/<compact-id>`
+(e.g. `/character/lionelmessi`); preserve legacy query and hyphen-path aliases,
+campaign/hash state and saved-collection context. Vercel and local preview must
+both serve known character routes on reload; unknown routes remain 404. Keep the
+allowlist tested against the catalog and `docs/CHARACTER_LINKS.md` current.
+
+The homepage has compact inline **How it works** below the stage; there is no
+Jump to dropdown. Keep arrows, swipe, keyboard, name and primary action usable.
+**Save character as HTML** uses `web/character-package.js` with the current exact
+handoff, optional embedded raster preview and no external page dependencies.
+Capture the selected character/tone before async image fetch. Escape user text,
+validate Muse links, retain clipboard/manual fallbacks and JSON backups. This is
+a browser card, not a Muse HTML import or automatic installation. Shared links
+identify default presets; downloaded cards include the user's current tone.
+
+Actual waving/singing was assessed but remains pending new articulated assets.
+No such assets or video generation tools were available for this update. Existing
+short whole-image poses remain, accurately labeled Preview motion with reduced
+motion/off/visibility protections. Do not claim they wave/sing or transfer motion
+to Muse. No character recipes, personas or original art change in this release.
+See [the update record](docs/WEBSITE_SHARING_2026_11_06.md).
+
 ## Repository map
 
 - `src/`: shared compiler, persona adapters, CLI, local editor, and MCP server.

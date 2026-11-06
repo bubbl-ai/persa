@@ -1,5 +1,6 @@
 import { mountSpotlight } from './spotlight.js';
 import { characterShareUrl, characterIdFromUrl, withCharacterInUrl } from './character-links.js';
+import { buildCharacterPackage } from './character-package.js';
 import { compile } from './core/compile.js';
 import { buildMuseHandoff } from './core/muse-handoff.js';
 import { TRAITS, TRAIT_NAMES } from './core/traits.js';
@@ -15,6 +16,7 @@ const icons = {
   download: '<path d="M12 3v12m-4-4 4 4 4-4M4 16v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4"/>',
   back: '<path d="m14 6-6 6 6 6"/>',
   link: '<path d="m10 13 4-4m-6 7-1 1a4 4 0 0 1-6-6l4-4a4 4 0 0 1 6 0m2-1 1-1a4 4 0 0 1 6 6l-4 4a4 4 0 0 1-6 0"/>',
+  share: '<path d="M12 16V3m-4 4 4-4 4 4M5 13v7h14v-7"/>',
 };
 const icon = name => `<svg viewBox="0 0 24 24" aria-hidden="true">${icons[name] || icons.spark}</svg>`;
 const esc = value => String(value).replace(/[&<>"']/g, ch => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[ch]));
@@ -111,7 +113,7 @@ function card(character) {
       <div class="card-body"><h2 class="card-title">${esc(character.name)}</h2><p class="card-subtitle">${esc(character.subtitle)}</p><div class="tags">${character.tags.map(tag => `<span class="tag">${esc(tag)}</span>`).join('')}</div><div class="card-line"><span>Personality + costume</span><span>Meet ${character.id === 'the-rock' ? 'The Rock' : character.id === 'joker' ? 'Joker' : character.id === 'hello-kitty' ? 'Hello Kitty' : esc(character.name.split(' ')[0])}</span></div></div>
     </button>
     ${handoff ? `<a class="card-handoff" data-muse-handoff data-muse-character="${character.id}" href="${esc(handoff.url)}" aria-label="Open ${esc(character.name)} in Muse">Open in Muse <span aria-hidden="true">↗</span></a>` : ''}
-    <button class="text-button card-share" data-share-character="${character.id}" aria-label="Copy link to ${esc(character.name)}">${icon('link')} Copy link</button>
+    <button class="text-button card-share" data-share-character="${character.id}" aria-label="Share ${esc(character.name)}">${icon('share')} Share</button>
   </article>`;
 }
 
@@ -165,8 +167,8 @@ function replaceCharacterLocation(id) {
 function onSpotlightSelect(character) {
   const firstSelection = spotlightCharacterId === null;
   spotlightCharacterId = character.id;
-  // Do not add a parameter merely because someone opened the homepage.
-  if (firstSelection && !new URL(location.href).searchParams.has('character')) return;
+  // Keep a bare homepage bare; normalize incoming character links.
+  if (firstSelection && !characterIdFromUrl(location.href, characters)) return;
   replaceCharacterLocation(character.id);
 }
 
@@ -181,11 +183,11 @@ function applyCharacterLocation() {
     else if (dialog.open) dialog.close();
   } finally { applyingLocation = false; }
 }
-function personalityPrompt() { return compile(getPersona(), 'muse').text; }
-function comboPrompt() {
-  const handoff = buildMuseHandoff(current, getPersona());
+function personalityPrompt(character = current) { return compile(getPersona(character), 'muse').text; }
+function comboPrompt(character = current) {
+  const handoff = buildMuseHandoff(character, getPersona(character));
   if (handoff) return handoff.prompt;
-  return `I'd like to use this Persa character combo for my Muse: ${current.name}. Please apply the personality below as my style preferences, and use the matching costume prompt to dress the shared Muse-style companion. Preserve its base face and body while changing its outfit and accessories. If you cannot change the avatar directly, tell me how to do it in this app.\n\nPERSONALITY\n\n${personalityPrompt()}\n\nMATCHING MUSE COSTUME\n\n${current.avatar.prompt}`;
+  return `I'd like to use this Persa character combo for my Muse: ${character.name}. Please apply the personality below as my style preferences, and use the matching costume prompt to dress the shared Muse-style companion. Preserve its base face and body while changing its outfit and accessories. If you cannot change the avatar directly, tell me how to do it in this app.\n\nPERSONALITY\n\n${personalityPrompt(character)}\n\nMATCHING MUSE COSTUME\n\n${character.avatar.prompt}`;
 }
 
 function dialogHeader(label, back = false) {
@@ -209,7 +211,8 @@ function renderDetail() {
     <section class="detail-controls"><h3 class="section-label">A feel for their voice</h3><div class="sample-tabs" role="group" aria-label="Example conversation"><button class="sample-tab ${sampleIndex === 0 ? 'active' : ''}" data-sample="0" aria-pressed="${sampleIndex === 0}">A busy day</button><button class="sample-tab ${sampleIndex === 1 ? 'active' : ''}" data-sample="1" aria-pressed="${sampleIndex === 1}">Honest advice</button><button class="sample-tab ${sampleIndex === 2 ? 'active' : ''}" data-sample="2" aria-pressed="${sampleIndex === 2}">A little win</button></div><div class="conversation"><div class="sample-user">${esc(sample.user)}</div><p class="sample-reply">${esc(sample.reply)}</p></div><p class="sample-caption">Illustrative replies for this preset. Muse's responses will vary.</p>
     <div class="tune-head"><h3 class="section-label">Make it your kind of ${c.id === 'the-rock' ? 'Rock' : esc(c.name.split(' ')[0])}</h3><button class="reset" data-reset>Reset tone</button></div><div class="sliders">${knobs.map(trait => `<label class="slider"><span class="slider-top">${trait.charAt(0).toUpperCase()+trait.slice(1)}<output id="value-${trait}">${voice[trait]}</output></span><input type="range" min="0" max="100" step="1" value="${voice[trait]}" data-trait="${trait}" aria-label="${trait}" aria-describedby="ends-${trait}"><span class="slider-ends" id="ends-${trait}"><span>${TRAITS[trait].low}</span><span>${TRAITS[trait].high}</span></span></label>`).join('')}</div>
     <details class="prompt-details"><summary>The personality instructions ${icon('chevron')}</summary><pre class="prompt-text" id="personality-text">${esc(personalityPrompt())}</pre></details></section></div>
-    <div class="detail-bottom"><div class="detail-bottom-guide"><p class="handoff-guidance">In Muse: press Send, choose an avatar, then click Select.</p><button class="text-button setup-options" data-setup>Setup options</button><button class="text-button detail-share" data-share-character="${c.id}">${icon('link')} Copy link</button></div><div class="actions"><button class="save-detail ${saved[c.id] ? 'saved' : ''}" data-save-current aria-label="${saved[c.id] ? 'Save changes' : 'Save combo'}">${icon(saved[c.id] ? 'check' : 'heart')}<span>${saved[c.id] ? 'Save changes' : 'Save combo'}</span></button>${handoff ? `<a class="button primary" data-muse-handoff data-muse-character="${c.id}" href="${esc(handoff.url)}">Open in Muse ${icon('spark')}</a>` : '<button class="button primary" data-setup>Set up in Muse</button>'}</div></div>`, 'dialog-title');
+    <section class="detail-how" aria-label="How it works"><h3>How it works</h3><p>Open in Muse → press Send → choose an avatar and click Select.</p><div class="portable-options"><button class="text-button" data-download-html="${c.id}">${icon('download')} Save character as HTML</button><button class="text-button" data-setup>More ways to save</button></div></section>
+    <div class="detail-bottom"><div class="detail-bottom-guide"><p class="handoff-guidance">In Muse: press Send, choose an avatar, then click Select.</p><button class="text-button detail-share" data-share-character="${c.id}">${icon('share')} Share</button></div><div class="actions"><button class="save-detail ${saved[c.id] ? 'saved' : ''}" data-save-current aria-label="${saved[c.id] ? 'Save changes' : 'Save combo'}">${icon(saved[c.id] ? 'check' : 'heart')}<span>${saved[c.id] ? 'Save changes' : 'Save combo'}</span></button>${handoff ? `<a class="button primary" data-muse-handoff data-muse-character="${c.id}" href="${esc(handoff.url)}">Open in Muse ${icon('spark')}</a>` : '<button class="button primary" data-setup>Set up in Muse</button>'}</div></div>`, 'dialog-title');
 }
 
 function openCharacter(id) {
@@ -238,39 +241,92 @@ function renderSetup() {
     <details class="prompt-details"><summary>View the complete combo ${icon('chevron')}</summary><pre class="prompt-text">${esc(comboPrompt())}</pre></details>
     <div class="copy-options"><button class="button secondary" data-copy="personality">${icon('copy')} Personality only</button><button class="button secondary" data-copy="avatar">${icon('copy')} ${handoff ? 'Text-only avatar prompt' : 'Avatar prompt only'}</button></div>
     ${handoff ? '<p class="sample-caption">The text-only avatar prompt omits the shared image reference. Use the complete combo for the reference-based setup.</p>' : ''}
-    <div class="setup-links"><button class="text-button" data-download>${icon('download')} Download combo</button><button class="text-button" data-save-current>${icon('heart')} Save on this device</button></div>
+    <div class="setup-links"><button class="text-button" data-download-html="${current.id}">${icon('download')} Save character as HTML</button><button class="text-button" data-download>${icon('download')} Download JSON backup</button><button class="text-button" data-save-current>${icon('heart')} Save on this device</button></div>
     <details class="grok-details"><summary>Also use the personality with Grok Bot</summary><p>Copy the personality into your Bot's Description under Edit Profile. The avatar prompt in this combo is intended for Muse.</p><button class="button secondary" data-copy="grok">${icon('copy')} Copy Bot description</button></details></section>`, 'dialog-title');
 }
 
 function showHow() {
-  showDialog(`${dialogHeader('A little more personality')}<section class="setup"><p class="eyebrow">Made for your Muse</p><h2 id="dialog-title">One character. Two parts.</h2><div class="how-steps"><div><h3>Find someone you connect with</h3><p>Every preset dresses the same plush Muse in a different costume and pairs it with a personality. Preview the outfit and a few example replies.</p></div><div><h3>Make the tone yours</h3><p>Adjust warmth, humor, directness, and response length. Your changes update the personality instructions; the example replies show the original preset.</p></div><div><h3>Take the combo into Muse</h3><p>Choose Open in Muse on any character to take its personality and avatar instructions into Muse. Press Send, choose an avatar option and click Select, then check the saved personality. Setup options includes a complete copy-and-paste fallback.</p></div><div><h3>Keep your favorites close</h3><p>Saved combos stay in this browser on this device. Download a combo if you want a backup or to take it somewhere else.</p></div></div><p class="setup-note">Persa provides style preferences and avatar prompts. It does not change Muse's permissions or guarantee that every instruction persists between conversations.</p></section>`, 'dialog-title');
+  showDialog(`${dialogHeader('Made for Muse AI')}<section class="setup"><h2 id="dialog-title">How it works</h2><div class="how-steps"><div><h3>1. Choose a character</h3><p>Pick your favorite. Tune the personality if you like.</p></div><div><h3>2. Open in Muse</h3><p>Your personality and avatar instructions arrive together. Press Send.</p></div><div><h3>3. Make it yours</h3><p>Choose a generated avatar and click Select.</p></div></div><p class="setup-note">Save a character as HTML to keep a portable card with its Open in Muse button. Open the file in your browser; it doesn't install the combo automatically. If Muse keeps an old draft, save it first, then reopen your character or copy the complete combo from its download options.</p></section>`, 'dialog-title');
 }
 
-async function copyText(kind, button) {
-  const text = kind === 'avatar' ? current.avatar.prompt : kind === 'personality' ? personalityPrompt() : kind === 'grok' ? compile(getPersona(), { markdown: false, framing: 'system', limit: null }).text : comboPrompt();
+async function copyText(kind, button, character = current) {
+  const text = kind === 'avatar' ? character.avatar.prompt : kind === 'personality' ? personalityPrompt(character) : kind === 'grok' ? compile(getPersona(character), { markdown: false, framing: 'system', limit: null }).text : comboPrompt(character);
   try {
     await navigator.clipboard.writeText(text);
     const old = button.innerHTML; button.innerHTML = `${icon('check')} Copied`;
     setTimeout(() => { if (button.isConnected) button.innerHTML = old; }, 1800);
     notify(kind === 'combo' ? 'Combo copied. Paste it into Muse to get started.' : 'Copied to your clipboard.');
   } catch {
-    showDialog(`${dialogHeader('Copy your instructions', true)}<section class="setup copy-fallback"><h2 id="dialog-title">Copy the text below.</h2><p class="setup-intro">This browser could not copy automatically. Select the text and use your device's Copy action.</p><textarea aria-label="Instructions to copy" readonly>${esc(text)}</textarea></section>`, 'dialog-title');
+    showDialog(`${dialogHeader('Copy your instructions', !!current)}<section class="setup copy-fallback"><h2 id="dialog-title">Copy the text below.</h2><p class="setup-intro">This browser could not copy automatically. Select the text and use your device's Copy action.</p><textarea aria-label="Instructions to copy" readonly>${esc(text)}</textarea></section>`, 'dialog-title');
     const textarea=dialog.querySelector('textarea');textarea.focus();textarea.select();
   }
 }
 
+let sharing = false;
+async function shareCharacter(id) {
+  const character = characters.find(item => item.id === id);
+  if (!character || sharing) return;
+  const url = characterShareUrl(id);
+  if (typeof navigator.share === 'function') {
+    sharing = true;
+    try {
+      await navigator.share({ title: `${character.name} · Persa`, text: 'A personality and matching avatar for Muse AI.', url });
+      return;
+    } catch (error) {
+      // Dismissing the device sheet is intentional; do not copy behind it.
+      if (error.name === 'AbortError') return;
+    } finally { sharing = false; }
+  }
+  showDialog(`${dialogHeader('Share character')}<section class="setup share-fallback"><h2 id="dialog-title">Share ${esc(character.name)}.</h2><p class="setup-intro">Send this link in a message or add it to your Reel. It opens the original preset; your tone changes stay on this device.</p><label for="share-url">Character link</label><input id="share-url" readonly value="${esc(url)}"><button class="button secondary" data-copy-link="${character.id}">${icon('copy')} Copy link</button></section>`, 'dialog-title');
+}
+
 async function copyCharacterLink(id, button) {
   if (!characters.some(character => character.id === id)) return;
-  const url = characterShareUrl(id);
   try {
-    await navigator.clipboard.writeText(url);
+    await navigator.clipboard.writeText(characterShareUrl(id));
     const old = button.innerHTML; button.innerHTML = `${icon('check')} Copied`;
     setTimeout(() => { if (button.isConnected) button.innerHTML = old; }, 1800);
-    notify('Character link copied. Tone changes stay on this device.');
+    notify('Character link copied.');
   } catch {
-    showDialog(`${dialogHeader('Copy character link')}<section class="setup copy-fallback"><h2 id="dialog-title">Share this character.</h2><p class="setup-intro">Copy this link for your Reel or message. It opens the character preset; your tone changes stay on this device.</p><textarea aria-label="Character link to copy" readonly>${esc(url)}</textarea></section>`, 'dialog-title');
-    const textarea = dialog.querySelector('textarea'); textarea.focus(); textarea.select();
+    const field = dialog.querySelector('#share-url');
+    field?.focus(); field?.select();
+    notify('Select the link and use your device’s Copy action.');
   }
+}
+
+function downloadFile(content, type, filename) {
+  const url = URL.createObjectURL(new Blob([content], { type }));
+  const link = document.createElement('a');
+  link.href = url; link.download = filename; document.body.append(link); link.click(); link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 10000);
+}
+
+async function downloadCharacterHtml(id, button) {
+  const character = characters.find(item => item.id === id);
+  if (!character || button.disabled) return;
+  // Capture this selection and tone now, even if browsing continues during fetch.
+  const handoff = getHandoff(character);
+  if (!handoff) { notify('This character cannot be packaged yet.'); return; }
+  button.disabled = true;
+  button.setAttribute('aria-busy', 'true');
+  let previewDataUrl = null;
+  try {
+    if (character.avatar.preview) {
+      const response = await fetch(character.avatar.preview, { signal: AbortSignal.timeout(8000) });
+      if (!response.ok) throw new Error('Preview unavailable');
+      const blob = await response.blob();
+      if (!/^image\/(png|webp|jpeg)$/.test(blob.type)) throw new Error('Unsupported preview');
+      previewDataUrl = await new Promise((resolve, reject) => {
+        const reader = new FileReader(); reader.onload = () => resolve(reader.result); reader.onerror = reject; reader.readAsDataURL(blob);
+      });
+    }
+  } catch { /* The portable instructions still work without the optional image. */ }
+  try {
+    const html = buildCharacterPackage({ character, handoff, previewDataUrl });
+    downloadFile(html, 'text/html;charset=utf-8', `persa-${character.id}.html`);
+    notify(previewDataUrl ? 'Character card saved. Open the HTML file in your browser.' : 'Character card saved without the preview. Your complete combo is included.');
+  } catch { notify('The character card could not be saved. Please try again.'); }
+  finally { button.disabled = false; button.removeAttribute('aria-busy'); }
 }
 
 function saveCurrent() {
@@ -316,7 +372,10 @@ async function start() {
     document.addEventListener('click',e=>{
       const button=e.target.closest('button');if(!button)return;
       if(button.hasAttribute('data-close'))dialog.close();
-      else if(button.dataset.shareCharacter)copyCharacterLink(button.dataset.shareCharacter,button);
+      else if(button.dataset.shareCharacter)shareCharacter(button.dataset.shareCharacter);
+      else if(button.dataset.copyLink)copyCharacterLink(button.dataset.copyLink,button);
+      else if(button.dataset.downloadHtml)downloadCharacterHtml(button.dataset.downloadHtml,button);
+      else if(button.dataset.copyCharacter)copyText('combo',button,characters.find(item=>item.id===button.dataset.copyCharacter));
       else if(button.dataset.setupCharacter){openCharacter(button.dataset.setupCharacter);renderSetup();}
       else if(button.dataset.character)openCharacter(button.dataset.character);
       else if(button.dataset.save)toggleSave(button.dataset.save,button);

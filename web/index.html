@@ -16,7 +16,7 @@
     <nav class="spotlight-nav" aria-label="Main navigation">
       <a class="collection-link" href="#home-collection">All characters</a>
       <a class="collection-link" href="/collection.html?view=saved" aria-label="My collection">Saved <span id="spotlight-saved-count" hidden>0</span></a>
-      <button class="spotlight-how" data-how aria-label="How it works" title="How it works" disabled>?</button>
+      <a class="spotlight-how" href="#how-it-works" aria-label="How it works" title="How it works">?</a>
     </nav>
   </header>
   <main>
@@ -50,16 +50,25 @@
             <button class="button secondary" id="spotlight-customize" disabled>Tune personality</button>
             <button class="spotlight-save" id="spotlight-save" aria-label="Save character" aria-pressed="false" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></svg></button>
           </div>
-          <div class="spotlight-help"><p class="handoff-guidance" id="spotlight-guidance">In Muse: press Send, choose an avatar, then click Select.</p><button class="text-button setup-options" id="spotlight-setup" disabled>Setup options</button></div>
+          <div class="spotlight-help"><p class="handoff-guidance" id="spotlight-guidance">In Muse: press Send, choose an avatar, then click Select.</p></div>
         </div>
       </div>
       <div class="browse-row">
         <p class="stage-browse-hint" id="browse-hint"><span aria-hidden="true">↔</span> Swipe to explore</p>
-        <label class="character-picker" for="character-select">Jump to <select id="character-select" disabled><option>Choose a character</option></select></label>
-        <button class="text-button" id="spotlight-share" data-share-character disabled>Copy character link</button>
+        <button class="text-button share-button" id="spotlight-share" data-share-character disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V3m-4 4 4-4 4 4M5 13v7h14v-7"/></svg> Share</button>
         <button class="motion-toggle text-button" id="motion-toggle" aria-pressed="true" disabled>Motion on</button>
       </div>
       <p class="sr-only" id="announcement" role="status" aria-live="polite" aria-atomic="true"></p>
+    </section>
+    <section class="how-it-works" id="how-it-works" aria-labelledby="how-title">
+      <h2 id="how-title">How it works</h2>
+      <ol class="quick-steps">
+        <li><strong>Choose a character</strong><span>Pick your favorite. Tune the personality if you like.</span></li>
+        <li><strong>Open in Muse</strong><span>Your personality and avatar instructions arrive together. Press Send.</span></li>
+        <li><strong>Make it yours</strong><span>Choose a generated avatar and click Select.</span></li>
+      </ol>
+      <div class="portable-options"><button class="text-button" id="spotlight-download" data-download-html disabled>Save character as HTML</button><span>A character card you can keep and open later.</span></div>
+      <details class="fallback-options"><summary>Muse didn't fill the message?</summary><p>Save any existing draft, then reopen your character in Muse. You can also copy the complete combo below and paste it into Muse.</p><button class="text-button" id="spotlight-copy" data-copy-character disabled>Copy complete combo</button></details>
     </section>
     <section class="home-collection" id="home-collection" aria-labelledby="collection-title" aria-busy="true">
       <div class="collection-head">

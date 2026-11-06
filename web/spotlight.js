@@ -4,7 +4,6 @@ export function mountSpotlight({ characters, saved, getHandoff, initialCharacter
   const slidesRoot = document.querySelector('#slides');
   const previous = document.querySelector('#previous');
   const next = document.querySelector('#next');
-  const picker = document.querySelector('#character-select');
   const message = document.querySelector('#stage-message');
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const motionToggle = document.querySelector('#motion-toggle');
@@ -29,7 +28,7 @@ export function mountSpotlight({ characters, saved, getHandoff, initialCharacter
     stopPose();
     motionToggle.disabled = reducedMotion.matches;
     motionToggle.setAttribute('aria-pressed', String(motionEnabled && !reducedMotion.matches));
-    motionToggle.textContent = reducedMotion.matches ? 'Motion reduced' : motionEnabled ? 'Motion on' : 'Motion off';
+    motionToggle.textContent = reducedMotion.matches ? 'Motion reduced' : motionEnabled ? 'Preview motion on' : 'Preview motion off';
     motionToggle.title = reducedMotion.matches ? 'Your device preference reduces motion' : 'Toggle short avatar preview poses';
     playPose();
   }
@@ -84,13 +83,14 @@ export function mountSpotlight({ characters, saved, getHandoff, initialCharacter
     const count = `${String(selected + 1).padStart(2, '0')} / ${characters.length}`;
     document.querySelector('#stage-count').textContent = count;
     document.querySelector('#page-count').textContent = count;
-    picker.value = character.id;
     document.querySelector('#spotlight-use').dataset.museCharacter = character.id;
-    document.querySelector('#spotlight-setup').dataset.setupCharacter = character.id;
+    document.querySelector('#spotlight-download').dataset.downloadHtml = character.id;
+    document.querySelector('#spotlight-download').setAttribute('aria-label', `Save ${character.name} as HTML`);
+    document.querySelector('#spotlight-copy').dataset.copyCharacter = character.id;
     document.querySelector('#spotlight-customize').dataset.character = character.id;
     document.querySelector('#spotlight-save').dataset.save = character.id;
     document.querySelector('#spotlight-share').dataset.shareCharacter = character.id;
-    document.querySelector('#spotlight-share').setAttribute('aria-label', `Copy link to ${character.name}`);
+    document.querySelector('#spotlight-share').setAttribute('aria-label', `Share ${character.name}`);
     updateSaved(savedRecords);
     onSelect?.(character);
     if (moving) settleTimer = setTimeout(settle, 550); else settle();
@@ -159,16 +159,12 @@ export function mountSpotlight({ characters, saved, getHandoff, initialCharacter
 
   slides = characters.map(makeSlide);
   slidesRoot.replaceChildren(...slides);
-  picker.replaceChildren(...characters.map(character => {
-    const option = document.createElement('option'); option.value = character.id; option.textContent = character.name; return option;
-  }));
   selected = Math.max(0, characters.findIndex(character => character.id === (initialCharacterId || 'taylor-swift')));
   selectCharacter(selected, false);
   previous.disabled = next.disabled = characters.length < 2;
-  picker.disabled = false;
   stage.setAttribute('aria-busy', 'false');
   document.querySelector('#character-info').setAttribute('aria-busy', 'false');
-  for (const id of ['spotlight-customize', 'spotlight-save', 'spotlight-setup', 'spotlight-share']) document.getElementById(id).disabled = false;
+  for (const id of ['spotlight-customize', 'spotlight-save', 'spotlight-download', 'spotlight-copy', 'spotlight-share']) document.getElementById(id).disabled = false;
   updateMotion();
   motionToggle.addEventListener('click', () => {
     motionEnabled = !motionEnabled;
@@ -176,12 +172,10 @@ export function mountSpotlight({ characters, saved, getHandoff, initialCharacter
     updateMotion();
   });
   document.addEventListener('visibilitychange', () => { if (document.hidden) stopPose(); });
-  document.querySelector('[data-how]').disabled = false;
   message.hidden = true;
 
   previous.addEventListener('click', () => selectCharacter(selected - 1));
   next.addEventListener('click', () => selectCharacter(selected + 1));
-  picker.addEventListener('change', () => selectCharacter(characters.findIndex(character => character.id === picker.value)));
   document.querySelector('.showcase').addEventListener('keydown', event => {
     if (event.target.matches('select,input,textarea') || event.altKey || event.ctrlKey || event.metaKey) return;
     if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {

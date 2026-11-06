@@ -21,3 +21,13 @@
 .card-share{display:block;margin:0 auto 10px;padding:6px 12px;min-height:36px;font-size:12px}
 .detail-share{font-size:12px;padding:8px 10px;min-height:40px}
 @media(max-width:480px){.card-share{font-size:11px;margin-bottom:8px}.detail-share{font-size:11px;padding:8px 4px}}
+/* Portable character cards and device sharing. */
+.portable-options{display:flex;align-items:center;flex-wrap:wrap;gap:6px 16px;font-size:12px;color:var(--muted)}
+.portable-options .text-button{font-size:12px;min-height:40px;padding:8px 0;display:inline-flex;align-items:center;gap:6px}
+.portable-options svg{width:16px;height:16px}
+.detail-how{padding:18px 25px;border-top:1px solid var(--line)}
+.detail-how h3{font-size:14px;margin:0 0 6px}
+.detail-how p{font-size:12px;color:var(--muted);line-height:1.6;margin:0}
+.share-fallback label{display:block;font-size:12px;margin-bottom:8px;color:var(--muted)}
+.share-fallback input{width:100%;min-height:44px;border:1px solid var(--line);border-radius:9px;padding:10px;font-family:inherit;font-size:13px;line-height:1.5;color:var(--ink);background:#faf9fc;margin-bottom:14px}
+.share-fallback .button{font-size:13px}

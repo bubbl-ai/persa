@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+- November 6 sharing update (implemented; publication pending verification):
+  replace Copy character link with native Share plus a copy-link fallback;
+  use `/character/<compact-name>` URLs with legacy query compatibility;
+  replace the homepage Setup options control with compact inline How it works
+  instructions and remove Jump to. Add self-contained HTML character downloads
+  with the current tone, embedded preview, exact complete combo and Open in Muse
+  button. Preserve JSON/copy fallbacks and all Muse recipes/artwork. Actual
+  waving/singing still needs new animation assets; existing optional poses remain.
+  See [the update record](docs/WEBSITE_SHARING_2026_11_06.md).
+
 - November 3 homepage refresh (published and verified): use the
   supplied Meta Muse AI copy, remove redundant collection/bullet/step text, move
   carousel arrows into the stage and names directly below the portrait, add

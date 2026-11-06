@@ -5,25 +5,38 @@ function checkId(id) {
   if (typeof id !== 'string' || !characterIdPattern.test(id)) throw new TypeError('Invalid character ID');
 }
 
+export function characterSlug(id) {
+  checkId(id);
+  return id.replaceAll('-', '');
+}
+
 // Shared links identify a preset. Browser-local tone changes are never embedded.
 export function characterShareUrl(id) {
-  checkId(id);
-  const url = new URL('/', canonicalOrigin);
-  url.searchParams.set('character', id);
-  return url.href;
+  return new URL(`/character/${characterSlug(id)}`, canonicalOrigin).href;
 }
 
 export function characterIdFromUrl(href, characters) {
   try {
-    const id = new URL(href).searchParams.get('character');
-    return characters.some(character => character.id === id) ? id : null;
+    const url = new URL(href);
+    const path = decodeURIComponent(url.pathname);
+    // A character path takes precedence over an old query parameter. Do not
+    // let an unknown or malformed path silently select a different character.
+    const pathMatch = path.match(/^\/character\/([a-z0-9]+(?:-[a-z0-9]+)*)\/?$/);
+    const id = path.startsWith('/character/') ? pathMatch?.[1] : url.searchParams.get('character');
+    return characters.find(character => character.id === id || characterSlug(character.id) === id)?.id || null;
   } catch { return null; }
 }
 
-// Browsing changes only the character; keep campaign parameters and page anchors.
+// Keep the saved/full collection context; the homepage uses clean character
+// paths. Both forms preserve incoming campaign parameters and page anchors.
 export function withCharacterInUrl(href, id) {
   checkId(id);
   const url = new URL(href);
-  url.searchParams.set('character', id);
+  if (url.pathname === '/collection.html') {
+    url.searchParams.set('character', id);
+  } else {
+    url.pathname = `/character/${characterSlug(id)}`;
+    url.searchParams.delete('character');
+  }
   return url.href;
 }

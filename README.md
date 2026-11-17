@@ -227,6 +227,16 @@ the legacy redirect without JavaScript errors. Browser tracking was intercepted;
 Google's container endpoint separately returned HTTP 200. This verifies the
 local installation, not production deployment or analytics report delivery.
 
+Published and verified on November 17, 2026 at `https://persa.bubblai.com`:
+release `fde9633` passed both [deployment](https://github.com/bubbl-ai/persa/actions/runs/44112428473)
+and [CI](https://github.com/bubbl-ai/persa/actions/runs/44112428223).
+All 35 production page/character routes returned HTTP 200 with HTML matching
+the tested source and exactly one loader. Six live browser checks at 1440px
+and 390px confirmed the actual Google container returned HTTP 200 and initialized
+once per document, with working character navigation and no JavaScript errors.
+Downstream analytics requests were blocked during those checks, so delivery
+to marketing's analytics reports still requires their own verification.
+
 ### Vercel deployment
 
 The [`Deploy to Vercel` workflow](.github/workflows/deploy.yml) publishes this

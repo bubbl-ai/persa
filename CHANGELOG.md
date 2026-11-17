@@ -2,10 +2,12 @@
 
 ## Unreleased
 
-- November 17 marketing analytics (implemented; not yet deployed): add the
+- November 17 marketing analytics (published and verified): add the
   supplied Google Tag Manager container `GTM-W3TSJF7V` once in the head of
   each hosted HTML page, including the shared shell for all character routes.
   Analytics destinations and triggers remain managed by marketing in GTM.
+  Production checks confirmed one loader on all 35 page/character routes
+  and actual container initialization in six desktop/mobile browser checks.
 
 - November 6 sharing update (published and verified):
   replace Copy character link with native Share plus a copy-link fallback;

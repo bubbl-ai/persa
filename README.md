@@ -204,6 +204,29 @@ npm run preview:web
 
 Run these commands from the repository root with Node 20 or newer. The preview server binds to `127.0.0.1:4173` and serves the last build; rebuild after source changes. Opening `web/index.html` directly does not supply the generated catalog or shared compiler files.
 
+### Marketing analytics
+
+The website loads marketing's Google Tag Manager container `GTM-W3TSJF7V`
+once per document, immediately after `<head>`, using
+[Google's current installation snippet](https://support.google.com/tagmanager/answer/14847097).
+It is installed in `web/index.html`, `web/collection.html`, and the legacy
+`web/spotlight.html` redirect. All character routes reuse `index.html`.
+The local CLI editor and downloadable HTML character cards do not include it.
+
+Marketing manages analytics destinations, tags, and triggers in this container
+and must publish them there. Installing the container alone does not confirm
+that a Google Analytics property is receiving data. After website deployment,
+use Tag Assistant and the destination's realtime report to verify collection.
+Character browsing updates the URL without reloading the page; any desired
+virtual page views or conversion events need suitable container configuration.
+
+Local verification on November 17, 2026: build, syntax checks and all 106 Node
+tests passed. All 35 page/character routes contained one loader; 10 browser
+checks at 1440px and 390px confirmed initialization, character navigation and
+the legacy redirect without JavaScript errors. Browser tracking was intercepted;
+Google's container endpoint separately returned HTTP 200. This verifies the
+local installation, not production deployment or analytics report delivery.
+
 ### Vercel deployment
 
 The [`Deploy to Vercel` workflow](.github/workflows/deploy.yml) publishes this

@@ -207,6 +207,16 @@ recipe JSON as provenance; keep outputs, account files, screenshots and raw
 conversations outside Git. Document any original-avatar/style restoration and
 its limits without publishing private identity or memory content.
 
+## Marketing analytics
+
+Keep one `GTM-W3TSJF7V` loader and initialization snippet immediately after
+`<head>` in each hosted HTML document under `web/`. Character routes already
+reuse `index.html`; do not add another loader in app or stage code. Keep the
+CLI editor and portable HTML downloads independent of website tracking.
+Intercept analytics requests during local browser checks so test visits do not
+enter marketing reports. See the [setup notes](README.md#marketing-analytics)
+for post-deployment verification and container configuration ownership.
+
 ## Website publication
 
 Production is [persa.bubblai.com](https://persa.bubblai.com), verified on Vercel

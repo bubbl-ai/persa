@@ -16,6 +16,11 @@ export const wigStyles = Object.freeze({
     "costume": "a plain gray T-shirt covering the whole torso, full-length navy trousers covering both legs, white sneakers, and one tiny closed silver laptop with a completely blank unmarked lid held below the face in a cream fleece mitten",
     "hair": "One removable medium-brown synthetic doll-fiber wig: a shallow cap of tiny compact short curls covering the crown only, with a clean curved hairline entirely above the peach forehead. Keep the curls close to the original rounded hood silhouette. No bangs, sideburns, facial hair, loose locks or accessories."
   },
+  "jensen-huang": {
+    "variant": "fiber",
+    "costume": "one black leather-look zip-front jacket worn open over a plain black crew-neck shirt covering the whole torso, full-length black trousers covering both short legs, and small black shoes; keep the jacket collar below the cream chin rim and both empty cream mitten hands visible at the sides; no glasses, jewelry, logos or props",
+    "hair": "One removable silver-gray synthetic doll-fiber wig with a shallow fitted crown and compact short locks swept back from the forehead. Keep the hair close to the original rounded hood silhouette, entirely above the peach forehead and behind the cream cheek rim. No bangs, long side sections, sideburns, facial hair or accessories."
+  },
   "mona-lisa": {
     "variant": "fiber",
     "costume": "an olive Renaissance gown and a dark sheer veil around the hood, with hands gently folded",

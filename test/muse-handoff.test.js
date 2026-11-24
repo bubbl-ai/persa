@@ -11,7 +11,7 @@ import { buildCostumeAvatarPrompt, costumeStyles } from '../src/muse-costume-rec
 const character = id => characters.find(item => item.id === id);
 
 test('reference handoff covers every catalog character and rejects unknown IDs', () => {
-  assert.equal(characters.length, 18);
+  assert.equal(characters.length, 19);
   assert.equal(characters.filter(item => buildMuseHandoff(item)).length, characters.length);
   const copiedCostume = character('barbie').avatar;
   for (const input of [null, undefined, {}, { id: 'unknown' }, { id: '__proto__' }, { id: 'constructor' }, { ...character('barbie'), id: 'unknown', avatar: copiedCostume }]) {
@@ -19,7 +19,7 @@ test('reference handoff covers every catalog character and rejects unknown IDs',
   }
 });
 
-test('the roster uses 12 wig recipes, three costume recipes and three hairless wardrobe recipes', () => {
+test('the roster uses 13 wig recipes, three costume recipes and three hairless wardrobe recipes', () => {
   const recipes = new Set();
   let wigs = 0, costumes = 0, retained = 0;
   for (const preset of characters) {
@@ -61,7 +61,7 @@ test('the roster uses 12 wig recipes, three costume recipes and three hairless w
     recipes.add(result.avatarPrompt);
   }
   assert.equal(recipes.size, characters.length);
-  assert.equal(wigs, 12);
+  assert.equal(wigs, 13);
   assert.equal(costumes, 3);
   assert.equal(retained, 3);
 });
@@ -100,7 +100,7 @@ test('Barbie and SpongeBob replace old no-emoji settings with their sparing pref
   assert.match(buildMuseHandoff(character('mona-lisa'), tuned).prompt, /permission to use emoji sparingly/);
 });
 
-test('the 17 handoffs unrelated to the Kylie runway update retain their exact payloads', () => {
+test('adding Jensen preserves the exact payloads of the 18 existing handoffs', () => {
   const baseline = {
     "wednesday": {
       "version": "muse-reference-wig-v3",
@@ -142,6 +142,10 @@ test('the 17 handoffs unrelated to the Kylie runway update retain their exact pa
       "version": "muse-reference-wig-v3",
       "promptSha256": "01dd692fcadb722cd8aacd93c108cf297925dd8412e1f4cc605ca15d0b7ce1c3"
     },
+    "kylie-jenner": {
+      "version": "muse-reference-wig-v6",
+      "promptSha256": "e2afd622a667679731c2f9782041cc4b24cc89aa126b3d1a2e1597f6ab142616"
+    },
     "the-rock": {
       "version": "muse-reference-wardrobe-v5",
       "promptSha256": "4e5c3a0c3cedd6e380eeb272ddbab1f8b82ed35029612baa1f55604535b26764"
@@ -171,7 +175,7 @@ test('the 17 handoffs unrelated to the Kylie runway update retain their exact pa
       "promptSha256": "d4f0b75358d21885a4dbd07599dcdcfc8cacffeeb8bbba6912ecb5ddaf401ae2"
     }
   };
-  assert.equal(Object.keys(baseline).length, 17);
+  assert.equal(Object.keys(baseline).length, 18);
   for (const [id, recorded] of Object.entries(baseline)) {
     const result = buildMuseHandoff(character(id));
     assert.equal(result.version, recorded.version, id);
@@ -249,15 +253,16 @@ test('wig catalog metadata and text-only fallback match their visual recipe and 
       continue;
     }
     const backgroundEdit = preset.id === 'charlie-chaplin';
-    const designVersion = backgroundEdit ? 'muse-white-background-v7'
+    const designPreview = preset.id === 'jensen-huang';
+    const designVersion = designPreview ? 'muse-jensen-v8' : backgroundEdit ? 'muse-white-background-v7'
       : preset.id === 'kylie-jenner' ? 'muse-kylie-runway-native-v6' : 'muse-wigs-v2';
     assert.equal(preset.avatar.designVersion, designVersion);
     assert.equal(preset.avatar.preview, `/avatars/${designVersion}/${preset.id}.webp`);
     assert.equal(preset.avatar.basePreview, '/avatars/muse-costumes-v1/base.png');
     assert.equal(preset.avatar.hairstyle, wig.hair);
     assert.equal(preset.avatar.hairstyleVariant, wig.variant);
-    assert.equal(preset.avatar.previewSource, backgroundEdit ? 'imagegen-edit' : 'native-muse');
-    assert.equal(preset.avatar.previewSelection, backgroundEdit ? 'background-edit' : 'curated');
+    assert.equal(preset.avatar.previewSource, designPreview ? 'imagegen' : backgroundEdit ? 'imagegen-edit' : 'native-muse');
+    assert.equal(preset.avatar.previewSelection, designPreview ? 'design-preview' : backgroundEdit ? 'background-edit' : 'curated');
     assert.ok(preset.avatar.prompt.includes(wig.costume), preset.id);
     assert.ok(preset.avatar.prompt.includes(wig.hair), preset.id);
     assert.doesNotMatch(preset.avatar.prompt, /Do not add human hair|using the downloaded image|using the attached image/i);

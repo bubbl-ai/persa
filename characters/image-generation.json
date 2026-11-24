@@ -1548,5 +1548,44 @@
         "observations": "Selected: uncovered cream hood, simple plush face, purple coat and trousers, green three-button waistcoat, one clean jester-emblem card and both shoes visible."
       }
     }
+  },
+  {
+    "id": "jensen-huang",
+    "name": "Jensen Huang",
+    "kind": "muse-costume",
+    "subjectId": "jensen-huang",
+    "baseId": "persa-muse-v1",
+    "designVersion": "muse-jensen-v8",
+    "status": "generated",
+    "tool": "built-in image_gen",
+    "createdAt": "2026-11-24",
+    "referenceAsset": "web/avatars/muse-costumes-v1/base.png",
+    "prompt": "Use case: identity-preserve\nAsset type: one Persa website collectible plush costume avatar.\nInput image 1 is the EDIT TARGET: the original shared cream Muse plush character.\nPrimary request: dress this exact plush toy in a Jensen Huang-inspired outfit. The name identifies clothing and hairstyle inspiration only; the face remains the original toy.\nWardrobe: one black leather-look zip-front jacket worn open over a plain black crew-neck shirt, full-length black trousers fitted to the existing short legs, and small black shoes. The jacket has subtle realistic leather texture and understated silver zipper hardware, no logos. Both cream fingerless mitten hands remain empty, visible and relaxed at the sides.\nRemovable wig: short silver-gray synthetic doll-fiber hair with a shallow rounded crown and tidy swept-back locks, fitted over the outside of the existing cream hood. All hair stays above the peach forehead and behind the cream cheek rim. No sideburns, eyebrows, facial hair, glasses or extra accessories.\nInvariants: preserve the reference's wide peach face shape, black bead-eye size, spacing and catchlights, tiny stitched smile, rosy cheeks, broad continuous cream U-shaped hood rim along both cheeks and beneath the chin, cream sherpa material, compact round body proportions, short limbs, original pose and front-facing camera. Do not add a human scalp, nose, ears, fingers, teeth or a human face. Fit the clothes to the original body.\nScene/backdrop: seamless pure white studio background with a soft subtle ground shadow.\nStyle/medium: photographed premium soft plush collectible with tactile fabrics, leather-look jacket and softly grouped toy wig fibers, matching the reference's quality and character identity.\nComposition/framing: square, one centered complete full-body toy occupying about 80 percent of canvas height, entire wig and both shoes visible with comfortable margins. Soft diffuse studio lighting.\nText: none. No logos, lettering, UI, borders or watermark.",
+    "asset": "web/avatars/muse-jensen-v8/jensen-huang.webp",
+    "failure": null,
+    "inspection": "Reviewed full image: shared peach plush face and continuous cream cheek/chin rim, silver-gray swept-back hair, open black leather-look jacket over black shirt, black trousers and shoes, two empty cream mittens, white background and complete body visible. The generated design is not a native Muse output; the hairstyle has more volume and the figure fills more of the canvas than requested.",
+    "generation": {
+      "asset": "web/avatars/muse-jensen-v8/jensen-huang.png",
+      "outputSha256": "3b3250b293fa4f95ad89874f33e7dd9f79cff8001428e787674c6b919274b099",
+      "promptSha256": "aa93e1c79b0981009293f5982b4e4df9dbb411ee5b4f1ef0b7bd8b647f6c97cd",
+      "width": 1254,
+      "height": 1254,
+      "outputBytes": 1906816,
+      "imageModified": false,
+      "nativeMuseValidated": false
+    },
+    "displayDerivative": {
+      "asset": "web/avatars/muse-jensen-v8/jensen-huang.webp",
+      "sourceAsset": "web/avatars/muse-jensen-v8/jensen-huang.png",
+      "sourceSha256": "3b3250b293fa4f95ad89874f33e7dd9f79cff8001428e787674c6b919274b099",
+      "outputSha256": "0fca3782fd5cf7bd32c7aec578c5e299200ea69c6e2cff9aace719ad500c37b2",
+      "codec": "WebP",
+      "lossy": true,
+      "quality": 85,
+      "width": 1254,
+      "height": 1254,
+      "sourceBytes": 1906816,
+      "outputBytes": 112192
+    }
   }
 ]

@@ -334,10 +334,10 @@ async function costumeFixture(t) {
   return root;
 }
 
-test('the costume collection uses one shared base and keeps all 18 named wardrobes', () => {
-  assert.equal(characters.length, 18);
+test('the costume collection uses one shared base and keeps all 19 named wardrobes', () => {
+  assert.equal(characters.length, 19);
   assert.equal(new Set(characters.map(c => c.avatar.baseId)).size, 1);
-  assert.equal(new Set(characters.map(c => c.avatar.costume)).size, 18);
+  assert.equal(new Set(characters.map(c => c.avatar.costume)).size, characters.length);
   for (const c of characters) {
     assert.ok(c.avatar.prompt.includes(c.avatar.costume), c.id);
     assert.ok(c.avatar.prompt.includes('Keep this same face, hood, cream color, plush material, and body proportions'), c.id);

@@ -9,6 +9,7 @@ These links identify the default character preset. They do not contain or transf
 | Wednesday Addams | [Open Wednesday Addams](https://persa.bubblai.com/character/wednesday) |
 | Taylor Swift | [Open Taylor Swift](https://persa.bubblai.com/character/taylorswift) |
 | Mark Zuckerberg | [Open Mark Zuckerberg](https://persa.bubblai.com/character/markzuckerberg) |
+| Jensen Huang | [Open Jensen Huang](https://persa.bubblai.com/character/jensenhuang) |
 | Mona Lisa | [Open Mona Lisa](https://persa.bubblai.com/character/monalisa) |
 | Barbie | [Open Barbie](https://persa.bubblai.com/character/barbie) |
 | Harry Potter | [Open Harry Potter](https://persa.bubblai.com/character/harrypotter) |

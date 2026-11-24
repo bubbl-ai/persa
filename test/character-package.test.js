@@ -11,7 +11,7 @@ const unescapeHtml = value => value.replace(/&(?:amp|lt|gt|quot|#39);/g, entity 
 const extractPrompt = html => unescapeHtml(html.match(/<textarea\b[^>]*>([\s\S]*?)<\/textarea>/)[1]);
 const extractMuseUrl = html => unescapeHtml(html.match(/id="open-muse" href="([^"]+)"/)[1]);
 
-test('all 18 HTML packages preserve the current handoff prompt and working canonical character link', () => {
+test('all catalog HTML packages preserve the current handoff prompt and working canonical character link', () => {
   for (const character of characters) {
     const tuned = { ...character.persona, voice: { ...character.persona.voice, warmth: 0, humor: 100, directness: 0, verbosity: 100 } };
     const handoff = buildMuseHandoff(character, tuned);

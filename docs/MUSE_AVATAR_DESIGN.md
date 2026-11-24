@@ -695,3 +695,56 @@ The costume collection first shipped on October 7 as Sites version 4, from
 archive-upload failures, including two confirmed blob-upload timeouts. Version 5
 then introduced the separate spotlight demo. Version 6 reuses that artwork;
 retired likeness images remain excluded from the deployment archive.
+
+## Jensen Huang addition — November 24, 2026
+
+The collection expands to 19 with a Jensen Huang-inspired companion. Its
+personality traits are **Visionary / Precise / Driven**, with first-principles
+explanations, clear priorities and practical experiments. The authored replies
+are fictional examples; they are not quotations or claims of endorsement.
+
+The shared cream plush face, hood rim and compact body wear an open black
+leather-look jacket over a black crew-neck shirt, black trousers and shoes,
+and a short silver-gray swept-back removable fiber wig. Both cream mitten
+hands remain empty. The costume has no logos, glasses or facial changes.
+`src/muse-wigs.js` owns the recipe used by the text-only prompt and the
+`muse-reference-wig-v3` complete handoff. The existing 18 personalities,
+visual recipes, handoff messages and preview files remain unchanged.
+
+The preview is built-in image-generation artwork, identified as `imagegen` /
+`design-preview`, not a native Muse output. The original 1254×1254 PNG is
+`web/avatars/muse-jensen-v8/jensen-huang.png` (1,906,816 bytes). A quality-85
+WebP derivative at `web/avatars/muse-jensen-v8/jensen-huang.webp` (112,192 bytes)
+serves the gallery. Its SHA-256 is
+`0fca3782fd5cf7bd32c7aec578c5e299200ea69c6e2cff9aace719ad500c37b2`.
+The exact generation prompt, original/derivative hashes and reference asset
+are retained in `characters/image-generation.json`. Full-image review found
+all main costume cues, a continuous cream face rim, a white backdrop and
+complete framing. The hair is more voluminous and the toy fills more of the
+canvas than requested; this is a selected design preview, not strict recipe
+compliance or evidence of native repeatability.
+
+Jensen uses the existing stage, tile, personality, favorite, sharing and
+HTML/JSON export flows. His canonical route is
+<https://persa.bubblai.com/character/jensenhuang>; the hyphenated route and
+legacy query also resolve. Active preview inventory is 14 native outputs,
+two generated designs (Rock/Jensen), and three background edits.
+
+Local verification: all 106 Node tests, the 19-character website build,
+JavaScript syntax checks and whitespace checks passed. Exhaustive route tests
+cover all 19 canonical/hyphenated routes and unknown-route rejection. Existing
+18 handoff hashes remain unchanged, including Kylie's v6 recipe.
+
+Thirteen local Chromium browser checks passed at 1440×900, 390×844 and
+320×568: canonical/alias/query/reload navigation, image decoding, 19 tiles,
+above-fold controls and no horizontal overflow; arrows, keyboard and touch
+swipes; vertical scrolling; tuned handoffs and saved-tone reload; share/copy
+fallback; HTML with embedded image and exact handoff; JSON provenance; and
+image-failure recovery. No uncaught JavaScript errors or Muse requests occurred.
+Checks used emulated viewports, fallback fonts and a mocked clipboard/share
+fallback, not physical iOS/Safari or an OS share sheet. Full QA evidence remains
+outside Git under `persa-test-results/2026-11-24-jensen/` in the Bubbl workspace.
+
+Publication is recorded below after completion.
+No Jensen request has been submitted to native Muse, and native avatar
+reproduction, personality persistence and mobile Muse remain unverified.

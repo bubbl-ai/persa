@@ -2,8 +2,8 @@ import { compile } from './compile.js';
 import { buildWigAvatarPrompt } from './muse-wigs.js';
 import { buildCostumeAvatarPrompt } from './muse-costume-recipes.js';
 
-// Curated native previews retain their visual recipes. The Rock and Kylie
-// have generated design previews; two presets retain their original costumes.
+// Curated native previews retain their visual recipes. The Rock and Jensen
+// have generated design previews; display-only edits keep their prior recipes.
 // Handoff recipes are versioned separately from gallery artwork/legacy prompts.
 const BASE_URL = 'https://persa.bubblai.com/avatars/muse-costumes-v1/base.png';
 const BASE_SHA256 = 'c428fd4d8608ca5bd5d72a5c3f49a20be680a739a94bb9e658e3f4be23a4ec2f';

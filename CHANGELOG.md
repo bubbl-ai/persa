@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- November 24 Jensen Huang addition: add the nineteenth personality/avatar
+  combo, with Visionary / Precise / Driven traits, a black leather jacket and
+  silver-gray removable wig on the shared plush base. Include a generated
+  preview, direct Muse handoff, share routes, favorites, tone controls and
+  HTML/JSON downloads through the existing catalog flows. Preserve all 18
+  previous handoff messages and artwork. Jensen's native Muse generation and
+  persistence remain unverified. See [the design and verification record](docs/MUSE_AVATAR_DESIGN.md#jensen-huang-addition--november-24-2026).
+
 - November 17 marketing analytics (published and verified): add the
   supplied Google Tag Manager container `GTM-W3TSJF7V` once in the head of
   each hosted HTML page, including the shared shell for all character routes.

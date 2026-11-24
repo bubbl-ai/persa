@@ -745,6 +745,15 @@ Checks used emulated viewports, fallback fonts and a mocked clipboard/share
 fallback, not physical iOS/Safari or an OS share sheet. Full QA evidence remains
 outside Git under `persa-test-results/2026-11-24-jensen/` in the Bubbl workspace.
 
-Publication is recorded below after completion.
+Published and verified at
+<https://persa.bubblai.com/character/jensenhuang> from commit
+`dbe867621164e6576a7974b6af5bad7487adef69`.
+The [Vercel deployment](https://github.com/bubbl-ai/persa/actions/runs/45311198661)
+and [test workflow](https://github.com/bubbl-ai/persa/actions/runs/45311198729)
+both succeeded. All 13 browser checks also passed against production at the
+same desktop/mobile sizes with no uncaught JavaScript errors. Production
+catalog, canonical and hyphenated route HTML, Jensen WebP and shared wig
+builder returned HTTP 200 and matched the locally built bytes exactly.
+
 No Jensen request has been submitted to native Muse, and native avatar
 reproduction, personality persistence and mobile Muse remain unverified.

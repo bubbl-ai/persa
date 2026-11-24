@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- November 24 Jensen Huang addition: add the nineteenth personality/avatar
+- November 24 Jensen Huang addition (published and verified): add the nineteenth personality/avatar
   combo, with Visionary / Precise / Driven traits, a black leather jacket and
   silver-gray removable wig on the shared plush base. Include a generated
   preview, direct Muse handoff, share routes, favorites, tone controls and

@@ -1,15 +1,21 @@
-# Upload only the source needed to build the static website.
+# Upload only the source needed to build the website and usage function.
 /*
 !package.json
 !package-lock.json
 !vercel.json
 !.vercelignore
-!scripts/
-!src/
-!characters/
-!web/
-!api/
-!server/
+!/scripts
+!/scripts/**
+!/src
+!/src/**
+!/characters
+!/characters/**
+!/web
+!/web/**
+!/api
+!/api/**
+!/server
+!/server/**
 
 # Keep local credentials and personal files out of uploads at any depth.
 **/.env

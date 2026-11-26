@@ -27,4 +27,6 @@ jobs:
           node-version: '24'
       - run: npx vercel@latest pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
       - run: npx vercel@latest build --prod --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Verify the usage API was packaged
+        run: test -s .vercel/output/functions/api/usage.func/.vc-config.json
       - run: npx vercel@latest deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}

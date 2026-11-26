@@ -320,7 +320,7 @@ retire or redirect that address.
 | [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) | Production auto-deploy from `main` using a repository secret and prebuilt output. |
 | [`.openai/hosting.json`](.openai/hosting.json) | Existing Sites project identity and `dist/` hosting configuration. Site access is managed separately in Sites. |
 
-The website has no application backend, model calls, or application API-key requirement. The existing CLI editor and MCP server remain separate tools. Generated `dist/` output is ignored by Git; the npm package still distributes the CLI/library rather than the website source. GitHub Actions builds for Vercel using `vercel.json` and deploys with the repository's hosting token. The previous Sites deployment used its own publication workflow.
+The website uses one Vercel function for the anonymous usage counter. Character browsing, tuning and download run in the browser. The existing CLI editor and MCP server remain separate tools. Generated `dist/` output is ignored by Git; the npm package still distributes the CLI/library rather than the website source. GitHub Actions builds for Vercel using `vercel.json` and deploys with the repository's hosting token. The previous Sites deployment used its own publication workflow.
 
 ### Website verification
 

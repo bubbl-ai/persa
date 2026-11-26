@@ -3,7 +3,7 @@ name: Deploy to Vercel
 # Every push to main ships persa.bubblai.com. The deploy runs under a Vercel
 # token held in the repo's secrets, so the commit author does not need a Vercel
 # account or a team seat. Build happens here (vercel build) and only the output
-# is uploaded (--prebuilt), which also sidesteps .vercelignore.
+# is uploaded (--prebuilt). The build uses .vercelignore during function discovery.
 
 on:
   push:

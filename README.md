@@ -280,8 +280,8 @@ not grant them Vercel dashboard access. The workflow serializes production
 deployments without canceling an in-progress run. Check its result after a push;
 the `tests` workflow runs separately and does not gate deployment.
 
-`.vercelignore` limits ordinary CLI source uploads. The Actions workflow uploads
-prebuilt output instead, so it does not depend on that source allowlist. Keep the
+`.vercelignore` limits ordinary CLI source uploads. The Actions build also uses this allowlist to discover
+API functions before uploading the prebuilt output. Keep the
 token in GitHub secrets and preserve the configured project identifiers. A local
 CLI account that only shows `Invisible Product Inc` is a different scope and
 should not be used to create a replacement project.

@@ -1,0 +1,55 @@
+name: Connect Persa usage storage
+on: workflow_dispatch
+
+permissions: {}
+concurrency: persa-usage-storage
+
+jobs:
+  connect:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Connect the dedicated private Blob store to production
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        shell: bash
+        run: |
+          node --input-type=module <<'JS'
+          import assert from 'node:assert/strict';
+          const team = 'team_vxb6Ht1oOuDB78rW3TuLsNTs';
+          const projectId = 'prj_LjXOUGH8w5JS1WgD2LGPVYEnyDQa';
+          const name = 'persa-usage';
+          async function api(path, body) {
+            const response = await fetch('https://api.vercel.com' + path + '?teamId=' + team, {
+              method: body ? 'POST' : 'GET',
+              headers: { Authorization: 'Bearer ' + process.env.VERCEL_TOKEN, 'Content-Type': 'application/json' },
+              body: body ? JSON.stringify(body) : undefined
+            });
+            if (!response.ok) {
+              const error = await response.json().catch(() => ({}));
+              const code = String(error.error?.code || '').replace(/[^a-z0-9_-]/gi, '').slice(0, 90);
+              throw new Error(path + ' returned HTTP ' + response.status + ' ' + code);
+            }
+            const text = await response.text();
+            return text ? JSON.parse(text) : {};
+          }
+          const project = await api('/v9/projects/' + projectId);
+          assert.ok(project.id === projectId && project.accountId === team && project.name === 'persa', 'Unexpected Vercel project');
+          const matches = (await api('/v1/storage/stores')).stores.filter(s => s.name === name);
+          assert.ok(matches.length <= 1, 'Ambiguous store name');
+          const existing = matches[0];
+          if (existing) assert.equal(existing.type, 'blob');
+          const store = existing || (await api('/v1/storage/stores/blob', { name, region: 'iad1', access: 'private' })).store;
+          const path = '/v1/storage/stores/' + encodeURIComponent(store.id);
+          const detail = (await api(path)).store;
+          assert.equal(detail.name, name);
+          assert.equal(detail.access, 'private');
+          assert.ok(Array.isArray(detail.projectsMetadata), 'Unknown store connections');
+          assert.ok(detail.projectsMetadata.every(p => p.projectId === projectId), 'Store belongs to another project');
+          const connected = detail.projectsMetadata.some(p => p.projectId === projectId && p.environments?.includes('production'));
+          if (!connected) await api(path + '/connections', { envVarEnvironments: ['production'], projectId, type: 'integration' });
+          console.log('Private Persa usage store connected to production.');
+          JS

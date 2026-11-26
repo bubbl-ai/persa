@@ -4,8 +4,11 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { characters } from '../characters/catalog.js';
 import { characterIdFromUrl } from '../web/character-links.js';
+import { createUsageHandler } from '../server/usage-counter.js';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../dist');
 const types={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json','.webp':'image/webp','.png':'image/png','.svg':'image/svg+xml'};
+// Preview must never write production usage, even if deployment env is loaded.
+const unavailableUsage = createUsageHandler({ store: null });
 export function createPreviewServer(directory = root) {
 return http.createServer(async(req,res)=>{
   try {
@@ -14,6 +17,7 @@ return http.createServer(async(req,res)=>{
     if (url.pathname !== '/' && url.pathname.endsWith('/')) {
       res.writeHead(308, { location: url.pathname.replace(/\/+$/, '') + url.search }); res.end(); return;
     }
+    if (pathname === '/api/usage') { await unavailableUsage(req, res); return; }
     const characterRoute=pathname.startsWith('/character/') && characterIdFromUrl(url.href,characters);
     const file=path.resolve(directory,'.'+(pathname==='/' || characterRoute?'/index.html':pathname));
     if(!file.startsWith(directory+path.sep)){res.writeHead(403);res.end();return;}

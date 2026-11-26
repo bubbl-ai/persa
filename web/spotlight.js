@@ -87,7 +87,9 @@ export function mountSpotlight({ characters, saved, getHandoff, initialCharacter
     document.querySelector('#spotlight-download').dataset.downloadHtml = character.id;
     document.querySelector('#spotlight-download').setAttribute('aria-label', `Save ${character.name} as HTML`);
     document.querySelector('#spotlight-copy').dataset.copyCharacter = character.id;
-    document.querySelector('#spotlight-customize').dataset.character = character.id;
+    const detailsButton = document.querySelector('#spotlight-customize');
+    detailsButton.dataset.character = character.id;
+    detailsButton.textContent = character.fixedVoice ? 'Meet Turkey' : 'Tune personality';
     document.querySelector('#spotlight-save').dataset.save = character.id;
     document.querySelector('#spotlight-share').dataset.shareCharacter = character.id;
     document.querySelector('#spotlight-share').setAttribute('aria-label', `Share ${character.name}`);

@@ -2,7 +2,7 @@ import { mountSpotlight } from './spotlight.js';
 import { characterShareUrl, characterIdFromUrl, withCharacterInUrl } from './character-links.js';
 import { buildCharacterPackage } from './character-package.js';
 import { compile } from './core/compile.js';
-import { buildMuseHandoff } from './core/muse-handoff.js';
+import { buildMuseHandoff, lookOnlyUrl } from './core/muse-handoff.js';
 import { TRAITS, TRAIT_NAMES } from './core/traits.js';
 
 const icons = {
@@ -25,6 +25,8 @@ const spotlightHome = document.body.classList.contains('spotlight-home');
 let spotlight;
 let spotlightCharacterId = null, applyingLocation = false;
 const STORE_KEY = 'persa.muse-combos.v1';
+// Trending highlights new additions, not popularity or usage statistics.
+const trendingCharacterIds = ['turkey', 'hailey-bieber', 'jensen-huang'];
 let characters = [], saved = {}, current = null, drafts = {}, sampleIndex = 0, view = new URLSearchParams(location.search).get('view') === 'saved' ? 'saved' : 'explore', dialog, returnFocus, toastTimer;
 const pendingAvatarImages = new Set();
 // Native lazy loading may fetch several screens of portraits at once. Keep
@@ -117,6 +119,23 @@ function card(character) {
   </article>`;
 }
 
+function updateTrendingSelection() {
+  for (const link of document.querySelectorAll('[data-spotlight-character]')) {
+    if (link.dataset.spotlightCharacter === spotlightCharacterId) link.setAttribute('aria-current', 'true');
+    else link.removeAttribute('aria-current');
+  }
+}
+
+function renderTrending() {
+  const section = document.querySelector('#trending');
+  const list = document.querySelector('#trending-characters');
+  const additions = trendingCharacterIds.map(id => characters.find(character => character.id === id)).filter(Boolean);
+  section.hidden = additions.length === 0;
+  // Keep these links mounted when saving, just like the main collection tiles.
+  if (!list.children.length) list.innerHTML = additions.map(character => `<li><a class="trending-card" href="${esc(characterShareUrl(character.id))}" data-spotlight-character="${esc(character.id)}" aria-label="View ${esc(character.name)} in the spotlight"><div class="trending-art">${imageMarkup(character)}</div><span class="trending-name">${esc(character.name)}</span></a></li>`).join('');
+  updateTrendingSelection();
+}
+
 function renderHomeCollection() {
   const grid = document.querySelector('#home-character-grid');
   // Keep tile nodes mounted so saving preserves focus, scroll, and loaded images.
@@ -136,7 +155,7 @@ function renderHomeCollection() {
 }
 
 function renderPage() {
-  if (spotlightHome) { spotlight?.updateSaved(saved); renderHomeCollection(); return; }
+  if (spotlightHome) { spotlight?.updateSaved(saved); renderTrending(); renderHomeCollection(); return; }
   const list = characters.filter(c => view !== 'saved' || saved[c.id]).sort((a, b) => Number(!!b.avatar.preview) - Number(!!a.avatar.preview));
   app.innerHTML = `<div class="shell"><header class="topbar"><a class="brand" href="/" aria-label="Persa home"><img src="/favicon.svg" alt="" width="33" height="33">persa</a><nav class="navigation" aria-label="Main navigation"><button class="nav-button ${view === 'explore' ? 'active' : ''}" data-view="explore" aria-current="${view === 'explore' ? 'page' : 'false'}">Explore</button><button class="nav-button ${view === 'saved' ? 'active' : ''}" data-view="saved" aria-current="${view === 'saved' ? 'page' : 'false'}">${icon('heart')}My collection ${Object.keys(saved).length ? `<span class="saved-count">${Object.keys(saved).length}</span>` : ''}</button><button class="text-button" data-how>How it works</button></nav><div class="made-for">${icon('spark')} Made for Muse</div></header>
     <main><section class="intro"><div><div class="eyebrow">One Muse. Many characters.</div><h1>${view === 'saved' ? 'Your kind of <span>company.</span>' : 'Dress your <span>Muse.</span>'}</h1><p>${view === 'saved' ? 'Your saved characters, with the personality settings you chose.' : 'The same little Muse, dressed for a different personality.<br>Find your favorite costume and make the voice your own.'}</p></div><div class="intro-aside"><strong>A new outfit. A familiar Muse.</strong>Each costume comes with<br>a personality to match.</div></section>
@@ -146,6 +165,7 @@ function renderPage() {
 }
 
 function getPersona(character = current) {
+  if (character.fixedVoice) return character.persona;
   return { ...character.persona, voice: { ...character.persona.voice, ...(drafts[character.id] || saved[character.id]?.voice) } };
 }
 function getHandoff(character = current) { return buildMuseHandoff(character, getPersona(character)); }
@@ -167,6 +187,12 @@ function replaceCharacterLocation(id) {
 function onSpotlightSelect(character) {
   const firstSelection = spotlightCharacterId === null;
   spotlightCharacterId = character.id;
+  updateTrendingSelection();
+  const lookLink = document.querySelector('#spotlight-look-only');
+  const url = lookOnlyUrl(character);
+  lookLink.hidden = !url;
+  if (url) lookLink.href = url;
+  else lookLink.removeAttribute('href');
   // Keep a bare homepage bare; normalize incoming character links.
   if (firstSelection && !characterIdFromUrl(location.href, characters)) return;
   replaceCharacterLocation(character.id);
@@ -206,12 +232,13 @@ function renderDetail() {
   const c = current, voice = getPersona().voice, sample = c.samples[sampleIndex];
   const handoff = getHandoff();
   const knobs = ['warmth', 'humor', 'directness', 'verbosity'];
+  const lookUrl = lookOnlyUrl(c);
   showDialog(`${dialogHeader('Your Persa character combo')}
     <div class="detail"><section class="detail-visual"><div class="detail-art">${imageMarkup(c, true)}</div><h2 class="detail-name" id="dialog-title">${esc(c.name)}</h2><p class="detail-description">${esc(c.description)}<span class="costume-caption">Our shared plush Muse in a ${esc(c.name)}-inspired costume.</span></p><div class="tags">${c.tags.map(t => `<span class="tag">${esc(t)}</span>`).join('')}</div><div class="combo-label">${icon('check')} Personality + matching avatar instructions</div></section>
     <section class="detail-controls"><h3 class="section-label">A feel for their voice</h3><div class="sample-tabs" role="group" aria-label="Example conversation"><button class="sample-tab ${sampleIndex === 0 ? 'active' : ''}" data-sample="0" aria-pressed="${sampleIndex === 0}">A busy day</button><button class="sample-tab ${sampleIndex === 1 ? 'active' : ''}" data-sample="1" aria-pressed="${sampleIndex === 1}">Honest advice</button><button class="sample-tab ${sampleIndex === 2 ? 'active' : ''}" data-sample="2" aria-pressed="${sampleIndex === 2}">A little win</button></div><div class="conversation"><div class="sample-user">${esc(sample.user)}</div><p class="sample-reply">${esc(sample.reply)}</p></div><p class="sample-caption">Illustrative replies for this preset. Muse's responses will vary.</p>
-    <div class="tune-head"><h3 class="section-label">Make it your kind of ${c.id === 'the-rock' ? 'Rock' : esc(c.name.split(' ')[0])}</h3><button class="reset" data-reset>Reset tone</button></div><div class="sliders">${knobs.map(trait => `<label class="slider"><span class="slider-top">${trait.charAt(0).toUpperCase()+trait.slice(1)}<output id="value-${trait}">${voice[trait]}</output></span><input type="range" min="0" max="100" step="1" value="${voice[trait]}" data-trait="${trait}" aria-label="${trait}" aria-describedby="ends-${trait}"><span class="slider-ends" id="ends-${trait}"><span>${TRAITS[trait].low}</span><span>${TRAITS[trait].high}</span></span></label>`).join('')}</div>
+    ${c.fixedVoice ? '<p class="setup-note">Turkey speaks in clucks and gobbles. Say <strong>stop turkey mode</strong> in Muse to return to ordinary replies.</p>' : `<div class="tune-head"><h3 class="section-label">Make it your kind of ${c.id === 'the-rock' ? 'Rock' : esc(c.name.split(' ')[0])}</h3><button class="reset" data-reset>Reset tone</button></div><div class="sliders">${knobs.map(trait => `<label class="slider"><span class="slider-top">${trait.charAt(0).toUpperCase()+trait.slice(1)}<output id="value-${trait}">${voice[trait]}</output></span><input type="range" min="0" max="100" step="1" value="${voice[trait]}" data-trait="${trait}" aria-label="${trait}" aria-describedby="ends-${trait}"><span class="slider-ends" id="ends-${trait}"><span>${TRAITS[trait].low}</span><span>${TRAITS[trait].high}</span></span></label>`).join('')}</div>`}
     <details class="prompt-details"><summary>The personality instructions ${icon('chevron')}</summary><pre class="prompt-text" id="personality-text">${esc(personalityPrompt())}</pre></details></section></div>
-    <section class="detail-how" aria-label="How it works"><h3>How it works</h3><p>Open in Muse → press Send → choose an avatar and click Select.</p><div class="portable-options"><button class="text-button" data-download-html="${c.id}">${icon('download')} Save character as HTML</button><button class="text-button" data-setup>More ways to save</button></div></section>
+    <section class="detail-how" aria-label="How it works"><h3>How it works</h3><p>Open in Muse → press Send → choose an avatar and click Select.</p><div class="portable-options">${lookUrl ? `<a data-muse-handoff href="${esc(lookUrl)}">Use Jensen’s look only</a>` : ''}<button class="text-button" data-download-html="${c.id}">${icon('download')} Save character as HTML</button><button class="text-button" data-setup>More ways to save</button></div></section>
     <div class="detail-bottom"><div class="detail-bottom-guide"><p class="handoff-guidance">In Muse: press Send, choose an avatar, then click Select.</p><button class="text-button detail-share" data-share-character="${c.id}">${icon('share')} Share</button></div><div class="actions"><button class="save-detail ${saved[c.id] ? 'saved' : ''}" data-save-current aria-label="${saved[c.id] ? 'Save changes' : 'Save combo'}">${icon(saved[c.id] ? 'check' : 'heart')}<span>${saved[c.id] ? 'Save changes' : 'Save combo'}</span></button>${handoff ? `<a class="button primary" data-muse-handoff data-muse-character="${c.id}" href="${esc(handoff.url)}">Open in Muse ${icon('spark')}</a>` : '<button class="button primary" data-setup>Set up in Muse</button>'}</div></div>`, 'dialog-title');
 }
 
@@ -226,9 +253,11 @@ function openCharacter(id) {
 
 function renderSetup() {
   const handoff = buildMuseHandoff(current, getPersona());
-  const previewNote = current.avatar.previewSource === 'native-muse' && current.avatar.preview
-    ? `This preview is a selected Muse-generated avatar. A new generation can vary in ${current.avatar.hairstyle ? 'hairstyle, ' : ''}face, outfit and proportions.`
-    : "The preview shows the intended costume; Muse's face, outfit and proportions can vary.";
+  const previewNote = !current.avatar.preview
+    ? 'An avatar preview is not available. The costume instructions are included; Muse will generate new options for you to choose from.'
+    : current.avatar.previewSource === 'native-muse'
+      ? `This preview is a selected Muse-generated avatar. A new generation can vary in ${current.avatar.hairstyle ? 'hairstyle, ' : ''}face, outfit and proportions.`
+      : "The preview shows the intended costume; Muse's face, outfit and proportions can vary.";
   const firstSteps = handoff
     ? `<div class="setup-step"><span class="step-number">1</span><div class="step-content"><h3>Open your prepared combo</h3><p>Your personality settings and shared-avatar instructions arrive together in Muse.</p><a class="button primary" data-muse-handoff data-muse-character="${current.id}" href="${esc(handoff.url)}">Open in Muse ${icon('spark')}</a></div></div>
     <div class="setup-step"><span class="step-number">2</span><div class="step-content"><h3>Press Send, then choose an avatar</h3><p>Review and send the message in Muse. It asks Muse to save your personality and generate costume options. Choose one and click Select to make it your avatar.</p></div></div>`
@@ -236,7 +265,7 @@ function renderSetup() {
     <div class="setup-step"><span class="step-number">2</span><div class="step-content"><h3>Open Muse and paste</h3><p>Send the message. When Muse offers avatar options, choose one and click Select.</p><a class="button outline" href="https://muse.ai/" target="_blank" rel="noopener noreferrer">Open Muse ${icon('spark')}</a></div></div>`;
   showDialog(`${dialogHeader('Take your character into Muse', true)}<section class="setup"><p class="eyebrow">Your complete Persa combo</p><h2 id="dialog-title">Meet your ${esc(current.name)}.</h2><p class="setup-intro">A distinct personality and a matching look for the same plush Muse. Your combo brings both together in one prepared message, including any tone changes you made.</p>
     ${firstSteps}
-    <div class="setup-step"><span class="step-number">3</span><div class="step-content"><h3>Make sure it feels right</h3><p>Check the costume and saved personality, then try a short conversation. You can adjust the voice here and send an updated combo whenever you like.</p></div></div>
+    <div class="setup-step"><span class="step-number">3</span><div class="step-content"><h3>Make sure it feels right</h3><p>Check the costume and saved personality, then try a short conversation. ${current.fixedVoice ? 'Say <strong>stop turkey mode</strong> in Muse to return to ordinary replies.' : 'You can adjust the voice here and send an updated combo whenever you like.'}</p></div></div>
     ${handoff ? `<div class="setup-note">If Muse keeps an old draft or opens without your combo, copy the complete combo below. Save any draft you want to keep, then paste the combo into Muse. You still send the message and select an avatar yourself. ${previewNote}</div><button class="button secondary" data-copy="combo">${icon('copy')} Copy complete combo</button>` : '<div class="setup-note">Persa copies the setup instructions. You apply them in Muse; a direct avatar import is not available here yet. The preview shows the intended shared character and costume. Muse may generate a different face, outfit, or proportions; the same prompt does not guarantee an identical avatar.</div>'}
     <details class="prompt-details"><summary>View the complete combo ${icon('chevron')}</summary><pre class="prompt-text">${esc(comboPrompt())}</pre></details>
     <div class="copy-options"><button class="button secondary" data-copy="personality">${icon('copy')} Personality only</button><button class="button secondary" data-copy="avatar">${icon('copy')} ${handoff ? 'Text-only avatar prompt' : 'Avatar prompt only'}</button></div>
@@ -334,7 +363,7 @@ function saveCurrent() {
   renderPage();
   const button=dialog.querySelector('[data-save-current]');
   if(button){button.classList.add('saved');button.innerHTML=`${icon('check')}<span>Saved on this device</span>`;button.setAttribute('aria-label','Saved on this device');}
-  notify('Combo and tone settings saved on this device.');
+  notify(current.fixedVoice ? 'Combo saved on this device.' : 'Combo and tone settings saved on this device.');
 }
 
 function toggleSave(id, source) {
@@ -370,6 +399,14 @@ async function start() {
     dialog.addEventListener('close',()=>{document.body.style.overflow='';const target=spotlightHome?document.querySelector('#spotlight-customize'):current?document.querySelector(`#card-${current.id}`):null;(returnFocus?.isConnected?returnFocus:target)?.focus({preventScroll:true});});
     dialog.addEventListener('click',e=>{if(e.target===dialog){const rect=dialog.getBoundingClientRect();if(e.clientX<rect.left||e.clientX>rect.right||e.clientY<rect.top||e.clientY>rect.bottom)dialog.close();}});
     document.addEventListener('click',e=>{
+      const trendingLink=e.target.closest('a[data-spotlight-character]');
+      if(trendingLink && spotlightHome && !e.defaultPrevented && e.button===0 && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey){
+        e.preventDefault();
+        spotlight.selectCharacter(trendingLink.dataset.spotlightCharacter);
+        document.querySelector('#stage').focus({preventScroll:true});
+        document.querySelector('.showcase').scrollIntoView({block:'start',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+        return;
+      }
       const button=e.target.closest('button');if(!button)return;
       if(button.hasAttribute('data-close'))dialog.close();
       else if(button.dataset.shareCharacter)shareCharacter(button.dataset.shareCharacter);
@@ -384,8 +421,10 @@ async function start() {
       else if(button.hasAttribute('data-back'))renderDetail();
       else if(button.hasAttribute('data-retry-avatar')){
         spotlight?.retryImage(current.id);
-        const preview=document.querySelector(`#home-character-grid #card-${current.id} .card-art`)?.querySelector('[data-avatar-image], .unavailable');
-        if(preview)preview.outerHTML=imageMarkup(current);
+        for(const container of document.querySelectorAll(`#home-character-grid #card-${current.id} .card-art, [data-spotlight-character="${current.id}"] .trending-art`)){
+          const preview=container.querySelector('[data-avatar-image], .unavailable');
+          if(preview)preview.outerHTML=imageMarkup(current);
+        }
         renderPage();renderDetail();
       }
       else if(button.hasAttribute('data-sample')){sampleIndex=Number(button.dataset.sample);renderDetail();dialog.querySelector(`[data-sample="${sampleIndex}"]`)?.focus({preventScroll:true});}

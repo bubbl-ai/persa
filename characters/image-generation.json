@@ -1587,5 +1587,59 @@
       "sourceBytes": 1906816,
       "outputBytes": 112192
     }
+  },
+  {
+    "id": "turkey",
+    "name": "Turkey",
+    "kind": "muse-costume",
+    "subjectId": "turkey",
+    "baseId": "persa-muse-v1",
+    "designVersion": "muse-newcomers-v9",
+    "status": "generated",
+    "tool": "built-in image_gen",
+    "createdAt": "2026-11-26",
+    "referenceAsset": "web/avatars/muse-costumes-v1/base.png",
+    "prompt": "Use case: identity-preserve. Edit the supplied shared Persa Muse plush reference as a photographed costume collectible. Keep its face exactly: wide peach round face, small glossy black bead eyes with catchlights, tiny stitched smile, rosy cheeks, cream sherpa hood around both cheeks and beneath the chin, compact body, stubby cream fingerless mitten hands and feet. Soft diffuse studio lighting and subtle grounded shadow on a seamless pure white background. Center one full-body front-facing character in a square with the whole head, costume and feet visible and generous margin. Tactile sewn fabric. No letters, logos, text, watermark or other toys. Turkey costume: A warm chestnut brown plush turkey suit with short scalloped felt wing sleeves and a large, neatly fanned tail of alternating autumn russet, copper and gold felt feathers behind its shoulders. Pose front-on with the tail visibly spreading at either side of the silhouette, each distinct feather tipped in a lighter band and standing up. One small crimson felt turkey wattle hangs as an appliqué from the OUTSIDE of the cream hood to one side, away from the peach face. The cream feet and mitten tips stick out of the suit. No beak over the face, no bird anatomy, no wig. It is unambiguously the original little Muse in a cloth turkey costume.",
+    "asset": "web/avatars/muse-newcomers-v9/turkey.webp",
+    "failure": null,
+    "inspection": "Reviewed the full image: chestnut wing sleeves, autumn-colored felt fan, red felt wattle, intact cream cheek and chin rim, white background, and both feet visible.",
+    "generation": {
+      "asset": "web/avatars/muse-newcomers-v9/turkey.png",
+      "outputSha256": "1d95b53f7fc2d915dd6c53ceb6dcdc2bbea5b541d3ed421868e1e3441abb99d4",
+      "promptSha256": "e963b2379065cb4989ee7cd806dd1571af2ab4064a44a127bae42323b0c7ed43",
+      "width": 1254,
+      "height": 1254,
+      "outputBytes": 2457565,
+      "imageModified": false,
+      "nativeMuseValidated": false
+    },
+    "displayDerivative": {
+      "asset": "web/avatars/muse-newcomers-v9/turkey.webp",
+      "sourceAsset": "web/avatars/muse-newcomers-v9/turkey.png",
+      "sourceSha256": "1d95b53f7fc2d915dd6c53ceb6dcdc2bbea5b541d3ed421868e1e3441abb99d4",
+      "outputSha256": "a0d361bead0778e1a9f8ed77632e2177a1205698c228c87c226294f2ca94052d",
+      "codec": "WebP",
+      "lossy": true,
+      "quality": 85,
+      "width": 1254,
+      "height": 1254,
+      "sourceBytes": 2457565,
+      "outputBytes": 227450
+    }
+  },
+  {
+    "id": "hailey-bieber",
+    "name": "Hailey Bieber",
+    "kind": "muse-costume",
+    "subjectId": "hailey-bieber",
+    "baseId": "persa-muse-v1",
+    "designVersion": "muse-newcomers-v9",
+    "status": "declined",
+    "tool": "built-in image_gen",
+    "createdAt": "2026-11-26",
+    "referenceAsset": "web/avatars/muse-costumes-v1/base.png",
+    "prompt": "Use case: identity-preserve. Edit the supplied shared Persa Muse plush reference as a photographed costume collectible. Keep its face exactly: wide peach round face, small glossy black bead eyes with catchlights, tiny stitched smile, rosy cheeks, cream sherpa hood around both cheeks and beneath the chin, compact body, stubby cream fingerless mitten hands and feet. Soft diffuse studio lighting and subtle grounded shadow on a seamless pure white background. Center one full-body front-facing character in a square with the whole head, costume and feet visible and generous margin. Tactile sewn fabric. No letters, logos, text, watermark or other toys. Hailey Bieber-inspired fashion costume: a tailored chocolate-brown blazer worn open over an ivory crew-neck top, matching brown tailored trousers and tiny espresso shoes. One miniature unmarked pale pink lip balm tube held in one cream mitten below chest level. The other hand is empty. Wear a removable clean center-parted light brown / dark blonde doll-hair bob, blunt jaw-length ends tucked behind the broad cream cheek rim, sleek soft toy fibers with a subtly curved hem. The name identifies wardrobe inspiration only. Preserve the shared plush face and compact proportions, no makeup, eyebrows, nose or human facial features.",
+    "asset": null,
+    "failure": "Image generation declined at input moderation (public-figure)."
   }
 ]

@@ -4,7 +4,7 @@
 
 **A personality layer for personal agents.** Write down how you want an agent to talk to you — once — and install it into Muse, Grok, Instinct, Claude, ChatGPT, or anything else with a text box.
 
-**Try the Muse character website:** [persa.bubblai.com](https://persa.bubblai.com). The spotlight homepage is public on Vercel under Bubbl's domain: anyone with the link can view it. Each character pairs a personality with a matching avatar prompt. All 19 characters have a direct **Open in Muse** link; the [all-character handoff report](docs/MUSE_ALL_CHARACTER_HANDOFF.md) records validation, known avatar-quality limitations and deployment status. One click takes the chosen combo from Persa to a prepared Muse message. Users still press Send and choose an avatar in Muse.
+**Try the Muse character website:** [persa.bubblai.com](https://persa.bubblai.com). The spotlight homepage is public on Vercel under Bubbl's domain: anyone with the link can view it. Each character pairs a personality with a matching avatar prompt. All 21 characters have a direct **Open in Muse** link; the [all-character handoff report](docs/MUSE_ALL_CHARACTER_HANDOFF.md) records validation, known avatar-quality limitations and deployment status. One click takes the chosen combo from Persa to a prepared Muse message. Users still press Send and choose an avatar in Muse.
 
 The **November 6 sharing update is published and verified**.
 Use **Share** on any character to open the device share sheet, with a copy-link
@@ -78,7 +78,11 @@ These commands run from a source checkout; see [Install](#install). The reposito
 
 ### Default Muse character combos
 
-Jensen Huang joins the collection on November 24, 2026 with a Visionary / Precise / Driven personality, a black leather jacket costume and short silver-gray hair on the shared plush base. His preview is generated artwork; the Muse recipe has not yet been tested in native Muse. The original 18 combos are unchanged. See [the Jensen design and verification record](docs/MUSE_AVATAR_DESIGN.md#jensen-huang-addition--november-24-2026).
+The homepage’s **Trending** section highlights new additions. [Turkey](https://persa.bubblai.com/character/turkey) dresses the shared plush in a felt turkey suit and asks Muse to reply to ordinary chat with clucks and gobbles. Say **stop turkey mode** to resume normal speech. [Hailey Bieber](https://persa.bubblai.com/character/haileybieber) pairs beauty-founder humor and “optimistical” with concrete product choices. Her personality and costume instructions are available. Image generation declined her gallery preview. [Jensen Huang](https://persa.bubblai.com/character/jensenhuang) offers both the complete combo and **Use Jensen’s look only**, which asks Muse to keep the current personality.
+
+The [usage counter](docs/USAGE_COUNTER.md) shows the number of browsers that have opened Muse through Persa since measurement began.
+
+Jensen Huang joined the collection on November 24, 2026 with a Visionary / Precise / Driven personality, a black leather jacket costume and short silver-gray hair on the shared plush base. His preview is generated artwork; the Muse recipe has not yet been tested in native Muse. The original 18 combos are unchanged. See [the Jensen design and verification record](docs/MUSE_AVATAR_DESIGN.md#jensen-huang-addition--november-24-2026).
 
 - Each preset is one complete character combo: **personality layer + Muse avatar**. The personality defines the character's voice, tone, response style, and behavioral preferences; the avatar gives that same character its visual identity.
 - The supplied people and characters below define the candidate pool for the first batch of default Muse combos. Each selected character gets both a personality and a matching avatar prompt.
@@ -101,12 +105,12 @@ do not establish repeated stability, blind recognition or identical previews.
 
 ### First default Muse batch: candidate roster
 
-**Keep all 19 candidates; choose 10 default Muse combos for launch later.** The launch selection has not been made. Every selected preset includes both components.
+**Keep all 21 candidates; choose 10 default Muse combos for launch later.** The launch selection has not been made. Every selected preset includes both components.
 
 | Group | Candidates |
 | --- | --- |
-| Public figures (12) | Jensen Huang; Mark Zuckerberg; Taylor Swift; Charlie Chaplin; Michael Jackson; Olivia Rodrigo; Marilyn Monroe; Drake; Lionel Messi; Kylie Jenner; MrBeast; Dwayne “The Rock” Johnson |
-| Fictional and art characters (7) | Mona Lisa; Barbie; Wednesday Addams; Harry Potter; SpongeBob; Hello Kitty; The Joker |
+| Public figures (13) | Hailey Bieber; Jensen Huang; Mark Zuckerberg; Taylor Swift; Charlie Chaplin; Michael Jackson; Olivia Rodrigo; Marilyn Monroe; Drake; Lionel Messi; Kylie Jenner; MrBeast; Dwayne “The Rock” Johnson |
+| Fictional and art characters (8) | Turkey; Mona Lisa; Barbie; Wednesday Addams; Harry Potter; SpongeBob; Hello Kitty; The Joker |
 
 ### Integration questions to validate
 
@@ -118,7 +122,7 @@ Primary-source review and earlier desktop tests: October 5, 2026. Native avatar-
 
 ### Website status — November 3, 2026
 
-The website implementation lives in [`web/`](web/), with paired character definitions in [`characters/catalog.js`](characters/catalog.js). The homepage at `/` has a compact white spotlight stage, visible side arrows, and the selected character's name and three adjectives immediately beneath the portrait (beside it on short landscape screens). The stage has direct **Open in Muse**, **Tune personality**, save and **Share** controls. Compact **How it works** instructions and **Save character as HTML** appear below; short pose motions have a persistent on/off switch and honor reduced-motion settings. All 19 character tiles appear below the spotlight with their own direct Muse links; **All characters** scrolls to that grid. The standalone grid remains at `/collection.html`, and saved combos are available at `/collection.html?view=saved`. The old `/spotlight.html` demo link redirects to the homepage.
+The website implementation lives in [`web/`](web/), with paired character definitions in [`characters/catalog.js`](characters/catalog.js). The homepage at `/` has a compact white spotlight stage, visible side arrows, and the selected character's name and three adjectives immediately beneath the portrait (beside it on short landscape screens). The stage has direct **Open in Muse**, **Tune personality**, save and **Share** controls. Compact **How it works** instructions and **Save character as HTML** appear below; short pose motions have a persistent on/off switch and honor reduced-motion settings. All 21 character tiles appear below the spotlight with their own direct Muse links; **All characters** scrolls to that grid. The standalone grid remains at `/collection.html`, and saved combos are available at `/collection.html?view=saved`. The old `/spotlight.html` demo link redirects to the homepage.
 
 The historical October 23 update added a longer combo introduction and three-step
 section. The November 3 refresh replaces those with the supplied direct headline
@@ -152,8 +156,8 @@ these experiments have separate counts.
 
 | Area | Current behavior |
 | --- | --- |
-| Spotlight homepage | Browse all 19 costumes on a white, borderless stage with a sliding center portrait, subtle spotlight, and the selected preset's three personality adjectives. Use the selected combo, tune its personality, or save it. Supports next/previous, mobile swipe, keyboard navigation, direct character URLs, and reduced motion. Short optional poses move the existing image; actual waving/singing and audio are not included. |
-| Full collection | All 19 tiles appear below the homepage spotlight and remain available at `/collection.html`. Stage and grid share dialogs, personality settings, and saved state; saving preserves the stage selection and the originating control's focus. A single plush Muse base wears a distinct character-inspired costume for each preset. The launch ten have not been selected. |
+| Spotlight homepage | Browse all 21 costumes on a white, borderless stage with a sliding center portrait, subtle spotlight, and the selected preset's three personality adjectives. Use the selected combo, tune its personality, or save it. Supports next/previous, mobile swipe, keyboard navigation, direct character URLs, and reduced motion. Short optional poses move the existing image; actual waving/singing and audio are not included. |
+| Full collection | All 21 tiles appear below the homepage spotlight and remain available at `/collection.html`. Stage and grid share dialogs, personality settings, and saved state; saving preserves the stage selection and the originating control's focus. A single plush Muse base wears a distinct character-inspired costume for each preset. The launch ten have not been selected. |
 | Combo preview | Matching avatar, character description, traits, and three authored example replies. Examples illustrate the original preset; they are not live model responses and do not change with the sliders. |
 | Tone controls | Warmth, humor, directness, and response length update the compiled personality instructions immediately. Reset restores that character's defaults. |
 | My collection | Saves favorites and voice settings in this browser's `localStorage`, separately for each website origin. A new domain starts with an empty collection; previous saves remain on the old domain. There is no account or cross-device sync; clearing browser storage removes them. |
@@ -161,9 +165,9 @@ these experiments have separate counts.
 | Download | **Save character as HTML** creates a portable browser card with embedded preview, current tone, complete prompt and Open in Muse link. It is not a Muse import format. Optional JSON backups export the persona, compiled personality, costume/base metadata, text-only avatar prompt and complete combo as JSON. Wig presets also include hairstyle and construction; the three new hairless costumes include `costumeVariant`. Curated native previews include provenance metadata regardless of hairstyle. Every catalog preset includes `museHandoff` with the exact message, URL, version and reference metadata. There is no JSON import or restore control yet. |
 | Grok Bot | Secondary option to copy personality text for a Bot's Description. It uses the `plain` compiler target, independently of the CLI's older `grok` Custom Agent target. |
 
-The current source collection uses `muse-reference-wig-v3` for 12 wig presets,
+The current source collection uses `muse-reference-wig-v3` for 13 wig presets,
 `muse-reference-wig-v6` for Kylie's new runway outfit, and
-`muse-reference-costume-v4` for Harry Potter, Michael Jackson and Joker. Their
+`muse-reference-costume-v4` for Harry Potter, Michael Jackson, Joker and Turkey. Their
 shared visual builders supply both native trials and complete combos; the
 text-only fallbacks omit image-reference claims while matching the active
 costume and any hairstyle. SpongeBob and Hello Kitty retain their original PNGs as archived sources,
@@ -300,9 +304,9 @@ retire or redirect that address.
 | --- | --- |
 | [`characters/catalog.js`](characters/catalog.js) | Character identity, persona definitions, matching Muse avatar prompt, preview path, and authored sample replies. `launchSelection` is empty; it records a future selection and does not filter the current gallery. |
 | [`characters/avatar-design.js`](characters/avatar-design.js) | Shared Muse base, versioned preview metadata and paired text-only avatar prompts; curated presets read costume and applicable hairstyle data from their shared visual builders. |
-| [`src/muse-wigs.js`](src/muse-wigs.js) | Canonical costume, hairstyle and visual recipe for 12 wig presets, shared by native preview trials and production combo construction. |
+| [`src/muse-wigs.js`](src/muse-wigs.js) | Canonical costume, hairstyle and visual recipe for 13 wig presets, shared by native preview trials and production combo construction. |
 | [`src/muse-costume-recipes.js`](src/muse-costume-recipes.js) | Canonical hairless costume recipes for Harry, Michael and Joker, shared by native trials and `muse-reference-costume-v4` combos; `textOnly: true` builds the matching fallback without an image-reference claim. |
-| [`src/muse-handoff.js`](src/muse-handoff.js) | Browser-safe prepared-message builder for all 19 presets, using the Muse compiler and fixed public reference URL/checksum. Twelve wigs use v3, Kylie's runway outfit uses wig v6, three native hairless costumes use v4, The Rock uses wardrobe v5, and SpongeBob/Hello Kitty retain wardrobe v2. One payload supplies links, complete-combo copying, displayed instructions and export. |
+| [`src/muse-handoff.js`](src/muse-handoff.js) | Browser-safe prepared-message builder for all 21 presets, using the Muse compiler and fixed public reference URL/checksum. Thirteen wigs use v3, Kylie's runway outfit uses wig v6, four hairless costumes use v4, The Rock uses wardrobe v5, and SpongeBob/Hello Kitty retain wardrobe v2. One payload supplies links, complete-combo copying, displayed instructions and export. |
 | [`characters/image-generation.json`](characters/image-generation.json) | Exact art prompts, output paths, and historical outcomes. Active costume replacements use `kind: "muse-costume"` with matching `subjectId`, `baseId`, and `designVersion`; earlier attempts are preserved. |
 | [`characters/avatar-design-generation.json`](characters/avatar-design-generation.json) | Shared reference image provenance and exact generation prompt. |
 | [`web/avatars/`](web/avatars/) | Curated native WebPs, generated design previews with WebP display derivatives, retained costume PNGs and historical source art. The build ships only currently referenced images and their shared base. |

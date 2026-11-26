@@ -10,6 +10,8 @@ These links identify the default character preset. They do not contain or transf
 | Taylor Swift | [Open Taylor Swift](https://persa.bubblai.com/character/taylorswift) |
 | Mark Zuckerberg | [Open Mark Zuckerberg](https://persa.bubblai.com/character/markzuckerberg) |
 | Jensen Huang | [Open Jensen Huang](https://persa.bubblai.com/character/jensenhuang) |
+| Turkey | [Open Turkey](https://persa.bubblai.com/character/turkey) |
+| Hailey Bieber | [Open Hailey Bieber](https://persa.bubblai.com/character/haileybieber) |
 | Mona Lisa | [Open Mona Lisa](https://persa.bubblai.com/character/monalisa) |
 | Barbie | [Open Barbie](https://persa.bubblai.com/character/barbie) |
 | Harry Potter | [Open Harry Potter](https://persa.bubblai.com/character/harrypotter) |

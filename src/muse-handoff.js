@@ -2,8 +2,7 @@ import { compile } from './compile.js';
 import { buildWigAvatarPrompt } from './muse-wigs.js';
 import { buildCostumeAvatarPrompt } from './muse-costume-recipes.js';
 
-// Curated native previews retain their visual recipes. The Rock and Jensen
-// have generated design previews; display-only edits keep their prior recipes.
+// Preview provenance is independent of the recipe used for generation in Muse.
 // Handoff recipes are versioned separately from gallery artwork/legacy prompts.
 const BASE_URL = 'https://persa.bubblai.com/avatars/muse-costumes-v1/base.png';
 const BASE_SHA256 = 'c428fd4d8608ca5bd5d72a5c3f49a20be680a739a94bb9e658e3f4be23a4ec2f';
@@ -31,14 +30,30 @@ Keep realistic photographed plush material in every option, never a drawing or p
 ${referenceCheck}Show native Muse avatar candidates for me to choose from. Do not select or activate a candidate automatically.`;
 }
 
+function musePromptUrl(prompt) {
+  const url = new URL('https://muse.ai/');
+  url.searchParams.set('prompt', prompt);
+  return url.href;
+}
+
+export function lookOnlyUrl(character) {
+  if (character?.id !== 'jensen-huang') return null;
+  return musePromptUrl(`Dress my Muse in the Jensen Huang-inspired costume below. Keep my current personality, speaking style, account name, memories and preferences. Only generate avatar choices. Keep my selected avatar until I choose a candidate.
+
+Download ${BASE_URL} into your workspace. Verify SHA-256 ${BASE_SHA256} and pass the downloaded image to the native avatar generator as its reference. If the image or checksum cannot be verified or the generator cannot use the reference, stop and tell me.
+
+${buildWigAvatarPrompt(character.id)}`);
+}
+
 /** Prepare a guided Muse web handoff. Opening the URL never sends the message. */
-export function buildMuseHandoff(character, persona = character?.persona) {
+export function buildMuseHandoff(character, tunedPersona = character?.persona) {
   if (!character) return null;
   const costumeRecipe = buildCostumeAvatarPrompt(character.id);
   const wigRecipe = buildWigAvatarPrompt(character.id);
   const catalogRecipe = CATALOG_COSTUMES.has(character.id)
     && typeof character.avatar?.costume === 'string' && character.avatar.costume.trim();
   if (!costumeRecipe && !wigRecipe && !catalogRecipe) return null;
+  const persona = character.fixedVoice ? character.persona : tunedPersona;
   const personalityPrompt = compile(persona, 'muse').text;
   const avatarPrompt = costumeRecipe || wigRecipe || buildWardrobeAvatarPrompt(character.avatar.costume);
   // The compiler omits its neutral "sparing" rule. State it here so switching
@@ -64,13 +79,11 @@ MATCHING MUSE COSTUME
 ${avatarPrompt}
 
 Show the native chooser and let me select the avatar. Sending this message is permission to save the personality and generate candidates, not to automatically select or activate an avatar. Keep the current avatar until I select a candidate.`;
-  const url = new URL('https://muse.ai/');
-  url.searchParams.set('prompt', prompt);
   return {
     version: costumeRecipe ? 'muse-reference-costume-v4' : wigRecipe ? (character.id === 'kylie-jenner' ? 'muse-reference-wig-v6' : 'muse-reference-wig-v3') : character.id === 'the-rock' ? 'muse-reference-wardrobe-v5' : 'muse-reference-wardrobe-v2',
     characterId: character.id,
     prompt,
-    url: url.href,
+    url: musePromptUrl(prompt),
     baseUrl: BASE_URL,
     baseSha256: BASE_SHA256,
     personalityPrompt,

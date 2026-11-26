@@ -334,8 +334,8 @@ async function costumeFixture(t) {
   return root;
 }
 
-test('the costume collection uses one shared base and keeps all 19 named wardrobes', () => {
-  assert.equal(characters.length, 19);
+test('the costume collection uses one shared base and keeps all 21 named wardrobes', () => {
+  assert.equal(characters.length, 21);
   assert.equal(new Set(characters.map(c => c.avatar.baseId)).size, 1);
   assert.equal(new Set(characters.map(c => c.avatar.costume)).size, characters.length);
   for (const c of characters) {

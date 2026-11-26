@@ -8,6 +8,8 @@
 !src/
 !characters/
 !web/
+!api/
+!server/
 
 # Keep local credentials and personal files out of uploads at any depth.
 **/.env

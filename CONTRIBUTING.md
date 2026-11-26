@@ -29,7 +29,7 @@ static browser app that reuses the personality compiler. See the
 for the implemented flow, asset coverage, and remaining Muse integration work.
 
 The homepage is `/`, with a white, borderless spotlight stage, the selected
-personality's three adjectives, and the full 19-character grid underneath.
+personality's three adjectives, and the full 21-character grid underneath.
 **All characters** scrolls to that grid. The standalone grid remains at
 `/collection.html`, with saved combos at `/collection.html?view=saved`.
 The former `/spotlight.html` demo redirects to `/`. Both active pages use
@@ -44,16 +44,14 @@ and the spotlight; it includes no character animation or audio.
 
 Character presets belong in `characters/catalog.js`, with shared-base and
 costume prompt definitions in `characters/avatar-design.js`. Each preset pairs
-a personality and matching Muse avatar prompt. All 19 current candidates remain
+a personality and matching Muse avatar prompt. All 21 current candidates remain
 available; the launch ten have not been selected. Keep the same cream plush face,
 hood, material, and body proportions across costumes. Clothing, headwear, and
 props identify each named preset; do not restore the older individual faces or
 substitute unrelated mascots. See the [design contract](docs/MUSE_AVATAR_DESIGN.md).
 
-The Muse shortcut covers all 19 catalog presets, including Jensen Huang added
-November 24. Jensen reuses the shared wig builder and has a generated design
-preview rather than native Muse output. Preserve the exact existing 18 handoff
-messages when extending the roster. Add each new ID to the Vercel route allowlist,
+The Muse shortcut covers all 21 catalog presets. Jensen reuses the shared wig builder and has a generated design
+preview rather than native Muse output. Keep previous handoffs stable when extending the roster. Add each new ID to the Vercel route allowlist,
 the canonical link documentation, and the image provenance manifest; the browser
 and local preview derive their routes and controls from the catalog.
 Use real **Open in Muse** links on the stage, each tile and the detail dialog,

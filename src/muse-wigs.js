@@ -1,6 +1,11 @@
 // Shared visual instructions for native preview trials and the Muse combo handoff.
 // Curated previews are selected examples; a new generation can vary.
 export const wigStyles = Object.freeze({
+  "hailey-bieber": {
+    "variant": "fiber",
+    "costume": "a chocolate-brown tailored blazer worn open over a plain cream top, matching tailored brown trousers, small espresso-colored shoes and one tiny unmarked pink lip-balm tube held below the chest in a cream mitten; the other mitten stays empty",
+    "hair": "One removable dark-blonde to light-brown doll-fiber bob with a neat center part. Keep the crown low and the two straight side sections short, with ends at chin height behind the cream cheek rim. No fringe, hair accessories or loose strands across the face."
+  },
   "taylor-swift": {
     "variant": "fiber",
     "costume": "one shimmering lavender stage dress with shoulder straps, a fitted bodice covering the whole torso and one continuous skirt ending above the feet, and one silver microphone held below the face in a cream fleece mitten",

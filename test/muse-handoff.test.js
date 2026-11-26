@@ -4,14 +4,25 @@ import { readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { characters } from '../characters/catalog.js';
 import { compile } from '../src/compile.js';
-import { buildMuseHandoff, buildWardrobeAvatarPrompt } from '../src/muse-handoff.js';
+import { buildMuseHandoff, buildWardrobeAvatarPrompt, lookOnlyUrl } from '../src/muse-handoff.js';
 import { buildWigAvatarPrompt, wigStyles } from '../src/muse-wigs.js';
 import { buildCostumeAvatarPrompt, costumeStyles } from '../src/muse-costume-recipes.js';
 
 const character = id => characters.find(item => item.id === id);
 
+test('Jensen can dress the existing Muse without applying his personality', () => {
+  const jensen = character('jensen-huang');
+  const combo = buildMuseHandoff(jensen);
+  const prompt = new URL(lookOnlyUrl(jensen)).searchParams.get('prompt');
+  assert.ok(prompt.includes(combo.avatarPrompt));
+  assert.ok(prompt.includes(combo.baseSha256));
+  assert.ok(prompt.includes('Keep my current personality'));
+  assert.ok(!prompt.includes(combo.personalityPrompt));
+  assert.equal(lookOnlyUrl(character('turkey')), null);
+});
+
 test('reference handoff covers every catalog character and rejects unknown IDs', () => {
-  assert.equal(characters.length, 19);
+  assert.equal(characters.length, 21);
   assert.equal(characters.filter(item => buildMuseHandoff(item)).length, characters.length);
   const copiedCostume = character('barbie').avatar;
   for (const input of [null, undefined, {}, { id: 'unknown' }, { id: '__proto__' }, { id: 'constructor' }, { ...character('barbie'), id: 'unknown', avatar: copiedCostume }]) {
@@ -19,7 +30,7 @@ test('reference handoff covers every catalog character and rejects unknown IDs',
   }
 });
 
-test('the roster uses 13 wig recipes, three costume recipes and three hairless wardrobe recipes', () => {
+test('the roster uses 14 wig recipes, four costume recipes and three hairless wardrobe recipes', () => {
   const recipes = new Set();
   let wigs = 0, costumes = 0, retained = 0;
   for (const preset of characters) {
@@ -61,8 +72,8 @@ test('the roster uses 13 wig recipes, three costume recipes and three hairless w
     recipes.add(result.avatarPrompt);
   }
   assert.equal(recipes.size, characters.length);
-  assert.equal(wigs, 13);
-  assert.equal(costumes, 3);
+  assert.equal(wigs, 14);
+  assert.equal(costumes, 4);
   assert.equal(retained, 3);
 });
 
@@ -73,8 +84,8 @@ test('a catalog recipe with missing costume data cannot create an incomplete han
   assert.equal(buildMuseHandoff({ ...character('the-rock'), avatar: undefined }), null);
 });
 
-test('the handoff contains current compiled tone settings without mutating the preset', () => {
-  for (const preset of characters) {
+test('adjustable presets include the current compiled tone settings without mutating the preset', () => {
+  for (const preset of characters.filter(character => !character.fixedVoice)) {
     const before = structuredClone(preset);
     const tuned = { ...preset.persona, voice: { ...preset.persona.voice, warmth: 0, humor: 100, directness: 0, verbosity: 100 } };
     const result = buildMuseHandoff(preset, tuned);
@@ -100,7 +111,7 @@ test('Barbie and SpongeBob replace old no-emoji settings with their sparing pref
   assert.match(buildMuseHandoff(character('mona-lisa'), tuned).prompt, /permission to use emoji sparingly/);
 });
 
-test('adding Jensen preserves the exact payloads of the 18 existing handoffs', () => {
+test('adding Turkey and Hailey preserves the exact payloads of the 19 existing handoffs', () => {
   const baseline = {
     "wednesday": {
       "version": "muse-reference-wig-v3",
@@ -113,6 +124,10 @@ test('adding Jensen preserves the exact payloads of the 18 existing handoffs', (
     "mark-zuckerberg": {
       "version": "muse-reference-wig-v3",
       "promptSha256": "0259893548c1f95ea849669997429b4feb600d97a1f1a50a3333e298d4a17de9"
+    },
+    "jensen-huang": {
+      "version": "muse-reference-wig-v3",
+      "promptSha256": "fa4d84731685d8e8f8cf79b4cdf9ce98055f3ffa990d2a384a2876a2c59419ac"
     },
     "mona-lisa": {
       "version": "muse-reference-wig-v3",
@@ -175,7 +190,7 @@ test('adding Jensen preserves the exact payloads of the 18 existing handoffs', (
       "promptSha256": "d4f0b75358d21885a4dbd07599dcdcfc8cacffeeb8bbba6912ecb5ddaf401ae2"
     }
   };
-  assert.equal(Object.keys(baseline).length, 18);
+  assert.equal(Object.keys(baseline).length, 19);
   for (const [id, recorded] of Object.entries(baseline)) {
     const result = buildMuseHandoff(character(id));
     assert.equal(result.version, recorded.version, id);
@@ -253,16 +268,21 @@ test('wig catalog metadata and text-only fallback match their visual recipe and 
       continue;
     }
     const backgroundEdit = preset.id === 'charlie-chaplin';
-    const designPreview = preset.id === 'jensen-huang';
-    const designVersion = designPreview ? 'muse-jensen-v8' : backgroundEdit ? 'muse-white-background-v7'
-      : preset.id === 'kylie-jenner' ? 'muse-kylie-runway-native-v6' : 'muse-wigs-v2';
+    const customVersion = { 'jensen-huang': 'muse-jensen-v8', 'hailey-bieber': 'muse-newcomers-v9' }[preset.id];
+    const designVersion = customVersion || (backgroundEdit ? 'muse-white-background-v7'
+      : preset.id === 'kylie-jenner' ? 'muse-kylie-runway-native-v6' : 'muse-wigs-v2');
     assert.equal(preset.avatar.designVersion, designVersion);
     assert.equal(preset.avatar.preview, `/avatars/${designVersion}/${preset.id}.webp`);
     assert.equal(preset.avatar.basePreview, '/avatars/muse-costumes-v1/base.png');
     assert.equal(preset.avatar.hairstyle, wig.hair);
     assert.equal(preset.avatar.hairstyleVariant, wig.variant);
-    assert.equal(preset.avatar.previewSource, designPreview ? 'imagegen' : backgroundEdit ? 'imagegen-edit' : 'native-muse');
-    assert.equal(preset.avatar.previewSelection, designPreview ? 'design-preview' : backgroundEdit ? 'background-edit' : 'curated');
+    if (preset.id === 'hailey-bieber') {
+      assert.equal(preset.avatar.previewSource, undefined);
+      assert.equal(preset.avatar.previewSelection, undefined);
+    } else {
+      assert.equal(preset.avatar.previewSource, customVersion ? 'imagegen' : backgroundEdit ? 'imagegen-edit' : 'native-muse');
+      assert.equal(preset.avatar.previewSelection, customVersion ? 'design-preview' : backgroundEdit ? 'background-edit' : 'curated');
+    }
     assert.ok(preset.avatar.prompt.includes(wig.costume), preset.id);
     assert.ok(preset.avatar.prompt.includes(wig.hair), preset.id);
     assert.doesNotMatch(preset.avatar.prompt, /Do not add human hair|using the downloaded image|using the attached image/i);
@@ -323,17 +343,18 @@ test('the Rock design preview and text-only fallback share the new wardrobe with
   assert.doesNotMatch(avatar.prompt, /downloaded|attached|source face/);
 });
 
-test('curated hairless costumes export a matching text-only recipe without a reference claim', () => {
+test('hairless costumes export a matching text-only recipe and credit the preview source', () => {
   for (const id of Object.keys(costumeStyles)) {
     const { avatar } = character(id);
-    assert.equal(avatar.designVersion, 'muse-costume-cues-v3');
-    assert.equal(avatar.preview, `/avatars/muse-costume-cues-v3/${id}.webp`);
+    const designVersion = id === 'turkey' ? 'muse-newcomers-v9' : 'muse-costume-cues-v3';
+    assert.equal(avatar.designVersion, designVersion);
+    assert.equal(avatar.preview, `/avatars/${designVersion}/${id}.webp`);
     assert.equal(avatar.baseId, 'persa-muse-v1');
     assert.equal(avatar.basePreview, '/avatars/muse-costumes-v1/base.png');
     assert.equal(avatar.costume, costumeStyles[id].costume);
     assert.equal(avatar.costumeVariant, costumeStyles[id].variant);
-    assert.equal(avatar.previewSource, 'native-muse');
-    assert.equal(avatar.previewSelection, 'curated');
+    assert.equal(avatar.previewSource, id === 'turkey' ? 'imagegen' : 'native-muse');
+    assert.equal(avatar.previewSelection, id === 'turkey' ? 'design-preview' : 'curated');
     assert.equal(avatar.hairstyle, undefined);
     assert.ok(avatar.prompt.includes(character(id).name), id);
     assert.ok(avatar.prompt.endsWith(buildCostumeAvatarPrompt(id, { textOnly: true })), id);
@@ -343,4 +364,17 @@ test('curated hairless costumes export a matching text-only recipe without a ref
     const visualSections = prompt => prompt.split('\n\nCHARACTER COSTUME\n')[1];
     assert.equal(visualSections(avatar.prompt), visualSections(buildMuseHandoff(character(id)).avatarPrompt));
   }
+});
+
+test('Turkey keeps its clucks and gobbles despite tone overrides and allows setup and exit', () => {
+  const turkey = character('turkey');
+  const original = buildMuseHandoff(turkey);
+  const tuned = { ...turkey.persona, voice: { ...turkey.persona.voice, verbosity: 100, directness: 100 } };
+  assert.equal(buildMuseHandoff(turkey, tuned).prompt, original.prompt);
+  assert.match(original.personalityPrompt, /Start the game after setup/);
+  assert.match(original.personalityPrompt, /stop turkey mode/);
+  assert.match(original.personalityPrompt, /Use only “cluck”, “gobble” and “gobbles”/);
+  assert.doesNotMatch(original.personalityPrompt, /Answer the actual question|accurate, useful answers|Explain thoroughly/);
+  assert.equal(new Set(turkey.samples.map(example => example.reply)).size, turkey.samples.length);
+  for (const { reply } of turkey.samples) assert.match(reply, /^(?:cluck|gobbles?)(?: (?:cluck|gobbles?))*[.!?]?$/);
 });

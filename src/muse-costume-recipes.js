@@ -1,6 +1,10 @@
-// Three user-approved hairless costume studies, separate from wig experiments.
+// Hairless costumes share a single face-preserving visual recipe.
 // Recognition comes from clothing and props while the shared face stays unchanged.
 export const costumeStyles = Object.freeze({
+  "turkey": {
+    "variant": "turkey-suit",
+    "costume": "One brown felt turkey suit, with two soft scalloped wing sleeves ending above the original cream mitten hands. A broad fanned tail of layered russet and gold felt feathers attaches to the back and peeks out behind both shoulders. One small red felt wattle hangs from the outside of the cream hood at one side, clear of the peach face. Keep both cream feet and mittens visible. All bird features are sewn costume pieces. No beak, bird face, talons or extra limbs."
+  },
   "harry-potter": {
     "variant": "school",
     "costume": "One black open school robe with deep burgundy lining and its garment hood down behind the body; a charcoal-gray V-neck sweater over a white collared shirt; one burgundy-and-gold striped tie; one long knitted burgundy scarf with wide golden-yellow horizontal bands; full-length black trousers and two black school shoes. Wear exactly one pair of large thin black circular glasses with clear lenses and both original bead eyes fully visible. Hold one slim brown wand diagonally down in one cream fleece mitten, and exactly one tiny golden ball with two small gold wings in the other mitten below the chest. The wings belong only to the held ball, never to the head or body. No other props, crests, letters or markings."

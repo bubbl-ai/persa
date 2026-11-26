@@ -36,7 +36,7 @@
     </section>
     <section class="showcase" aria-label="Muse character spotlight" aria-roledescription="carousel">
       <div class="stage" id="stage" tabindex="0" aria-label="Character stage. Swipe left or right, or use the arrow keys to browse." aria-describedby="stage-personality browse-hint" aria-busy="true">
-        <div class="stage-topline" aria-hidden="true"><span id="stage-count">— / 19</span></div>
+        <div class="stage-topline" aria-hidden="true"><span id="stage-count">—</span></div>
         <div class="stage-halo" aria-hidden="true"></div>
         <div class="spotlight-beam" aria-hidden="true"></div>
         <div class="floor-light" aria-hidden="true"></div>
@@ -45,7 +45,7 @@
         <button class="retry" id="retry" hidden>Try again</button>
         <div class="navigation">
           <button class="arrow" id="previous" aria-label="Previous character" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6M8 12h12"/></svg></button>
-          <span class="page-count sr-only" id="page-count" aria-hidden="true">— / 19</span>
+          <span class="page-count sr-only" id="page-count" aria-hidden="true">—</span>
           <button class="arrow next" id="next" aria-label="Next character" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 6 6 6-6 6M16 12H4"/></svg></button>
         </div>
       </div>
@@ -58,7 +58,7 @@
             <button class="button secondary" id="spotlight-customize" disabled>Tune personality</button>
             <button class="spotlight-save" id="spotlight-save" aria-label="Save character" aria-pressed="false" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></svg></button>
           </div>
-          <div class="spotlight-help"><p class="handoff-guidance" id="spotlight-guidance">In Muse: press Send, choose an avatar, then click Select.</p></div>
+          <div class="spotlight-help"><p class="handoff-guidance" id="spotlight-guidance">In Muse: press Send, choose an avatar, then click Select.</p><a id="spotlight-look-only" data-muse-handoff hidden>Use Jensen’s look only</a></div>
         </div>
       </div>
       <div class="browse-row">
@@ -67,6 +67,14 @@
         <button class="motion-toggle text-button" id="motion-toggle" aria-pressed="true" disabled>Motion on</button>
       </div>
       <p class="sr-only" id="announcement" role="status" aria-live="polite" aria-atomic="true"></p>
+    </section>
+    <aside class="usage-counter" data-usage-counter hidden aria-label="Persa usage">
+      <p data-usage-total></p>
+      <details><summary>What this counts</summary><p>Unique browser IDs that clicked Open in Muse since tracking began. Repeat opens count once. Clearing browser storage or using another browser can count again. This does not confirm setup inside Muse. Totals refresh about once a minute.</p></details>
+    </aside>
+    <section class="trending" id="trending" aria-labelledby="trending-title" aria-describedby="trending-description" hidden>
+      <div class="trending-heading"><h2 id="trending-title">Trending</h2><p id="trending-description">New additions to the wardrobe.</p></div>
+      <ul class="trending-grid" id="trending-characters"></ul>
     </section>
     <section class="how-it-works" id="how-it-works" aria-labelledby="how-title">
       <h2 id="how-title">How it works</h2>
@@ -80,7 +88,7 @@
     </section>
     <section class="home-collection" id="home-collection" aria-labelledby="collection-title" aria-busy="true">
       <div class="collection-head">
-        <h2 class="collection-title" id="collection-title">All characters <span id="home-collection-count">/ 19</span></h2>
+        <h2 class="collection-title" id="collection-title">All characters <span id="home-collection-count"></span></h2>
       </div>
       <p class="collection-status" id="home-collection-status" role="status">Loading avatars…</p>
       <div class="grid" id="home-character-grid"></div>
@@ -89,5 +97,6 @@
   </main>
 </div>
   <script type="module" src="/app.js"></script>
+  <script type="module" src="/usage-counter.js"></script>
 </body>
 </html>

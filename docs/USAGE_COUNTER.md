@@ -81,3 +81,17 @@ prefix, then remove the probe. Confirm production GET separately after deploying
 The implementation follows the official [Vercel Blob SDK reference](https://vercel.com/docs/vercel-blob/using-blob-sdk),
 [private storage contract](https://vercel.com/docs/vercel-blob/private-storage),
 and [Node function deployment](https://vercel.com/docs/functions/runtimes/node-js).
+
+## November 26 production verification
+
+The first release served the new character pages, but the usage endpoint returned
+404. The Vercel CLI skipped the API directory while discovering functions. The
+corrected source allowlist includes both each directory and its contents. The
+deployment now checks for the bundled usage function before publishing.
+
+The [corrected deployment](https://github.com/bubbl-ai/persa/actions/runs/45848360110)
+and [CI checks](https://github.com/bubbl-ai/persa/actions/runs/45848360235)
+passed. In production the counter returned HTTP 200 with a measured total of
+zero, displayed that value at 320px, and rejected an invalid browser ID without
+writing. Concurrent writes, retries, and duplicate suppression were exercised
+against an isolated test store. Production verification added no usage markers.

@@ -2,8 +2,8 @@
 
 ## Unreleased
 
-- November 26 adds Turkey's clucks and gobbles, Hailey Bieber's “optimistical” personality, a Jensen look-only option and a Trending row for the three recent additions. Turkey includes a generated preview. Hailey’s prepared costume instructions and reply examples are available with an explicit missing-art state.
-- Count unique browsers that open a prepared Muse link on Persa. Start at the first measured open and display the confirmed total when the counter is available.
+- November 26 (published and verified) adds Turkey's clucks and gobbles, Hailey Bieber's “optimistical” personality, a Jensen look-only option and a Trending row for the three recent additions. Turkey includes a generated preview. Hailey’s prepared costume instructions and reply examples are available with an explicit missing-art state.
+- Count unique browsers that open a prepared Muse link on Persa. The [production counter](docs/USAGE_COUNTER.md#november-26-production-verification) started at zero. All 117 tests passed, and 14 live browser check groups covered Trending, both newcomers, exports, and Jensen’s look-only links. Native Muse behavior for the new presets has not been tested.
 
 - November 24 Jensen Huang addition (published and verified): add the nineteenth personality/avatar
   combo, with Visionary / Precise / Driven traits, a black leather jacket and

@@ -2,7 +2,9 @@ name: Connect Persa usage storage
 on: workflow_dispatch
 
 permissions: {}
-concurrency: persa-usage-storage
+concurrency:
+  group: vercel-production
+  cancel-in-progress: false
 
 jobs:
   connect:
@@ -42,6 +44,9 @@ jobs:
           assert.ok(matches.length <= 1, 'Ambiguous store name');
           const existing = matches[0];
           if (existing) assert.equal(existing.type, 'blob');
+          const vars = await api('/v10/projects/' + projectId + '/env');
+          const occupied = vars.envs.some(v => v.key === 'BLOB_READ_WRITE_TOKEN' && v.target?.includes('production'));
+          assert.ok(existing || !occupied, 'Existing project Blob token belongs to another store');
           const store = existing || (await api('/v1/storage/stores/blob', { name, region: 'iad1', access: 'private' })).store;
           const path = '/v1/storage/stores/' + encodeURIComponent(store.id);
           const detail = (await api(path)).store;
@@ -50,6 +55,7 @@ jobs:
           assert.ok(Array.isArray(detail.projectsMetadata), 'Unknown store connections');
           assert.ok(detail.projectsMetadata.every(p => p.projectId === projectId), 'Store belongs to another project');
           const connected = detail.projectsMetadata.some(p => p.projectId === projectId && p.environments?.includes('production'));
+          assert.ok(connected || !occupied, 'Existing project Blob token belongs to another store');
           if (!connected) await api(path + '/connections', { envVarEnvironments: ['production'], projectId, type: 'integration' });
           console.log('Private Persa usage store connected to production.');
           JS

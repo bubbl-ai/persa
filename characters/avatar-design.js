@@ -25,8 +25,8 @@ const nativePreview = { previewSource: 'native-muse', previewSelection: 'curated
 const previewDesigns = new Map([
   ['jensen-huang', { version: 'muse-jensen-v8', provenance: generatedPreview }],
   ['turkey', { version: 'muse-newcomers-v9', provenance: generatedPreview }],
-  // The build resolves the declined artwork to an unavailable preview.
-  ['hailey-bieber', { version: 'muse-newcomers-v9', provenance: {} }]
+  // The first request was declined; the manifest's replacement is a generated design preview.
+  ['hailey-bieber', { version: 'muse-newcomers-v9', provenance: generatedPreview }]
 ]);
 
 export function avatarFor(id, name) {

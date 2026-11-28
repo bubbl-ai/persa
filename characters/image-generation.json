@@ -1640,6 +1640,47 @@
     "referenceAsset": "web/avatars/muse-costumes-v1/base.png",
     "prompt": "Use case: identity-preserve. Edit the supplied shared Persa Muse plush reference as a photographed costume collectible. Keep its face exactly: wide peach round face, small glossy black bead eyes with catchlights, tiny stitched smile, rosy cheeks, cream sherpa hood around both cheeks and beneath the chin, compact body, stubby cream fingerless mitten hands and feet. Soft diffuse studio lighting and subtle grounded shadow on a seamless pure white background. Center one full-body front-facing character in a square with the whole head, costume and feet visible and generous margin. Tactile sewn fabric. No letters, logos, text, watermark or other toys. Hailey Bieber-inspired fashion costume: a tailored chocolate-brown blazer worn open over an ivory crew-neck top, matching brown tailored trousers and tiny espresso shoes. One miniature unmarked pale pink lip balm tube held in one cream mitten below chest level. The other hand is empty. Wear a removable clean center-parted light brown / dark blonde doll-hair bob, blunt jaw-length ends tucked behind the broad cream cheek rim, sleek soft toy fibers with a subtly curved hem. The name identifies wardrobe inspiration only. Preserve the shared plush face and compact proportions, no makeup, eyebrows, nose or human facial features.",
     "asset": null,
-    "failure": "Image generation declined at input moderation (public-figure)."
+    "failure": "Image generation declined at input moderation (public-figure).",
+    "replacement": {
+      "kind": "muse-costume",
+      "subjectId": "hailey-bieber",
+      "baseId": "persa-muse-v1",
+      "designVersion": "muse-newcomers-v9",
+      "status": "generated",
+      "tool": "Figma generate_image, model gpt-image-2.5-flare",
+      "createdAt": "2026-11-27",
+      "referenceAsset": null,
+      "prompt": "Studio product photograph of ONE chubby plush collectible toy, full body, standing, front-facing, centered in a square frame. The toy is large in the frame: from the top of its head to its feet it fills about 85 percent of the image height, with both feet fully visible. Seamless pure white background, soft diffuse studio lighting, a subtle soft grounded shadow under the feet.\n\nTHE TOY (keep exactly this character): a cute, very compact, chubby stuffed toy shaped like a little figure in a cream sherpa-fleece hooded onesie. PROPORTIONS: a big rounded head and a wide, plump, pear-shaped body that is as wide as the head and about the same height as the head; almost no neck; very short stubby legs, so the feet sit right under the body; short thick arms held slightly away from the sides. It looks squat and huggable, never slim or tall. The head is entirely covered by a thick cream curly sherpa fleece hood, except for one wide oval face opening that takes up most of the front of the head. The face is smooth, pale peach-cream fabric with a soft matte finish: two small round glossy black bead eyes with tiny white catchlights, set wide apart; a tiny thin curved black stitched smile between them; soft pink blush on both cheeks. No nose, no eyebrows, no eyelashes, no lips, no makeup, no ears. A broad continuous rim of cream sherpa fleece frames both cheeks and runs beneath the chin. Big rounded cream sherpa mitten hands with no fingers. Short rounded feet.\n\nCOSTUME: a tailored chocolate-brown fabric blazer with small notched lapels, worn open over an ivory crew-neck knit top; matching chocolate-brown tailored trousers, short and wide to fit the stubby legs; tiny rounded espresso-brown shoes. The cream mitten hands stick out of the blazer sleeves. One hand holds a miniature plain unmarked pale pink lip balm tube below chest level. The other hand is empty.\n\nWIG: a removable doll-hair wig in light brown to dark blonde: a clean center-parted sleek bob. The hair shows inside the top of the hood opening as a smooth center part across the forehead, then falls straight on both sides OUTSIDE the cream hood to blunt jaw-length ends with a subtly curved hem. The cream cheek and chin rim stays fully visible in front of the hair. Sleek soft toy hair fibers.\n\nTactile sewn fabric and visible curly fleece texture, photographed like a real handmade stuffed toy. No letters, no logos, no text, no watermark, no other objects or toys.",
+      "asset": "web/avatars/muse-newcomers-v9/hailey-bieber.webp",
+      "failure": null,
+      "inspection": "Reviewed the full image beside Jensen Huang, Olivia Rodrigo and Taylor Swift: cream sherpa hood with a continuous cheek and chin rim, pale peach face with bead eyes, stitched smile and blush, chubby body and mitten hands, open chocolate-brown blazer over an ivory top, brown trousers and shoes, one plain pale pink lip balm tube, a center-parted light brown bob with blunt ends behind the cheek rim, white ground, both feet visible. No letters or logos.",
+      "generation": {
+        "asset": "web/avatars/muse-newcomers-v9/hailey-bieber.png",
+        "outputSha256": "c07bdc344363df328957da6185098073146d5fc7eb5b5719d80ef59ff03656f8",
+        "promptSha256": "4f4a5497fceea9a92408b17b9d84951e96135765e2387386b1d38f2a25ec6cf0",
+        "width": 1024,
+        "height": 1024,
+        "outputBytes": 1492265,
+        "imageModified": false,
+        "nativeMuseValidated": false,
+        "method": "Text only. No reference picture was supplied: this tool takes none, so the shared plush is described in words and the result was matched to the other previews by eye. The request describes the outfit and does not name the person, which is why it was not refused like the original request. Second of two attempts; the first drew a slimmer body and was not kept."
+      },
+      "displayDerivative": {
+        "asset": "web/avatars/muse-newcomers-v9/hailey-bieber.webp",
+        "sourceAsset": "web/avatars/muse-newcomers-v9/hailey-bieber.png",
+        "sourceSha256": "c07bdc344363df328957da6185098073146d5fc7eb5b5719d80ef59ff03656f8",
+        "outputSha256": "1a0a19d10609ed17569ed11e7932bd2f01b5de55b08b9a89df281b84876fb28c",
+        "codec": "WebP",
+        "lossy": true,
+        "encoder": "cwebp 1.6.0",
+        "quality": 85,
+        "method": 6,
+        "sourceBytes": 1492265,
+        "outputBytes": 102114,
+        "width": 1024,
+        "height": 1024,
+        "transformation": "Format compression only. No resizing, cropping or artwork edits. The original generated PNG remains unchanged."
+      }
+    }
   }
 ]

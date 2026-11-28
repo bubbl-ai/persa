@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- November 27 gives Hailey Bieber a gallery preview: the shared plush in an open chocolate-brown blazer, ivory top, brown trousers and a center-parted light brown bob, holding a plain pink lip balm. The first request was declined at input moderation because it named her; this one describes the outfit only. It is a generated design preview made from a written description of the shared plush, without the reference picture, and matched to the other previews by eye. The declined request stays in the image manifest as history. Native Muse behavior for her preset has not been tested.
+
 - November 26 (published and verified) adds Turkey's clucks and gobbles, Hailey Bieber's “optimistical” personality, a Jensen look-only option and a Trending row for the three recent additions. Turkey includes a generated preview. Hailey’s prepared costume instructions and reply examples are available with an explicit missing-art state.
 - Count unique browsers that open a prepared Muse link on Persa. The [production counter](docs/USAGE_COUNTER.md#november-26-production-verification) started at zero. All 117 tests passed, and 14 live browser check groups covered Trending, both newcomers, exports, and Jensen’s look-only links. Native Muse behavior for the new presets has not been tested.
 

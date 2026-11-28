@@ -276,13 +276,8 @@ test('wig catalog metadata and text-only fallback match their visual recipe and 
     assert.equal(preset.avatar.basePreview, '/avatars/muse-costumes-v1/base.png');
     assert.equal(preset.avatar.hairstyle, wig.hair);
     assert.equal(preset.avatar.hairstyleVariant, wig.variant);
-    if (preset.id === 'hailey-bieber') {
-      assert.equal(preset.avatar.previewSource, undefined);
-      assert.equal(preset.avatar.previewSelection, undefined);
-    } else {
-      assert.equal(preset.avatar.previewSource, customVersion ? 'imagegen' : backgroundEdit ? 'imagegen-edit' : 'native-muse');
-      assert.equal(preset.avatar.previewSelection, customVersion ? 'design-preview' : backgroundEdit ? 'background-edit' : 'curated');
-    }
+    assert.equal(preset.avatar.previewSource, customVersion ? 'imagegen' : backgroundEdit ? 'imagegen-edit' : 'native-muse');
+    assert.equal(preset.avatar.previewSelection, customVersion ? 'design-preview' : backgroundEdit ? 'background-edit' : 'curated');
     assert.ok(preset.avatar.prompt.includes(wig.costume), preset.id);
     assert.ok(preset.avatar.prompt.includes(wig.hair), preset.id);
     assert.doesNotMatch(preset.avatar.prompt, /Do not add human hair|using the downloaded image|using the attached image/i);

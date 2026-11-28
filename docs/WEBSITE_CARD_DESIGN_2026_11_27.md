@@ -1,6 +1,6 @@
 # Homepage card design — November 27, 2026
 
-Status: published November 27, 2026. Live checks are recorded at the end.
+Status: published and verified November 27, 2026 at https://persa.bubblai.com.
 
 Most visitors arrive on a phone from TikTok and Instagram. The homepage is now a
 dark page where each character owns a colour, and the spotlight is one card in
@@ -175,3 +175,17 @@ count of Muse opens shown and hidden, and `/collection.html` unchanged.
 Marketing requests were blocked and no Muse link was opened.
 
 Not checked: real devices, screen readers, and native Muse behavior.
+
+## Live verification — November 27, 2026
+
+The [deployment](https://github.com/bubbl-ai/persa/actions/runs/46114658663) and
+[CI checks](https://github.com/bubbl-ai/persa/actions/runs/46114658623) passed.
+The same browser walk was then run against https://persa.bubblai.com: all 21
+characters at 320×568, 375×667, 390×844, 430×932 and 1280×900, the 21 tiles,
+the popup for Taylor Swift and for Turkey, the `/character/turkey` link on
+reload, and `/collection.html`. Every check passed: each cut-out loaded, the
+name and **Open in Muse** stayed above the fold (lowest button at 548 of 568 on
+the smallest screen), nothing scrolled sideways, no script error was raised,
+and the only server request beyond static files was `/api/usage`. The counter
+read a measured zero before and after. Marketing requests were blocked, the
+automated browser is excluded from usage by design, and no Muse link was opened.

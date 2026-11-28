@@ -1,0 +1,179 @@
+/* Persa home, character cards (November 2026). The white box around each plush is the
+   artwork's own white ground; the card design lifts the plush off it and stands it on the
+   character's colour, and lines everything up on one edge and one spacing scale.
+
+   Loaded after night.css, which gives the dark page and the colour per character.
+   This sheet turns the showcase into ONE card in that colour: the plush cut out of
+   its white ground (web/cutouts, chosen by cutouts.js), a very large name under it,
+   the three words as labels, and the buttons. The tiles put each plush on its colour.
+
+   The rules that keep it even, all measured on the rendered page:
+   - ONE spacing scale (--s1 to --s7). Inside the card nothing is further apart than
+     --s5; the card to the next section is --s7, the largest gap on the page.
+   - ONE left and right edge: header, heading, card and tiles share it at every width.
+   - Every cut-out is framed the same (figure 88% of the frame, feet on one line), so
+     the name sits the same distance under every character and nothing jumps on swipe.
+   - The name is always one line: its size follows its length (--name-len, set by
+     spotlight.js), so the buttons stay at one height for every character.
+   - Small text is 12px, labels 11px. Radii: card 36/40, tiles 24, controls round.
+
+   A character with no cut-out, or one whose cut-out will not load, keeps its
+   original picture on a white plate (.is-plain). Remove this file's <link> and the
+   cutoutFor() calls to return to the night stage. */
+body.spotlight-home{background:#0e0a18;--s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:20px;--s6:24px;--s7:44px;--card-pad:16px}
+
+body.spotlight-home #app .collection-link{font-size:13px;font-weight:500}
+body.spotlight-home #app .intro.persa-intro{padding:var(--s2) 0 var(--s6)}
+body.spotlight-home #app .intro.persa-intro h1{font-size:clamp(26px,3vw,36px);line-height:1.1;margin:0 0 var(--s2)}
+body.spotlight-home #app .intro.persa-intro .intro-description{font-size:14px;line-height:1.5;max-width:560px;text-wrap:balance}
+
+/* "How it works" is off the home page (2026-11-24), and so is the "?" in the
+   header that jumped to it. Hidden, not deleted: spotlight.js writes to the controls inside it on every
+   selection. The one line under the buttons still says what to do in Muse. */
+body.spotlight-home #app .how-it-works,body.spotlight-home #app .spotlight-how{display:none}
+
+/* ── the card ── */
+body.spotlight-home #app .showcase{position:relative;overflow:hidden;background:var(--pop);border-radius:40px;padding:var(--card-pad);
+  /* The whole card turns on a sideways swipe (spotlight.js), wherever the finger lands: the browser
+     keeps up-and-down scrolling and pinch zoom, and a drag does not select the name. */
+  touch-action:pan-y pinch-zoom;user-select:none;-webkit-user-select:none;cursor:grab}
+body.spotlight-home #app .showcase.is-dragging,body.spotlight-home #app .showcase.is-dragging *{cursor:grabbing}
+body.spotlight-home #app .stage{background:transparent;box-shadow:none;border-radius:0;overflow:visible;--portrait:var(--stage-size)}
+body.spotlight-home #app .stage-halo,body.spotlight-home #app .spotlight-beam{display:none}
+body.spotlight-home #app .floor-light{width:min(46%,220px);height:16px;bottom:calc(var(--stage-size) * .04 - 9px);background:var(--n-ink);opacity:.14;border-radius:50%}
+body.spotlight-home #app .slide{filter:none;opacity:.3}
+body.spotlight-home #app .slide.is-active{opacity:1}
+body.spotlight-home #app .slide img{transform-origin:50% 94%}
+body.spotlight-home #app .slide.is-plain img{background:#fff;border-radius:28px}
+body.spotlight-home #app .stage-topline{inset:0 0 auto auto;color:var(--n-ink);font-size:11px;font-weight:700;letter-spacing:.08em;line-height:1}
+body.spotlight-home #app .navigation{padding:0}
+body.spotlight-home #app .arrow,body.spotlight-home #app .arrow:hover{height:44px;width:44px;background:#fff;border-color:transparent;color:var(--n-ink)}
+body.spotlight-home #app .arrow.next,body.spotlight-home #app .arrow.next:hover{background:var(--n-ink);border-color:var(--n-ink);color:#fff;filter:none}
+
+body.spotlight-home #app .character-panel{padding-top:var(--s3)}
+body.spotlight-home #app .character-info h2{color:var(--n-ink);font-size:60px;letter-spacing:-.055em;line-height:1;margin:0;white-space:nowrap}
+body.spotlight-home #app .stage-personality{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:var(--s3);color:var(--n-ink);font-size:11px;font-weight:700;letter-spacing:.08em;line-height:1}
+body.spotlight-home #app .stage-personality span{background:#fff;border-radius:999px;padding:7px 12px}
+body.spotlight-home #app .spotlight-actions{gap:var(--s2);margin:var(--s5) auto 0;max-width:460px}
+body.spotlight-home #app .spotlight-actions .button.primary,body.spotlight-home #app .spotlight-actions .button.primary:hover{min-height:56px;background:var(--n-ink);color:#fff;font-size:17px;filter:none}
+body.spotlight-home #app .spotlight-actions .button.secondary{min-height:44px;font-size:14px;font-weight:600}
+body.spotlight-home #app .spotlight-actions .button.secondary,body.spotlight-home #app .spotlight-save{background:#ffffff66;color:var(--n-ink)}
+body.spotlight-home #app .spotlight-actions .button.secondary:hover{background:#ffffff8c}
+body.spotlight-home #app .spotlight-save{height:44px;width:44px}
+body.spotlight-home #app .spotlight-save.saved{background:var(--n-ink);border-color:var(--n-ink);color:#fff}
+body.spotlight-home #app .spotlight-help{margin-top:var(--s3)}
+body.spotlight-home #app .spotlight-help .handoff-guidance{color:var(--n-ink);opacity:.74;font-size:12px;line-height:1.4}
+body.spotlight-home #app .browse-row{border-bottom:none;gap:0 var(--s5);padding:var(--s1) 0 0}
+body.spotlight-home #app .stage-browse-hint,body.spotlight-home #app .browse-row .text-button{color:var(--n-ink);opacity:1;font-size:12px;font-weight:600;line-height:1.4}
+body.spotlight-home #app .stage-browse-hint span{font-size:15px;line-height:1}
+body.spotlight-home #app .share-button svg{width:15px;height:15px}
+
+/* ── the tiles ── */
+body.spotlight-home #app .home-collection{padding:var(--s7) 0 var(--s6)}
+body.spotlight-home #app .home-collection .collection-head{padding:0 0 var(--s4)}
+body.spotlight-home #app .home-collection .collection-title{font-size:24px;font-weight:800;letter-spacing:-.04em;line-height:1.1;margin:0}
+body.spotlight-home #app .home-collection .collection-title span{font-size:13px;font-weight:500}
+body.spotlight-home #app .home-collection .card{border-radius:24px;display:flex;flex-direction:column}
+body.spotlight-home #app .home-collection .card-open{flex:1;display:flex;flex-direction:column}
+body.spotlight-home #app .home-collection .card-body{flex:1;display:flex;flex-direction:column}
+body.spotlight-home #app .home-collection .card-line{margin-top:auto}
+body.spotlight-home #app .home-collection .tags{margin-bottom:var(--s3)}
+body.spotlight-home #app .home-collection .card-art{background:var(--pop)}
+body.spotlight-home #app .home-collection .card-art.is-plain{background:#fff}
+body.spotlight-home #app .home-collection .card-art img{transform-origin:50% 94%}
+body.spotlight-home #app .home-collection .card-category,body.spotlight-home #app .home-collection .save-card{top:12px;height:30px;background:#ffffffd9;border:none;color:var(--n-ink)}
+body.spotlight-home #app .home-collection .card-category{left:12px;display:flex;align-items:center;padding:0 10px;border-radius:999px;font-size:11px;font-weight:600;line-height:1;max-width:none}
+body.spotlight-home #app .home-collection .save-card{right:12px;width:30px}
+body.spotlight-home #app .home-collection .save-card svg{width:15px;height:15px}
+body.spotlight-home #app .home-collection .card-handoff{min-height:44px;font-size:13px}
+body.spotlight-home #app .home-collection .card-share{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;margin:0 0 var(--s2);min-height:40px;font-size:12px;font-weight:600}
+body.spotlight-home #app .home-collection .card-share svg{width:14px;height:14px}
+
+@media(min-width:601px){
+ body.spotlight-home{--card-pad:24px;--s7:64px}
+ body.spotlight-home #app .stage-topline{font-size:12px}
+ body.spotlight-home #app .arrow,body.spotlight-home #app .arrow:hover{height:48px;width:48px}
+ body.spotlight-home #app .character-panel{padding-top:var(--s4)}
+ body.spotlight-home #app .stage-personality{margin-top:var(--s4);font-size:12px}
+ body.spotlight-home #app .spotlight-actions{margin-top:var(--s6)}
+}
+@media(max-width:600px){
+ body.spotlight-home #app .collection-link{font-size:13px}
+ body.spotlight-home #app .intro.persa-intro{padding:var(--s2) 0 var(--s5)}
+ body.spotlight-home #app .intro.persa-intro h1{font-size:clamp(19px,5.9vw,24px);margin:0 0 var(--s2);white-space:nowrap}
+ body.spotlight-home #app .intro.persa-intro .intro-description{font-size:13px;line-height:1.45}
+ body.spotlight-home #app .showcase{border-radius:36px}
+ body.spotlight-home #app .stage{--stage-size:min(clamp(148px,calc(100svh - 442px),330px),82vw);--portrait:var(--stage-size)}
+ /* A phone shows one plush at rest; its neighbours appear while the stage is being swiped. */
+ body.spotlight-home #app .slide:not(.is-active){opacity:0}
+ body.spotlight-home #app .stage.is-dragging .slide:not(.is-away),body.spotlight-home #app .stage.is-moving .slide:not(.is-away){opacity:.34}
+ body.spotlight-home #app .stage.is-dragging .slide.is-active,body.spotlight-home #app .stage.is-moving .slide.is-active{opacity:1}
+ body.spotlight-home #app .character-info h2{font-size:min(42px,calc((100vw - 2 * 16px - 2 * var(--card-pad)) * 1.74 / var(--name-len,12)))}
+ body.spotlight-home #app .spotlight-actions .button.primary,body.spotlight-home #app .spotlight-actions .button.primary:hover{min-height:54px}
+ body.spotlight-home #app .home-collection .collection-title{font-size:22px}
+ body.spotlight-home #app .home-collection .card{border-radius:22px}
+ body.spotlight-home #app .home-collection .card-category,body.spotlight-home #app .home-collection .save-card{top:10px;height:28px}
+ body.spotlight-home #app .home-collection .card-category{left:10px}
+ body.spotlight-home #app .home-collection .save-card{right:10px;width:28px}
+}
+@media(max-height:500px) and (min-width:601px){
+ body.spotlight-home #app .character-info h2{font-size:32px}
+}
+
+/* ── the November 26 additions (Turkey, Hailey Bieber, the row of new additions, the count of
+   Muse opens, Jensen's look-only link), drawn in this design. No words and no behaviour change here.
+
+   THE ROW OF NEW ADDITIONS   off this page (lean.css). They are in the grid and on the card
+                       like every other character.
+   NO PICTURE YET      a character without artwork keeps the explicit unavailable state (AGENTS.md:
+                       never old likeness art). The words stay; the plate is a dim tint of the
+                       character's colour, not a white box, and on the card they are dark ink on
+                       that colour. No current character needs it; it is here for the next one.
+   THE COUNT           the measured total of Muse opens, centred under the card. It is hidden
+                       whenever the counter does not answer, which is always the case in preview.
+   LOOK ONLY           "Use Jensen's look only" is a quiet underlined link under the buttons. ── */
+body.spotlight-home #app .usage-counter{max-width:560px;margin:var(--s5) auto 0;color:var(--n-soft);font-size:13px;line-height:1.5}
+body.spotlight-home #app .usage-counter>p{color:#fff;font-size:14px;font-weight:700;line-height:1.3;font-variant-numeric:tabular-nums}
+body.spotlight-home #app .usage-counter summary{padding:var(--s1) var(--s3);color:var(--n-dim);font-size:12px;line-height:1.4}
+body.spotlight-home #app .usage-counter summary:hover{color:#fff}
+body.spotlight-home #app .usage-counter details p{margin:var(--s1) 0 0;color:var(--n-soft);font-size:13px;line-height:1.5}
+
+/* no picture yet */
+body.spotlight-home #app .home-collection .card-art.is-plain:has(.unavailable){background:#2a2140;background:color-mix(in srgb,var(--pop) 22%,#191430)}
+body.spotlight-home #app .home-collection .card-art .unavailable{background:transparent;color:var(--n-soft);padding:var(--s3)}
+body.spotlight-home #app .home-collection .card-art .unavailable :is(svg,small){display:none}
+body.spotlight-home #app .home-collection .card-art .unavailable p{font-size:13px;font-weight:600;line-height:1.4;max-width:130px}
+body.spotlight-home #app .slide .image-fallback{padding:0 64px;color:var(--n-ink);font-size:14px;font-weight:600;line-height:1.5;opacity:.74;text-wrap:balance}
+/* nothing stands on the card, so nothing casts the floor mark */
+body.spotlight-home #app .stage:has(.slide.is-active.has-failed) .floor-light{display:none}
+
+/* look only */
+body.spotlight-home #app #spotlight-look-only{color:var(--n-ink);font-size:12px;font-weight:700;line-height:1.4;text-decoration:underline;text-underline-offset:3px}
+body.spotlight-home #app #spotlight-look-only[hidden]{display:none}
+
+@media(max-width:600px){
+ body.spotlight-home #app .slide .image-fallback{padding:0 56px;font-size:13px}
+}
+
+/* Livelier moves, now that the plush is a cut-out with no white box around it (2026-11-24).
+   These replace the four keyframes
+   of the same names in spotlight.css. They move the WHOLE figure: the artwork is one flat picture,
+   so a hand cannot wave on its own, and nothing here claims it does.
+   When they play: once as a character arrives and again when the plush is tapped (playPose in
+   spotlight.js), and in a loop while a mouse rests on the stage or on a tile. Preview motion off
+   and the device's reduced-motion setting stop all of it. */
+@keyframes persa-sway{0%,100%{transform:rotate(0) translateY(0)}12%{transform:rotate(-7deg) translateY(-6px)}25%{transform:rotate(0) translateY(0)}37%{transform:rotate(7deg) translateY(-6px)}50%{transform:rotate(0) translateY(0)}62%{transform:rotate(-7deg) translateY(-6px)}75%{transform:rotate(0) translateY(0)}87%{transform:rotate(5deg) translateY(-4px)}}
+@keyframes persa-bow{0%,100%{transform:translateY(0) scale(1)}20%{transform:translateY(6px) scale(1.04,.9)}40%{transform:translateY(-6px) scale(.98,1.04)}60%{transform:translateY(5px) scale(1.03,.92)}80%{transform:translateY(-3px) scale(1)}}
+@keyframes persa-bounce{0%,100%{transform:translateY(0) scale(1)}10%{transform:translateY(2px) scale(1.05,.93)}28%{transform:translateY(-20px) scale(.97,1.04)}46%{transform:translateY(0) scale(1.05,.93)}62%{transform:translateY(-12px) scale(.98,1.03)}78%{transform:translateY(0) scale(1.03,.96)}}
+@keyframes persa-pose{0%,100%{transform:rotate(0) scale(1)}15%{transform:rotate(-8deg) scale(1.02)}30%{transform:rotate(6deg)}45%{transform:rotate(-6deg)}60%{transform:rotate(5deg)}75%{transform:rotate(-3deg)}}
+@media (hover:hover) and (pointer:fine){
+ body.spotlight-home:not(.persa-motion-off) #app .stage:hover:not(.is-dragging):not(.is-moving) .slide.is-active[data-pose="sway"] img{animation:persa-sway 2.4s ease-in-out infinite}
+ body.spotlight-home:not(.persa-motion-off) #app .stage:hover:not(.is-dragging):not(.is-moving) .slide.is-active[data-pose="bow"] img{animation:persa-bow 2.1s ease-in-out infinite}
+ body.spotlight-home:not(.persa-motion-off) #app .stage:hover:not(.is-dragging):not(.is-moving) .slide.is-active[data-pose="bounce"] img{animation:persa-bounce 2s ease-in-out infinite}
+ body.spotlight-home:not(.persa-motion-off) #app .stage:hover:not(.is-dragging):not(.is-moving) .slide.is-active[data-pose="pose"] img{animation:persa-pose 2.2s ease-in-out infinite}
+ body.spotlight-home:not(.persa-motion-off) #app .home-collection .card:nth-child(4n+1):hover .card-art img{animation:persa-sway 2.4s ease-in-out infinite}
+ body.spotlight-home:not(.persa-motion-off) #app .home-collection .card:nth-child(4n+2):hover .card-art img{animation:persa-bounce 2s ease-in-out infinite}
+ body.spotlight-home:not(.persa-motion-off) #app .home-collection .card:nth-child(4n+3):hover .card-art img{animation:persa-pose 2.2s ease-in-out infinite}
+ body.spotlight-home:not(.persa-motion-off) #app .home-collection .card:nth-child(4n):hover .card-art img{animation:persa-bow 2.1s ease-in-out infinite}
+}
+@media(prefers-reduced-motion:reduce){body.spotlight-home #app .home-collection .card-art img{animation:none!important}}

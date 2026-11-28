@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- November 27 homepage card design: a dark page where each character has a colour, and the spotlight is one card in that colour with the plush lifted off its white ground. The whole card turns on a swipe or a sideways scroll, tiles and the character popup follow the same design, the poses are livelier, and the page shows one main action with less beside it. The inline How it works section, the swipe hint, the Preview motion switch and the Trending row are hidden on the homepage; `/collection.html` is unchanged. No character, personality, handoff payload or link changes. With More ways to save hidden, copy-by-hand is reachable only from the collection page. See [the design record](docs/WEBSITE_CARD_DESIGN_2026_11_27.md).
+
 - November 27 gives Hailey Bieber a gallery preview: the shared plush in an open chocolate-brown blazer, ivory top, brown trousers and a center-parted light brown bob, holding a plain pink lip balm. The first request was declined at input moderation because it named her; this one describes the outfit only. It is a generated design preview made from a written description of the shared plush, without the reference picture, and matched to the other previews by eye. The declined request stays in the image manifest as history. Native Muse behavior for her preset has not been tested.
 
 - November 26 (published and verified) adds Turkey's clucks and gobbles, Hailey Bieber's “optimistical” personality, a Jensen look-only option and a Trending row for the three recent additions. Turkey includes a generated preview. Hailey’s prepared costume instructions and reply examples are available with an explicit missing-art state.

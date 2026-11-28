@@ -1,0 +1,183 @@
+/* Persa home, the popup (November 2026): the character popup in the same design as the card.
+
+   Loaded after cards.css, on the home page only. The popup is appended to <body>, outside
+   #app, so every rule here starts at body.spotlight-home #character-dialog. It covers all
+   five things the popup shows: the character, "Take your character into Muse", "How it
+   works", the share link and the copy-by-hand text.
+
+   It follows the card: the dark page, the selected character's colour (--pop, inherited
+   from body[data-pop]), the plush cut out onto that colour, the same heavy name, the same
+   pills. The rules that keep it even:
+   - ONE side edge (--d-pad). The top bar, both columns, the links row and the bottom bar
+     start and end on it, at every width.
+   - ONE spacing scale, the card's (--s1 to --s6 from cards.css). Between two sections
+     --s6, inside a section --s3 or --s4.
+   - Controls are round (pills and circles), panels 20, the picture 28, the popup 32.
+   - Three text colours: white for what you act on, --d-soft for reading, --d-dim for notes.
+   - No shadows.
+
+   The second copy of "How it works" is hidden here: the bar at the bottom of the popup
+   already says the same sentence, and the home page dropped the section the same day.
+   lean.css, loaded after this file, then takes more off the popup (the label in the top
+   bar, the two save links, Share and others); the rules for those parts stay here so that
+   deleting a line there brings a part back already styled.
+   /collection.html does not load this file and keeps the light popup. */
+body.spotlight-home #character-dialog{--d-pad:24px;--d-surface:#151026;--d-raise:#ffffff12;--d-raise-2:#ffffff24;--d-line:#ffffff1f;--d-soft:#cfc6e6;--d-dim:#a79fbd;--d-ink:#17141f;
+  color-scheme:dark;width:min(1040px,calc(100vw - 48px));max-height:calc(100dvh - 48px);background:var(--d-surface);color:#fff;border:1px solid var(--d-line);border-radius:32px;box-shadow:none}
+body.spotlight-home #character-dialog::backdrop{background:#07050dcc;backdrop-filter:blur(8px)}
+
+body.spotlight-home #character-dialog :is(button,a,input,summary,textarea):focus-visible{outline:2px solid var(--pop);outline-offset:2px}
+
+/* ── top bar ── */
+body.spotlight-home #character-dialog .dialog-top{height:64px;padding:0 var(--d-pad);gap:var(--s4);background:var(--d-surface);backdrop-filter:none;border-bottom:1px solid var(--d-line)}
+body.spotlight-home #character-dialog .dialog-label{gap:var(--s2);color:var(--d-soft);font-size:13px;font-weight:600;line-height:1.2;min-width:0}
+body.spotlight-home #character-dialog .dialog-label>svg{width:16px;height:16px;color:var(--pop);flex-shrink:0}
+body.spotlight-home #character-dialog .icon-button{width:40px;height:40px;background:var(--d-raise);border:none;color:#fff}
+body.spotlight-home #character-dialog .icon-button:hover{background:var(--d-raise-2)}
+
+/* ── the character ── */
+body.spotlight-home #character-dialog .detail{grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:32px;padding:var(--d-pad);align-items:start}
+body.spotlight-home #character-dialog .detail-visual{padding:0;background:none;border:0}
+body.spotlight-home #character-dialog .detail-art{position:relative;aspect-ratio:5/4;border-radius:28px;background:var(--pop)}
+body.spotlight-home #character-dialog .detail-art img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+body.spotlight-home #character-dialog .detail-art.is-plain{background:#fff}
+body.spotlight-home #character-dialog .detail-art:has(.unavailable){background:var(--d-raise)}
+body.spotlight-home #character-dialog .detail-art .unavailable{background:transparent;color:var(--d-soft)}
+body.spotlight-home #character-dialog .detail-art .unavailable small{color:var(--d-dim)}
+body.spotlight-home #character-dialog .detail-name{color:#fff;font-size:40px;font-weight:800;letter-spacing:-.05em;line-height:1.02;margin:var(--s5) 0 var(--s3);text-wrap:balance}
+body.spotlight-home #character-dialog .detail-description{color:var(--d-soft);font-size:15px;line-height:1.55;margin:0 0 var(--s4)}
+body.spotlight-home #character-dialog .costume-caption{color:var(--d-dim);font-size:12px;line-height:1.45;margin-top:var(--s2)}
+body.spotlight-home #character-dialog .detail-visual .tags{display:flex;gap:6px}
+body.spotlight-home #character-dialog .detail-visual .tag{background:var(--d-raise);color:#e9e2fb;border-radius:999px;padding:7px 12px;font-size:11px;font-weight:700;letter-spacing:.08em;line-height:1;text-transform:uppercase}
+body.spotlight-home #character-dialog .combo-label{gap:var(--s2);color:var(--pop);font-size:12px;font-weight:600;line-height:1.4;margin-top:var(--s4)}
+body.spotlight-home #character-dialog .combo-label svg{width:14px;height:14px;flex-shrink:0}
+
+body.spotlight-home #character-dialog .detail-controls{padding:0}
+body.spotlight-home #character-dialog .section-label{color:#fff;font-size:18px;font-weight:800;letter-spacing:-.03em;line-height:1.2;margin:0 0 var(--s3)}
+body.spotlight-home #character-dialog .sample-tabs{flex-wrap:wrap;gap:var(--s2);margin-bottom:var(--s3)}
+body.spotlight-home #character-dialog .sample-tab{min-height:36px;padding:0 14px;background:var(--d-raise);border:none;border-radius:999px;color:var(--d-soft);font-size:13px;font-weight:600;line-height:1}
+body.spotlight-home #character-dialog .sample-tab:hover{background:var(--d-raise-2);color:#fff}
+body.spotlight-home #character-dialog .sample-tab.active{background:var(--pop);color:var(--d-ink)}
+body.spotlight-home #character-dialog .conversation{min-height:168px;padding:var(--s4);gap:var(--s3);background:var(--d-raise);border-radius:20px}
+body.spotlight-home #character-dialog .sample-user{background:var(--d-raise-2);border:none;border-radius:14px 14px 4px 14px;color:#fff;font-size:13px;line-height:1.4;padding:8px 12px;max-width:88%}
+body.spotlight-home #character-dialog .sample-reply{color:#f3eeff;font-size:16px;line-height:1.6}
+body.spotlight-home #character-dialog .sample-caption{color:var(--d-dim);font-size:12px;line-height:1.45;margin:var(--s2) 0 var(--s6)}
+body.spotlight-home #character-dialog .tune-head{gap:var(--s3);margin-bottom:var(--s3)}
+body.spotlight-home #character-dialog .tune-head .section-label{margin:0}
+body.spotlight-home #character-dialog .reset{min-height:36px;padding:0 var(--s1);color:var(--pop);font-size:13px;font-weight:600;white-space:nowrap}
+body.spotlight-home #character-dialog .sliders{gap:var(--s5) var(--s6)}
+body.spotlight-home #character-dialog .slider-top{color:#fff;font-size:14px;font-weight:600;line-height:1.2}
+body.spotlight-home #character-dialog .slider-top output{color:var(--pop);font-size:13px;font-weight:700;font-variant-numeric:tabular-nums}
+body.spotlight-home #character-dialog .slider-ends{color:var(--d-dim);font-size:12px;line-height:1.3}
+/* The slider: a 6px line filled to its value in the character's colour, a white 22px thumb. */
+body.spotlight-home #character-dialog .slider input{-webkit-appearance:none;appearance:none;display:block;width:100%;height:28px;margin:var(--s1) 0;background:transparent}
+body.spotlight-home #character-dialog .slider input::-webkit-slider-runnable-track{height:6px;border-radius:999px;background:linear-gradient(to right,var(--pop) var(--fill,50%),var(--d-raise-2) var(--fill,50%))}
+body.spotlight-home #character-dialog .slider input::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:22px;height:22px;margin-top:-8px;border:0;border-radius:50%;background:#fff}
+body.spotlight-home #character-dialog .slider input::-moz-range-track{height:6px;border-radius:999px;background:var(--d-raise-2)}
+body.spotlight-home #character-dialog .slider input::-moz-range-progress{height:6px;border-radius:999px;background:var(--pop)}
+body.spotlight-home #character-dialog .slider input::-moz-range-thumb{width:22px;height:22px;border:0;border-radius:50%;background:#fff}
+body.spotlight-home #character-dialog .prompt-details{border-top:1px solid var(--d-line);margin-top:var(--s6);padding-top:var(--s2)}
+body.spotlight-home #character-dialog .prompt-details summary{min-height:40px;color:var(--d-soft);font-size:13px;font-weight:600}
+body.spotlight-home #character-dialog .prompt-details[open] summary{margin-bottom:var(--s2)}
+body.spotlight-home #character-dialog .prompt-text{background:var(--d-raise);color:var(--d-soft);border-radius:16px;padding:var(--s4);font-size:12px;line-height:1.6}
+
+/* ── the links row and the bottom bar ── */
+body.spotlight-home #character-dialog .detail-how{margin:0 var(--d-pad);padding:var(--s2) 0;border-top:1px solid var(--d-line)}
+body.spotlight-home #character-dialog .detail-how h3,body.spotlight-home #character-dialog .detail-how p{display:none}
+body.spotlight-home #character-dialog .portable-options{gap:0 var(--s6)}
+body.spotlight-home #character-dialog .text-button{color:var(--d-soft)}
+body.spotlight-home #character-dialog .text-button:hover{background:transparent;color:#fff}
+body.spotlight-home #character-dialog .portable-options .text-button{min-height:40px;padding:0;font-size:13px}
+body.spotlight-home #character-dialog .detail-bottom{gap:var(--s3) var(--s4);padding:var(--s4) var(--d-pad);background:var(--d-surface);border-top:1px solid var(--d-line)}
+body.spotlight-home #character-dialog .detail-bottom-guide{display:flex;flex-wrap:wrap;align-items:center;gap:0 var(--s4)}
+body.spotlight-home #character-dialog .handoff-guidance{color:var(--d-dim);font-size:12px;line-height:1.4}
+body.spotlight-home #character-dialog .detail-share{min-height:40px;padding:0;font-size:13px}
+body.spotlight-home #character-dialog .detail-share svg{width:15px;height:15px}
+body.spotlight-home #character-dialog .detail-bottom .actions{gap:var(--s2)}
+body.spotlight-home #character-dialog .save-detail{min-height:52px;padding:0 var(--s5);background:var(--d-raise);border:none;border-radius:999px;color:#fff;font-size:14px;font-weight:600;line-height:1}
+body.spotlight-home #character-dialog .save-detail:hover{background:var(--d-raise-2)}
+body.spotlight-home #character-dialog .save-detail.saved{background:var(--d-raise);color:var(--pop)}
+body.spotlight-home #character-dialog .save-detail svg{width:18px;height:18px;flex-shrink:0}
+
+/* ── buttons, in every view of the popup ── */
+body.spotlight-home #character-dialog .button{border-radius:999px;min-height:48px;padding:0 var(--s5);font-size:14px;line-height:1}
+body.spotlight-home #character-dialog .button svg{width:16px;height:16px;flex-shrink:0}
+body.spotlight-home #character-dialog .button.primary,body.spotlight-home #character-dialog .button.primary:hover{background:var(--pop);color:var(--d-ink);font-weight:800;box-shadow:none}
+body.spotlight-home #character-dialog .button.primary:hover{filter:brightness(.94)}
+body.spotlight-home #character-dialog .detail-bottom .button.primary{min-height:52px;padding:0 28px;font-size:16px;white-space:nowrap}
+body.spotlight-home #character-dialog .button.secondary{background:var(--d-raise);color:#fff}
+body.spotlight-home #character-dialog .button.secondary:hover{background:var(--d-raise-2)}
+body.spotlight-home #character-dialog .button.outline{background:transparent;border:1px solid var(--d-raise-2);color:#fff}
+body.spotlight-home #character-dialog .button.outline:hover{background:var(--d-raise)}
+
+/* ── "Take your character into Muse", "How it works", the share link, copy by hand ── */
+body.spotlight-home #character-dialog .setup{max-width:640px;padding:32px var(--d-pad)}
+body.spotlight-home #character-dialog .eyebrow{color:var(--pop);font-size:11px;font-weight:700;letter-spacing:.08em;line-height:1;margin:0 0 var(--s3)}
+body.spotlight-home #character-dialog .setup h2{color:#fff;font-size:34px;font-weight:800;letter-spacing:-.045em;line-height:1.05;margin:0 0 var(--s3);text-wrap:balance}
+body.spotlight-home #character-dialog .setup-intro{color:var(--d-soft);font-size:15px;line-height:1.55;margin:0 0 var(--s6)}
+body.spotlight-home #character-dialog .setup-step{gap:var(--s4);margin:0 0 var(--s6)}
+body.spotlight-home #character-dialog .step-number{width:32px;height:32px;border-radius:50%;background:var(--pop);color:var(--d-ink);font-size:13px;font-weight:800}
+body.spotlight-home #character-dialog .step-content h3{color:#fff;font-size:16px;font-weight:700;line-height:1.3;margin:5px 0 var(--s2)}
+body.spotlight-home #character-dialog .step-content p{color:var(--d-soft);font-size:14px;line-height:1.55;margin:0 0 var(--s3)}
+body.spotlight-home #character-dialog .step-content p:last-child{margin-bottom:0}
+body.spotlight-home #character-dialog .setup-note{background:var(--d-raise);color:var(--d-soft);border-radius:16px;padding:var(--s4);font-size:13px;line-height:1.55;margin:0 0 var(--s4)}
+body.spotlight-home #character-dialog .setup .prompt-details{margin:var(--s6) 0 var(--s4)}
+body.spotlight-home #character-dialog .copy-options{gap:var(--s2)}
+body.spotlight-home #character-dialog .copy-options .button{min-height:44px;padding:0 var(--s4);font-size:13px}
+body.spotlight-home #character-dialog .setup .sample-caption{margin:var(--s3) 0 0}
+body.spotlight-home #character-dialog .setup-links{gap:0 var(--s6);margin-top:var(--s4)}
+body.spotlight-home #character-dialog .setup-links .text-button{min-height:40px;padding:0;font-size:13px}
+body.spotlight-home #character-dialog .setup-links svg{width:15px;height:15px}
+body.spotlight-home #character-dialog .grok-details{border-top:1px solid var(--d-line);margin:var(--s4) 0 0;padding-top:var(--s4)}
+body.spotlight-home #character-dialog .grok-details summary{color:var(--d-soft);font-size:13px;font-weight:600}
+body.spotlight-home #character-dialog .grok-details p{color:var(--d-soft);font-size:13px;line-height:1.55}
+body.spotlight-home #character-dialog .how-steps{gap:var(--s6);margin:var(--s6) 0}
+body.spotlight-home #character-dialog .how-steps h3{color:#fff;font-size:16px;font-weight:700;margin:0 0 var(--s2)}
+body.spotlight-home #character-dialog .how-steps p{color:var(--d-soft);font-size:14px;line-height:1.55}
+body.spotlight-home #character-dialog .share-fallback label{color:var(--d-soft);font-size:13px;font-weight:600;margin-bottom:var(--s2)}
+body.spotlight-home #character-dialog .share-fallback input,body.spotlight-home #character-dialog .copy-fallback textarea{background:var(--d-raise);border:1px solid var(--d-line);border-radius:16px;color:#fff;padding:var(--s3) var(--s4)}
+body.spotlight-home #character-dialog .share-fallback input{min-height:48px;margin-bottom:var(--s3);font-size:14px}
+
+/* The small message that confirms a copy or a save, on the page and in the popup. */
+body.spotlight-home .toast{width:max-content;max-width:calc(100vw - 32px);background:#fff;color:#17141f;border-radius:16px;box-shadow:none;font-size:14px;font-weight:600;line-height:1.4;padding:12px 18px}
+
+@media(max-width:780px){
+ body.spotlight-home #character-dialog{--d-pad:20px;width:calc(100vw - 32px);max-height:calc(100dvh - 32px);border-radius:28px}
+ body.spotlight-home #character-dialog .detail{grid-template-columns:minmax(0,1fr);gap:var(--s6)}
+ body.spotlight-home #character-dialog .detail-visual{display:block}
+ body.spotlight-home #character-dialog .detail-art{aspect-ratio:16/9}
+ body.spotlight-home #character-dialog .detail-name{font-size:36px;margin:var(--s5) 0 var(--s3)}
+ body.spotlight-home #character-dialog .detail-description{font-size:15px;line-height:1.55;margin:0 0 var(--s4)}
+ body.spotlight-home #character-dialog .combo-label{margin-top:var(--s4)}
+ body.spotlight-home #character-dialog .detail-bottom-guide{justify-content:space-between}
+ body.spotlight-home #character-dialog .detail-bottom .actions{width:100%;margin:0}
+ body.spotlight-home #character-dialog .detail-bottom .button.primary{flex:1}
+ body.spotlight-home #character-dialog .setup h2{font-size:30px}
+}
+@media(max-width:480px){
+ body.spotlight-home #character-dialog{--d-pad:16px;width:100vw;max-width:none;height:100dvh;max-height:100dvh;margin:0;border:0;border-radius:0}
+ body.spotlight-home #character-dialog .dialog-top{height:56px}
+ body.spotlight-home #character-dialog .detail-art{border-radius:24px}
+ body.spotlight-home #character-dialog .detail-name{font-size:32px}
+ body.spotlight-home #character-dialog .detail-description{font-size:14px}
+ body.spotlight-home #character-dialog .section-label{font-size:17px}
+ body.spotlight-home #character-dialog .sample-tab{padding:0 12px}
+ body.spotlight-home #character-dialog .conversation{padding:var(--s4);min-height:156px}
+ body.spotlight-home #character-dialog .sliders{grid-template-columns:minmax(0,1fr);gap:var(--s4)}
+ body.spotlight-home #character-dialog .slider input{height:32px;margin:var(--s1) 0}
+ body.spotlight-home #character-dialog .slider input::-webkit-slider-thumb{width:26px;height:26px;margin-top:-10px}
+ body.spotlight-home #character-dialog .slider input::-moz-range-thumb{width:26px;height:26px}
+ body.spotlight-home #character-dialog .detail-art{aspect-ratio:4/3}
+ body.spotlight-home #character-dialog .detail-bottom{display:grid;grid-template-columns:minmax(0,1fr) 52px;align-items:center;gap:var(--s2);padding:var(--s3) var(--d-pad) max(var(--s3),env(safe-area-inset-bottom))}
+ body.spotlight-home #character-dialog .detail-bottom-guide{display:contents}
+ body.spotlight-home #character-dialog .detail-bottom-guide .handoff-guidance{grid-column:1/-1;font-size:12px}
+ body.spotlight-home #character-dialog .detail-bottom .actions{grid-column:1;grid-row:2;width:auto}
+ body.spotlight-home #character-dialog .detail-share,body.spotlight-home #character-dialog .detail-share:hover{grid-column:2;grid-row:2;width:52px;height:52px;min-height:52px;padding:0;gap:0;border-radius:50%;background:var(--d-raise);color:#fff;font-size:0}
+ body.spotlight-home #character-dialog .detail-share svg{width:18px;height:18px}
+ body.spotlight-home #character-dialog .save-detail{width:52px;padding:0;justify-content:center}
+ body.spotlight-home #character-dialog .detail-bottom .button.primary{padding:0 var(--s3)}
+ body.spotlight-home #character-dialog .setup{padding:24px var(--d-pad)}
+ body.spotlight-home #character-dialog .setup h2{font-size:28px}
+ body.spotlight-home #character-dialog .setup-intro{font-size:14px}
+ body.spotlight-home .toast{bottom:max(16px,env(safe-area-inset-bottom))}
+}

@@ -1,6 +1,9 @@
 // The shared app owns catalog, personality, favorites, dialogs, and setup.
+import { cutoutFor } from './cutouts.js';
 export function mountSpotlight({ characters, saved, getHandoff, initialCharacterId, onSelect }) {
   const stage = document.querySelector('#stage');
+  // The whole card turns: a swipe may start on the plush, the name or a button.
+  const swipeArea = stage.closest('.showcase') || stage;
   const slidesRoot = document.querySelector('#slides');
   const previous = document.querySelector('#previous');
   const next = document.querySelector('#next');
@@ -10,6 +13,7 @@ export function mountSpotlight({ characters, saved, getHandoff, initialCharacter
   let motionEnabled = true, poseFrame;
   try { motionEnabled = localStorage.getItem('persa.preview-motion') !== 'off'; } catch {}
   let slides = [], selected = 0, settleTimer, drag, savedRecords = saved;
+  let ignoreClickUntil = 0, wheelSum = 0, wheelLocked = false, wheelLast = 0, wheelTurnedAt = 0, wheelTimer;
 
   function stopPose() {
     cancelAnimationFrame(poseFrame);
@@ -30,6 +34,8 @@ export function mountSpotlight({ characters, saved, getHandoff, initialCharacter
     motionToggle.setAttribute('aria-pressed', String(motionEnabled && !reducedMotion.matches));
     motionToggle.textContent = reducedMotion.matches ? 'Motion reduced' : motionEnabled ? 'Preview motion on' : 'Preview motion off';
     motionToggle.title = reducedMotion.matches ? 'Your device preference reduces motion' : 'Toggle short avatar preview poses';
+    // The hover loops in cards.css read this, so the toggle and the device setting stop them too.
+    document.body.classList.toggle('persa-motion-off', !motionEnabled || reducedMotion.matches);
     playPose();
   }
 
@@ -37,8 +43,9 @@ export function mountSpotlight({ characters, saved, getHandoff, initialCharacter
     const pointer = drag;
     drag = null;
     stage.classList.remove('is-dragging');
+    swipeArea.classList.remove('is-dragging');
     slidesRoot.style.removeProperty('--drag-x');
-    if (pointer && stage.hasPointerCapture(pointer.id)) stage.releasePointerCapture(pointer.id);
+    if (pointer && swipeArea.hasPointerCapture(pointer.id)) swipeArea.releasePointerCapture(pointer.id);
   }
 
   function position(index) {
@@ -52,7 +59,8 @@ export function mountSpotlight({ characters, saved, getHandoff, initialCharacter
     const image = slide.querySelector('img');
     if (!image) return;
     image.fetchPriority = index === selected ? 'high' : 'low';
-    if (load && !image.hasAttribute('src')) image.src = characters[index].avatar.preview;
+    // The cut-out when there is one; the original picture on a white plate otherwise.
+    if (load && !image.hasAttribute('src')) image.src = (!slide.classList.contains('is-plain') && cutoutFor(characters[index])) || characters[index].avatar.preview;
   }
 
   function settle() {
@@ -78,8 +86,18 @@ export function mountSpotlight({ characters, saved, getHandoff, initialCharacter
       slide.setAttribute('aria-hidden', String(offset !== 0));
       prepareImage(i, Math.abs(offset) <= 1);
     });
+    // The page takes the selected character's colour (night.css). Not data-character: the
+    // page's click handling reads that attribute on the way up from any click.
+    document.body.dataset.pop = character.id;
     document.querySelector('#character-name').textContent = character.name;
-    document.querySelector('#stage-personality').textContent = character.tags.join(' · ');
+    // The card sizes the name from its length, so every name is one line and the buttons never move.
+    document.querySelector('#character-name').style.setProperty('--name-len', character.name.length);
+    // One element per word, so the card can show them as separate labels.
+    document.querySelector('#stage-personality').replaceChildren(...character.tags.map(tag => {
+      const label = document.createElement('span');
+      label.textContent = tag;
+      return label;
+    }));
     const count = `${String(selected + 1).padStart(2, '0')} / ${characters.length}`;
     document.querySelector('#stage-count').textContent = count;
     document.querySelector('#page-count').textContent = count;
@@ -112,12 +130,17 @@ export function mountSpotlight({ characters, saved, getHandoff, initialCharacter
     const fallback = document.createElement('span');
     fallback.className = 'image-fallback';
     fallback.textContent = `${character.name} preview is unavailable. You can still browse the wardrobe.`;
+    if (!cutoutFor(character)) slide.classList.add('is-plain');
     if (character.avatar?.preview) {
       const image = document.createElement('img');
       image.alt = `Shared plush Muse in a ${character.name} costume`;
       image.draggable = false;
       image.width = 1254; image.height = 1254; image.decoding = 'async';
-      image.addEventListener('error', () => { slide.classList.add('has-failed'); slide.classList.remove('is-posing'); });
+      image.addEventListener('error', () => {
+        // A cut-out that will not load falls back to the original picture once.
+        if (!slide.classList.contains('is-plain') && cutoutFor(character)) { slide.classList.add('is-plain'); image.src = character.avatar.preview; return; }
+        slide.classList.add('has-failed'); slide.classList.remove('is-posing');
+      });
       image.addEventListener('load', () => { if (index === selected && !stage.classList.contains('is-moving')) playPose(); });
       image.addEventListener('animationend', () => slide.classList.remove('is-posing'));
       slide.append(image);
@@ -184,14 +207,16 @@ export function mountSpotlight({ characters, saved, getHandoff, initialCharacter
       event.preventDefault(); selectCharacter(selected + (event.key === 'ArrowRight' ? 1 : -1));
     }
   });
-  stage.addEventListener('pointerdown', event => {
+  swipeArea.addEventListener('pointerdown', event => {
     if (!event.isPrimary) { cancelDrag(); return; }
-    if (characters.length < 2 || event.button !== 0 || event.target.closest('button,a,select,input,textarea')) return;
+    if (characters.length < 2 || event.button !== 0 || event.target.closest('select,input,textarea')) return;
     cancelDrag();
-    stopPose();
-    drag = { id: event.pointerId, x: event.clientX, y: event.clientY, startedAt: event.timeStamp, horizontal: false };
+    const onControl = !!event.target.closest('button,a');
+    if (!onControl) stopPose();
+    drag = { id: event.pointerId, x: event.clientX, y: event.clientY, startedAt: event.timeStamp, horizontal: false,
+      onPlush: !onControl && stage.contains(event.target) };
   });
-  stage.addEventListener('pointermove', event => {
+  swipeArea.addEventListener('pointermove', event => {
     if (!drag || event.pointerId !== drag.id) return;
     if (event.pointerType === 'mouse' && !(event.buttons & 1)) { cancelDrag(); return; }
     const dx = event.clientX - drag.x, dy = event.clientY - drag.y;
@@ -201,26 +226,63 @@ export function mountSpotlight({ characters, saved, getHandoff, initialCharacter
       if (Math.abs(dy) >= Math.abs(dx)) { cancelDrag(); return; }
       if (Math.abs(dx) < Math.abs(dy) * 1.25) return;
       drag.horizontal = true;
-      stage.setPointerCapture(event.pointerId);
+      stopPose();
+      swipeArea.setPointerCapture(event.pointerId);
       stage.classList.add('is-dragging');
+      swipeArea.classList.add('is-dragging');
     }
     slidesRoot.style.setProperty('--drag-x', `${dx}px`);
   });
-  stage.addEventListener('pointerup', event => {
+  swipeArea.addEventListener('pointerup', event => {
     if (!drag || event.pointerId !== drag.id) return;
     const dx = event.clientX - drag.x;
     const elapsed = Math.max(1, event.timeStamp - drag.startedAt);
     const threshold = Math.max(32, Math.min(64, stage.clientWidth * .14));
     const flick = Math.abs(dx) >= 20 && elapsed <= 250 && Math.abs(dx) / elapsed >= .4;
     const advance = drag.horizontal && (Math.abs(dx) >= threshold || flick);
+    // A tap on the plush (no drag, no scroll) plays its move again: the way a phone gets what a mouse gets from hovering.
+    const tapped = drag.onPlush && !drag.horizontal && Math.abs(dx) < 10 && Math.abs(event.clientY - drag.y) < 10 && elapsed < 500;
+    // A swipe that began on a button turns the card; it must not also press the button.
+    if (drag.horizontal) ignoreClickUntil = event.timeStamp + 400;
     cancelDrag();
     if (advance) selectCharacter(selected + (dx < 0 ? 1 : -1));
+    else if (tapped) playPose();
   });
-  for (const type of ['pointercancel', 'lostpointercapture']) stage.addEventListener(type, event => {
+  swipeArea.addEventListener('click', event => {
+    if (event.timeStamp > ignoreClickUntil) return;
+    event.preventDefault(); event.stopPropagation();
+  }, true);
+  // A mouse dragging the "Open in Muse" link would start a link drag and end the swipe.
+  swipeArea.addEventListener('dragstart', event => event.preventDefault());
+  for (const type of ['pointercancel', 'lostpointercapture']) swipeArea.addEventListener(type, event => {
     // Touch starts with implicit capture on the hit child. Transferring it to
-    // the stage emits a bubbling lostpointercapture on that child, not a cancel.
-    if (drag?.id === event.pointerId && (type === 'pointercancel' || event.target === stage)) cancelDrag();
+    // the card emits a bubbling lostpointercapture on that child, not a cancel.
+    if (drag?.id === event.pointerId && (type === 'pointercancel' || event.target === swipeArea)) cancelDrag();
   });
+  // Sideways scroll turns the card too: two fingers on a trackpad, a Magic Mouse, or Shift + wheel.
+  // One gesture is one character. A trackpad keeps sending its fading momentum after the fingers
+  // lift, so the card waits for the gesture to end (a pause), or for a clearly new push, before
+  // it turns again. Up and down is left to the page.
+  swipeArea.addEventListener('wheel', event => {
+    if (characters.length < 2 || event.ctrlKey || event.metaKey) return;
+    let dx = event.deltaX, dy = event.deltaY;
+    if (event.shiftKey && !dx) { dx = dy; dy = 0; }
+    if (!dx || Math.abs(dx) <= Math.abs(dy)) return;
+    // Handled here, so the browser does not read it as "go back a page".
+    event.preventDefault();
+    if (event.deltaMode === 1) dx *= 16; else if (event.deltaMode === 2) dx *= swipeArea.clientWidth;
+    const size = Math.abs(dx);
+    clearTimeout(wheelTimer);
+    wheelTimer = setTimeout(() => { wheelSum = 0; wheelLast = 0; wheelLocked = false; }, 180);
+    if (wheelLocked && event.timeStamp - wheelTurnedAt > 320 && size > wheelLast * 1.6 + 6) { wheelLocked = false; wheelSum = 0; }
+    wheelLast = size;
+    if (wheelLocked) return;
+    wheelSum += dx;
+    if (Math.abs(wheelSum) < 48) return;
+    const step = wheelSum > 0 ? 1 : -1;
+    wheelSum = 0; wheelLocked = true; wheelTurnedAt = event.timeStamp;
+    selectCharacter(selected + step);
+  }, { passive: false });
   window.addEventListener('blur', cancelDrag);
   window.addEventListener('resize', cancelDrag);
   reducedMotion.addEventListener('change', () => {

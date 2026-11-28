@@ -2,6 +2,8 @@
 
 ## Product scope
 
+- November 27 homepage design: the homepage is a dark page, and the spotlight is one card in the selected character's colour with the plush cut out of its white ground. Read [Current homepage design](#current-homepage-design--november-27-2026) before touching `web/index.html`, the homepage styles or the stage; it names the earlier homepage rules it replaces. A new character needs one colour line in `web/night.css` and, to stand on its colour, a cut-out in `web/cutouts/`.
+
 - November 26 newcomers bring the catalog to 21. Trending features newly added Turkey, Hailey Bieber and Jensen Huang. Turkey has a fixed sound-only voice and an explicit exit phrase. Hailey’s first costume request was declined because it named her; since November 27 her preview is a generated design requested by the outfit alone (text only, no reference picture, recorded as the manifest’s `replacement`). If it is ever withdrawn, serve the unavailable preview with her full handoff. Jensen offers an optional look-only link. The sitewide usage counter measures unique browsers opening a Muse handoff from the site.
 
 - November 24 Jensen Huang addition: the current collection has 19 presets. Jensen uses the shared cream plush face/body, a black leather-look jacket over a black shirt, black trousers/shoes, and a short silver-gray swept-back removable wig. His `muse-jensen-v8` artwork is a built-in image-generation design preview (`imagegen` / `design-preview`), with its original PNG and compressed WebP retained. The shared wig builder supplies his `muse-reference-wig-v3` handoff; native Muse generation/persistence has not been tested for Jensen. All previous 18 personality, visual recipe and handoff payloads remain unchanged. Current preview inventory is 14 native outputs, two generated designs (Rock/Jensen), and three background edits. Keep all 19 candidates available; older counts below describe their dated releases. See [the Jensen record](docs/MUSE_AVATAR_DESIGN.md#jensen-huang-addition--november-24-2026).
@@ -58,6 +60,41 @@ motion/off/visibility protections. Do not claim they wave/sing or transfer motio
 to Muse. No character recipes, personas or original art change in this release.
 See [the update record](docs/WEBSITE_SHARING_2026_11_06.md).
 
+## Current homepage design — November 27, 2026
+
+This supersedes, for the homepage only, the October 10 white borderless stage,
+the November 3 rule "Use white avatar surfaces without brightness/blend/masking
+filters", the October 19 swipe hint below the stage, the November 6 inline
+**How it works**, and the November 26 homepage **Trending** row.
+`/collection.html` keeps the light design and every control.
+
+The page is dark. Each character has one colour in `web/night.css`, keyed by
+id; `web/spotlight.js` sets `body[data-pop]` on selection (never
+`data-character`, which the click handling reads). The showcase is one card in
+that colour: the plush from `web/cutouts/<id>.webp`, a one-line name sized from
+its length, the three words as pills, then the buttons. Tiles and the homepage
+popup use the same cut-out and colour. Original artwork is unchanged and still
+ships; cut-outs are derived pictures listed in `web/cutouts.js`, re-cut whenever
+an original changes. A character without a cut-out shows its original picture
+on a white plate, and one without artwork keeps the explicit unavailable state.
+Apply no blend, brightness or CSS mask to artwork.
+
+Keep: the exact heading and opening text; arrows, name and primary action above
+the fold down to 320×568; swipe (the whole card turns, and a swipe that starts
+on a button does not press it), keyboard, arrows, vertical scrolling and pinch
+zoom; `web/app.js` owning state and `web/spotlight.js` the stage; one spacing
+scale (`--s1` to `--s7`), one left and right edge, round controls, no shadows.
+
+`web/lean.css` hides, without deleting, the swipe hint, the Preview motion
+switch, **How it works**, the **Trending** row, tile labels and hearts, and the
+popup's secondary options; the scripts still write to those nodes, so do not
+remove the markup. With **More ways to save** hidden, the copy-by-hand screen
+is reachable only from `/collection.html`; restoring it is a one-line change.
+No order by use and no per-character counts are published; the only number on
+the page is the measured count of Muse opens. See
+[the design record](docs/WEBSITE_CARD_DESIGN_2026_11_27.md) for the cut-out
+steps, the full list of hidden items and the checks.
+
 ## Repository map
 
 - `src/`: shared compiler, persona adapters, CLI, local editor, and MCP server.
@@ -65,6 +102,7 @@ See [the update record](docs/WEBSITE_SHARING_2026_11_06.md).
 - `src/muse-wigs.js`: canonical costume, hairstyle and visual recipe for the 12 wig presets, shared by native trials and the combo builder. Keep its built browser copy current.
 - `src/muse-costume-recipes.js`: canonical hairless costume recipes for Harry Potter, Michael Jackson and Joker; shared by native trials, combo construction and the text-only fallback. Copy this module into the browser build too.
 - `web/`: static website and committed avatar assets.
+- `web/night.css`, `web/cards.css`, `web/popup.css`, `web/lean.css`: the homepage card design, loaded in that order after `web/spotlight.css` on the homepage only. `web/cutouts.js` lists the ids with a cut-out in `web/cutouts/`.
 - `characters/catalog.js`: personalities and authored sample replies; `characters/avatar-design.js`: the versioned shared base, costumes, and Muse avatar prompts.
 - `characters/image-generation.json`: original art prompts and generation outcomes. Preserve refusal history and superseded attempts. Active costume replacements must identify the same preset, shared base, and design version as the catalog. `characters/avatar-design-generation.json` records the shared reference's provenance.
 - `scripts/`: website build and local preview.

@@ -1,0 +1,113 @@
+/* Persa home, the night stage (November 2026). Most visitors arrive on a phone from
+   TikTok and Instagram, so the first screen has to catch the eye.
+
+   One additive sheet, loaded after spotlight.css on the home page only. The page
+   goes dark and the selected character's colour becomes the light: the glow
+   behind the stage, the ring around it, the second line of the heading, the
+   three words under the name and the primary button. Every tile's own button
+   takes that tile's colour.
+
+   What does not change: the plush artwork has a white ground, so the stage and
+   every tile picture stay white, with no blend, mask or filter on the art. No
+   words, controls, gestures or links change. The popup and the toast are outside
+   #app: popup.css styles them to match (without it they keep their light styling). /collection.html loads none of this and stays light.
+
+   --pop comes from the id: spotlight.js sets body[data-pop] on selection (not
+   data-character, which the page's click handling reads), and tiles are matched
+   by the attributes they already carry. Remove this file's <link> and that one
+   line to go back to the white page. */
+@property --pop{syntax:'<color>';inherits:true;initial-value:#b9a2ff}
+body.spotlight-home{--pop:#b9a2ff;--n-soft:#cfc6e6;--n-dim:#a79fbd;--n-hair:#ffffff1f;--n-ink:#17141f;--n-glow-y:330px;
+  background:#0e0a18;
+  background:radial-gradient(ellipse 92% 420px at 50% var(--n-glow-y),color-mix(in srgb,var(--pop) 56%,transparent),transparent) no-repeat,#0e0a18;
+  color:#fff;transition:--pop .45s ease}
+body[data-pop="wednesday"],[data-character="wednesday"],[data-muse-character="wednesday"]{--pop:#a78bfa}
+body[data-pop="taylor-swift"],[data-character="taylor-swift"],[data-muse-character="taylor-swift"]{--pop:#c9a7ff}
+body[data-pop="mark-zuckerberg"],[data-character="mark-zuckerberg"],[data-muse-character="mark-zuckerberg"]{--pop:#5aa9ff}
+body[data-pop="jensen-huang"],[data-character="jensen-huang"],[data-muse-character="jensen-huang"]{--pop:#a3e635}
+body[data-pop="turkey"],[data-character="turkey"],[data-muse-character="turkey"]{--pop:#40d4bd}
+body[data-pop="hailey-bieber"],[data-character="hailey-bieber"],[data-muse-character="hailey-bieber"]{--pop:#ffb48f}
+body[data-pop="mona-lisa"],[data-character="mona-lisa"],[data-muse-character="mona-lisa"]{--pop:#dcc66a}
+body[data-pop="barbie"],[data-character="barbie"],[data-muse-character="barbie"]{--pop:#ff6fb5}
+body[data-pop="harry-potter"],[data-character="harry-potter"],[data-muse-character="harry-potter"]{--pop:#ffc94d}
+body[data-pop="charlie-chaplin"],[data-character="charlie-chaplin"],[data-muse-character="charlie-chaplin"]{--pop:#e8e6f0}
+body[data-pop="michael-jackson"],[data-character="michael-jackson"],[data-muse-character="michael-jackson"]{--pop:#ff6b6b}
+body[data-pop="olivia-rodrigo"],[data-character="olivia-rodrigo"],[data-muse-character="olivia-rodrigo"]{--pop:#b388ff}
+body[data-pop="marilyn-monroe"],[data-character="marilyn-monroe"],[data-muse-character="marilyn-monroe"]{--pop:#ff8f70}
+body[data-pop="drake"],[data-character="drake"],[data-muse-character="drake"]{--pop:#ffb84d}
+body[data-pop="lionel-messi"],[data-character="lionel-messi"],[data-muse-character="lionel-messi"]{--pop:#7cc7ff}
+body[data-pop="kylie-jenner"],[data-character="kylie-jenner"],[data-muse-character="kylie-jenner"]{--pop:#f6a6c1}
+body[data-pop="mrbeast"],[data-character="mrbeast"],[data-muse-character="mrbeast"]{--pop:#5cc8ff}
+body[data-pop="the-rock"],[data-character="the-rock"],[data-muse-character="the-rock"]{--pop:#e3a877}
+body[data-pop="spongebob"],[data-character="spongebob"],[data-muse-character="spongebob"]{--pop:#ffd84d}
+body[data-pop="hello-kitty"],[data-character="hello-kitty"],[data-muse-character="hello-kitty"]{--pop:#ff7a9e}
+body[data-pop="joker"],[data-character="joker"],[data-muse-character="joker"]{--pop:#7be495}
+
+body.spotlight-home #app .brand{color:#fff}
+body.spotlight-home #app .collection-link{color:var(--n-soft)}
+body.spotlight-home #app .collection-link:hover{color:#fff}
+body.spotlight-home #app .spotlight-how{background:transparent;border-color:#ffffff47;color:#fff}
+body.spotlight-home #app #spotlight-saved-count{background:var(--n-hair);color:#fff}
+
+body.spotlight-home #app .intro.persa-intro h1{color:#fff;font-weight:800;font-size:clamp(30px,4.2vw,46px);letter-spacing:-.045em;line-height:1.04}
+body.spotlight-home #app .intro.persa-intro h1 span{color:var(--pop)}
+body.spotlight-home #app .intro.persa-intro .intro-description{color:var(--n-soft)}
+
+body.spotlight-home #app .stage{border-radius:30px;background:#fff;box-shadow:0 0 0 4px var(--pop)}
+body.spotlight-home #app .stage-topline{inset:14px 22px auto auto;font-weight:600;color:#5d5670}
+body.spotlight-home #app .arrow{box-shadow:none;border-color:transparent;background:#efeaf8;background:color-mix(in srgb,var(--pop) 24%,#fff);color:var(--n-ink)}
+body.spotlight-home #app .arrow:hover{background:#e6dff4;background:color-mix(in srgb,var(--pop) 34%,#fff)}
+body.spotlight-home #app .arrow.next{background:var(--pop);border-color:var(--pop);color:var(--n-ink)}
+body.spotlight-home #app .arrow.next:hover{background:var(--pop);filter:brightness(.94)}
+
+body.spotlight-home #app .character-panel{padding-top:16px}
+body.spotlight-home #app .character-info h2{color:#fff;font-weight:800;font-size:36px;letter-spacing:-.045em;line-height:1.08;margin-bottom:8px}
+body.spotlight-home #app .stage-personality{color:var(--pop);font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+body.spotlight-home #app .spotlight-actions{flex-wrap:wrap;gap:8px;margin:14px auto 0;max-width:460px}
+body.spotlight-home #app .spotlight-actions .button.primary{flex:1 1 100%;min-height:56px;border-radius:999px;background:var(--pop);color:var(--n-ink);font-size:17px;font-weight:800;box-shadow:none}
+body.spotlight-home #app .spotlight-actions .button.primary:hover{background:var(--pop);filter:brightness(.94)}
+body.spotlight-home #app .spotlight-actions .button.secondary{flex:1;border-radius:999px;background:var(--n-hair);color:#fff;font-size:14px}
+body.spotlight-home #app .spotlight-actions .button.secondary:hover{background:#ffffff2e}
+body.spotlight-home #app .spotlight-save{border-radius:999px;background:var(--n-hair);border-color:transparent;color:#fff}
+body.spotlight-home #app .spotlight-save.saved{background:var(--pop);border-color:var(--pop);color:var(--n-ink)}
+body.spotlight-home #app .spotlight-help .handoff-guidance{color:var(--n-dim)}
+body.spotlight-home #app .browse-row{border-bottom-color:var(--n-hair)}
+body.spotlight-home #app .stage-browse-hint{color:var(--n-dim)}
+body.spotlight-home #app .browse-row .text-button{color:var(--pop)}
+
+body.spotlight-home #app .how-it-works h2{color:#fff}
+body.spotlight-home #app .quick-steps li:before{background:var(--n-hair);color:var(--pop)}
+body.spotlight-home #app .quick-steps strong{color:#fff}
+body.spotlight-home #app .quick-steps span{color:var(--n-soft)}
+body.spotlight-home #app .how-it-works .text-button{color:var(--pop)}
+body.spotlight-home #app .how-it-works .portable-options span{color:var(--n-dim)}
+body.spotlight-home #app .fallback-options{color:var(--n-soft)}
+
+body.spotlight-home #app .home-collection .collection-title{color:#fff}
+body.spotlight-home #app .home-collection .collection-title span{color:var(--n-dim)}
+body.spotlight-home #app .collection-status{color:var(--n-soft)}
+body.spotlight-home #app .home-collection .card{background:#191430;border-color:#ffffff1a}
+body.spotlight-home #app .home-collection .card:hover{box-shadow:none;border-color:#ffffff47}
+body.spotlight-home #app .home-collection .card-title{color:#fff}
+body.spotlight-home #app .home-collection .card-subtitle{color:var(--n-soft)}
+body.spotlight-home #app .home-collection .card .tag{background:#ffffff14;color:#ded6f2}
+body.spotlight-home #app .home-collection .card-line{border-top-color:#ffffff1a;color:var(--n-dim)}
+body.spotlight-home #app .home-collection .card-line span:last-child{color:var(--pop)}
+body.spotlight-home #app .home-collection .card-handoff{background:var(--pop);border-color:var(--pop);color:var(--n-ink);border-radius:999px;font-weight:700}
+body.spotlight-home #app .home-collection .card-handoff:hover{background:var(--pop);border-color:var(--pop);filter:brightness(.94)}
+body.spotlight-home #app .home-collection .card-share{color:var(--n-soft)}
+body.spotlight-home #app footer{color:#8f86a3}
+
+@media(min-width:601px){body.spotlight-home{--n-glow-y:400px}}
+@media(max-width:600px){
+ body.spotlight-home #app .intro.persa-intro h1{font-size:clamp(27px,8.4vw,33px);margin-bottom:8px}
+ body.spotlight-home #app .stage{--stage-size:clamp(150px,calc(100svh - 412px),310px)}
+ body.spotlight-home #app .stage-topline{inset:10px 16px auto auto}
+ body.spotlight-home #app .character-panel{padding-top:14px}
+ body.spotlight-home #app .character-info h2{font-size:clamp(28px,8.6vw,34px);margin-bottom:6px}
+ body.spotlight-home #app .stage-personality{font-size:11px}
+ body.spotlight-home #app .spotlight-actions{margin-top:12px}
+ body.spotlight-home #app .spotlight-actions .button.primary{min-height:54px;font-size:17px}
+ body.spotlight-home #app .spotlight-actions .button.secondary{font-size:13px}
+}
+@media(prefers-reduced-motion:reduce){body.spotlight-home{transition:none}}

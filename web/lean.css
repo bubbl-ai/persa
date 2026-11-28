@@ -1,0 +1,70 @@
+/* Persa home, the lean pass (November 2026): one main action, and only what a visitor needs
+   beside it. Most visitors arrive on a phone and decide in seconds, so every extra label,
+   link and choice on the first screens was weighed and most were taken off.
+
+   Loaded last, on the home page only. What a visitor is left with:
+   - the card: the plush, the name, three words, Open in Muse, then Tune personality, Save, Share
+   - a tile: the plush, the name, one line, Open in Muse (tap the tile itself for the popup)
+   - the popup: the plush, the name, one sentence, three words, the voice sample, four sliders,
+     Save and Open in Muse
+
+   Everything this file takes away is hidden, not deleted: the scripts still write to several of
+   these controls on every selection, and /collection.html keeps all of them. To bring one back,
+   delete its line here.
+
+   OFF THE CARD      "Swipe to explore" (the arrows are on the picture, and the card turns on a
+                     swipe anyway), the Preview motion switch (the device's reduce-motion setting
+                     still stops the moves). Share moved up beside the heart, as a round button
+                     (index.html).
+   OFF THE HEADER    "Saved", until something is saved.
+   OFF THE PAGE      the row of the three newest characters, headed "Trending". app.js still
+                     fills it and keeps its selection in step.
+   OFF EVERY TILE    the People / Fiction & art label, the heart, the three words, the
+                     "Personality + costume · Meet X" line, Share.
+   OFF THE POPUP     the "Your Persa character combo" label, the costume sentence, the
+                     "Personality + matching avatar instructions" line, the personality
+                     instructions drawer, Save character as HTML, More ways to save, Share, and the
+                     paragraph on the share-link view.
+   OFF THE FOOTER    "Preview motion stays in Persa." (index.html), since no control on the page
+                     is called that any more.
+
+   What that costs: with "More ways to save" gone, nothing on the home page leads to the copy-by-
+   hand screen (the complete combo, the JSON backup, the Grok text). It is still on
+   /collection.html. If Muse opens without the message filled in, a visitor on the home page has
+   no way to copy the combo by hand; bringing back one link is a one-line change here. */
+
+/* ── header ── */
+body.spotlight-home #app .collection-link:has(#spotlight-saved-count[hidden]){display:none}
+
+/* ── the row of new additions ── */
+body.spotlight-home #app .trending{display:none}
+
+/* ── the card ── */
+body.spotlight-home #app .browse-row{display:none}
+body.spotlight-home #app .spotlight-actions .share-button,body.spotlight-home #app .spotlight-actions .share-button:hover{flex:0 0 44px;width:44px;height:44px;min-height:0;padding:0;gap:0;border-radius:50%;background:#ffffff66;color:var(--n-ink);font-size:0}
+body.spotlight-home #app .spotlight-actions .share-button:hover{background:#ffffff8c}
+body.spotlight-home #app .spotlight-actions .share-button svg{width:18px;height:18px}
+body.spotlight-home #app .spotlight-help{margin:var(--s3) 0 var(--s1)}
+
+/* ── the tiles ── */
+body.spotlight-home #app .home-collection :is(.card-category,.save-card,.tags,.card-line,.card-share){display:none}
+body.spotlight-home #app .home-collection .card-body{padding:var(--s3) var(--s4) var(--s3)}
+body.spotlight-home #app .home-collection .card-title{margin:0 0 var(--s1);font-size:17px;line-height:1.2}
+body.spotlight-home #app .home-collection .card-subtitle{margin:0;font-size:13px;line-height:1.4}
+body.spotlight-home #app .home-collection .card-handoff{margin:0 var(--s3) var(--s3)}
+
+/* ── the popup ── */
+body.spotlight-home #character-dialog .dialog-top{height:56px}
+body.spotlight-home #character-dialog .dialog-label{font-size:0;gap:0}
+body.spotlight-home #character-dialog .dialog-label>svg{display:none}
+body.spotlight-home #character-dialog :is(.costume-caption,.combo-label,.detail-how,.detail-share),body.spotlight-home #character-dialog .detail-controls .prompt-details{display:none}
+body.spotlight-home #character-dialog .detail-description{margin-bottom:var(--s4)}
+body.spotlight-home #character-dialog .share-fallback .setup-intro{display:none}
+body.spotlight-home #character-dialog .share-fallback h2{margin-bottom:var(--s5)}
+@media(max-width:480px){
+ body.spotlight-home #character-dialog .detail-bottom{grid-template-columns:minmax(0,1fr)}
+ body.spotlight-home #app .home-collection .card-body{padding:var(--s3) var(--s3) var(--s3)}
+ body.spotlight-home #app .home-collection .card-title{font-size:15px}
+ body.spotlight-home #app .home-collection .card-subtitle{font-size:12px}
+ body.spotlight-home #app .home-collection .card-handoff{margin:0 var(--s2) var(--s2)}
+}

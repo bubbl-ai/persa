@@ -1,4 +1,5 @@
 import { mountSpotlight } from './spotlight.js';
+import { cutoutFor } from './cutouts.js';
 import { characterShareUrl, characterIdFromUrl, withCharacterInUrl } from './character-links.js';
 import { buildCharacterPackage } from './character-package.js';
 import { compile } from './core/compile.js';
@@ -102,6 +103,11 @@ function unavailableMarkup(failed = false, detail = false) {
 function imageMarkup(character, detail = false) {
   if (!character.avatar.preview) return unavailableMarkup();
   const sourceAttribute = !detail && avatarImageObserver ? 'data-avatar-src' : 'src';
+  // On the home page the tiles and the popup show the cut-out on the character's
+  // colour; the saved collection keeps the original picture. data-plain-src is the
+  // way back if a cut-out will not load.
+  const cutout = spotlightHome ? cutoutFor(character) : null;
+  if (cutout) return `<img data-avatar-image data-detail="${detail}" data-plain-src="${esc(character.avatar.preview)}" ${sourceAttribute}="${esc(cutout)}" alt="Shared plush Muse wearing a ${esc(character.name)} costume" width="1000" height="1000" ${detail ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async">`;
   return `<img data-avatar-image data-detail="${detail}" ${sourceAttribute}="${esc(character.avatar.preview)}" alt="Shared plush Muse wearing a ${esc(character.name)} costume" width="1254" height="1254" ${detail ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async">`;
 }
 
@@ -111,7 +117,7 @@ function card(character) {
   return `<article class="card">
     <button class="save-card ${isSaved ? 'saved' : ''}" data-save="${character.id}" aria-label="${isSaved ? 'Remove' : 'Save'} ${esc(character.name)}${isSaved ? ' from' : ' to'} My collection" aria-pressed="${isSaved}">${icon('heart')}</button>
     <button class="card-open" data-character="${character.id}" id="card-${character.id}" aria-label="Preview ${esc(character.name)} personality and avatar">
-      <div class="card-art">${imageMarkup(character)}<span class="card-category">${character.category === 'People' ? 'People' : 'Fiction & art'}</span></div>
+      <div class="card-art${spotlightHome && !cutoutFor(character) ? ' is-plain' : ''}">${imageMarkup(character)}<span class="card-category">${character.category === 'People' ? 'People' : 'Fiction & art'}</span></div>
       <div class="card-body"><h2 class="card-title">${esc(character.name)}</h2><p class="card-subtitle">${esc(character.subtitle)}</p><div class="tags">${character.tags.map(tag => `<span class="tag">${esc(tag)}</span>`).join('')}</div><div class="card-line"><span>Personality + costume</span><span>Meet ${character.id === 'the-rock' ? 'The Rock' : character.id === 'joker' ? 'Joker' : character.id === 'hello-kitty' ? 'Hello Kitty' : esc(character.name.split(' ')[0])}</span></div></div>
     </button>
     ${handoff ? `<a class="card-handoff" data-muse-handoff data-muse-character="${character.id}" href="${esc(handoff.url)}" aria-label="Open ${esc(character.name)} in Muse">Open in Muse <span aria-hidden="true">↗</span></a>` : ''}
@@ -234,9 +240,9 @@ function renderDetail() {
   const knobs = ['warmth', 'humor', 'directness', 'verbosity'];
   const lookUrl = lookOnlyUrl(c);
   showDialog(`${dialogHeader('Your Persa character combo')}
-    <div class="detail"><section class="detail-visual"><div class="detail-art">${imageMarkup(c, true)}</div><h2 class="detail-name" id="dialog-title">${esc(c.name)}</h2><p class="detail-description">${esc(c.description)}<span class="costume-caption">Our shared plush Muse in a ${esc(c.name)}-inspired costume.</span></p><div class="tags">${c.tags.map(t => `<span class="tag">${esc(t)}</span>`).join('')}</div><div class="combo-label">${icon('check')} Personality + matching avatar instructions</div></section>
+    <div class="detail"><section class="detail-visual"><div class="detail-art${spotlightHome && !cutoutFor(c) ? ' is-plain' : ''}">${imageMarkup(c, true)}</div><h2 class="detail-name" id="dialog-title">${esc(c.name)}</h2><p class="detail-description">${esc(c.description)}<span class="costume-caption">Our shared plush Muse in a ${esc(c.name)}-inspired costume.</span></p><div class="tags">${c.tags.map(t => `<span class="tag">${esc(t)}</span>`).join('')}</div><div class="combo-label">${icon('check')} Personality + matching avatar instructions</div></section>
     <section class="detail-controls"><h3 class="section-label">A feel for their voice</h3><div class="sample-tabs" role="group" aria-label="Example conversation"><button class="sample-tab ${sampleIndex === 0 ? 'active' : ''}" data-sample="0" aria-pressed="${sampleIndex === 0}">A busy day</button><button class="sample-tab ${sampleIndex === 1 ? 'active' : ''}" data-sample="1" aria-pressed="${sampleIndex === 1}">Honest advice</button><button class="sample-tab ${sampleIndex === 2 ? 'active' : ''}" data-sample="2" aria-pressed="${sampleIndex === 2}">A little win</button></div><div class="conversation"><div class="sample-user">${esc(sample.user)}</div><p class="sample-reply">${esc(sample.reply)}</p></div><p class="sample-caption">Illustrative replies for this preset. Muse's responses will vary.</p>
-    ${c.fixedVoice ? '<p class="setup-note">Turkey speaks in clucks and gobbles. Say <strong>stop turkey mode</strong> in Muse to return to ordinary replies.</p>' : `<div class="tune-head"><h3 class="section-label">Make it your kind of ${c.id === 'the-rock' ? 'Rock' : esc(c.name.split(' ')[0])}</h3><button class="reset" data-reset>Reset tone</button></div><div class="sliders">${knobs.map(trait => `<label class="slider"><span class="slider-top">${trait.charAt(0).toUpperCase()+trait.slice(1)}<output id="value-${trait}">${voice[trait]}</output></span><input type="range" min="0" max="100" step="1" value="${voice[trait]}" data-trait="${trait}" aria-label="${trait}" aria-describedby="ends-${trait}"><span class="slider-ends" id="ends-${trait}"><span>${TRAITS[trait].low}</span><span>${TRAITS[trait].high}</span></span></label>`).join('')}</div>`}
+    ${c.fixedVoice ? '<p class="setup-note">Turkey speaks in clucks and gobbles. Say <strong>stop turkey mode</strong> in Muse to return to ordinary replies.</p>' : `<div class="tune-head"><h3 class="section-label">Make it your kind of ${c.id === 'the-rock' ? 'Rock' : c.id === 'joker' ? 'Joker' : c.id === 'hello-kitty' ? 'Hello Kitty' : esc(c.name.split(' ')[0])}</h3><button class="reset" data-reset>Reset tone</button></div><div class="sliders">${knobs.map(trait => `<label class="slider"><span class="slider-top">${trait.charAt(0).toUpperCase()+trait.slice(1)}<output id="value-${trait}">${voice[trait]}</output></span><input type="range" min="0" max="100" step="1" value="${voice[trait]}" style="--fill:${Number(voice[trait])}%" data-trait="${trait}" aria-label="${trait}" aria-describedby="ends-${trait}"><span class="slider-ends" id="ends-${trait}"><span>${TRAITS[trait].low}</span><span>${TRAITS[trait].high}</span></span></label>`).join('')}</div>`}
     <details class="prompt-details"><summary>The personality instructions ${icon('chevron')}</summary><pre class="prompt-text" id="personality-text">${esc(personalityPrompt())}</pre></details></section></div>
     <section class="detail-how" aria-label="How it works"><h3>How it works</h3><p>Open in Muse → press Send → choose an avatar and click Select.</p><div class="portable-options">${lookUrl ? `<a data-muse-handoff href="${esc(lookUrl)}">Use Jensen’s look only</a>` : ''}<button class="text-button" data-download-html="${c.id}">${icon('download')} Save character as HTML</button><button class="text-button" data-setup>More ways to save</button></div></section>
     <div class="detail-bottom"><div class="detail-bottom-guide"><p class="handoff-guidance">In Muse: press Send, choose an avatar, then click Select.</p><button class="text-button detail-share" data-share-character="${c.id}">${icon('share')} Share</button></div><div class="actions"><button class="save-detail ${saved[c.id] ? 'saved' : ''}" data-save-current aria-label="${saved[c.id] ? 'Save changes' : 'Save combo'}">${icon(saved[c.id] ? 'check' : 'heart')}<span>${saved[c.id] ? 'Save changes' : 'Save combo'}</span></button>${handoff ? `<a class="button primary" data-muse-handoff data-muse-character="${c.id}" href="${esc(handoff.url)}">Open in Muse ${icon('spark')}</a>` : '<button class="button primary" data-setup>Set up in Muse</button>'}</div></div>`, 'dialog-title');
@@ -385,6 +391,14 @@ async function start() {
   document.addEventListener('error', event => {
     const image = event.target;
     if (!(image instanceof HTMLImageElement) || !image.hasAttribute('data-avatar-image')) return;
+    if (image.dataset.plainSrc) {
+      // The cut-out failed: show the original picture on a white plate instead.
+      const plain = image.dataset.plainSrc;
+      delete image.dataset.plainSrc;
+      image.closest('.card-art,.detail-art')?.classList.add('is-plain');
+      image.src = plain;
+      return;
+    }
     image.outerHTML = unavailableMarkup(true, image.dataset.detail === 'true');
   }, true);
   try {
@@ -437,6 +451,7 @@ async function start() {
     dialog.addEventListener('input',e=>{
       const trait=e.target.dataset.trait;if(!TRAIT_NAMES.includes(trait))return;
       drafts[current.id][trait]=Number(e.target.value);
+      e.target.style.setProperty('--fill',`${Number(e.target.value)}%`);
       dialog.querySelector(`#value-${trait}`).textContent=e.target.value;
       dialog.querySelector('#personality-text').textContent=personalityPrompt();
       updateMuseLinks();

@@ -11,11 +11,16 @@
   <!-- End Google Tag Manager -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0e0a18">
   <title>Persa Avatars. Made for Muse AI.</title>
   <meta name="description" content="Make your Meta Muse AI assistant look like and talk like your favorite celebrity! Choose from one of our fun presets and click open in Muse. It's that simple.">
   <link rel="icon" href="/favicon.svg">
   <link rel="stylesheet" href="/styles.css">
   <link rel="stylesheet" href="/spotlight.css">
+  <link rel="stylesheet" href="/night.css">
+  <link rel="stylesheet" href="/cards.css">
+  <link rel="stylesheet" href="/popup.css">
+  <link rel="stylesheet" href="/lean.css">
 </head>
 <body class="spotlight-home">
 <div id="app">
@@ -57,13 +62,13 @@
             <a class="button primary" id="spotlight-use" data-muse-handoff aria-disabled="true" tabindex="-1" aria-describedby="spotlight-guidance">Open in Muse <span aria-hidden="true">↗</span></a>
             <button class="button secondary" id="spotlight-customize" disabled>Tune personality</button>
             <button class="spotlight-save" id="spotlight-save" aria-label="Save character" aria-pressed="false" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></svg></button>
+            <button class="text-button share-button" id="spotlight-share" data-share-character disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V3m-4 4 4-4 4 4M5 13v7h14v-7"/></svg> Share</button>
           </div>
           <div class="spotlight-help"><p class="handoff-guidance" id="spotlight-guidance">In Muse: press Send, choose an avatar, then click Select.</p><a id="spotlight-look-only" data-muse-handoff hidden>Use Jensen’s look only</a></div>
         </div>
       </div>
       <div class="browse-row">
         <p class="stage-browse-hint" id="browse-hint"><span aria-hidden="true">↔</span> Swipe to explore</p>
-        <button class="text-button share-button" id="spotlight-share" data-share-character disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V3m-4 4 4-4 4 4M5 13v7h14v-7"/></svg> Share</button>
         <button class="motion-toggle text-button" id="motion-toggle" aria-pressed="true" disabled>Motion on</button>
       </div>
       <p class="sr-only" id="announcement" role="status" aria-live="polite" aria-atomic="true"></p>
@@ -93,7 +98,7 @@
       <p class="collection-status" id="home-collection-status" role="status">Loading avatars…</p>
       <div class="grid" id="home-character-grid"></div>
     </section>
-    <footer><span>Muse generates a new avatar; results may differ from these previews. Preview motion stays in Persa.</span><span>Independent celebrity-inspired costumes. Not affiliated with Meta, Muse, or the people depicted.</span></footer>
+    <footer><span>Muse generates a new avatar; results may differ from these previews.</span><span>Independent celebrity-inspired costumes. Not affiliated with Meta, Muse, or the people depicted.</span></footer>
   </main>
 </div>
   <script type="module" src="/app.js"></script>

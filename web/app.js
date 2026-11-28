@@ -26,6 +26,12 @@ const spotlightHome = document.body.classList.contains('spotlight-home');
 let spotlight;
 let spotlightCharacterId = null, applyingLocation = false;
 const STORE_KEY = 'persa.muse-combos.v1';
+// The homepage's top choice: first in the deck and the grid, the character a bare homepage
+// opens on, and labelled on its card and its tile. Set to null to feature no one. The
+// catalog, /collection.html and every link keep their own order.
+const featured = { id: 'turkey', label: 'Limited time' };
+const featuredMark = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
+const homeDefaultId = () => (featured && characters.find(c => c.id === featured.id)?.id) || characters.find(c => c.id === 'taylor-swift')?.id || characters[0].id;
 // Trending highlights new additions, not popularity or usage statistics.
 const trendingCharacterIds = ['turkey', 'hailey-bieber', 'jensen-huang'];
 let characters = [], saved = {}, current = null, drafts = {}, sampleIndex = 0, view = new URLSearchParams(location.search).get('view') === 'saved' ? 'saved' : 'explore', dialog, returnFocus, toastTimer;
@@ -117,7 +123,7 @@ function card(character) {
   return `<article class="card">
     <button class="save-card ${isSaved ? 'saved' : ''}" data-save="${character.id}" aria-label="${isSaved ? 'Remove' : 'Save'} ${esc(character.name)}${isSaved ? ' from' : ' to'} My collection" aria-pressed="${isSaved}">${icon('heart')}</button>
     <button class="card-open" data-character="${character.id}" id="card-${character.id}" aria-label="Preview ${esc(character.name)} personality and avatar">
-      <div class="card-art${spotlightHome && !cutoutFor(character) ? ' is-plain' : ''}">${imageMarkup(character)}<span class="card-category">${character.category === 'People' ? 'People' : 'Fiction & art'}</span></div>
+      <div class="card-art${spotlightHome && !cutoutFor(character) ? ' is-plain' : ''}">${imageMarkup(character)}${spotlightHome && featured?.id === character.id ? `<span class="card-flag">${featuredMark}${esc(featured.label)}</span>` : ''}<span class="card-category">${character.category === 'People' ? 'People' : 'Fiction & art'}</span></div>
       <div class="card-body"><h2 class="card-title">${esc(character.name)}</h2><p class="card-subtitle">${esc(character.subtitle)}</p><div class="tags">${character.tags.map(tag => `<span class="tag">${esc(tag)}</span>`).join('')}</div><div class="card-line"><span>Personality + costume</span><span>Meet ${character.id === 'the-rock' ? 'The Rock' : character.id === 'joker' ? 'Joker' : character.id === 'hello-kitty' ? 'Hello Kitty' : esc(character.name.split(' ')[0])}</span></div></div>
     </button>
     ${handoff ? `<a class="card-handoff" data-muse-handoff data-muse-character="${character.id}" href="${esc(handoff.url)}" aria-label="Open ${esc(character.name)} in Muse">Open in Muse <span aria-hidden="true">↗</span></a>` : ''}
@@ -193,6 +199,8 @@ function replaceCharacterLocation(id) {
 function onSpotlightSelect(character) {
   const firstSelection = spotlightCharacterId === null;
   spotlightCharacterId = character.id;
+  const flag = document.querySelector('#stage-flag');
+  if (flag) flag.hidden = featured?.id !== character.id;
   updateTrendingSelection();
   const lookLink = document.querySelector('#spotlight-look-only');
   const url = lookOnlyUrl(character);
@@ -209,7 +217,7 @@ function applyCharacterLocation() {
   applyingLocation = true;
   try {
     if (spotlightHome) {
-      spotlight.selectCharacter(id || characters.find(c => c.id === 'taylor-swift')?.id || characters[0].id, false);
+      spotlight.selectCharacter(id || homeDefaultId(), false);
       if (dialog.open) dialog.close();
     } else if (id) openCharacter(id);
     else if (dialog.open) dialog.close();
@@ -406,7 +414,12 @@ async function start() {
     const data=await response.json();characters=data.characters;
     if(!Array.isArray(characters)||!characters.length)throw new Error('Empty catalog');
     saved=readSaved();
-    if (spotlightHome) spotlight=mountSpotlight({characters,saved,getHandoff,initialCharacterId:characterIdFromUrl(location.href,characters),onSelect:onSpotlightSelect});
+    if (spotlightHome) {
+      // The top choice leads the homepage's deck and grid.
+      const top=featured?characters.find(c=>c.id===featured.id):null;
+      if(top){characters=[top,...characters.filter(c=>c!==top)];document.querySelector('#stage-flag').innerHTML=featuredMark+esc(featured.label);}
+      spotlight=mountSpotlight({characters,saved,getHandoff,initialCharacterId:characterIdFromUrl(location.href,characters)||homeDefaultId(),onSelect:onSpotlightSelect});
+    }
     renderPage();
     dialog=document.createElement('dialog');dialog.id='character-dialog';document.body.append(dialog);
     const toast=document.createElement('div');toast.id='toast';toast.className='toast';toast.setAttribute('role','status');toast.setAttribute('aria-live','polite');document.body.append(toast);

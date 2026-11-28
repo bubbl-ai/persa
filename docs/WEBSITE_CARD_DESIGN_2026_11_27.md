@@ -133,6 +133,28 @@ returns the white page; the scripts tolerate their absence.
 `test/cutouts.test.js` checks that every listed cut-out exists, is a WebP with
 transparency at 1000×1000, and belongs to a catalog character.
 
+## Top choice
+
+`featured` in `web/app.js` names one character and a short label. Since
+November 27 it is Turkey with **Limited time**, for the Thanksgiving week.
+
+- A bare homepage opens on that character, and it is first in the deck
+  (01 / 21) and first in the grid.
+- Its card and its tile carry the label as a white pill at the top left. On
+  the card the pill's middle sits on the count's line.
+- A character link still opens its own character, without the label.
+- The catalog, `/collection.html`, exports and links keep their own order.
+- `null` returns the catalog order and the Taylor Swift default.
+
+The label promises that the character is temporary. Nothing takes it down
+automatically: change or clear `featured` when the time is up.
+
+Checked on the built site at 320×568, 390×844 and 1280×900: the page opens on
+Turkey at 01 / 21 with the label, the label is gone on the next character and
+back on return, the first tile is Turkey with the label, `/character/taylorswift`
+opens Taylor Swift without it, `/collection.html` is unchanged, and **Open in
+Muse** stays above the fold.
+
 ## What the homepage hides
 
 Everything below is hidden in `web/lean.css`, not deleted. The scripts still

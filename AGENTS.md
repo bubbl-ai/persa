@@ -95,6 +95,14 @@ the page is the measured count of Muse opens. See
 [the design record](docs/WEBSITE_CARD_DESIGN_2026_11_27.md) for the cut-out
 steps, the full list of hidden items and the checks.
 
+The homepage has one top choice: `featured` in `web/app.js`, an id and a short
+label. That character leads the homepage deck and grid, is the one a bare
+homepage opens on, and carries the label as a white pill on its card and its
+tile. Since November 27 it is Turkey with **Limited time**. Set `featured` to
+`null` for catalog order and the Taylor Swift default. The catalog,
+`/collection.html` and character links keep their own order. The label is a
+promise to visitors: when the time is up, change or clear `featured`.
+
 ## Repository map
 
 - `src/`: shared compiler, persona adapters, CLI, local editor, and MCP server.

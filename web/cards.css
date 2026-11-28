@@ -147,12 +147,22 @@ body.spotlight-home #app .slide .image-fallback{padding:0 64px;color:var(--n-ink
 /* nothing stands on the card, so nothing casts the floor mark */
 body.spotlight-home #app .stage:has(.slide.is-active.has-failed) .floor-light{display:none}
 
+/* ── the top choice (app.js `featured`): one white pill, top left of its card and of its tile.
+   On the card its middle sits on the count's line, top right. ── */
+body.spotlight-home #app :is(.stage-flag,.card-flag){position:absolute;z-index:8;display:inline-flex;align-items:center;gap:5px;border-radius:999px;background:#fff;color:var(--n-ink);font-weight:700;letter-spacing:.08em;line-height:1;text-transform:uppercase;white-space:nowrap;pointer-events:none}
+body.spotlight-home #app .stage-flag{left:0;top:-8px;height:28px;padding:0 12px 0 8px;font-size:11px}
+body.spotlight-home #app .stage-flag[hidden]{display:none}
+body.spotlight-home #app .card-flag{left:12px;top:12px;z-index:2;height:26px;padding:0 10px 0 7px;gap:4px;font-size:10px}
+body.spotlight-home #app :is(.stage-flag,.card-flag) svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+body.spotlight-home #app .card-flag svg{width:13px;height:13px}
+
 /* look only */
 body.spotlight-home #app #spotlight-look-only{color:var(--n-ink);font-size:12px;font-weight:700;line-height:1.4;text-decoration:underline;text-underline-offset:3px}
 body.spotlight-home #app #spotlight-look-only[hidden]{display:none}
 
 @media(max-width:600px){
  body.spotlight-home #app .slide .image-fallback{padding:0 56px;font-size:13px}
+ body.spotlight-home #app .card-flag{left:10px;top:10px}
 }
 
 /* Livelier moves, now that the plush is a cut-out with no white box around it (2026-11-24).
